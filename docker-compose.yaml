@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+
+   database:
+      container_name: database
+      image: mariadb
+      restart: always
+      environment:
+         MYSQL_ROOT_PASSWORD: password
+      volumes:
+         - data:/var/lib/mariadb
+      networks:
+         - dev
+
+   adminer:
+      container_name: adminer
+      image: adminer
+      restart: always
+      ports:
+         - 8082:8080
+      networks:
+         - dev
+
+   web:
+      container_name: web
+      restart: always
+      build:
+         context: .
+         dockerfile: Dockerfile
+      ports:
+         - 8080:80
+      volumes:
+         - ./:/var/www
+         # - ./apache:/etc/apache2/sites-enabled
+      networks:
+         - dev
+      depends_on:
+         - database
+
+volumes:
+  data:
+
+networks:
+   dev:

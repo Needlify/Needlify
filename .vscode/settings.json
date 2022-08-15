@@ -1,0 +1,17 @@
+{
+   "[javascript][typescript][vue]": {
+      "editor.formatOnSave": false
+   },
+   "[json][jsonc][yaml][css][scss]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+   },
+   "[twig]": {
+      "editor.defaultFormatter": "mblode.twig-language-2",
+      "editor.formatOnSave": true
+   },
+   "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+      "source.organizeImports": true
+   }
+}
