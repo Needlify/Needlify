@@ -1,32 +1,30 @@
 {
-    "devDependencies": {
-        "@hotwired/stimulus": "^3.0.0",
-        "@symfony/stimulus-bridge": "^3.2.0",
-        "@symfony/webpack-encore": "^3.0.0",
-        "@typescript-eslint/eslint-plugin": "^5.33.1",
-        "core-js": "^3.23.0",
-        "eslint": "^8.22.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-config-standard-with-typescript": "^22.0.0",
-        "eslint-plugin-import": "^2.26.0",
-        "eslint-plugin-n": "^15.2.4",
-        "eslint-plugin-prettier": "^4.2.1",
-        "eslint-plugin-promise": "^6.0.0",
-        "prettier": "^2.7.1",
-        "regenerator-runtime": "^0.13.9",
-        "sass": "^1.54.4",
-        "sass-loader": "^13.0.2",
-        "ts-loader": "^9.3.1",
-        "typecript": "^0.0.1-security",
-        "typescript": "^4.7.4",
-        "webpack-notifier": "^1.15.0"
-    },
-    "license": "UNLICENSED",
-    "private": true,
-    "scripts": {
-        "dev-server": "encore dev-server",
-        "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "build": "encore production --progress"
-    }
+   "devDependencies": {
+      "@symfony/webpack-encore": "^3.0.0",
+      "@typescript-eslint/eslint-plugin": "^5.33.1",
+      "core-js": "^3.23.0",
+      "eslint": "^8.22.0",
+      "eslint-config-prettier": "^8.5.0",
+      "eslint-config-standard-with-typescript": "^22.0.0",
+      "eslint-plugin-import": "^2.26.0",
+      "eslint-plugin-n": "^15.2.4",
+      "eslint-plugin-prettier": "^4.2.1",
+      "eslint-plugin-promise": "^6.0.0",
+      "prettier": "^2.7.1",
+      "regenerator-runtime": "^0.13.9",
+      "sass": "^1.54.4",
+      "sass-loader": "^13.0.2",
+      "ts-loader": "^9.3.1",
+      "typecript": "^0.0.1-security",
+      "typescript": "^4.7.4",
+      "webpack-notifier": "^1.15.0"
+   },
+   "license": "UNLICENSED",
+   "private": true,
+   "scripts": {
+      "dev-server": "encore dev-server",
+      "dev": "encore dev",
+      "watch": "encore dev --watch",
+      "build": "encore production --progress"
+   }
 }
