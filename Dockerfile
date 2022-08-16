@@ -12,8 +12,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 
 RUN apt install -yqq nano nodejs
 
-RUN npm install -g pnpm
-
 RUN chmod -R 0777 /var/www/
 
 COPY ./apache/vhosts.conf /etc/apache2/sites-available/000-default.conf
