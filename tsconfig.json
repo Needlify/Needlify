@@ -1,0 +1,22 @@
+{
+   "compilerOptions": {
+      "isolatedModules": true,
+      "useDefineForClassFields": true,
+      "target": "ES6",
+      "moduleResolution": "Node",
+      "importHelpers": true,
+      "skipDefaultLibCheck": true,
+      "module": "ES6",
+      "strict": true,
+      "jsx": "preserve",
+      "sourceMap": true,
+      "resolveJsonModule": true,
+      "esModuleInterop": true,
+      "lib": ["ESNext", "DOM"],
+      "skipLibCheck": true,
+      "experimentalDecorators": true
+   },
+
+   "include": ["assets/**/*.ts"],
+   "exclude": ["node_modules"]
+}

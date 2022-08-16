@@ -2,10 +2,10 @@
    "devDependencies": {
       "@symfony/webpack-encore": "^3.0.0",
       "@typescript-eslint/eslint-plugin": "^5.33.1",
+      "@typescript-eslint/parser": "^5.33.1",
       "core-js": "^3.23.0",
       "eslint": "^8.22.0",
       "eslint-config-prettier": "^8.5.0",
-      "eslint-config-standard-with-typescript": "^22.0.0",
       "eslint-plugin-import": "^2.26.0",
       "eslint-plugin-n": "^15.2.4",
       "eslint-plugin-prettier": "^4.2.1",
@@ -26,5 +26,8 @@
       "dev": "encore dev",
       "watch": "encore dev --watch",
       "build": "encore production --progress"
+   },
+   "dependencies": {
+      "lit": "^2.3.0"
    }
 }

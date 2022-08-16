@@ -11,8 +11,7 @@
       "editor.formatOnSave": true
    },
    "editor.codeActionsOnSave": {
-      "source.fixAll": true,
-      "source.organizeImports": true
+      "source.fixAll": true
    },
    "php-cs-fixer.onsave": true,
    "php-cs-fixer.rules": "@PSR12",
