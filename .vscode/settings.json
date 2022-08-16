@@ -1,20 +1,20 @@
 {
-   "[javascript][typescript][vue]": {
-      "editor.formatOnSave": false
-   },
-   "[json][jsonc][yaml][css][scss]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode",
-      "editor.formatOnSave": true
-   },
-   "[twig]": {
-      "editor.defaultFormatter": "mblode.twig-language-2",
-      "editor.formatOnSave": true
-   },
-   "editor.codeActionsOnSave": {
-      "source.fixAll": true
-   },
-   "php-cs-fixer.onsave": true,
-   "php-cs-fixer.rules": "@PSR12",
-   "php-cs-fixer.config": ".php-cs-fixer.php",
-   "php-cs-fixer.allowRisky": false
+    "[javascript][typescript][vue]": {
+        "editor.formatOnSave": false
+    },
+    "[json][jsonc][yaml][css][scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[twig]": {
+        "editor.defaultFormatter": "mblode.twig-language-2",
+        "editor.formatOnSave": true
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "php-cs-fixer.onsave": true,
+    "php-cs-fixer.rules": "@PSR12",
+    "php-cs-fixer.config": ".php-cs-fixer.php",
+    "php-cs-fixer.allowRisky": false
 }

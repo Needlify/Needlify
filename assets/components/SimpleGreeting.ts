@@ -3,22 +3,22 @@ import { customElement, property } from "lit/decorators.js";
 
 @customElement("simple-greeting")
 export class SimpleGreeting extends LitElement {
-   static styles = css`
-      :host {
-         color: blue;
-      }
-   `;
+    static styles = css`
+        :host {
+            color: blue;
+        }
+    `;
 
-   @property()
-   firstname?: string = "World";
+    @property()
+    firstname?: string = "World";
 
-   render() {
-      return html`<p>Hello, ${this.firstname}!</p>`;
-   }
+    render() {
+        return html`<p>Hello, ${this.firstname}!</p>`;
+    }
 }
 
 declare global {
-   interface HTMLElementTagNameMap {
-      "simple-greeting": SimpleGreeting;
-   }
+    interface HTMLElementTagNameMap {
+        "simple-greeting": SimpleGreeting;
+    }
 }
