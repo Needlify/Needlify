@@ -15,9 +15,9 @@
         "sass": "^1.54.4",
         "sass-loader": "^13.0.2",
         "ts-loader": "^9.3.1",
-        "typecript": "^0.0.1-security",
         "typescript": "^4.7.4",
-        "webpack-notifier": "^1.15.0"
+        "webpack-notifier": "^1.15.0",
+        "lit": "^2.3.0"
     },
     "license": "UNLICENSED",
     "private": true,
@@ -26,8 +26,5 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
-    },
-    "dependencies": {
-        "lit": "^2.3.0"
     }
 }

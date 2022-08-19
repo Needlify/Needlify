@@ -1,7 +1,5 @@
 {
     "semi": true,
     "singleQuote": false,
-    "tabWidth": 4,
-    "endOfLine": "auto",
-    "useTabs": false
+    "editorconfig": true
 }
