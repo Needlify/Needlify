@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "isolatedModules": true,
-        "useDefineForClassFields": true,
+        "useDefineForClassFields": false,
         "target": "ES6",
         "moduleResolution": "Node",
         "importHelpers": true,
