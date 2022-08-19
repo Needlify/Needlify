@@ -16,5 +16,8 @@
     "php-cs-fixer.onsave": true,
     "php-cs-fixer.rules": "@PSR12",
     "php-cs-fixer.config": ".php-cs-fixer.php",
-    "php-cs-fixer.allowRisky": false
+    "php-cs-fixer.allowRisky": false,
+    "files.associations": {
+        "*.twig": "twig"
+    }
 }

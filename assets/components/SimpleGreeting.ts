@@ -9,7 +9,7 @@ export class SimpleGreeting extends LitElement {
         }
     `;
 
-    @property()
+    @property({ type: String })
     firstname?: string = "World";
 
     render() {
