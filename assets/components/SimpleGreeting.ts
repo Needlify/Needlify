@@ -1,27 +1,28 @@
-import { LitElement, css, html } from "lit";
+import { LitElement, html } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import "../styles/components/SimpleGreeting.scss";
 
-@customElement("simple-greeting")
+const tag = "simple-greeting";
+
+@customElement(tag)
 export class SimpleGreeting extends LitElement {
-    // Define scoped styles right with your component, in plain CSS
-    static styles = css`
-        :host {
-            color: blue;
-        }
-    `;
-
     // Declare reactive properties
-    @property()
+    @property({ type: String })
     name?: string = "World";
+
+    createRenderRoot() {
+        this.classList.add(tag);
+        return this;
+    }
 
     // Render the UI as a function of component state
     render() {
-        return html`<p>Hello, ${this.name}!</p>`;
+        return html`<p class="text-xl">Hello, ${this.name}!</p>`;
     }
 }
 
 declare global {
     interface HTMLElementTagNameMap {
-        "simple-greeting": SimpleGreeting;
+        [tag]: SimpleGreeting;
     }
 }
