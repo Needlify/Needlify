@@ -1,5 +1,6 @@
 {
     "semi": true,
     "singleQuote": false,
-    "editorconfig": true
+    "editorconfig": true,
+    "plugins": ["./node_modules/prettier-plugin-twig-melody"]
 }
