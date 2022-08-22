@@ -1,0 +1,13 @@
+/* TEAM */
+Your title: MrAnyx
+Site: https://codeon.fr
+Twitter: @MrAnyx
+Location: France
+
+/* THANKS */
+Name: All the internet for the knowledge
+
+/* SITE */
+Standards: Symfony, Litjs, Docker, Tailwind
+Software: VSCode, Brave, Github
+Motivations: I previously created a community blog but I wanted something more personal.

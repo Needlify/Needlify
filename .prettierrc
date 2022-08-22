@@ -2,5 +2,11 @@
     "semi": true,
     "singleQuote": false,
     "editorconfig": true,
-    "plugins": ["./node_modules/prettier-plugin-twig-melody"]
+    "plugins": ["./node_modules/prettier-plugin-twig-melody"],
+    "twigPrintWidth": 160,
+    "twigSingleQuote": false,
+    "twigAlwaysBreakObjects": false,
+    "twigFollowOfficialCodingStandards": true,
+    "twigOutputEndblockName": true,
+    "twigMultiTags": ["nav,endnav", "switch,case,default,endswitch", "ifchildren,endifchildren", "cache,endcache"]
 }

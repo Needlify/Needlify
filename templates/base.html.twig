@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>
-            {% block title %}
-                Welcome!
-            {% endblock %}
-        </title>
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('global') }}
-            {{ encore_entry_link_tags('SimpleGreeting') }}
-        {% endblock %}
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="author" href="{{ asset("humans.txt") }}" />
+        <meta name="language" content="en" />
+        <meta http-equiv="content-language" content="en" />
+        <meta name="copyright" content="https://needlify.com" />
+        <meta name="theme-color" content="#ff6e03" />
+        <meta name="twitter:widgets:new-embed-design" content="on" />
+        <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('SimpleGreeting') }}
-        {% endblock %}
+        {% block og %}
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="{{ app.request.uri }}" />
+            <meta property="og:title" content="Needlify" />
+            <meta property="og:site_name" content="Needlify" />
+            <meta property="og:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+            <meta property="og:description" content="Share and find tech information on Needlify !" />
+            <meta name="twitter:image:src" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+            <meta name="twitter:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content="Needlify" />
+        {% endblock og %}
+
+        <link rel="shortcut icon" href="{{ asset("images/logo/favicon.ico") }}" type="image/x-icon" />
+
+        <title>
+            Needlify -{% block title %}
+
+            {% endblock title %}
+        </title>
+
+        <meta charset="UTF-8" />
+        {% block stylesheets %}
+            {{ encore_entry_link_tags("global") }}
+            {{ encore_entry_link_tags("Component:SimpleGreeting") }}
+        {% endblock stylesheets %}
     </head>
     <body>
-        <main id="main">
+        <main id="app">
             {% block body %}
-            {% endblock %}
+
+            {% endblock body %}
         </main>
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags("Component:SimpleGreeting") }}
+        {% endblock javascripts %}
     </body>
 </html>

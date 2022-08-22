@@ -17,7 +17,7 @@ Encore.setOutputPath("public/build/")
         /* Typescript files */
 
         /* Lit components */
-        SimpleGreeting: "./assets/components/SimpleGreeting.ts",
+        "Component:SimpleGreeting": "./assets/components/SimpleGreeting.ts",
     })
 
     .splitEntryChunks()
