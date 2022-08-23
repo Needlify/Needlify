@@ -21,7 +21,6 @@
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.cache
 ###< friendsofphp/php-cs-fixer ###
-.pnpm-store
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
