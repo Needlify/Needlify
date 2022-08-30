@@ -2,9 +2,9 @@
     "[javascript][typescript][vue]": {
         "editor.formatOnSave": false
     },
-    "[json][jsonc][yaml][css][scss]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.formatOnSave": true
+    "[css][scss][sass][less][json][jsonc][yaml][markdown]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[twig]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -14,7 +14,6 @@
         "source.fixAll": true
     },
     "php-cs-fixer.onsave": true,
-    "php-cs-fixer.rules": "@PSR12",
     "php-cs-fixer.config": ".php-cs-fixer.php",
     "php-cs-fixer.allowRisky": false,
     "files.associations": {

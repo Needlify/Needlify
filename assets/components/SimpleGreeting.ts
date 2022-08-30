@@ -5,7 +5,7 @@ import "../styles/components/SimpleGreeting.scss";
 const tag = "simple-greeting";
 
 @customElement(tag)
-export class SimpleGreeting extends LitElement {
+export default class SimpleGreeting extends LitElement {
     // Declare reactive properties
     @property({ type: String })
     name?: string = "World";

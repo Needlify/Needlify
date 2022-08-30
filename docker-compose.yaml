@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
    database:
-      container_name: database
+      container_name: needlify-database
       image: mariadb
       restart: always
       environment:
@@ -13,8 +13,20 @@ services:
       networks:
          - dev
 
+
+
+   maildev:
+      image: maildev/maildev
+      container_name: needlify-mail
+      command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+      ports:
+         - 8081:80
+      restart: always
+      networks:
+         - dev
+
    adminer:
-      container_name: adminer
+      container_name: needlify-adminer
       image: adminer
       restart: always
       ports:
@@ -23,7 +35,7 @@ services:
          - dev
 
    web:
-      container_name: web
+      container_name: needlify-web
       restart: always
       build:
          context: .

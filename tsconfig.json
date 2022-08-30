@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "isolatedModules": true,
+        "isolatedModules": false,
         "useDefineForClassFields": false,
         "target": "ES6",
         "moduleResolution": "Node",
@@ -14,9 +14,10 @@
         "esModuleInterop": true,
         "lib": ["ESNext", "DOM"],
         "skipLibCheck": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true
     },
 
     "include": ["assets/**/*.ts"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "public/build"]
 }
