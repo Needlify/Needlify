@@ -1,4 +1,6 @@
 {
+    "name": "needlify/needlify",
+    "description": "Thread based blog platform",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",

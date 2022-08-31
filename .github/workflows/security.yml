@@ -1,4 +1,4 @@
-name: PHP Security Checker
+name: Security Checker
 
 on:
     push:
@@ -7,8 +7,10 @@ on:
         branches: [master, dev]
 
 jobs:
-    build:
+    php:
         runs-on: ubuntu-latest
+        strategy:
+            fail-fast: true
 
         steps:
             - uses: actions/checkout@v2
@@ -30,3 +32,29 @@ jobs:
 
             - name: PHP Security Checker
               uses: symfonycorp/security-checker-action@v2
+
+    node:
+        strategy:
+            fail-fast: true
+
+        permissions:
+            contents: read # for actions/checkout to fetch code
+            security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+
+        runs-on: ubuntu-latest
+        name: njsscan code scanning
+
+        steps:
+            - name: Checkout the code
+              uses: actions/checkout@v3
+
+            - name: nodejsscan scan
+              id: njsscan
+              uses: ajinabraham/njsscan-action@7237412fdd36af517e2745077cedbf9d6900d711
+              with:
+                  args: ". --sarif --output results.sarif || true"
+
+            - name: Upload njsscan report
+              uses: github/codeql-action/upload-sarif@v2
+              with:
+                  sarif_file: results.sarif

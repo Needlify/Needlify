@@ -7,7 +7,7 @@ on:
         branches: [master, dev]
 
 jobs:
-    tests:
+    php:
         runs-on: ubuntu-latest
         strategy:
             fail-fast: true
@@ -30,7 +30,7 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: "8.1"
-                  extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, iconv, json, opcache, zip, pcov
+                  extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, opcache, zip, pcov
               env:
                   update: true
 
@@ -84,11 +84,31 @@ jobs:
             - name: Load fixtures
               run: php bin/console doctrine:fixtures:load --env=test --group=TestFixtures --no-interaction
 
-            - name: Run static tests
+            - name: Run PHP static tests
               run: composer run stan-github
 
-            - name: Run CS tests
+            - name: Run PHP CS tests
               run: composer run cs-check
 
-            - name: Run unit tests
+            - name: Run PHP unit tests
               run: composer run test
+
+            - name: Run JS unit tests
+              run: npm run test
+
+    node:
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: true
+
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+
+            - name: Install node dependencies
+              run: npm install --silent
+
+            - name: Run JS unit tests
+              run: npm run test
