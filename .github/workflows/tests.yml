@@ -93,9 +93,6 @@ jobs:
             - name: Run PHP unit tests
               run: composer run test
 
-            - name: Run JS unit tests
-              run: npm run test
-
     node:
         runs-on: ubuntu-latest
         strategy:
