@@ -19,7 +19,7 @@ class GenerateAppSecretTest extends KernelTestCase
 
     public function testExecutePlainCommand(): void
     {
-        $command = $this->application->find('app:generate-app-secret');
+        $command = $this->application->find('app:key:generate');
         $commandTester = new CommandTester($command);
         $commandTester->execute([]);
 
@@ -28,7 +28,7 @@ class GenerateAppSecretTest extends KernelTestCase
 
     public function testExecuteAliasCommand(): void
     {
-        $command = $this->application->find('app:secret');
+        $command = $this->application->find('a:k:g');
         $commandTester = new CommandTester($command);
         $commandTester->execute([]);
 

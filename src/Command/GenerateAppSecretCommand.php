@@ -9,9 +9,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
-    name: 'app:generate-app-secret',
+    name: 'app:key:generate',
     description: 'Generate App secret for the application',
-    aliases: ['app:secret']
+    aliases: ['a:k:g']
 )]
 class GenerateAppSecretCommand extends Command
 {
