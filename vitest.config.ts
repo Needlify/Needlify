@@ -8,7 +8,7 @@ export default () =>
             environment: "jsdom",
             globals: true,
             coverage: {
-                reporter: ["text", "json", "html"],
+                reporter: ["text"],
             },
         },
     });

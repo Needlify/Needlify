@@ -76,7 +76,7 @@ jobs:
               run: php bin/console doctrine:schema:drop --force --env=test --no-interaction
 
             - name: Load migrations
-              run: php bin/console doctrine:migrations:migrate --env=test --no-interaction
+              run: php bin/console doctrine:migrations:migrate --env=test --no-interaction --allow-no-migration
 
             - name: Validate database schema
               run: php bin/console doctrine:schema:validate --env=test --no-interaction
