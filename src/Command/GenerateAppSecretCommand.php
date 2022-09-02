@@ -25,7 +25,7 @@ class GenerateAppSecretCommand extends Command
             $secret .= $a[rand(0, 15)];
         }
 
-        $io->info('New APP_SECRET was generated: '.$secret);
+        $io->info('New APP_SECRET was generated: ' . $secret);
 
         return Command::SUCCESS;
     }

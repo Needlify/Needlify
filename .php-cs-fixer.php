@@ -1,13 +1,18 @@
 <?php
 
-$finder = (new PhpCsFixer\Finder())
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
+
+$finder = (new Finder())
     ->in(__DIR__)
     ->exclude('var')
 ;
 
-return (new PhpCsFixer\Config())
+// Rules here : https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/rules/index.rst
+return (new Config())
     ->setRules([
         '@Symfony' => true,
+        'concat_space' => ['spacing' => 'one'],
     ])
     ->setFinder($finder)
 ;

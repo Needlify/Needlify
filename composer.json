@@ -114,7 +114,9 @@
         "test-cov": "@test  --coverage --min=80",
         "stan-default": "vendor/bin/phpstan analyse -c phpstan.neon",
         "stan": "@stan-default --ansi --error-format=table",
-        "stan-github": "@stan-default --error-format=github --quiet"
+        "stan-github": "@stan-default --error-format=github --quiet",
+        "cs-check": "./vendor/bin/phpcs",
+        "cs-fix": "./vendor/bin/phpcbf"
     },
     "conflict": {
         "symfony/symfony": "*"

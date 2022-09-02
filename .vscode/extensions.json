@@ -3,6 +3,7 @@
         "junstyle.php-cs-fixer",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
-        "EditorConfig.EditorConfig"
+        "EditorConfig.EditorConfig",
+        "ikappas.phpcs"
     ]
 }
