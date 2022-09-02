@@ -50,7 +50,9 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "friendsofphp/php-cs-fixer": "^3.9",
+        "fzaninotto/faker": "^1.5",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-parallel": "^1.2",
         "phpstan/phpstan": "^1.8",

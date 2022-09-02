@@ -82,7 +82,7 @@ jobs:
               run: php bin/console doctrine:schema:validate --env=test --no-interaction
 
             - name: Load fixtures
-              run: php bin/console doctrine:fixtures:load --env=test --group=TestFixtures --no-interaction
+              run: php bin/console doctrine:fixtures:load --env=test --no-interaction
 
             - name: Run PHP static tests
               run: composer run stan-github
