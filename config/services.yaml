@@ -20,5 +20,9 @@ services:
             - "../src/Entity/"
             - "../src/Kernel.php"
 
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
+        arguments:
+            - "%env(DATABASE_URL)%"
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

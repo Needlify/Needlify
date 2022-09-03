@@ -13,8 +13,6 @@ services:
       networks:
          - dev
 
-
-
    maildev:
       image: maildev/maildev
       container_name: needlify-mail
@@ -42,6 +40,7 @@ services:
          dockerfile: Dockerfile
       ports:
          - 8080:80
+         - 8083:8083
       volumes:
          - ./:/var/www
          # - ./apache:/etc/apache2/sites-enabled
