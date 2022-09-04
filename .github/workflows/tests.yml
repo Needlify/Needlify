@@ -107,5 +107,8 @@ jobs:
             - name: Install node dependencies
               run: npm install --silent
 
+            - name: Run ESLint
+              run: npm run lint
+
             - name: Run JS unit tests
               run: npm run test

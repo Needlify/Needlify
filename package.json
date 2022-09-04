@@ -50,6 +50,7 @@
         "test": "vitest",
         "test:ui": "vitest --ui",
         "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook"
+        "build-storybook": "build-storybook",
+        "lint": "eslint ./assets"
     }
 }
