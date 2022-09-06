@@ -10,6 +10,8 @@ Needlify is already available in its original version. This repository aims to r
 
 Thank you for considering contributing to the Needlify project ! The contribution guide can be found in the [contributing file](https://github.com/Needlify/Needlify/blob/master/CONTRIBUTING.md).
 
+In order to maintain some consistency in the code, be sure to read the documents in the [Wikis section](https://github.com/Needlify/Needlify/wiki) of this repository. They contain all the elements you need to know to contribute to this project.
+
 If notions are missing, you can notify it by creating an issue.
 
 ## Code of Conduct
