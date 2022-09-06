@@ -16,7 +16,7 @@ class UserController extends AbstractController
     #[Route('/users', 'api_get_users', methods: ['GET'])]
     public function getUsersAction(UserRepository $userRepository): JsonResponse
     {
-        return $this->json($userRepository->findAll());
+        return $this->json($userRepository->findAll(), context: ['groups' => 'user:extend']);
     }
 
     #[Route('/users/{id}', 'api_get_user', methods: ['GET'])]

@@ -7,6 +7,8 @@ use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -17,6 +19,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    #[Groups(['user:extend'])]
     private ?Uuid $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
@@ -26,22 +29,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         max: 180,
         maxMessage: "L'email ne peut pas dépasser {{ limite }} caractères",
     )]
+    #[Groups(['user:extend'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Ignore]
     private array $roles = ['ROLE_USER'];
 
     #[ORM\Column]
     #[Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide')]
+    #[Ignore]
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: "Le nom d'utilisateur ne peut pas être vide")]
     #[Assert\Length(max: 50, maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limite }} caractères")]
+    #[Groups(['user:basic', 'user:extend'])]
     private ?string $username = null;
 
     #[ORM\Column]
     #[Assert\DateTime]
+    #[Groups(['user:basic', 'user:extend'])]
     private ?\DateTimeImmutable $createdAt;
 
     public function __construct()
@@ -66,6 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    #[Ignore]
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
