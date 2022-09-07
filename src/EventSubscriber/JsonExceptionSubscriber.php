@@ -22,6 +22,13 @@ class JsonExceptionSubscriber implements EventSubscriberInterface
         $this->params = $params;
     }
 
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            KernelEvents::EXCEPTION => 'onKernelException',
+        ];
+    }
+
     public function onKernelException(ExceptionEvent $event): void
     {
         if (!$event->isMainRequest()) {
@@ -65,12 +72,5 @@ class JsonExceptionSubscriber implements EventSubscriberInterface
         }
 
         $this->logger->error($exception);
-    }
-
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            KernelEvents::EXCEPTION => 'onKernelException',
-        ];
     }
 }
