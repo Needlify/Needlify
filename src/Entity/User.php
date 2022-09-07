@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Assert\DateTime]
     #[Groups(['user:basic', 'user:extend'])]
-    private ?\DateTimeImmutable $createdAt;
+    private readonly ?\DateTimeImmutable $createdAt;
 
     public function __construct()
     {
@@ -137,12 +137,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
-    }
-
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
     }
 }
