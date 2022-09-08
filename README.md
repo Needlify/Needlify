@@ -22,4 +22,4 @@ If you discover a security vulnerability within Needlify, please send an e-mail 
 
 ## License
 
-Needlify is an open-source website licensed under the [AGPL-3.0 License](https://github.com/Needlify/Needlify/blob/master/LICENSE).
+Needlify is an open-source website licensed under the [GPL-3.0 license](https://github.com/Needlify/Needlify/blob/master/LICENSE).
