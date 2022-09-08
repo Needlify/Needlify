@@ -57,9 +57,9 @@ class CreateExceptionCommandTest extends KernelTestCase
 
         $commandTester->setInputs(['']);
 
-        $result = $commandTester->execute(['command' => $command->getName()]);
+        $commandTester->execute(['command' => $command->getName()]);
 
-        $this->assertEquals(Command::FAILURE, $result);
+        $this->assertEquals(Command::FAILURE, $commandTester->getStatusCode());
     }
 
     public function testCommandInvalidCodeFailure()
@@ -69,9 +69,9 @@ class CreateExceptionCommandTest extends KernelTestCase
 
         $commandTester->setInputs(['__Test__', 'test']);
 
-        $result = $commandTester->execute(['command' => $command->getName()]);
+        $commandTester->execute(['command' => $command->getName()]);
 
-        $this->assertEquals(Command::FAILURE, $result);
+        $this->assertEquals(Command::FAILURE, $commandTester->getStatusCode());
     }
 
     public function testCommandInvalidStatusFailure()
@@ -81,9 +81,9 @@ class CreateExceptionCommandTest extends KernelTestCase
 
         $commandTester->setInputs(['__Test__', '1', 'Test']);
 
-        $result = $commandTester->execute(['command' => $command->getName()]);
+        $commandTester->execute(['command' => $command->getName()]);
 
-        $this->assertEquals(Command::FAILURE, $result);
+        $this->assertEquals(Command::FAILURE, $commandTester->getStatusCode());
     }
 
     public function testCommandDuplicateFailure()
@@ -97,9 +97,9 @@ class CreateExceptionCommandTest extends KernelTestCase
 
         $commandTester->assertCommandIsSuccessful();
 
-        $result = $commandTester->execute(['command' => $command->getName()]);
+        $commandTester->execute(['command' => $command->getName()]);
 
-        $this->assertEquals(Command::FAILURE, $result);
+        $this->assertEquals(Command::FAILURE, $commandTester->getStatusCode());
 
         $this->filesystem->remove("{$this->appKernel->getProjectDir()}/src/Exception/__Test__Exception.php");
     }

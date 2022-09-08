@@ -11,7 +11,7 @@ class InternalException extends AbstractHttpException
     public const HTTP_ERROR_CODE = Response::HTTP_INTERNAL_SERVER_ERROR;
 
     // This message will only be displayed on dev environment
-    public const MESSAGE = "An error occured";
+    public const MESSAGE = 'An error occured';
 
     /**
      * @param string[] $messageParams
