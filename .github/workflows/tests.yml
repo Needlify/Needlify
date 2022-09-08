@@ -78,8 +78,8 @@ jobs:
             - name: Load migrations
               run: php bin/console doctrine:migrations:migrate --env=test --no-interaction --allow-no-migration
 
-            - name: Validate database schema
-              run: php bin/console doctrine:schema:validate --env=test --no-interaction
+            # - name: Validate database schema
+            #   run: php bin/console doctrine:schema:validate --env=test --no-interaction
 
             - name: Load fixtures
               run: php bin/console doctrine:fixtures:load --env=test --no-interaction
