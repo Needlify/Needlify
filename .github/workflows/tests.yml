@@ -70,7 +70,7 @@ jobs:
               run: php bin/console doctrine:cache:clear-metadata
 
             - name: Drop previous database
-              run: php bin/console doctrine:database:drop --force --env=test --no-interaction
+              run: php bin/console doctrine:database:drop --force --if-exists --env=test --no-interaction
 
             - name: Create database
               run: php bin/console doctrine:database:create --if-not-exists --env=test --no-interaction
