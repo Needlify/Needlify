@@ -21,6 +21,9 @@ class TagRepository extends ServiceEntityRepository
         parent::__construct($registry, Tag::class);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function add(Tag $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -30,6 +33,9 @@ class TagRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function remove(Tag $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

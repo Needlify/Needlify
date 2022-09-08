@@ -72,6 +72,8 @@ class UserTest extends KernelTestCase
     public function testCreatedAt(): void
     {
         $user = new User();
+        $this->em->persist($user);
         $this->assertInstanceOf(DateTimeImmutable::class, $user->getCreatedAt());
+        $this->em->remove($user);
     }
 }
