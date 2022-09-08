@@ -64,11 +64,11 @@ class TagTest extends KernelTestCase
         $this->em->remove($tag);
     }
 
-    public function testLastUsedAt(): void
+    public function testLastUseAt(): void
     {
         $tag = new Tag();
         $this->em->persist($tag);
-        $this->assertInstanceOf(DateTime::class, $tag->getLastUsedAt());
+        $this->assertInstanceOf(DateTime::class, $tag->getLastUseAt());
         $this->em->remove($tag);
     }
 }

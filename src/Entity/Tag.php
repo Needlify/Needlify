@@ -29,10 +29,10 @@ class Tag
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    // Is set once when the tag in created (see: updateLastUsedAt())
+    // Is set once when the tag in created (see: updateLastUseAt())
     // Is also updated when a post contains it
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $lastUsedAt = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $lastUseAt = null;
 
     public function getId(): ?Uuid
     {
@@ -62,14 +62,14 @@ class Tag
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    public function getLastUsedAt(): ?\DateTimeInterface
+    public function getLastUseAt(): ?\DateTimeInterface
     {
-        return $this->lastUsedAt;
+        return $this->lastUseAt;
     }
 
     #[ORM\PrePersist]
-    public function updateLastUsedAt(): void
+    public function updateLastUseAt(): void
     {
-        $this->lastUsedAt = new DateTime();
+        $this->lastUseAt = new DateTime();
     }
 }
