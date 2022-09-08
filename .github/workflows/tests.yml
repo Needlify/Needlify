@@ -69,11 +69,11 @@ jobs:
             - name: Doctrine cache clear
               run: php bin/console doctrine:cache:clear-metadata
 
+            - name: Drop previous database
+              run: php bin/console doctrine:database:drop --force --env=test --no-interaction
+
             - name: Create database
               run: php bin/console doctrine:database:create --if-not-exists --env=test --no-interaction
-
-            - name: Drop previous schema
-              run: php bin/console doctrine:schema:drop --force --env=test --no-interaction
 
             - name: Load migrations
               run: php bin/console doctrine:migrations:migrate --env=test --no-interaction --allow-no-migration
