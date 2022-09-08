@@ -48,7 +48,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     #[ORM\Column]
-    #[Assert\DateTime]
     #[Groups(['user:basic', 'user:extend'])]
     private readonly ?\DateTimeImmutable $createdAt;
 
