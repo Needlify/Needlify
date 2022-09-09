@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\TagRepository;
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
@@ -33,6 +35,14 @@ class Tag
     // Is also updated when a post contains it
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $lastUseAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Publication::class, mappedBy: 'tags')]
+    private Collection $publications;
+
+    public function __construct()
+    {
+        $this->publications = new ArrayCollection();
+    }
 
     public function getId(): ?Uuid
     {
@@ -71,5 +81,32 @@ class Tag
     public function updateLastUseAt(): void
     {
         $this->lastUseAt = new DateTime();
+    }
+
+    /**
+     * @return Collection<int, Publication>
+     */
+    public function getPublications(): Collection
+    {
+        return $this->publications;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publications->contains($publication)) {
+            $this->publications->add($publication);
+            $publication->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publications->removeElement($publication)) {
+            $publication->removeTag($this);
+        }
+
+        return $this;
     }
 }
