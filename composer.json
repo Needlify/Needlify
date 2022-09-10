@@ -2,7 +2,6 @@
     "name": "needlify/needlify",
     "description": "Thread based blog platform",
     "type": "project",
-    "version": "0.0.1",
     "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,
