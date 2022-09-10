@@ -21,6 +21,9 @@ class PublicationRepository extends ServiceEntityRepository
         parent::__construct($registry, Publication::class);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function add(Publication $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -30,6 +33,9 @@ class PublicationRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function remove(Publication $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

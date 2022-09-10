@@ -45,6 +45,11 @@ abstract class Publication
         $this->tags = new ArrayCollection();
     }
 
+    public function getId(): ?Uuid
+    {
+        return $this->id;
+    }
+
     public function getAuthor(): ?User
     {
         return $this->author;

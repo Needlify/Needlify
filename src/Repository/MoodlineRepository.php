@@ -21,6 +21,9 @@ class MoodlineRepository extends ServiceEntityRepository
         parent::__construct($registry, Moodline::class);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function add(Moodline $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -30,6 +33,9 @@ class MoodlineRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function remove(Moodline $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
