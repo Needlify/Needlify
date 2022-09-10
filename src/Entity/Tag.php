@@ -22,17 +22,14 @@ class Tag
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    #[ORM\Column(length: 50, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
     #[Assert\NotBlank(message: "Le nom d'un tag ne peut pas être vide")]
     #[Assert\Length(max: 50, maxMessage: "Le nom d'un tag ne peut pas dépasser {{ limite }} caractères")]
     private ?string $name = null;
 
-    // Is set once when the tag in created (see: setCreatedAt())
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    // Is set once when the tag in created (see: updateLastUseAt())
-    // Is also updated when a post contains it
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $lastUseAt = null;
 

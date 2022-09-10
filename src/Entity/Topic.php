@@ -22,7 +22,7 @@ class Topic
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    #[ORM\Column(length: 50, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
     #[Assert\NotBlank(message: "Le nom d'un topic ne peut pas être vide")]
     #[Assert\Length(max: 50, maxMessage: "Le nom d'un topic ne peut pas dépasser {{ limite }} caractères")]
     private ?string $name = null;

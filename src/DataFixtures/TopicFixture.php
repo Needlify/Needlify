@@ -5,15 +5,22 @@ namespace App\DataFixtures;
 use App\Entity\Topic;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class TopicFixture extends Fixture
 {
+    private $faker;
+
+    public function __construct()
+    {
+        $this->faker = Factory::create();
+    }
+
     public function load(ObjectManager $manager): void
     {
-        $topicName = ['topic1', 'topic2', 'topic3'];
-        foreach ($topicName as $name) {
+        for ($i = 0; $i < 5; ++$i) {
             $tag = new Topic();
-            $tag->setName($name);
+            $tag->setName($this->faker->word());
 
             $manager->persist($tag);
         }

@@ -5,15 +5,22 @@ namespace App\DataFixtures;
 use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class TagFixture extends Fixture
 {
+    private $faker;
+
+    public function __construct()
+    {
+        $this->faker = Factory::create();
+    }
+
     public function load(ObjectManager $manager): void
     {
-        $tagName = ['tag1', 'tag2', 'tag3', 'tag4', 'tag5'];
-        foreach ($tagName as $name) {
+        for ($i = 0; $i < 5; ++$i) {
             $tag = new Tag();
-            $tag->setName($name);
+            $tag->setName($this->faker->word());
 
             $manager->persist($tag);
         }

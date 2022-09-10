@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -25,7 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:extend'])]
     private ?Uuid $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     #[Assert\NotBlank(message: "L'email ne peut pas être vide")]
     #[Assert\Email(message: "{{ value }} n'est pas un email valide")]
     #[Assert\Length(
@@ -44,7 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Ignore]
     private ?string $password = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(type: Types::STRING, length: 50)]
     #[Assert\NotBlank(message: "Le nom d'utilisateur ne peut pas être vide")]
     #[Assert\Length(max: 50, maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limite }} caractères")]
     #[Groups(['user:basic', 'user:extend'])]

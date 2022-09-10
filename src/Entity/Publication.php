@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
 #[ORM\InheritanceType('JOINED')]
@@ -26,16 +27,18 @@ abstract class Publication
     protected ?Uuid $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
+    #[Assert\NotNull(message: "L'auteur d'une publication doit être renseigné")]
     protected ?User $author = null;
 
     #[ORM\Column]
     protected ?\DateTimeImmutable $publishedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'publications')]
+    #[Assert\NotNull(message: "Le topic d'une publication doit être renseigné")]
     protected ?Topic $topic = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'publications')]
-    private Collection $tags;
+    protected Collection $tags;
 
     public function __construct()
     {
@@ -83,6 +86,13 @@ abstract class Publication
     public function getTags(): Collection
     {
         return $this->tags;
+    }
+
+    public function setTags(array $tags): self
+    {
+        $this->tags = new ArrayCollection($tags);
+
+        return $this;
     }
 
     public function addTag(Tag $tag): self
