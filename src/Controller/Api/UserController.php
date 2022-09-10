@@ -23,6 +23,6 @@ class UserController extends AbstractController
     #[ParamConverter(data: 'id', class: User::class, converter: CustomParamConverter::class)]
     public function getUserAction(User $user): JsonResponse
     {
-        return $this->json($user);
+        return $this->json($user, context: ['groups' => 'user:extend']);
     }
 }
