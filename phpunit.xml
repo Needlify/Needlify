@@ -28,6 +28,12 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">src/DataFixtures</directory>
+            <directory suffix=".php">src/Exception</directory>
+            <directory suffix=".php">src/EventSubscriber</directory>
+            <directory suffix=".php">src/ParamConverter</directory>
+        </exclude>
     </coverage>
 
     <listeners>

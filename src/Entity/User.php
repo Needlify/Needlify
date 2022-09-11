@@ -4,49 +4,63 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    #[Groups(['user:extend'])]
     private ?Uuid $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     #[Assert\NotBlank(message: "L'email ne peut pas être vide")]
     #[Assert\Email(message: "{{ value }} n'est pas un email valide")]
     #[Assert\Length(
         max: 180,
         maxMessage: "L'email ne peut pas dépasser {{ limite }} caractères",
     )]
+    #[Groups(['user:extend'])]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::JSON)]
+    #[Ignore]
     private array $roles = ['ROLE_USER'];
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide')]
+    #[Ignore]
     private ?string $password = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(type: Types::STRING, length: 50)]
     #[Assert\NotBlank(message: "Le nom d'utilisateur ne peut pas être vide")]
     #[Assert\Length(max: 50, maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limite }} caractères")]
+    #[Groups(['user:basic', 'user:extend'])]
     private ?string $username = null;
 
-    #[ORM\Column]
-    #[Assert\DateTime]
-    private ?\DateTimeImmutable $createdAt;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[Groups(['user:basic', 'user:extend'])]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Publication::class)]
+    private Collection $publications;
 
     public function __construct()
     {
-        $this->createdAt = new DateTimeImmutable();
+        $this->publications = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -66,6 +80,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    #[Ignore]
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
@@ -78,6 +93,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
+    }
+
+    public function addRole(string $role): self
+    {
+        $this->roles[] = $role;
+        $this->roles = array_unique($this->roles);
+
+        return $this;
     }
 
     public function setRoles(array $roles): self
@@ -122,9 +145,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    #[ORM\PrePersist]
+    public function setCreatedAt(): void
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new DateTimeImmutable();
+    }
+
+    /**
+     * @return Collection<int, Publication>
+     */
+    public function getPublications(): Collection
+    {
+        return $this->publications;
+    }
+
+    public function addPublication(Publication $publication): self
+    {
+        if (!$this->publications->contains($publication)) {
+            $this->publications->add($publication);
+            $publication->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removePublication(Publication $publication): self
+    {
+        if ($this->publications->removeElement($publication)) {
+            // set the owning side to null (unless already changed)
+            if ($publication->getAuthor() === $this) {
+                $publication->setAuthor(null);
+            }
+        }
 
         return $this;
     }

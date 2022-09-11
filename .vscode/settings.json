@@ -22,5 +22,6 @@
     "php-cs-fixer.allowRisky": false,
     "files.associations": {
         "*.twig": "twig"
-    }
+    },
+    "testing.automaticallyOpenPeekView": "never"
 }

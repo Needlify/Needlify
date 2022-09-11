@@ -16,10 +16,13 @@
             <meta property="og:url" content="{{ app.request.uri }}" />
             <meta property="og:title" content="Needlify" />
             <meta property="og:site_name" content="Needlify" />
-            <meta property="og:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+            <meta property="og:image"
+                content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
             <meta property="og:description" content="Share and find tech information on Needlify !" />
-            <meta name="twitter:image:src" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
-            <meta name="twitter:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+            <meta name="twitter:image:src"
+                content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+            <meta name="twitter:image"
+                content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content="Needlify" />
         {% endblock og %}
@@ -34,19 +37,32 @@
 
         <meta charset="UTF-8" />
         {% block stylesheets %}
-            {{ encore_entry_link_tags("global") }}
-            {{ encore_entry_link_tags("Component:SimpleGreeting") }}
+            {{ encore_entry_link_tags("style:global") }}
+            {{ encore_entry_link_tags("style:base") }}
+            {{ encore_entry_link_tags("style:header") }}
         {% endblock stylesheets %}
     </head>
     <body>
-        <main id="app">
-            {% block body %}
+        <header id="header">
+            <div id="header-container">
+                <img src="{{ asset("images/logo/icon-64.png") }}" class="glitch" alt="Notice logo" />
 
-            {% endblock body %}
+                <div id="header-search-bar">
+                    Hello World
+                </div>
+            </div>
+        </header>
+
+        <main id="app">
+            <div id="main-container">
+                {% block body %}
+
+                {% endblock body %}
+            </div>
         </main>
 
         {% block javascripts %}
-            {{ encore_entry_script_tags("Component:SimpleGreeting") }}
+
         {% endblock javascripts %}
     </body>
 </html>

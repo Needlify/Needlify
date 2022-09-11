@@ -22,6 +22,7 @@
         "symfony/doctrine-messenger": "6.1.*",
         "symfony/dotenv": "6.1.*",
         "symfony/expression-language": "6.1.*",
+        "symfony/filesystem": "6.1.*",
         "symfony/flex": "^2",
         "symfony/form": "6.1.*",
         "symfony/framework-bundle": "6.1.*",
@@ -51,8 +52,8 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "fakerphp/faker": "^1.20",
         "friendsofphp/php-cs-fixer": "^3.9",
-        "fzaninotto/faker": "^1.5",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-parallel": "^1.2",
         "phpstan/phpstan": "^1.8",
@@ -115,7 +116,7 @@
         "stan-default": "vendor/bin/phpstan analyse -c phpstan.neon",
         "stan": "@stan-default --ansi --error-format=table",
         "stan-github": "@stan-default --error-format=github --quiet",
-        "cs-check": "./vendor/bin/phpcs",
+        "cs-check": "./vendor/bin/phpcs -n",
         "cs-fix": "./vendor/bin/phpcbf"
     },
     "conflict": {

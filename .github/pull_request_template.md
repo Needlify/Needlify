@@ -21,5 +21,7 @@ Check that each item in the following list is respected before performing a merg
 -   [ ] Variable and function names make sense
 -   [ ] There are enough comments when the code is complicated
 -   [ ] The indentation of the code is correct
--   [ ] Unit and function tests have been updated
--   [ ] Unit and function tests are always valid
+-   [ ] Unit and function tests (JS and PHP) have been updated
+-   [ ] Unit and function tests (JS and PHP) are always valid
+-   [ ] Code style is still respected (JS and PHP)
+-   [ ] In case of new components, the associated stories have been created

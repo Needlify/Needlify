@@ -2,13 +2,15 @@
 
 ## About Needlify
 
-Needlify is a platform for sharing content and knowledge around IT and new technologies. Initially, this project was a proof of concept, however, as the development progressed, the idea materialized and it would be a shame to abandon the project. Our goal is to be able to offer a platform for sharing knowledge.
+Needlify is a platform for sharing content and knowledge around IT and new technologies. Initially, this project was a proof of concept, however, as the development progressed, the idea materialized and it would be a shame to abandon the project. My goal is to be able to offer a platform for sharing knowledge.
 
 Needlify is already available in its original version. This repository aims to refurbish this project with new technologies.
 
 ## Contributing
 
 Thank you for considering contributing to the Needlify project ! The contribution guide can be found in the [contributing file](https://github.com/Needlify/Needlify/blob/master/CONTRIBUTING.md).
+
+In order to maintain some consistency in the code, be sure to read the documents in the [Wikis section](https://github.com/Needlify/Needlify/wiki) of this repository. They contain all the elements you need to know to contribute to this project.
 
 If notions are missing, you can notify it by creating an issue.
 

@@ -10,14 +10,20 @@ Encore.setOutputPath("public/build/")
     .setPublicPath("/build")
     // .setManifestKeyPrefix('build/')
 
+    .configureFontRule({
+        type: "asset",
+    })
+
     .addEntries({
         /* Styles */
-        global: "./assets/styles/global.scss",
+        "style:global": "./assets/styles/global.scss",
+        "style:base": "./assets/styles/layout/base.scss",
+        "style:header": "./assets/styles/layout/header.scss",
 
         /* Typescript files */
 
         /* Lit components */
-        "Component:SimpleGreeting": "./assets/components/SimpleGreeting.ts",
+        // "component:SimpleGreeting": "./assets/components/SimpleGreeting.ts",
     })
 
     .splitEntryChunks()
