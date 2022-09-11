@@ -1,0 +1,26 @@
+#header {
+    width: 100%;
+    height: calc(var(--header-height) - 2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--light);
+    border-bottom: 2px solid var(--light-medium);
+    padding: 0 var(--mobile-padding);
+
+    #header-container {
+        width: 100%;
+        max-width: var(--content-size);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    img {
+        width: 36px;
+        aspect-ratio: 1;
+    }
+
+    #header-search-bar {
+    }
+}
