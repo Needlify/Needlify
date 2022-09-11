@@ -4,6 +4,22 @@
     Hello HomeController!
 {% endblock title %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags("component:Timeline") }}
+{% endblock stylesheets %}
+
 {% block body %}
-    test
+    <h1 class="text-2xl">
+        Activity log
+    </h1>
+
+    <time-line>
+        <p>
+            Bonjour
+        </p>
+    </time-line>
 {% endblock body %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags("component:Timeline") }}
+{% endblock javascripts %}

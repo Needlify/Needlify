@@ -36,10 +36,12 @@
         </title>
 
         <meta charset="UTF-8" />
+
+        {{ encore_entry_link_tags("style:global") }}
+        {{ encore_entry_link_tags("style:base") }}
+        {{ encore_entry_link_tags("style:header") }}
+
         {% block stylesheets %}
-            {{ encore_entry_link_tags("style:global") }}
-            {{ encore_entry_link_tags("style:base") }}
-            {{ encore_entry_link_tags("style:header") }}
         {% endblock stylesheets %}
     </head>
     <body>
