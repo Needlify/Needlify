@@ -36,11 +36,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:extend'])]
     private ?string $email = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::JSON)]
     #[Ignore]
     private array $roles = ['ROLE_USER'];
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide')]
     #[Ignore]
     private ?string $password = null;
@@ -51,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:basic', 'user:extend'])]
     private ?string $username = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     #[Groups(['user:basic', 'user:extend'])]
     private ?\DateTimeImmutable $createdAt = null;
 
