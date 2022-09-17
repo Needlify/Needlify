@@ -2,8 +2,10 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Article;
 use App\Entity\User;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Uid\Uuid;
@@ -75,5 +77,38 @@ class UserTest extends KernelTestCase
         $this->em->persist($user);
         $this->assertInstanceOf(DateTimeImmutable::class, $user->getCreatedAt());
         $this->em->remove($user);
+    }
+
+    public function testGetPublications()
+    {
+        /** @var Article $post */
+        $post = $this->em->getRepository(Article::class)->findOneBy([]);
+        $author = $post->getAuthor();
+
+        $this->assertInstanceOf(Collection::class, $author->getPublications());
+        $this->assertInstanceOf(Article::class, $author->getPublications()[0]);
+        $this->assertContains($post, $author->getPublications());
+    }
+
+    public function testAddPublication()
+    {
+        $article = new Article();
+        $article->setTitle('test');
+        $user = $this->em->getRepository(User::class)->findOneBy([]);
+
+        $user->addPublication($article);
+        $this->assertInstanceOf(Collection::class, $user->getPublications());
+        $this->assertInstanceOf(Article::class, $user->getPublications()[0]);
+        $this->assertContains($article, $user->getPublications());
+    }
+
+    public function testRemovePublication()
+    {
+        /** @var User $user */
+        $user = $this->em->getRepository(User::class)->findOneBy([]);
+        $article = $user->getPublications()[0];
+
+        $user->removePublication($article);
+        $this->assertNotContains($article, $user->getPublications());
     }
 }

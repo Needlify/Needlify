@@ -21,6 +21,9 @@ class ClassifierRepository extends ServiceEntityRepository
         parent::__construct($registry, Classifier::class);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function add(Classifier $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
@@ -30,6 +33,9 @@ class ClassifierRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function remove(Classifier $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
