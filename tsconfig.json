@@ -8,14 +8,20 @@
         "skipDefaultLibCheck": true,
         "module": "ES6",
         "strict": true,
-        "jsx": "preserve",
         "sourceMap": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
         "lib": ["ESNext", "DOM"],
         "skipLibCheck": true,
         "experimentalDecorators": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "allowUnreachableCode": false,
+        "declaration": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "jsx": "react",
+        "jsxFactory": "h"
     },
 
     "include": ["assets/**/*.ts"],
