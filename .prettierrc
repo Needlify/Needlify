@@ -1,11 +1,18 @@
 {
     "semi": true,
     "singleQuote": false,
-    "printWidth": 120,
     "editorconfig": true,
 
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": false,
+    "quoteProps": "consistent",
+    "printWidth": 180,
+    "trailingComma": "all",
+
     "plugins": ["./node_modules/prettier-plugin-twig-melody"],
-    "twigPrintWidth": 120,
+    "twigPrintWidth": 180,
     "twigSingleQuote": false,
     "twigAlwaysBreakObjects": false,
     "twigFollowOfficialCodingStandards": true,
