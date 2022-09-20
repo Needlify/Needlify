@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    Hello HomeController!
+    Feed
 {% endblock title %}
 
 {% block stylesheets %}
@@ -14,10 +14,20 @@
     </h1>
 
     <time-line>
-        <p>
-            Bonjour
-        </p>
+        toto
     </time-line>
+    {% for post in posts %}
+        {% if post|instanceOf("App\\Entity\\Article") %}
+            <div>
+                {{ post.description }}
+            </div>
+        {% elseif post|instanceOf("App\\Entity\\Moodline") %}
+            <div>
+                {{ post.content }}
+            </div>
+        {% endif %}
+        <br />
+    {% endfor %}
 {% endblock body %}
 
 {% block javascripts %}
