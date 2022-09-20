@@ -1,4 +1,4 @@
-import { LitElement, html } from "lit";
+import { LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
 import "../styles/components/Timeline.scss";
 
@@ -9,12 +9,6 @@ export default class Timeline extends LitElement {
     createRenderRoot() {
         this.classList.add(tag);
         return this;
-    }
-
-    protected render() {
-        return html`<div class="container">
-            <slot></slot>
-        </div>`;
     }
 }
 
