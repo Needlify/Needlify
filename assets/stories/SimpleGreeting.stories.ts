@@ -1,7 +1,7 @@
 import { Meta } from "@storybook/web-components";
 import { html } from "lit";
 import "../components/SimpleGreeting";
-import type { SimpleGreetingProps } from "../types.d";
+import type { SimpleGreetingProps } from "../props.d";
 
 // More on default export: https://storybook.js.org/docs/web-components/writing-stories/introduction#default-export
 // https://storybook.js.org/docs/web-components/writing-docs/doc-block-argstable
