@@ -16,13 +16,10 @@
             <meta property="og:url" content="{{ app.request.uri }}" />
             <meta property="og:title" content="Needlify" />
             <meta property="og:site_name" content="Needlify" />
-            <meta property="og:image"
-                content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+            <meta property="og:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
             <meta property="og:description" content="Share and find tech information on Needlify !" />
-            <meta name="twitter:image:src"
-                content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
-            <meta name="twitter:image"
-                content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+            <meta name="twitter:image:src" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+            <meta name="twitter:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content="Needlify" />
         {% endblock og %}
@@ -37,11 +34,13 @@
 
         <meta charset="UTF-8" />
 
+        {{ encore_entry_link_tags("style:reset") }}
         {{ encore_entry_link_tags("style:global") }}
         {{ encore_entry_link_tags("style:base") }}
         {{ encore_entry_link_tags("style:header") }}
 
         {% block stylesheets %}
+
         {% endblock stylesheets %}
     </head>
     <body>

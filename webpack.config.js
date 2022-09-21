@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 const Encore = require("@symfony/webpack-encore");
@@ -19,19 +20,22 @@ Encore.setOutputPath("public/build/")
         "style:global": "./assets/styles/global.scss",
         "style:base": "./assets/styles/layout/base.scss",
         "style:header": "./assets/styles/layout/header.scss",
+        "style:reset": "./assets/styles/reset.ts",
 
         /* Typescript files */
 
-        /* Lit components */
+        /* Custom elements */
         "component:SimpleGreeting": "./assets/components/SimpleGreeting.ts",
         "component:Timeline": "./assets/components/Timeline.ts",
+        "component:CurrentTime": "./assets/components/CurrentTime.ts",
     })
 
     .splitEntryChunks()
 
     .enableSassLoader()
     .enableTypeScriptLoader()
-    .enablePostCssLoader()
+    // .enablePostCssLoader()
+    .enableVueLoader()
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
@@ -42,11 +46,11 @@ Encore.setOutputPath("public/build/")
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
 
-    .configureBabel((config) => {
+    .configureBabel(config => {
         config.plugins.push("@babel/plugin-proposal-class-properties");
     })
 
-    .configureBabelPresetEnv((config) => {
+    .configureBabelPresetEnv(config => {
         config.useBuiltIns = "usage";
         config.corejs = 3;
     });
