@@ -6,7 +6,6 @@
     justify-content: center;
     background-color: var(--light);
     border-bottom: 2px solid var(--light-medium);
-    padding: 0 var(--mobile-padding);
 
     #header-container {
         width: 100%;
@@ -19,8 +18,5 @@
     img {
         width: 36px;
         aspect-ratio: 1;
-    }
-
-    #header-search-bar {
     }
 }

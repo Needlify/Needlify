@@ -1,6 +1,5 @@
-import { LitElement, html } from "lit";
+import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import "../styles/components/SimpleGreeting.scss";
 
 const tag = "simple-greeting";
 
@@ -10,14 +9,15 @@ export default class SimpleGreeting extends LitElement {
     @property({ type: String })
     name?: string = "World";
 
-    createRenderRoot() {
-        this.classList.add(tag);
-        return this;
-    }
+    static styles = css`
+        :host {
+            background: var(--primary);
+        }
+    `;
 
     // Render the UI as a function of component state
     render() {
-        return html`<p class="text-xl">Hello, ${this.name}!</p>`;
+        return html`<p>Hello, ${this.name}!</p>`;
     }
 }
 
