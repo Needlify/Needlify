@@ -2,10 +2,12 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    padding: 20px 0 80px 0;
 
     #main-container {
         margin-top: 20px;
         width: 100%;
         max-width: var(--content-size);
+        margin: 0 var(--mobile-border-margin);
     }
 }
