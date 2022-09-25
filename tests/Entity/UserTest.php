@@ -99,7 +99,7 @@ class UserTest extends KernelTestCase
 
         $user->addThread($article);
         $this->assertInstanceOf(Collection::class, $user->getThreads());
-        $this->assertInstanceOf(Article::class, $user->getThreads()[0]);
+        $this->assertInstanceOf(Thread::class, $user->getThreads()[0]);
         $this->assertContains($article, $user->getThreads());
     }
 
