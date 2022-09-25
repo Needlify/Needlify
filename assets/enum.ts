@@ -8,10 +8,11 @@ export const ThreadIcon = {
     },
     moodline: {
         icon: "zap",
-        color: "#09b7a2",
+        color: "#54BAB9",
     },
     event: {
         icon: "bell",
-        color: "#707070",
+        color: "#979dac",
+        // color: "#7d8597",
     },
 } as ThreadIconAssociationType;

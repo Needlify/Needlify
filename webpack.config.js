@@ -26,7 +26,9 @@ Encore.setOutputPath("public/build/")
 
         /* Custom elements */
         "component:TimelineWrapper": "./assets/components/TimelineWrapper.ts",
-        "component:TimelineElement": "./assets/components/TimelineElement.ts",
+        "component:TimelinePublication": "./assets/components/TimelinePublication.ts",
+        "component:TimelineEvent": "./assets/components/TimelineEvent.ts",
+        "component:TimelineThread": "./assets/components/TimelineThread.ts",
         "component:CurrentTime": "./assets/components/CurrentTime",
         "component:FeatherIcon": "./assets/components/FeatherIcon.ts",
     })

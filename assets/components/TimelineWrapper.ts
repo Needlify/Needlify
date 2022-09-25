@@ -12,19 +12,17 @@ export default class TimelineWrapper extends LitElement {
             position: relative;
             display: flex;
             flex-direction: column;
-            row-gap: 15px;
-        }
-
-        #timeline::before {
-            content: "";
-            position: absolute;
-            width: 3px;
-            height: 100%;
-            top: 2px;
-            left: 15px;
-            background-color: var(--light-medium);
+            row-gap: 30px;
         }
     `;
+
+    /**
+     * On ajout la classe "last" au dernier élément pour ne pas ajouter le trait de la timeline
+     */
+    connectedCallback() {
+        super.connectedCallback();
+        this.shadowRoot?.host.querySelector("timeline-thread:last-child")?.classList.add("last");
+    }
 
     render() {
         return html`<div id="timeline">

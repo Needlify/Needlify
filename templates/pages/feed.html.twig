@@ -15,12 +15,22 @@
 
     <timeline-wrapper>
         {% for post in posts %}
-            <timeline-element type="{{ post.type }}" content="{{ post.preview }}"></timeline-element>
+            {% if post|instanceOf("App\\Entity\\Publication") %}
+                <timeline-thread type="{{ post.type }}">
+                    <timeline-publication content="{{ post.preview }}" />
+                </timeline-thread>
+            {% else %}
+                <timeline-thread type="{{ post.type }}">
+                    <timeline-event content="{{ post.preview }}"></timeline-event>
+                </timeline-thread>
+            {% endif %}
         {% endfor %}
     </timeline-wrapper>
 {% endblock body %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags("component:TimelineWrapper") }}
-    {{ encore_entry_script_tags("component:TimelineElement") }}
+    {{ encore_entry_script_tags("component:TimelinePublication") }}
+    {{ encore_entry_script_tags("component:TimelineEvent") }}
+    {{ encore_entry_script_tags("component:TimelineThread") }}
 {% endblock javascripts %}
