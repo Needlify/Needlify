@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Article;
+use App\Service\ThreadType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -68,5 +69,23 @@ class ArticleTest extends KernelTestCase
         $this->em->persist($article);
         $this->assertEquals('Hello-World-' . $hash, $article->getSlug());
         $this->em->remove($article);
+    }
+
+    public function testType()
+    {
+        $title = 'Test';
+        $article = new Article();
+        $article->setTitle($title);
+        $this->assertEquals($article->getType(), 'article');
+        $this->assertEquals($article->getType(), ThreadType::ARTICLE->value);
+    }
+
+    public function testPreview(): void
+    {
+        $description = 'Test';
+        $article = new Article();
+        $article->setDescription($description);
+        $this->assertEquals($description, $article->getPreview());
+        $this->assertEquals($article->getDescription(), $article->getPreview());
     }
 }
