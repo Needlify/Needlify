@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\Interface\PublicationInterface;
+use App\Entity\Interface\ThreadInterface;
 use App\Repository\ArticleRepository;
-use App\Service\PublicationType;
+use App\Service\ThreadType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\String\Slugger\AsciiSlugger;
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Article extends Publication implements PublicationInterface
+class Article extends Publication implements ThreadInterface
 {
     #[ORM\Column(type: Types::STRING, length: 120)]
     #[Assert\NotBlank(message: "Le titre d'un article ne pas être vide")]
@@ -105,7 +105,7 @@ class Article extends Publication implements PublicationInterface
 
     public function getType(): string
     {
-        return PublicationType::ARTICLE->value;
+        return ThreadType::ARTICLE->value;
     }
 
     public function getPreview(): string

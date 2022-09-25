@@ -2,7 +2,7 @@
 
 namespace App\Entity\Interface;
 
-interface PublicationInterface
+interface ThreadInterface
 {
     public function getType(): string;
 

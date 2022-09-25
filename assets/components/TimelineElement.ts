@@ -1,6 +1,7 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { PublicationType } from "../enum";
+import { ThreadIcon } from "../enum";
+import { ThreadTypeVariation } from "../types.d";
 import "./Icon";
 
 const tag = "timeline-element-wc";
@@ -47,14 +48,12 @@ export default class TimelineElement extends LitElement {
     content?: string;
 
     @property({ type: String })
-    type?: string;
+    type: ThreadTypeVariation = "article";
 
     render() {
-        const icon = this.type === PublicationType.ARTICLE ? "edit-3" : "zap";
-
         return html`<div class="timeline-element">
             <div class="timeline-icon-container">
-                <icon-wc icon="${icon}" color="#ebeffd" strokeWidth="2.5px" size="18px">
+                <icon-wc icon="${ThreadIcon[this.type].icon}" color="#ebeffd" strokeWidth="2.5px" size="18px">
             </div>
             <div class="timeline-element-content">
                 ${this.content}

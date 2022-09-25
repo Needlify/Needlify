@@ -1,6 +1,14 @@
-/* eslint-disable no-shadow */
+import { ThreadIconAssociationType } from "./types.d";
+
 /* eslint-disable import/prefer-default-export */
-export enum PublicationType {
-    ARTICLE = "article",
-    MOODLINE = "moodline",
-}
+export const ThreadIcon = {
+    article: {
+        icon: "edit-3",
+    },
+    moodline: {
+        icon: "zap",
+    },
+    event: {
+        icon: "info",
+    },
+} as ThreadIconAssociationType;

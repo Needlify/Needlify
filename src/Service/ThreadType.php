@@ -2,8 +2,9 @@
 
 namespace App\Service;
 
-enum PublicationType: string
+enum ThreadType: string
 {
     case ARTICLE = 'article';
     case MOODLINE = 'moodline';
+    case EVENT = 'event';
 }
