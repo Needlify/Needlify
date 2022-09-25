@@ -11,7 +11,7 @@ export const ThreadIcon = {
         color: "#09b7a2",
     },
     event: {
-        icon: "info",
+        icon: "bell",
         color: "#707070",
     },
 } as ThreadIconAssociationType;
