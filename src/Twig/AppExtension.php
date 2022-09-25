@@ -7,6 +7,9 @@ use Twig\TwigFilter;
 
 class AppExtension extends AbstractExtension
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function getFilters()
     {
         return [
