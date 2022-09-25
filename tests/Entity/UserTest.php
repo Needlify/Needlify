@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Article;
+use App\Entity\Thread;
 use App\Entity\User;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
@@ -79,36 +80,36 @@ class UserTest extends KernelTestCase
         $this->em->remove($user);
     }
 
-    public function testGetPublications()
+    public function testGetThreads()
     {
         /** @var Article $post */
         $post = $this->em->getRepository(Article::class)->findOneBy([]);
         $author = $post->getAuthor();
 
-        $this->assertInstanceOf(Collection::class, $author->getPublications());
-        $this->assertInstanceOf(Article::class, $author->getPublications()[0]);
-        $this->assertContains($post, $author->getPublications());
+        $this->assertInstanceOf(Collection::class, $author->getThreads());
+        $this->assertInstanceOf(Thread::class, $author->getThreads()[0]);
+        $this->assertContains($post, $author->getThreads());
     }
 
-    public function testAddPublication()
+    public function testAddThread()
     {
         $article = new Article();
         $article->setTitle('test');
         $user = $this->em->getRepository(User::class)->findOneBy([]);
 
-        $user->addPublication($article);
-        $this->assertInstanceOf(Collection::class, $user->getPublications());
-        $this->assertInstanceOf(Article::class, $user->getPublications()[0]);
-        $this->assertContains($article, $user->getPublications());
+        $user->addThread($article);
+        $this->assertInstanceOf(Collection::class, $user->getThreads());
+        $this->assertInstanceOf(Article::class, $user->getThreads()[0]);
+        $this->assertContains($article, $user->getThreads());
     }
 
-    public function testRemovePublication()
+    public function testRemoveThread()
     {
         /** @var User $user */
         $user = $this->em->getRepository(User::class)->findOneBy([]);
-        $article = $user->getPublications()[0];
+        $article = $user->getThreads()[0];
 
-        $user->removePublication($article);
-        $this->assertNotContains($article, $user->getPublications());
+        $user->removeThread($article);
+        $this->assertNotContains($article, $user->getThreads());
     }
 }
