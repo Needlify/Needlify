@@ -25,10 +25,10 @@ Encore.setOutputPath("public/build/")
         /* Typescript files */
 
         /* Custom elements */
-        "component:Timeline": "./assets/components/Timeline.ts",
+        "component:TimelineWrapper": "./assets/components/TimelineWrapper.ts",
         "component:TimelineElement": "./assets/components/TimelineElement.ts",
         "component:CurrentTime": "./assets/components/CurrentTime",
-        "component:Icon": "./assets/components/Icon.ts",
+        "component:FeatherIcon": "./assets/components/FeatherIcon.ts",
     })
 
     .splitEntryChunks()

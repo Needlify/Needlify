@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/web-components";
 import { html } from "lit";
-import "../components/Icon";
+import "../components/FeatherIcon";
 
-type IconProps = {
+type FeatherIconProps = {
     icon?: string;
     class?: string;
     color?: string;
@@ -14,7 +14,7 @@ type IconProps = {
 // https://storybook.js.org/docs/web-components/writing-docs/doc-block-argstable
 export default {
     title: "Global",
-    component: "icon-wc",
+    component: "feather-icon",
     argTypes: {
         icon: {
             defaultValue: "user",
@@ -54,5 +54,5 @@ export default {
     },
 } as Meta;
 
-export const Icon = (args: IconProps) =>
-    html`<icon-wc icon="${args.icon}" class="${args.class}" color="${args.color}" size="${args.size}" strokeWidth="${args.strokeWidth}"></icon-wc>`;
+export const Icon = (args: FeatherIconProps) =>
+    html`<feather-icon icon="${args.icon}" class="${args.class}" color="${args.color}" size="${args.size}" strokeWidth="${args.strokeWidth}"></feather-icon>`;

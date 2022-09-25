@@ -3,10 +3,10 @@ import { customElement, property } from "lit/decorators.js";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import * as feather from "feather-icons";
 
-const tag = "icon-wc";
+const tag = "feather-icon";
 
 @customElement(tag)
-export default class Icon extends LitElement {
+export default class FeatherIcon extends LitElement {
     @property({ type: String })
     icon = "user";
 
@@ -35,6 +35,6 @@ export default class Icon extends LitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        [tag]: Icon;
+        [tag]: FeatherIcon;
     }
 }

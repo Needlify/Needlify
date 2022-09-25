@@ -1,10 +1,10 @@
 import { css, html, LitElement } from "lit";
 import { customElement } from "lit/decorators.js";
 
-const tag = "timeline-wc";
+const tag = "timeline-wrapper";
 
 @customElement(tag)
-export default class Timeline extends LitElement {
+export default class TimelineWrapper extends LitElement {
     static styles = css`
         #timeline {
             width: calc(100% - 50px);
@@ -35,6 +35,6 @@ export default class Timeline extends LitElement {
 
 declare global {
     interface HTMLElementTagNameMap {
-        [tag]: Timeline;
+        [tag]: TimelineWrapper;
     }
 }

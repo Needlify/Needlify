@@ -13,14 +13,14 @@
         Activity log
     </h1>
 
-    <timeline-wc>
+    <timeline-wrapper>
         {% for post in posts %}
-            <timeline-element-wc type="{{ post.type }}" content="{{ post.preview }}"></timeline-element-wc>
+            <timeline-element type="{{ post.type }}" content="{{ post.preview }}"></timeline-element>
         {% endfor %}
-    </timeline-wc>
+    </timeline-wrapper>
 {% endblock body %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags("component:Timeline") }}
+    {{ encore_entry_script_tags("component:TimelineWrapper") }}
     {{ encore_entry_script_tags("component:TimelineElement") }}
 {% endblock javascripts %}

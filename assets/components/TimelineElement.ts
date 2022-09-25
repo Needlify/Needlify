@@ -2,9 +2,9 @@ import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { ThreadIcon } from "../enum";
 import { ThreadTypeVariation } from "../types.d";
-import "./Icon";
+import "./FeatherIcon";
 
-const tag = "timeline-element-wc";
+const tag = "timeline-element";
 
 @customElement(tag)
 export default class TimelineElement extends LitElement {
@@ -23,7 +23,6 @@ export default class TimelineElement extends LitElement {
             left: -50px;
             width: 30px;
             aspect-ratio: 1;
-            background-color: var(--primary);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -52,8 +51,8 @@ export default class TimelineElement extends LitElement {
 
     render() {
         return html`<div class="timeline-element">
-            <div class="timeline-icon-container">
-                <icon-wc icon="${ThreadIcon[this.type].icon}" color="#ebeffd" strokeWidth="2.5px" size="18px">
+            <div class="timeline-icon-container" style="background-color: ${ThreadIcon[this.type].color}">
+                <feather-icon icon="${ThreadIcon[this.type].icon}" color="#ebeffd" strokeWidth="2.5px" size="18px">
             </div>
             <div class="timeline-element-content">
                 ${this.content}
