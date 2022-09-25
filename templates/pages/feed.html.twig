@@ -5,6 +5,7 @@
 {% endblock title %}
 
 {% block stylesheets %}
+
 {% endblock stylesheets %}
 
 {% block body %}
@@ -12,28 +13,14 @@
         Activity log
     </h1>
 
-    <current-time></current-time>
-    <simple-greeting></simple-greeting>
-
-    {# <time-line>
-        toto
-    </time-line>
-    {% for post in posts %}
-        {% if post|instanceOf("App\\Entity\\Article") %}
-            <div>
-                {{ post.description }}
-            </div>
-        {% elseif post|instanceOf("App\\Entity\\Moodline") %}
-            <div>
-                {{ post.content }}
-            </div>
-        {% endif %}
-        <br />
-    {% endfor %} #}
+    <timeline-wc>
+        {% for post in posts %}
+            <timeline-element-wc type="{{ post.type }}" content="{{ post.preview }}"></timeline-element-wc>
+        {% endfor %}
+    </timeline-wc>
 {% endblock body %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags("component:Timeline") }}
-    {{ encore_entry_script_tags("component:SimpleGreeting") }}
-    {{ encore_entry_script_tags("component:CurrentTime") }}
+    {{ encore_entry_script_tags("component:TimelineElement") }}
 {% endblock javascripts %}

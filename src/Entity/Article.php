@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Interface\ThreadInterface;
 use App\Repository\ArticleRepository;
+use App\Service\ThreadType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\String\Slugger\AsciiSlugger;
@@ -10,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Article extends Publication
+class Article extends Publication implements ThreadInterface
 {
     #[ORM\Column(type: Types::STRING, length: 120)]
     #[Assert\NotBlank(message: "Le titre d'un article ne pas être vide")]
@@ -99,5 +101,15 @@ class Article extends Publication
     {
         $slugger = new AsciiSlugger();
         $this->slug = $slugger->slug($this->title) . '-' . hash('adler32', $this->title);
+    }
+
+    public function getType(): string
+    {
+        return ThreadType::ARTICLE->value;
+    }
+
+    public function getPreview(): string
+    {
+        return $this->getDescription();
     }
 }

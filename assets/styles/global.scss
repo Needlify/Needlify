@@ -1,6 +1,10 @@
 @import "variables";
 @import "fonts";
 
+body {
+    background-color: var(--light);
+}
+
 * {
-    font-family: Outfit;
+    font-family: Supreme;
 }
