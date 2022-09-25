@@ -5,12 +5,9 @@ namespace App\Tests\Entity;
 use App\Entity\Article;
 use App\Entity\Tag;
 use App\Entity\Topic;
-use App\Entity\User;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Uid\Uuid;
 
 class PublicationTest extends KernelTestCase
 {
@@ -23,37 +20,6 @@ class PublicationTest extends KernelTestCase
         $this->em = $kernel->getContainer()
             ->get('doctrine')
             ->resetManager();
-    }
-
-    public function testId(): void
-    {
-        $article = new Article();
-        $title = 'Test';
-        $article->setTitle($title);
-        $this->em->persist($article);
-        $this->assertInstanceOf(Uuid::class, $article->getId());
-        $this->em->remove($article);
-    }
-
-    public function testAuthor(): void
-    {
-        $user = $this->em->getRepository(User::class)->findOneBy([]);
-        $article = new Article();
-
-        $article->setAuthor($user);
-        $this->assertInstanceOf(User::class, $article->getAuthor());
-        $this->assertEquals($user, $article->getAuthor());
-        $this->em->remove($article);
-    }
-
-    public function testPublishedAt(): void
-    {
-        $article = new Article();
-        $title = 'Test';
-        $article->setTitle($title);
-        $this->em->persist($article);
-        $this->assertInstanceOf(DateTimeImmutable::class, $article->getPublishedAt());
-        $this->em->remove($article);
     }
 
     public function testTopic(): void

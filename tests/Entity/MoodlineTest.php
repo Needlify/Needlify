@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Moodline;
+use App\Service\ThreadType;
 use PHPUnit\Framework\TestCase;
 
 class MoodlineTest extends TestCase
@@ -13,5 +14,23 @@ class MoodlineTest extends TestCase
         $moodline = new Moodline();
         $moodline->setContent($content);
         $this->assertEquals($content, $moodline->getContent());
+    }
+
+    public function testType()
+    {
+        $content = 'Test';
+        $moodline = new Moodline();
+        $moodline->setContent($content);
+        $this->assertEquals($moodline->getType(), 'moodline');
+        $this->assertEquals($moodline->getType(), ThreadType::MOODLINE->value);
+    }
+
+    public function testPreview(): void
+    {
+        $content = 'Test';
+        $moodline = new Moodline();
+        $moodline->setContent($content);
+        $this->assertEquals($content, $moodline->getPreview());
+        $this->assertEquals($moodline->getContent(), $moodline->getPreview());
     }
 }
