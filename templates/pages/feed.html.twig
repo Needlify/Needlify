@@ -21,7 +21,7 @@
                 </timeline-thread>
             {% else %}
                 <timeline-thread type="{{ post.type }}">
-                    <timeline-event content="{{ post.preview }}"></timeline-event>
+                    <timeline-event date="{{ post.publishedAt|date }}" content="{{ post.preview }}"></timeline-event>
                 </timeline-thread>
             {% endif %}
         {% endfor %}

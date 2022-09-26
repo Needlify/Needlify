@@ -36,11 +36,14 @@ export default class TimelineEvent extends LitElement {
     @property({ type: String })
     content?: string;
 
+    @property({ type: Date })
+    date?: Date;
+
     render() {
         return html` <div class="timeline-element-content">
             <span>${unsafeHTML(this.content)}</span>
             <span>•</span>
-            <time-elapsed class="date" date="2022-09-26 16:30:20">2 days ago</time-elapsed>
+            <time-elapsed class="date" date="${this.date}">2 days ago</time-elapsed>
         </div>`;
     }
 }
