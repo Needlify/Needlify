@@ -13,11 +13,12 @@ export default class TimelineThread extends LitElement {
             position: relative;
         }
 
+        /* Correspond au trait de la timeline */
         :host(:not(.last))::before {
             content: "";
             position: absolute;
-            width: 3px;
-            height: calc(100% + 30px);
+            width: 2px;
+            height: calc(100% + 30px); /* 30px from row-gap on TimelineWrapper */
             top: 0px;
             left: -36px;
             background-color: var(--light-medium);

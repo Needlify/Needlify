@@ -23,6 +23,7 @@
         "feather-icons": "^4.29.0",
         "jsdom": "^20.0.0",
         "lit": "^2.3.0",
+        "moment-locales-webpack-plugin": "^1.2.0",
         "prettier": "^2.7.1",
         "prettier-plugin-twig-melody": "^0.4.6",
         "regenerator-runtime": "^0.13.9",
@@ -53,6 +54,7 @@
         "lint": "eslint ./assets"
     },
     "dependencies": {
+        "moment": "^2.29.4",
         "normalize.css": "^8.0.1"
     }
 }

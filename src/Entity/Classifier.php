@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -37,6 +38,11 @@ abstract class Classifier
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $lastUseAt = null;
+
+    #[ORM\Column(type: Types::STRING, length: 50)]
+    #[Assert\NotBlank(message: "Le slug d'un classificateur ne pas être vide")]
+    #[Assert\Length(max: 50, maxMessage: "Le slug d'un classificateur ne peut pas dépasser {{ limite }} caractères")]
+    private ?string $slug = null;
 
     public function getId(): ?Uuid
     {
@@ -75,5 +81,17 @@ abstract class Classifier
     public function updateLastUseAt(): void
     {
         $this->lastUseAt = new DateTime();
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    #[ORM\PrePersist]
+    public function setSlug(): void
+    {
+        $slugger = new AsciiSlugger();
+        $this->slug = $slugger->slug($this->name);
     }
 }

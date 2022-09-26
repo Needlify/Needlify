@@ -17,12 +17,17 @@ class Event extends Thread implements ThreadInterface
     #[Assert\Length(max: 350, maxMessage: "Le message d'une évènement ne peut pas dépasser {{ limite }} caractères")]
     private ?string $message = null;
 
+    public function __construct(?string $message = null)
+    {
+        $this->setMessage($message);
+    }
+
     public function getMessage(): ?string
     {
         return $this->message;
     }
 
-    public function setMessage(string $message): self
+    public function setMessage(?string $message = null): self
     {
         $this->message = $message;
 

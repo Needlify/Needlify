@@ -1,6 +1,7 @@
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import "./FeatherIcon";
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
+import "./TimeElapsed";
 
 const tag = "timeline-event";
 
@@ -12,6 +13,23 @@ export default class TimelineEvent extends LitElement {
             color: var(--dark-soft);
             font-size: 16px;
             font-weight: 450;
+            display: flex;
+            column-gap: 8px;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+
+        a:hover {
+            color: var(--dark-soft);
+        }
+
+        .date {
+            font-size: 14px;
+            color: var(--light-dark);
         }
     `;
 
@@ -19,7 +37,11 @@ export default class TimelineEvent extends LitElement {
     content?: string;
 
     render() {
-        return html` <div class="timeline-element-content">${this.content}</div>`;
+        return html` <div class="timeline-element-content">
+            <span>${unsafeHTML(this.content)}</span>
+            <span>•</span>
+            <time-elapsed class="date" date="2022-09-26 16:30:20">2 days ago</time-elapsed>
+        </div>`;
     }
 }
 
