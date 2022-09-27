@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ThreadRepository;
 use DateTimeImmutable;
+use DateTimeZone;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
@@ -14,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
+    Publication::class => Publication::class,
     Article::class => Article::class,
     Moodline::class => Moodline::class,
     Event::class => Event::class,
@@ -46,7 +48,7 @@ abstract class Thread
     #[ORM\PrePersist]
     public function setPublishedAt(): void
     {
-        $this->publishedAt = new DateTimeImmutable();
+        $this->publishedAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
     }
 
     public function getAuthor(): ?User

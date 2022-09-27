@@ -22,7 +22,7 @@ export default class TimelinePublication extends LitElement {
     content?: string;
 
     render() {
-        return html` <div class="timeline-element-content">${this.content}</div>`;
+        return html`<div class="timeline-element-content">${this.content}</div>`;
     }
 }
 

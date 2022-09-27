@@ -14,17 +14,19 @@ export default class TimelineEvent extends LitElement {
             font-size: 16px;
             font-weight: 450;
             display: flex;
+            flex-wrap: wrap; /* TODO Pas sûr de ça */
             column-gap: 8px;
         }
 
         a {
             color: var(--primary);
             text-decoration: none;
-            transition: color 0.2s ease-in-out;
+            transition: color 200ms ease-in-out;
         }
 
         a:hover {
-            color: var(--dark-soft);
+            color: var(--dark);
+            font-weight: bold;
         }
 
         .date {
@@ -43,7 +45,7 @@ export default class TimelineEvent extends LitElement {
         return html` <div class="timeline-element-content">
             <span>${unsafeHTML(this.content)}</span>
             <span>•</span>
-            <time-elapsed class="date" date="${this.date}">2 days ago</time-elapsed>
+            <time-elapsed class="date" date="${this.date}" />
         </div>`;
     }
 }

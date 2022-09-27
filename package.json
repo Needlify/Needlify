@@ -55,6 +55,7 @@
     },
     "dependencies": {
         "moment": "^2.29.4",
+        "moment-timezone": "^0.5.37",
         "normalize.css": "^8.0.1"
     }
 }

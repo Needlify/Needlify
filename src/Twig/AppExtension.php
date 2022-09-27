@@ -10,7 +10,7 @@ class AppExtension extends AbstractExtension
     /**
      * @codeCoverageIgnore
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
             new TwigFilter('instanceOf', [$this, 'isInstanceof']),
