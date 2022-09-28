@@ -1,4 +1,4 @@
-import { html, LitElement } from "lit";
+import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import * as feather from "feather-icons";
@@ -21,6 +21,13 @@ export default class FeatherIcon extends LitElement {
 
     @property({ type: String })
     strokeWidth = "2px";
+
+    static styles = css`
+        .icon-container {
+            display: flex;
+            align-items: center;
+        }
+    `;
 
     render() {
         return html`

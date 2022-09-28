@@ -41,7 +41,7 @@ class ArticleFixture extends Fixture implements DependentFixtureInterface
                 ->setDescription($this->faker->text(500))
                 ->setContent($this->faker->text(1000))
                 ->setTopic($this->faker->randomElement($topics))
-                ->setTags($this->faker->randomElements($tags))
+                ->setTags($this->faker->randomElements($tags, 3))
                 ->setAuthor($this->faker->randomElement($users));
 
             $manager->persist($article);

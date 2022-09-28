@@ -16,13 +16,24 @@ export default class TimelinePublication extends LitElement {
             font-size: 16px;
             font-weight: 450;
         }
+
+        .tags {
+            display: flex;
+            column-gap: 10px;
+            margin-bottom: 14px;
+        }
     `;
 
     @property({ type: String })
     content?: string;
 
     render() {
-        return html`<div class="timeline-element-content">${this.content}</div>`;
+        return html`<div class="timeline-element-content">
+            <div class="tags">
+                <slot name="tags"></slot>
+            </div>
+            ${this.content}
+        </div>`;
     }
 }
 

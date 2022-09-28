@@ -32,6 +32,7 @@ Encore.setOutputPath("public/build/")
         "component:CurrentTime": "./assets/components/CurrentTime",
         "component:FeatherIcon": "./assets/components/FeatherIcon.ts",
         "component:TimeElapsed": "./assets/components/TimeElapsed.ts",
+        "component:Tag": "./assets/components/Tag.ts",
     })
 
     .splitEntryChunks()
