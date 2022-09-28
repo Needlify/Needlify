@@ -26,6 +26,7 @@ class ClassifierTest extends KernelTestCase
     public function testId(): void
     {
         $tag = new Tag();
+        $tag->setName('tagTest');
         $this->em->persist($tag);
         $this->assertInstanceOf(Uuid::class, $tag->getId());
         $this->em->remove($tag);
@@ -59,6 +60,7 @@ class ClassifierTest extends KernelTestCase
     public function testCreatedAt(): void
     {
         $tag = new Tag();
+        $tag->setName('tagTest');
         $this->em->persist($tag);
         $this->assertInstanceOf(DateTimeImmutable::class, $tag->getCreatedAt());
         $this->em->remove($tag);
@@ -67,8 +69,22 @@ class ClassifierTest extends KernelTestCase
     public function testLastUseAt(): void
     {
         $tag = new Tag();
+        $tag->setName('tagTest');
         $this->em->persist($tag);
         $this->assertInstanceOf(DateTime::class, $tag->getLastUseAt());
+        $this->em->remove($tag);
+    }
+
+    public function testSlug(): void
+    {
+        $tag = new Tag();
+
+        $name = 'tagTest';
+        $hash = hash('adler32', $name);
+
+        $tag->setName($name);
+        $this->em->persist($tag);
+        $this->assertEquals('tagTest-' . $hash, $tag->getSlug());
         $this->em->remove($tag);
     }
 }

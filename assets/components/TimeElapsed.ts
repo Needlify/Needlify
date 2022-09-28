@@ -1,27 +1,29 @@
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import moment from "moment-timezone";
+import { DateTime, Interval } from "luxon";
 
 const tag = "time-elapsed";
 
 @customElement(tag)
 export default class TimeElapsed extends LitElement {
+    /**
+     * Date of the publication in ISO-8601 format
+     */
     @property({ type: Date })
     date = Date.now();
 
-    constructor() {
-        super();
-        moment.locale(Intl.DateTimeFormat().resolvedOptions().locale);
+    get publishedAtWithTimezone(): string {
+        return DateTime.fromISO(this.date.toString()).toLocal().toLocaleString(DateTime.DATETIME_MED);
     }
 
-    get publishedAtWithTimezone() {
-        const publishedAtWithUserTimezone = moment.tz(this.date, Intl.DateTimeFormat().resolvedOptions().timeZone);
-        return publishedAtWithUserTimezone.format("LLL");
-    }
+    getDateDiff(): string | null {
+        const publishedAt = DateTime.fromISO(this.date.toString()).setZone("utc");
+        const now = DateTime.utc();
 
-    getDateDiff(): string {
-        const publishedAt = moment.tz(this.date, "UTC");
-        return moment(publishedAt).fromNow();
+        return DateTime.now()
+            .toLocal()
+            .minus({ seconds: Interval.fromDateTimes(publishedAt, now).length("seconds") })
+            .toRelative();
     }
 
     render() {

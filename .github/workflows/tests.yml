@@ -85,10 +85,10 @@ jobs:
               run: php bin/console doctrine:fixtures:load --env=test --no-interaction
 
             - name: Run PHP static tests
-              run: composer run stan-github
+              run: composer run stan:github
 
             - name: Run PHP CS tests
-              run: composer run cs-check
+              run: composer run cs:check
 
             - name: Run PHP unit tests
               run: composer run test

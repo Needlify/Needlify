@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ThreadRepository;
+use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Doctrine\DBAL\Types\Types;
@@ -43,6 +44,11 @@ abstract class Thread
     public function getPublishedAt(): ?DateTimeImmutable
     {
         return $this->publishedAt;
+    }
+
+    public function getPublishedAtToISO8601(): string
+    {
+        return $this->publishedAt->format(DateTime::ATOM);
     }
 
     #[ORM\PrePersist]

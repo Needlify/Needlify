@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 const Encore = require("@symfony/webpack-encore");
-const MomentLocalesPlugin = require("moment-locales-webpack-plugin");
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
     Encore.configureRuntimeEnvironment(process.env.NODE_ENV || "dev");
@@ -15,12 +14,6 @@ Encore.setOutputPath("public/build/")
     .configureFontRule({
         type: "asset",
     })
-
-    .addPlugin(
-        new MomentLocalesPlugin({
-            localesToKeep: ["fr"],
-        }),
-    )
 
     .addEntries({
         /* Styles */
