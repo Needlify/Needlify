@@ -35,7 +35,7 @@ class EventFixture extends Fixture
         /** @var $topics Topic[] */
         foreach ($topics as $topic) {
             $event = new Event();
-            $event->setMessage(EventMessage::NEW_TOPIC->format([$topic->getName(), $topic->getSlug()]))
+            $event->setMessage(EventMessage::NEW_TOPIC->format([$topic->getName()]))
                 ->setAuthor($this->faker->randomElement($users));
 
             $manager->persist($event);
