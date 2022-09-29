@@ -14,6 +14,7 @@ export default class Tag extends LitElement {
 
     static styles = css`
         .tag {
+            font-family: Supreme;
             display: inline-flex;
             align-items: center;
             color: var(--dark-soft);

@@ -9,11 +9,16 @@ export default class TimeElapsed extends LitElement {
     /**
      * Date of the publication in ISO-8601 format
      */
-    @property({ type: Date })
-    date = Date.now();
+    @property({ type: String })
+    date: string = DateTime.now().toISO();
 
     get publishedAtWithTimezone(): string {
         return DateTime.fromISO(this.date.toString()).toLocal().toLocaleString(DateTime.DATETIME_MED);
+    }
+
+    connectedCallback(): void {
+        super.connectedCallback();
+        console.log(this.date);
     }
 
     getDateDiff(): string | null {

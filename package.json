@@ -20,6 +20,7 @@
         "@storybook/addon-essentials": "^6.5.12",
         "@storybook/addon-links": "^6.5.12",
         "@storybook/builder-vite": "^0.2.3",
+        "@storybook/preset-scss": "^1.0.3",
         "@storybook/web-components": "^6.5.12",
         "@symfony/webpack-encore": "^3.0.0",
         "@types/feather-icons": "^4.7.0",
@@ -51,10 +52,10 @@
         "webpack-notifier": "^1.15.0"
     },
     "dependencies": {
-        "vue": "^3.2.40",
+        "feather-icons": "^4.29.0",
         "lit": "^2.3.1",
         "luxon": "^3.0.4",
-        "feather-icons": "^4.29.0",
-        "normalize.css": "^8.0.1"
+        "normalize.css": "^8.0.1",
+        "vue": "^3.2.40"
     }
 }

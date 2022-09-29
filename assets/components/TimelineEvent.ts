@@ -26,7 +26,6 @@ export default class TimelineEvent extends LitElement {
 
         a:hover {
             color: var(--dark);
-            font-weight: bold;
         }
 
         .date {
@@ -38,8 +37,8 @@ export default class TimelineEvent extends LitElement {
     @property({ type: String })
     content?: string;
 
-    @property({ type: Date })
-    date?: Date;
+    @property({ type: String })
+    date?: string;
 
     render() {
         return html` <div class="timeline-element-content">

@@ -13,7 +13,7 @@ type FeatherIconProps = {
 // More on default export: https://storybook.js.org/docs/web-components/writing-stories/introduction#default-export
 // https://storybook.js.org/docs/web-components/writing-docs/doc-block-argstable
 export default {
-    title: "Global",
+    title: "Utilitary",
     component: "feather-icon",
     argTypes: {
         icon: {
