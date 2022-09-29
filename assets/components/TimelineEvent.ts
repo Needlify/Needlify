@@ -44,7 +44,7 @@ export default class TimelineEvent extends LitElement {
         return html` <div class="timeline-element-content">
             <span>${unsafeHTML(this.content)}</span>
             <span>•</span>
-            <time-elapsed class="date" date="${this.date}" />
+            <time-elapsed class="date" date="${this.date}"></time-elapsed>
         </div>`;
     }
 }

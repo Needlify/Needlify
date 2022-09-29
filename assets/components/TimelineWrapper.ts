@@ -26,7 +26,7 @@ export default class TimelineWrapper extends LitElement {
 
     render() {
         return html`<div id="timeline">
-            <slot />
+            <slot></slot>
         </div>`;
     }
 }

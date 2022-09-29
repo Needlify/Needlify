@@ -18,7 +18,7 @@ class FeedController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/', name: 'app_home')]
+    #[Route('/', name: 'app_home', options: ['expose' => true])]
     public function index(): Response
     {
         $posts = $this->em->getRepository(Thread::class)->findAll();

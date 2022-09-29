@@ -45,9 +45,9 @@ export default class TimelineThread extends LitElement {
     render() {
         return html`<div class="timeline-element">
             <div class="timeline-icon-container" style="background-color: ${ThreadIcon[this.type].color}">
-                <feather-icon icon="${ThreadIcon[this.type].icon}" color="#ebeffd" strokeWidth="2.5px" size="16px" />
+                <feather-icon icon="${ThreadIcon[this.type].icon}" color="#ebeffd" strokeWidth="2.5px" size="16px"></feather-icon>
             </div>
-            <slot />
+            <slot></slot>
         </div>`;
     }
 }

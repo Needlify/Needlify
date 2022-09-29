@@ -16,11 +16,6 @@ export default class TimeElapsed extends LitElement {
         return DateTime.fromISO(this.date.toString()).toLocal().toLocaleString(DateTime.DATETIME_MED);
     }
 
-    connectedCallback(): void {
-        super.connectedCallback();
-        console.log(this.date);
-    }
-
     getDateDiff(): string | null {
         const publishedAt = DateTime.fromISO(this.date.toString()).setZone("utc");
         const now = DateTime.utc();
