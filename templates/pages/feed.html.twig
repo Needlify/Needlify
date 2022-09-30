@@ -8,6 +8,20 @@
 
 {% endblock stylesheets %}
 
+{% block javascripts %}
+    {{ encore_entry_script_tags("component:Tag") }}
+    {{ encore_entry_script_tags("component:TimeElapsed") }}
+    {{ encore_entry_script_tags("component:TagContainer") }}
+
+    {{ encore_entry_script_tags("component:TimelineWrapper") }}
+    {{ encore_entry_script_tags("component:TimelineThread") }}
+    {{ encore_entry_script_tags("component:TimelineEvent") }}
+    {{ encore_entry_script_tags("component:TimelinePublication") }}
+
+    {{ encore_entry_script_tags("component:TimelineThreadTitle") }}
+    {{ encore_entry_script_tags("component:TimelineThreadContent") }}
+{% endblock javascripts %}
+
 {% block body %}
     <h1 class="text-2xl">
         Activity log
@@ -44,17 +58,3 @@
         {% endfor %}
     </timeline-wrapper>
 {% endblock body %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags("component:Tag") }}
-    {{ encore_entry_script_tags("component:TimeElapsed") }}
-    {{ encore_entry_script_tags("component:TagContainer") }}
-
-    {{ encore_entry_script_tags("component:TimelineWrapper") }}
-    {{ encore_entry_script_tags("component:TimelineThread") }}
-    {{ encore_entry_script_tags("component:TimelineEvent") }}
-    {{ encore_entry_script_tags("component:TimelinePublication") }}
-
-    {{ encore_entry_script_tags("component:TimelineThreadTitle") }}
-    {{ encore_entry_script_tags("component:TimelineThreadContent") }}
-{% endblock javascripts %}
