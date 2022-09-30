@@ -94,4 +94,9 @@ abstract class Classifier
         $slugger = new AsciiSlugger();
         $this->slug = $slugger->slug($this->name) . '-' . hash('adler32', $this->name);
     }
+
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

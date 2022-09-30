@@ -29,7 +29,8 @@ Encore.setOutputPath("public/build/")
 
         /* Custom elements */
         "component:TimelineWrapper": "./assets/components/TimelineWrapper.ts",
-        "component:TimelinePublication": "./assets/components/TimelinePublication.ts",
+        "component:TimelineArticle": "./assets/components/TimelineArticle.ts",
+        "component:TimelineMoodline": "./assets/components/TimelineMoodline.ts",
         "component:TimelineEvent": "./assets/components/TimelineEvent.ts",
         "component:TimelineThread": "./assets/components/TimelineThread.ts",
         "component:CurrentTime": "./assets/components/CurrentTime",
@@ -54,9 +55,7 @@ Encore.setOutputPath("public/build/")
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
 
-    .configureBabel(config => {
-        config.plugins.push("@babel/plugin-proposal-class-properties");
-    })
+    // .configureBabel(config => {})
 
     .configureBabelPresetEnv(config => {
         config.useBuiltIns = "usage";

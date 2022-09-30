@@ -43,12 +43,12 @@ export default class TimelineThread extends LitElement {
     type: ThreadTypeVariation = "article";
 
     render() {
-        return html`<div class="timeline-element">
+        return html`
             <div class="timeline-icon-container" style="background-color: ${ThreadIcon[this.type].color}">
                 <feather-icon icon="${ThreadIcon[this.type].icon}" color="#ebeffd" strokeWidth="2.5px" size="16px"></feather-icon>
             </div>
             <slot></slot>
-        </div>`;
+        `;
     }
 }
 

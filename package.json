@@ -15,6 +15,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.19.3",
+        "@babel/preset-env": "^7.19.3",
         "@storybook/addon-a11y": "^6.5.12",
         "@storybook/addon-actions": "^6.5.12",
         "@storybook/addon-essentials": "^6.5.12",
@@ -22,7 +23,7 @@
         "@storybook/builder-vite": "^0.2.3",
         "@storybook/preset-scss": "^1.0.3",
         "@storybook/web-components": "^6.5.12",
-        "@symfony/webpack-encore": "^3.0.0",
+        "@symfony/webpack-encore": "^4.0.0",
         "@types/feather-icons": "^4.7.0",
         "@types/luxon": "^3.0.1",
         "@typescript-eslint/eslint-plugin": "^5.38.1",
@@ -50,6 +51,8 @@
         "vite": "^3.1.4",
         "vitest": "^0.23.4",
         "vue-loader": "^17.0.0",
+        "webpack": "^5.74.0",
+        "webpack-cli": "^4.10.0",
         "webpack-notifier": "^1.15.0"
     },
     "dependencies": {

@@ -6,7 +6,7 @@ const tag = "timeline-wrapper";
 @customElement(tag)
 export default class TimelineWrapper extends LitElement {
     static styles = css`
-        #timeline {
+        :host {
             width: calc(100% - 50px);
             padding-left: 50px;
             position: relative;
@@ -25,9 +25,7 @@ export default class TimelineWrapper extends LitElement {
     }
 
     render() {
-        return html`<div id="timeline">
-            <slot></slot>
-        </div>`;
+        return html`<slot></slot>`;
     }
 }
 

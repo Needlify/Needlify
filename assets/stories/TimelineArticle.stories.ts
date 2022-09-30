@@ -1,8 +1,8 @@
 import { Meta } from "@storybook/web-components";
 import { html } from "lit";
-import "../components/TimelinePublication";
+import "../components/TimelineArticle";
 
-type PublicationProps = {
+type ArticleProps = {
     content?: string;
 };
 
@@ -10,7 +10,7 @@ type PublicationProps = {
 // https://storybook.js.org/docs/web-components/writing-docs/doc-block-argstable
 export default {
     title: "Timeline",
-    component: "timeline-publication",
+    component: "timeline-article",
     argTypes: {
         content: {
             defaultValue:
@@ -23,10 +23,10 @@ export default {
     },
 } as Meta;
 
-export const Publication = (args: PublicationProps) => html` <timeline-publication content="${args.content}">
+export const Publication = (args: ArticleProps) => html` <timeline-article content="${args.content}">
     <div slot="tags">
         <x-tag name="example1"></x-tag>
         <x-tag name="example2"></x-tag>
         <x-tag name="example3"></x-tag>
     </div>
-</timeline-publication>`;
+</timeline-article>`;

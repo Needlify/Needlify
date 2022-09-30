@@ -8,7 +8,7 @@ const tag = "timeline-event";
 @customElement(tag)
 export default class TimelineEvent extends LitElement {
     static styles = css`
-        .timeline-element-content {
+        :host {
             line-height: 26px;
             color: var(--dark-soft);
             font-size: 16px;
@@ -41,11 +41,11 @@ export default class TimelineEvent extends LitElement {
     date?: string;
 
     render() {
-        return html` <div class="timeline-element-content">
+        return html`
             <span>${unsafeHTML(this.content)}</span>
             <span>•</span>
             <time-elapsed class="date" date="${this.date}"></time-elapsed>
-        </div>`;
+        `;
     }
 }
 

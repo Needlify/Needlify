@@ -19,9 +19,7 @@
         "allowUnreachableCode": false,
         "declaration": false,
         "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "jsx": "react",
-        "jsxFactory": "h"
+        "noUnusedParameters": true
     },
 
     "include": ["assets/**/*.ts"],
