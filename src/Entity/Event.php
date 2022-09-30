@@ -7,6 +7,8 @@ use App\Repository\EventRepository;
 use App\Service\ThreadType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
@@ -34,11 +36,15 @@ class Event extends Thread implements ThreadInterface
         return $this;
     }
 
+    #[SerializedName('type')]
+    #[Groups(['thread:extend'])]
     public function getType(): string
     {
         return ThreadType::EVENT->value;
     }
 
+    #[SerializedName('preview')]
+    #[Groups(['thread:extend'])]
     public function getPreview(): string
     {
         return $this->getMessage();

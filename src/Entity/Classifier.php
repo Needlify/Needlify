@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -31,6 +32,7 @@ abstract class Classifier
     #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
     #[Assert\NotBlank(message: "Le nom d'un classificateur ne peut pas être vide")]
     #[Assert\Length(max: 50, maxMessage: "Le nom d'un classificateur ne peut pas dépasser {{ limite }} caractères")]
+    #[Groups(['thread:extend'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
@@ -42,6 +44,7 @@ abstract class Classifier
     #[ORM\Column(type: Types::STRING, length: 50)]
     #[Assert\NotBlank(message: "Le slug d'un classificateur ne pas être vide")]
     #[Assert\Length(max: 50, maxMessage: "Le slug d'un classificateur ne peut pas dépasser {{ limite }} caractères")]
+    #[Groups(['thread:extend'])]
     private ?string $slug = null;
 
     public function getId(): ?Uuid

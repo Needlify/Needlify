@@ -16,3 +16,9 @@ export const ThreadIcon = {
         // color: "#7d8597",
     },
 } as ThreadIconAssociationType;
+
+export const ThreadTypeVariationEnum = {
+    ARTICLE: "article",
+    MOODLINE: "moodline",
+    EVENT: "event",
+};

@@ -6,6 +6,7 @@ use App\Repository\PublicationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
@@ -20,9 +21,11 @@ abstract class Publication extends Thread
 {
     #[ORM\ManyToOne(inversedBy: 'publications')]
     #[Assert\NotNull(message: "Le topic d'une publication doit être renseigné")]
+    #[Groups(['thread:extend'])]
     protected ?Topic $topic = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'publications')]
+    #[Groups(['thread:extend'])]
     protected Collection $tags;
 
     public function __construct()

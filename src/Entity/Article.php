@@ -7,6 +7,8 @@ use App\Repository\ArticleRepository;
 use App\Service\ThreadType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -17,6 +19,7 @@ class Article extends Publication implements ThreadInterface
     #[ORM\Column(type: Types::STRING, length: 120)]
     #[Assert\NotBlank(message: "Le titre d'un article ne pas être vide")]
     #[Assert\Length(max: 120, maxMessage: "Le titre d'un article ne peut pas dépasser {{ limite }} caractères")]
+    #[Groups(['thread:extend'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::STRING, length: 500)]
@@ -26,6 +29,7 @@ class Article extends Publication implements ThreadInterface
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: "La contenu de l'article ne pas être vide")]
+    #[Groups(['thread:extend'])]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::INTEGER)]
@@ -35,6 +39,7 @@ class Article extends Publication implements ThreadInterface
     #[ORM\Column(type: Types::STRING, length: 130)]
     #[Assert\NotBlank(message: "Le slug de l'article ne pas être vide")]
     #[Assert\Length(max: 130, maxMessage: "Le slug d'un article ne peut pas dépasser {{ limite }} caractères")]
+    #[Groups(['thread:extend'])]
     private ?string $slug = null;
 
     public function getTitle(): ?string
@@ -103,11 +108,15 @@ class Article extends Publication implements ThreadInterface
         $this->slug = $slugger->slug($this->title) . '-' . hash('adler32', $this->title);
     }
 
+    #[SerializedName('type')]
+    #[Groups(['thread:extend'])]
     public function getType(): string
     {
         return ThreadType::ARTICLE->value;
     }
 
+    #[SerializedName('preview')]
+    #[Groups(['thread:extend'])]
     public function getPreview(): string
     {
         return $this->getDescription();

@@ -7,6 +7,8 @@ use App\Repository\MoodlineRepository;
 use App\Service\ThreadType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MoodlineRepository::class)]
@@ -29,11 +31,15 @@ class Moodline extends Publication implements ThreadInterface
         return $this;
     }
 
+    #[SerializedName('type')]
+    #[Groups(['thread:extend'])]
     public function getType(): string
     {
         return ThreadType::MOODLINE->value;
     }
 
+    #[SerializedName('preview')]
+    #[Groups(['thread:extend'])]
     public function getPreview(): string
     {
         return $this->getContent();
