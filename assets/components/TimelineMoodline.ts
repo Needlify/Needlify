@@ -14,26 +14,12 @@ export default class TimelineMoodline extends LitElement {
             padding: 22px;
             display: flex;
             flex-direction: column;
-            row-gap: 10px;
+            row-gap: 16px;
         }
 
         slot,
         slot[name] {
             display: contents;
-        }
-
-        .content {
-            line-height: 24px;
-            color: var(--dark-very-soft);
-            font-size: 16px;
-            font-weight: 450;
-
-            text-overflow: ellipsis;
-            overflow: hidden;
-            display: -webkit-box !important;
-            -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical;
-            white-space: normal;
         }
 
         .publishedAt {
@@ -44,15 +30,12 @@ export default class TimelineMoodline extends LitElement {
     `;
 
     @property({ type: String })
-    content!: string;
-
-    @property({ type: String })
     date!: string;
 
     render() {
         return html`
             <slot name="tags"></slot>
-            <div class="content">${this.content}</div>
+            <slot name="preview"></slot>
             <time-elapsed class="publishedAt" date="${this.date}"></time-elapsed>
         `;
     }

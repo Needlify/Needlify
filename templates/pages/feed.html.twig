@@ -5,9 +5,7 @@
 {% endblock title %}
 
 {% block stylesheets %}
-    <style>
-        .tag-container { display: flex; column-gap: 10px; }
-    </style>
+
 {% endblock stylesheets %}
 
 {% block body %}
@@ -19,26 +17,32 @@
         {% for post in posts %}
             {% if post|instanceOf("App\\Entity\\Article") %}
                 <timeline-thread type="{{ post.type }}">
-                    <timeline-article description="{{ post.preview }}" maintitle="{{ post.title }}" date="{{ post.publishedAtToISO8601 }}">
+                    <timeline-article maintitle="{{ post.title }}" date="{{ post.publishedAtToISO8601 }}">
                         {% if post.tags is not empty %}
-                            <div slot="tags" class="tag-container">
+                            <tag-container slot="tags">
                                 {% for tag in post.tags %}
                                     <x-tag name="{{ tag.name }}"></x-tag>
                                 {% endfor %}
-                            </div>
+                            </tag-container>
                         {% endif %}
+                        <timeline-thread-content slot="preview" lines="4">
+                            {{ post.preview }}
+                        </timeline-thread-content>
                     </timeline-article>
                 </timeline-thread>
             {% elseif post|instanceOf("App\\Entity\\Moodline") %}
                 <timeline-thread type="{{ post.type }}">
-                    <timeline-moodline content="{{ post.preview }}" date="{{ post.publishedAtToISO8601 }}">
+                    <timeline-moodline date="{{ post.publishedAtToISO8601 }}">
                         {% if post.tags is not empty %}
-                            <div slot="tags" class="tag-container">
+                            <tag-container slot="tags">
                                 {% for tag in post.tags %}
                                     <x-tag name="{{ tag.name }}"></x-tag>
                                 {% endfor %}
-                            </div>
+                            </tag-container>
                         {% endif %}
+                        <timeline-thread-content slot="preview">
+                            {{ post.preview }}
+                        </timeline-thread-content>
                     </timeline-moodline>
                 </timeline-thread>
             {% else %}
@@ -58,4 +62,6 @@
     {{ encore_entry_script_tags("component:TimelineThread") }}
     {{ encore_entry_script_tags("component:Tag") }}
     {{ encore_entry_script_tags("component:TimeElapsed") }}
+    {{ encore_entry_script_tags("component:TagContainer") }}
+    {{ encore_entry_script_tags("component:TimelineThreadContent") }}
 {% endblock javascripts %}

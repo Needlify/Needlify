@@ -53,9 +53,6 @@ export default class TimelineArticle extends LitElement {
     }
 
     @property({ type: String })
-    description!: string;
-
-    @property({ type: String })
     mainTitle!: string;
 
     @property({ type: String })
@@ -66,7 +63,7 @@ export default class TimelineArticle extends LitElement {
             <h3>${this.mainTitle}</h3>
             <time-elapsed class="publishedAt" date="${this.date}"></time-elapsed>
             <slot name="tags"></slot>
-            <div class="description">${this.description}</div>
+            <slot name="preview"></slot>
         `;
     }
 }
