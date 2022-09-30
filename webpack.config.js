@@ -29,8 +29,7 @@ Encore.setOutputPath("public/build/")
 
         /* Custom elements */
         "component:TimelineWrapper": "./assets/components/TimelineWrapper.ts",
-        "component:TimelineArticle": "./assets/components/TimelineArticle.ts",
-        "component:TimelineMoodline": "./assets/components/TimelineMoodline.ts",
+        "component:TimelinePublication": "./assets/components/TimelinePublication.ts",
         "component:TimelineEvent": "./assets/components/TimelineEvent.ts",
         "component:TimelineThread": "./assets/components/TimelineThread.ts",
         "component:CurrentTime": "./assets/components/CurrentTime",
@@ -39,6 +38,7 @@ Encore.setOutputPath("public/build/")
         "component:Tag": "./assets/components/Tag.ts",
         "component:TagContainer": "./assets/components/TagContainer.ts",
         "component:TimelineThreadContent": "./assets/components/TimelineThreadContent.ts",
+        "component:TimelineThreadTitle": "./assets/components/TimelineThreadTitle.ts",
     })
 
     .splitEntryChunks()

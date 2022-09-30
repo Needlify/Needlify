@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/web-components";
 import { html } from "lit";
-import "../components/TimelineArticle";
+import "../components/TimelinePublication";
 
 type ArticleProps = {
     content?: string;

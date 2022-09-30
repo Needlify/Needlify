@@ -2,10 +2,10 @@ import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "./TimeElapsed";
 
-const tag = "timeline-moodline";
+const tag = "timeline-publication";
 
 @customElement(tag)
-export default class TimelineMoodline extends LitElement {
+export default class TimelinePublication extends LitElement {
     static styles = css`
         :host {
             background-color: var(--white);
@@ -17,15 +17,15 @@ export default class TimelineMoodline extends LitElement {
             row-gap: 16px;
         }
 
-        slot,
-        slot[name] {
-            display: contents;
-        }
-
         .publishedAt {
             font-size: 14px;
             color: var(--light-dark);
             display: block;
+        }
+
+        slot,
+        slot[name] {
+            display: contents;
         }
     `;
 
@@ -34,15 +34,16 @@ export default class TimelineMoodline extends LitElement {
 
     render() {
         return html`
+            <slot name="title"></slot>
+            <time-elapsed class="publishedAt" date="${this.date}"></time-elapsed>
             <slot name="tags"></slot>
             <slot name="preview"></slot>
-            <time-elapsed class="publishedAt" date="${this.date}"></time-elapsed>
         `;
     }
 }
 
 declare global {
     interface HTMLElementTagNameMap {
-        [tag]: TimelineMoodline;
+        [tag]: TimelinePublication;
     }
 }

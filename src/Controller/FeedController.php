@@ -21,7 +21,7 @@ class FeedController extends AbstractController
     #[Route('/', name: 'app_home', options: ['expose' => true])]
     public function index(): Response
     {
-        $posts = $this->em->getRepository(Thread::class)->findAll();
+        $posts = $this->em->getRepository(Thread::class)->findBy([], ['publishedAt' => 'DESC']);
 
         return $this->render('pages/feed.html.twig', [
             'posts' => $posts,
