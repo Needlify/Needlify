@@ -5,17 +5,13 @@
 {% endblock title %}
 
 {% block stylesheets %}
-
+    {{ encore_entry_link_tags("page:feed") }}
 {% endblock stylesheets %}
 
-{% block javascripts %}
-
-{% endblock javascripts %}
-
 {% block body %}
-    <h1>
-        Activity log
+    <h1 id="title">
+        Fil d'actualités
     </h1>
 
-    <div {{ vue_component("MyComponent") }}></div>
+    <div {{ vue_component("TimelineWrapper") }}></div>
 {% endblock body %}

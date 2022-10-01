@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "./FeatherIcon";

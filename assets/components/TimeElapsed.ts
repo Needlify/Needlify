@@ -1,4 +1,5 @@
-import { html, LitElement } from "lit";
+/* eslint-disable no-unused-vars */
+import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { DateTime, Interval } from "luxon";
 
@@ -6,6 +7,12 @@ const tag = "time-elapsed";
 
 @customElement(tag)
 export default class TimeElapsed extends LitElement {
+    static styles = css`
+        div {
+            display: inline-block;
+        }
+    `;
+
     /**
      * Date of the publication in ISO-8601 format
      */
@@ -27,7 +34,7 @@ export default class TimeElapsed extends LitElement {
     }
 
     render() {
-        return html`<span title="${this.publishedAtWithTimezone}">${this.getDateDiff()}</span>`;
+        return html`<div title="${this.publishedAtWithTimezone}">${this.getDateDiff()}</div>`;
     }
 }
 

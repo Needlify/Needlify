@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Thread;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -43,6 +44,23 @@ class ThreadRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllWithPagination(int $offset = 0)
+    {
+        $query = $this->createQueryBuilder('t')
+            ->orderBy('t.publishedAt', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults(50);
+
+        $paginator = new Paginator($query->getQuery());
+
+        $total = count($paginator);
+
+        return [
+            'total' => $total,
+            'data' => $paginator->getQuery()->getResult(),
+        ];
     }
 
 //    /**

@@ -28,6 +28,9 @@ Encore.setOutputPath("public/build/")
         "style:header": "./assets/styles/layout/header.scss",
         "style:reset": "./assets/styles/reset.ts",
 
+        /* Page Style */
+        "page:feed": "./assets/styles/pages/feed.scss",
+
         /* Typescript files */
         "file:App": "./assets/app.ts",
 
@@ -35,6 +38,7 @@ Encore.setOutputPath("public/build/")
         "component:Spinner": "./assets/components/Spinner.ts",
         "component:FeatherIcon": "./assets/components/FeatherIcon.ts",
         "component:TimeElapsed": "./assets/components/TimeElapsed.ts",
+        "component:Tag": "./assets/components/Tag.ts",
     })
 
     .splitEntryChunks()

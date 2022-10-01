@@ -22,7 +22,8 @@
         "allowUnreachableCode": false,
         "declaration": false,
         "noUnusedLocals": false,
-        "noUnusedParameters": false
+        "noUnusedParameters": false,
+        "noImplicitAny": false
     },
 
     "include": ["assets/**/*.ts", "assets/**/*.d.ts", "assets/**/*.vue"],

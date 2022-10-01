@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { css, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "./FeatherIcon";
@@ -35,7 +36,17 @@ export default class Tag extends LitElement {
             margin: 0;
             font-size: 14px;
             font-weight: 600;
-            line-height: 0px;
+            line-height: 0;
+        }
+
+        @media (max-width: 600px) {
+            .tag {
+                column-gap: 1px;
+                padding: 3px 4px;
+            }
+            span {
+                font-size: 12px;
+            }
         }
     `;
 

@@ -1,0 +1,26 @@
+@import "../mixins";
+
+h1#title {
+    font-size: 30px;
+    margin-bottom: 40px;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 2px;
+        background-color: var(--light-light);
+        bottom: -6px;
+        left: 0;
+    }
+
+    @include maxWidth(600px) {
+        font-size: 24px;
+        margin-bottom: 30px;
+
+        &::before {
+            width: 65px;
+        }
+    }
+}

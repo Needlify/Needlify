@@ -26,7 +26,8 @@
         "import/prefer-default-export": "off",
         "import/no-extraneous-dependencies": "off",
         "vue/no-multiple-template-root": "off",
-        "vue/multi-word-component-names": "off"
+        "vue/multi-word-component-names": "off",
+        "no-console": "off"
     },
     "settings": {
         "import/parsers": {
