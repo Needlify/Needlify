@@ -1,4 +1,7 @@
 {
+    "vueCompilerOptions": {
+        "experimentalDisableTemplateSupport": true
+    },
     "compilerOptions": {
         "isolatedModules": false,
         "useDefineForClassFields": false,
@@ -18,10 +21,11 @@
         "allowSyntheticDefaultImports": true,
         "allowUnreachableCode": false,
         "declaration": false,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true
+        "noUnusedLocals": false,
+        "noUnusedParameters": false
     },
 
-    "include": ["assets/**/*.ts"],
+    "include": ["assets/**/*.ts", "assets/**/*.d.ts", "assets/**/*.vue"],
+
     "exclude": ["node_modules", "public/build"]
 }

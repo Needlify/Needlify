@@ -1,8 +1,8 @@
 {
-    "[javascript][typescript]": {
+    "[javascript][typescript][vue]": {
         "editor.formatOnSave": false
     },
-    "[css][scss][sass][less][json][jsonc][yaml][markdown][twig][vue]": {
+    "[css][scss][sass][less][json][jsonc][yaml][markdown][twig]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },

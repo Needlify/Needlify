@@ -6,3 +6,5 @@ declare module "*.vue" {
 }
 
 declare module "*.scss";
+declare module "@symfony/ux-vue";
+declare module "@symfony/stimulus-bridge";

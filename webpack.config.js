@@ -18,6 +18,9 @@ Encore.setOutputPath("public/build/")
 
     .addPlugin(new FosRouting())
 
+    // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
+    .enableStimulusBridge("./assets/controllers.json")
+
     .addEntries({
         /* Styles */
         "style:global": "./assets/styles/global.scss",
@@ -26,20 +29,12 @@ Encore.setOutputPath("public/build/")
         "style:reset": "./assets/styles/reset.ts",
 
         /* Typescript files */
+        "file:App": "./assets/app.ts",
 
         /* Custom elements */
-        "component:TimelineWrapper": "./assets/components/TimelineWrapper.ts",
-        "component:TimelinePublication": "./assets/components/TimelinePublication.ts",
-        "component:TimelineEvent": "./assets/components/TimelineEvent.ts",
-        "component:TimelineThread": "./assets/components/TimelineThread.ts",
-        "component:CurrentTime": "./assets/components/CurrentTime",
+        "component:Spinner": "./assets/components/Spinner.ts",
         "component:FeatherIcon": "./assets/components/FeatherIcon.ts",
         "component:TimeElapsed": "./assets/components/TimeElapsed.ts",
-        "component:Tag": "./assets/components/Tag.ts",
-        "component:TagContainer": "./assets/components/TagContainer.ts",
-        "component:TimelineThreadContent": "./assets/components/TimelineThreadContent.ts",
-        "component:TimelineThreadTitle": "./assets/components/TimelineThreadTitle.ts",
-        "component:Spinner": "./assets/components/Spinner.ts",
     })
 
     .splitEntryChunks()

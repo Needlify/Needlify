@@ -93,12 +93,6 @@ export default class TimelineWrapper extends LitElement {
         `;
     }
 
-    hasUpdated() {
-        console.log("updated");
-        console.log(this.shadowRoot?.host.querySelector("timeline-thread:last-child"));
-        return true;
-    }
-
     render() {
         // console.log(this.shadowRoot?.host.querySelector("timeline-thread:last-child"));
         // this.shadowRoot?.host.querySelector("timeline-thread:last-child")?.classList.add("last");
