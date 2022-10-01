@@ -1,4 +1,4 @@
 import { defineCustomElement } from "vue";
-import CurrentTime from "./CurrentTime.ce.vue";
+import MyCounter from "./index.ce.vue";
 
-customElements.define("current-time", defineCustomElement(CurrentTime));
+customElements.define("my-counter", defineCustomElement(MyCounter));

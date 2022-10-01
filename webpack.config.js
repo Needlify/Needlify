@@ -39,6 +39,7 @@ Encore.setOutputPath("public/build/")
         "component:TagContainer": "./assets/components/TagContainer.ts",
         "component:TimelineThreadContent": "./assets/components/TimelineThreadContent.ts",
         "component:TimelineThreadTitle": "./assets/components/TimelineThreadTitle.ts",
+        "component:Spinner": "./assets/components/Spinner.ts",
     })
 
     .splitEntryChunks()

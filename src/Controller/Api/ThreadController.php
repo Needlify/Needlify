@@ -16,6 +16,8 @@ class ThreadController extends AbstractController
     #[Route('/threads', 'api_get_threads', methods: ['GET'])]
     public function getUsersAction(ThreadRepository $threadRepository): JsonResponse
     {
+        sleep(3);
+
         return $this->json($threadRepository->findBy([], ['publishedAt' => 'DESC'], 5), context: ['groups' => 'thread:extend']);
     }
 

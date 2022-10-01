@@ -1,14 +1,10 @@
 {
-    "[javascript][typescript][vue]": {
+    "[javascript][typescript]": {
         "editor.formatOnSave": false
     },
-    "[css][scss][sass][less][json][jsonc][yaml][markdown]": {
+    "[css][scss][sass][less][json][jsonc][yaml][markdown][twig][vue]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[twig]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.formatOnSave": true
     },
     "[php]": {
         "editor.defaultFormatter": "junstyle.php-cs-fixer",

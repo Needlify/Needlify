@@ -21,4 +21,5 @@ export const ThreadTypeVariationEnum = {
     ARTICLE: "article",
     MOODLINE: "moodline",
     EVENT: "event",
+    PUBLICATION: ["article", "moodline"],
 };
