@@ -18,5 +18,9 @@
         Fil d'actualités
     </h1>
 
+    <pre>
+        {{ dump(posts[0].publishedAt, posts[0].publishedAtToISO8601) }}
+    </pre>
+
     <div {{ vue_component("TimelineWrapper") }}></div>
 {% endblock body %}

@@ -5,11 +5,11 @@
     "compilerOptions": {
         "isolatedModules": false,
         "useDefineForClassFields": false,
-        "target": "ES6",
+        "target": "ES2022",
         "moduleResolution": "Node",
         "importHelpers": true,
         "skipDefaultLibCheck": true,
-        "module": "ES6",
+        "module": "ES2022",
         "strict": true,
         "sourceMap": true,
         "resolveJsonModule": true,

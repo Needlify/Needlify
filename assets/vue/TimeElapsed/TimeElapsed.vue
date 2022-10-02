@@ -14,7 +14,7 @@ const props = defineProps({
 });
 
 const getDateDiff = computed<string | null>(() => {
-    const publishedAt = DateTime.fromISO(props.date.toString()).setZone("utc");
+    const publishedAt = DateTime.fromISO(props.date).setZone("utc");
     const now = DateTime.utc();
 
     return DateTime.now()
@@ -23,7 +23,7 @@ const getDateDiff = computed<string | null>(() => {
         .toRelative();
 });
 
-const publishedAtWithTimezone = computed<string>(() => DateTime.fromISO(props.date.toString()).toLocal().toLocaleString(DateTime.DATETIME_MED));
+const publishedAtWithTimezone = computed<string>(() => DateTime.fromISO(props.date).toLocal().toLocaleString(DateTime.DATETIME_MED));
 </script>
 
 <style lang="scss" scoped>
