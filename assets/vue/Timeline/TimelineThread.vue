@@ -1,14 +1,14 @@
 <template>
     <div class="timeline-thread" :class="{ last: !displayLine }">
         <div class="timeline-icon-container" :style="{ 'background-color': iconColor }">
-            <feather-icon :icon="icon" color="#ebeffd" strokeWidth="2.5px" size="16px"></feather-icon>
+            <feather-icon :icon="icon" color="#ebeffd" stroke-width="2.5px" size="16px"></feather-icon>
         </div>
         <slot></slot>
     </div>
 </template>
 
 <script setup lang="ts">
-import "../../components/FeatherIcon";
+import FeatherIcon from "../FeatherIcon/FeatherIcon.vue";
 
 defineProps({
     icon: {

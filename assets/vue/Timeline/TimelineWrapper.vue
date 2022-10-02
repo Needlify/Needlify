@@ -26,7 +26,7 @@
                     <time-elapsed class="date" :date="thread.publishedAt"></time-elapsed>
 
                     <div class="tag-container" v-show="thread.tags.length > 0">
-                        <x-tag :name="tag.name" v-for="(tag, index) in thread.tags" :key="index"></x-tag>
+                        <tag :name="tag.name" :slug="tag.slug" v-for="(tag, index) in thread.tags" :key="index"></tag>
                     </div>
 
                     <p class="description" :class="{ 'with-max-line': thread.type === ThreadTypeVariationEnum.ARTICLE }">{{ thread.preview }}</p>
@@ -36,7 +36,7 @@
     </section>
 
     <div id="spinner-container" v-show="isLoading">
-        <x-spinner color="#8a9399"></x-spinner>
+        <spinner color="#8a9399"></spinner>
     </div>
 </template>
 
@@ -44,16 +44,17 @@
 import axios, { CancelTokenSource } from "axios";
 import { onMounted, onUpdated, ref } from "vue";
 import Routing from "fos-router";
-import { ThreadIcon, ThreadTypeVariationEnum } from "../enum";
-import TimelineThread from "./components/TimelineThread.vue";
-import type { ThreadsQuery, Thread } from "../types.d";
 
-import "../components/Spinner";
-import "../components/TimeElapsed";
-import "../components/Tag";
+import TimelineThread from "./TimelineThread.vue";
+import Spinner from "../Spinner/Spinner.vue";
+import Tag from "../Tag/Tag.vue";
+import TimeElapsed from "../TimeElapsed/TimeElapsed.vue";
 
-const firstQuery = ref(true);
+import { ThreadIcon, ThreadTypeVariationEnum } from "../../enum";
+import type { ThreadsQuery, Thread } from "../../types.d";
+
 let cancelToken: CancelTokenSource = axios.CancelToken.source();
+const firstQuery = ref(true);
 const isLoading = ref(false);
 const total = ref(-1);
 const offset = ref(0);
@@ -102,11 +103,12 @@ onUpdated(() => {
     console.log(offset.value, total.value);
 });
 
+// TODO Changer l'url
 const generateUrl = () => Routing.generate("app_home");
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/mixins";
+@import "../../styles/mixins";
 
 #timeline {
     width: calc(100% - 50px);

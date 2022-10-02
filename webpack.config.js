@@ -32,13 +32,14 @@ Encore.setOutputPath("public/build/")
         "page:feed": "./assets/styles/pages/feed.scss",
 
         /* Typescript files */
-        "file:App": "./assets/app.ts",
+        // "file:App": "./assets/app.ts",
 
         /* Custom Elements */
-        "component:Spinner": "./assets/components/Spinner.ts",
-        "component:FeatherIcon": "./assets/components/FeatherIcon.ts",
-        "component:TimeElapsed": "./assets/components/TimeElapsed.ts",
-        "component:Tag": "./assets/components/Tag.ts",
+        "component:Timeline": "./assets/vue/Timeline",
+        "component:Spinner": "./assets/vue/Spinner",
+        "component:FeatherIcon": "./assets/vue/FeatherIcon",
+        "component:Tag": "./assets/vue/Tag",
+        "component:TimeElapsed": "./assets/vue/TimeElapsed",
     })
 
     .splitEntryChunks()
