@@ -7,7 +7,7 @@
         "coverage": "vitest run --coverage",
         "dev:server": "encore dev-server",
         "dev": "encore dev",
-        "lint": "eslint ./assets",
+        "lint": "eslint assets/**/*.{js,ts,vue}",
         "storybook": "start-storybook -p 6006",
         "test": "vitest",
         "test:ui": "vitest --ui",
