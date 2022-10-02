@@ -34,7 +34,7 @@ Encore.setOutputPath("public/build/")
         /* Typescript files */
         "file:App": "./assets/app.ts",
 
-        /* Custom elements */
+        /* Custom Elements */
         "component:Spinner": "./assets/components/Spinner.ts",
         "component:FeatherIcon": "./assets/components/FeatherIcon.ts",
         "component:TimeElapsed": "./assets/components/TimeElapsed.ts",

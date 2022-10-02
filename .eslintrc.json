@@ -37,7 +37,9 @@
             "node": {
                 "extensions": [".js", ".ts"]
             },
-            "typescript": {} // this loads <rootdir>/tsconfig.json to eslint
+            "typescript": {
+                "project": "./tsconfig.json"
+            } // this loads <rootdir>/tsconfig.json to eslint
         }
     }
 }
