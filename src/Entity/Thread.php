@@ -32,7 +32,7 @@ abstract class Thread
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     #[Groups(['thread:extend'])]
-    protected ?\DateTimeImmutable $publishedAt = null;
+    protected ?\DateTimeImmutable $publishedAt = null; // publishedAt is the dateTime in UTC/GMT
 
     #[ORM\ManyToOne(inversedBy: 'threads')]
     #[Assert\NotNull(message: "L'auteur d'un thread doit être renseigné")]
@@ -56,7 +56,7 @@ abstract class Thread
     #[ORM\PrePersist]
     public function setPublishedAt(): void
     {
-        $this->publishedAt = new DateTimeImmutable('now', new DateTimeZone('Europe/Paris'));
+        $this->publishedAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
     }
 
     public function getAuthor(): ?User
