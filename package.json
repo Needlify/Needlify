@@ -9,7 +9,8 @@
         "dev": "encore dev",
         "lint": "eslint assets/**/*.{js,ts,vue}",
         "storybook": "start-storybook -p 6006",
-        "test": "vitest",
+        "test": "vitest --run",
+        "test:watch": "vitest",
         "test:ui": "vitest --ui",
         "watch": "encore dev --watch"
     },
