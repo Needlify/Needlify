@@ -1,12 +1,15 @@
 {
+    "vueCompilerOptions": {
+        "experimentalDisableTemplateSupport": true
+    },
     "compilerOptions": {
         "isolatedModules": false,
         "useDefineForClassFields": false,
-        "target": "ES6",
+        "target": "ES2022",
         "moduleResolution": "Node",
         "importHelpers": true,
         "skipDefaultLibCheck": true,
-        "module": "ES6",
+        "module": "ES2022",
         "strict": true,
         "sourceMap": true,
         "resolveJsonModule": true,
@@ -18,10 +21,10 @@
         "allowSyntheticDefaultImports": true,
         "allowUnreachableCode": false,
         "declaration": false,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "noImplicitAny": false
     },
-
-    "include": ["assets/**/*.ts"],
+    "include": ["assets/**/*.ts", "assets/**/*.d.ts", "assets/**/*.vue"],
     "exclude": ["node_modules", "public/build"]
 }

@@ -30,7 +30,7 @@ abstract class Thread
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     #[Groups(['thread:extend'])]
     protected ?\DateTimeImmutable $publishedAt = null;
 
@@ -56,7 +56,7 @@ abstract class Thread
     #[ORM\PrePersist]
     public function setPublishedAt(): void
     {
-        $this->publishedAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+        $this->publishedAt = new DateTimeImmutable('now', new DateTimeZone('Europe/Paris'));
     }
 
     public function getAuthor(): ?User

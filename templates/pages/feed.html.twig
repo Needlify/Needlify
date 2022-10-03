@@ -5,28 +5,22 @@
 {% endblock title %}
 
 {% block stylesheets %}
-
+    {{ encore_entry_link_tags("page:feed") }}
+    {{ encore_entry_link_tags("component:Timeline") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
-    {# {{ encore_entry_script_tags("component:Tag") }} #}
-    {# {{ encore_entry_script_tags("component:TimeElapsed") }} #}
-    {# {{ encore_entry_script_tags("component:TagContainer") }} #}
-
-    {{ encore_entry_script_tags("component:TimelineWrapper") }}
-
-    {# {{ encore_entry_script_tags("component:TimelineThread") }}
-    {{ encore_entry_script_tags("component:TimelineEvent") }}
-    {{ encore_entry_script_tags("component:TimelinePublication") }}
-
-    {{ encore_entry_script_tags("component:TimelineThreadTitle") }}
-    {{ encore_entry_script_tags("component:TimelineThreadContent") }} #}
+    {{ encore_entry_script_tags("component:Timeline") }}
 {% endblock javascripts %}
 
 {% block body %}
-    <h1>
-        Activity log
+    <h1 id="title">
+        Fil d'actualités
     </h1>
 
-    <timeline-wrapper></timeline-wrapper>
+    <pre>
+        {{ dump(posts[0].publishedAt, posts[0].publishedAtToISO8601) }}
+    </pre>
+
+    <div {{ vue_component("TimelineWrapper") }}></div>
 {% endblock body %}
