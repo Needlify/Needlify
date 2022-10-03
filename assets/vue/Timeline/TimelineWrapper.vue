@@ -2,7 +2,7 @@
     <section id="timeline">
         <div v-for="(thread, index) in threads" :key="index">
             <!-- Event -->
-            <timeline-thread v-if="thread.type === 'event'" :icon="ThreadIcon[thread.type].icon" :icon-color="ThreadIcon[thread.type].color" :displayLine="index !== total - 1">
+            <timeline-thread v-if="thread.type === 'event'" :icon="ThreadIcon[thread.type].icon" :icon-color="ThreadIcon[thread.type].color" :display-line="index !== total - 1">
                 <div class="event-content">
                     <span v-html="thread.preview"></span>
                     <span class="dot">•</span>
@@ -11,7 +11,7 @@
             </timeline-thread>
 
             <!-- Publication -->
-            <timeline-thread v-else :icon="ThreadIcon[thread.type].icon" :icon-color="ThreadIcon[thread.type].color" :displayLine="index !== total - 1">
+            <timeline-thread v-else :icon="ThreadIcon[thread.type].icon" :icon-color="ThreadIcon[thread.type].color" :display-line="index !== total - 1">
                 <div class="event-content in-publication">
                     <span>
                         Nouvelle publication dans le topic <a :href="generateUrl(thread.topic.slug)">{{ thread.topic.name }}</a>
@@ -26,7 +26,7 @@
                     <time-elapsed class="date" :date="thread.publishedAt"></time-elapsed>
 
                     <div class="tag-container" v-show="thread.tags.length > 0">
-                        <tag :name="tag.name" :slug="tag.slug" v-for="(tag, index) in thread.tags" :key="index"></tag>
+                        <tag :name="tag.name" :slug="tag.slug" v-for="(tag, indexTag) in thread.tags" :key="indexTag"></tag>
                     </div>
 
                     <p class="description" :class="{ 'with-max-line': thread.type === ThreadTypeVariationEnum.ARTICLE }">{{ thread.preview }}</p>

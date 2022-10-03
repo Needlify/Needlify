@@ -1,6 +1,6 @@
 <template>
     <a class="tag" :href="tagUrl">
-        <FeatherIcon icon="hash" color="#a8a8a8" strokeWidth="2.5px" size="14px"></FeatherIcon>
+        <FeatherIcon icon="hash" color="#a8a8a8" stroke-width="2.5px" size="14px"></FeatherIcon>
         <span>{{ props.name }}</span>
     </a>
 </template>
