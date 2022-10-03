@@ -8,6 +8,6 @@ Location: France
 Name: All the internet for the knowledge
 
 /* SITE */
-Standards: Symfony, Litjs, Docker, Tailwind
+Standards: Symfony, Vue, Docker
 Software: VSCode, Brave, Github
 Motivations: I previously created a community blog but I wanted something more personal.
