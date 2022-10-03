@@ -112,6 +112,11 @@ jobs:
             #   env:
             #       update: true
 
+            - name: Copy test files
+              run: |
+                  cp .ci/.env.test .env
+                  cp .ci/.env.test .env.test
+
             - name: Cache Composer packages
               id: composer-cache
               uses: actions/cache@v2
