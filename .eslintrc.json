@@ -3,7 +3,9 @@
         "browser": true,
         "es2021": true
     },
-    "extends": ["plugin:vue/essential", "airbnb-base", "prettier"],
+    "root": true,
+    "extends": ["plugin:vue/strongly-recommended", "eslint:recommended", "@vue/typescript/recommended", "airbnb-base", "prettier"],
+
     "parser": "vue-eslint-parser",
     "parserOptions": {
         "ecmaVersion": "latest",
