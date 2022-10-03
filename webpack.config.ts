@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable no-undef */
 const Encore = require("@symfony/webpack-encore");
 const FosRouting = require("fos-router/webpack/FosRouting");
 

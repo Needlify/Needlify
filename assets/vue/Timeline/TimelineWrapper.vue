@@ -104,7 +104,7 @@ onUpdated(() => {
 });
 
 // TODO Changer l'url
-const generateUrl = () => Routing.generate("app_home");
+const generateUrl = (slug: string) => Routing.generate("app_home", { slug });
 </script>
 
 <style lang="scss" scoped>

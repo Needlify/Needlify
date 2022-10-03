@@ -25,8 +25,6 @@
         "noUnusedParameters": false,
         "noImplicitAny": false
     },
-
     "include": ["assets/**/*.ts", "assets/**/*.d.ts", "assets/**/*.vue"],
-
     "exclude": ["node_modules", "public/build"]
 }
