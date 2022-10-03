@@ -104,6 +104,26 @@ jobs:
               with:
                   node-version: 16
 
+            # - name: Setup PHP
+            #   uses: shivammathur/setup-php@v2
+            #   with:
+            #       php-version: "8.1"
+            #       extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, opcache, zip, pcov
+            #   env:
+            #       update: true
+
+            - name: Cache Composer packages
+              id: composer-cache
+              uses: actions/cache@v2
+              with:
+                  path: vendor
+                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-php-
+
+            - name: Install dependencies
+              run: composer install --ansi --prefer-dist --no-interaction --no-progress
+
             - name: Install node dependencies
               run: npm install --silent
 
