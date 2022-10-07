@@ -1,5 +1,5 @@
 <template>
-    <a class="tag" :href="tagUrl">
+    <a class="tag" :href="generateTagUrl(props.slug)">
         <FeatherIcon icon="hash" color="#a8a8a8" stroke-width="2.5px" size="14px"></FeatherIcon>
         <span>{{ props.name }}</span>
     </a>
@@ -7,7 +7,6 @@
 
 <script setup lang="ts">
 import Routing from "fos-router";
-import { computed } from "vue";
 import FeatherIcon from "../FeatherIcon/FeatherIcon.vue";
 
 const props = defineProps({
@@ -22,7 +21,7 @@ const props = defineProps({
 });
 
 // TODO Changer l'url des tags
-const tagUrl = computed<string>(() => Routing.generate("app_home"));
+const generateTagUrl = (slug: string) => Routing.generate("app_tag", { slug });
 </script>
 
 <style lang="scss" scoped>
