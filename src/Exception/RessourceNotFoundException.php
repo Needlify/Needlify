@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RessourceNotFoundException extends AbstractHttpException
 {
-    public const ERROR_CODE = 1000;
+    public const ERROR_CODE = 4000;
 
     public const HTTP_ERROR_CODE = Response::HTTP_NOT_FOUND;
 

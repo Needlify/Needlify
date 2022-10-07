@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Publication;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<Publication>
@@ -43,6 +45,37 @@ class PublicationRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllWithPagination(int $offset = 0, ?string $selector = null, ?string $id = null)
+    {
+        $query = $this->createQueryBuilder('p')
+            ->orderBy('p.publishedAt', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults(50);
+
+        switch ($selector) {
+            case 'topic':
+                $query
+                    ->andWhere('p.topic = :topic')
+                    ->setParameter('topic', Uuid::fromRfc4122($id)->toBinary());
+                break;
+            case 'tag':
+                $query
+                    ->join('p.tags', 't')
+                    ->andWhere('t.id = :tag')
+                    ->setParameter('tag', Uuid::fromRfc4122($id)->toBinary());
+                break;
+        }
+
+        $paginator = new Paginator($query->getQuery());
+
+        $total = count($paginator);
+
+        return [
+            'total' => $total,
+            'data' => $paginator->getQuery()->getResult(),
+        ];
     }
 
 //    /**

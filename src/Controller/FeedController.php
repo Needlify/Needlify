@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Thread;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,13 +17,9 @@ class FeedController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/', name: 'app_home', options: ['expose' => true])]
+    #[Route('/', name: 'app_home', methods: ['GET'], options: ['expose' => true])]
     public function index(): Response
     {
-        $posts = $this->em->getRepository(Thread::class)->findBy([], ['publishedAt' => 'DESC']);
-
-        return $this->render('pages/feed.html.twig', [
-            'posts' => $posts,
-        ]);
+        return $this->render('pages/feed.html.twig');
     }
 }
