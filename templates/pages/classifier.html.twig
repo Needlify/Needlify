@@ -1,7 +1,7 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{ topic.name }}
+    {{ classifier.name }}
 {% endblock title %}
 
 {% block stylesheets %}
@@ -14,5 +14,7 @@
 {% endblock javascripts %}
 
 {% block body %}
-
+    <pre>
+        {{ dump(classifier) }}
+    </pre>
 {% endblock body %}
