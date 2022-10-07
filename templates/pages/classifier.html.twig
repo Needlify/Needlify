@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ classifier.name }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags("page:feed") }}
+    {{ encore_entry_link_tags("component:Timeline") }}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags("component:Timeline") }}
+{% endblock javascripts %}
+
+{% block body %}
+    <pre>
+        {{ dump(classifier) }}
+    </pre>
+{% endblock body %}

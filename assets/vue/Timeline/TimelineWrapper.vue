@@ -14,13 +14,13 @@
             <timeline-thread v-else :icon="ThreadIcon[thread.type].icon" :icon-color="ThreadIcon[thread.type].color" :display-line="index !== total - 1">
                 <div class="event-content in-publication">
                     <span>
-                        Nouvelle publication dans le topic <a :href="generateUrl(thread.topic.slug)">{{ thread.topic.name }}</a>
+                        Nouvelle publication dans le topic <a :href="generateTopicUrl(thread.topic.slug)">{{ thread.topic.name }}</a>
                     </span>
                 </div>
 
                 <div class="publication-content">
                     <h3 v-if="thread.type === ThreadTypeVariationEnum.ARTICLE">
-                        <a :href="generateUrl(thread.slug)">{{ thread.title }}</a>
+                        <a :href="generateArticleUrl(thread.slug)">{{ thread.title }}</a>
                     </h3>
 
                     <time-elapsed class="date" :date="thread.publishedAt"></time-elapsed>
@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import axios, { CancelTokenSource } from "axios";
-import { onMounted, onUpdated, ref } from "vue";
+import { onMounted, ref } from "vue";
 import Routing from "fos-router";
 
 import TimelineThread from "./TimelineThread.vue";
@@ -51,7 +51,7 @@ import Tag from "../Tag/Tag.vue";
 import TimeElapsed from "../TimeElapsed/TimeElapsed.vue";
 
 import { ThreadIcon, ThreadTypeVariationEnum } from "../../enum";
-import type { ThreadsQuery, Thread } from "../../types.d";
+import type { ThreadsQuery, Thread, ClassifierTypeVariation } from "../../types.d";
 
 let cancelToken: CancelTokenSource = axios.CancelToken.source();
 const firstQuery = ref(true);
@@ -60,14 +60,25 @@ const total = ref(-1);
 const offset = ref(0);
 const threads = ref<Array<Thread>>([]);
 
+const props = defineProps<{
+    selector?: ClassifierTypeVariation;
+    id?: string;
+}>();
+
 const updateFeed = () => {
     if (cancelToken !== undefined) {
         cancelToken.cancel("Operation cancel due to new request");
     }
     cancelToken = axios.CancelToken.source();
     isLoading.value = true;
+
     const params = new URLSearchParams();
     params.append("offset", offset.value.toString());
+    if (props.selector && props.id) {
+        params.append("selector", props.selector);
+        params.append("id", props.id);
+    }
+
     axios
         .get<ThreadsQuery>("/api/rest/threads", {
             params,
@@ -99,12 +110,9 @@ onMounted(() => {
     });
 });
 
-onUpdated(() => {
-    console.log(offset.value, total.value);
-});
-
 // TODO Changer l'url
-const generateUrl = (slug: string) => Routing.generate("app_home", { slug });
+const generateTopicUrl = (slug: string) => Routing.generate("app_topic", { slug });
+const generateArticleUrl = (slug: string) => Routing.generate("app_home", { slug });
 </script>
 
 <style lang="scss" scoped>

@@ -1,4 +1,4 @@
-import { ThreadIconAssociationType } from "./types.d";
+import { ClassifierTypeVariationType, ThreadIconAssociationType } from "./types.d";
 
 /* eslint-disable import/prefer-default-export */
 export const ThreadIcon = {
@@ -23,3 +23,10 @@ export const ThreadTypeVariationEnum = {
     EVENT: "event",
     PUBLICATION: ["article", "moodline"],
 };
+
+export const ClassifierTypeVariationEnum = {
+    TOPIC: "topic",
+    TAG: "tag",
+} as ClassifierTypeVariationType;
+
+export const ClassifierTypeVariationList = Object.values(ClassifierTypeVariationEnum);
