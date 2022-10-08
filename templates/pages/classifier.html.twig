@@ -14,7 +14,5 @@
 {% endblock javascripts %}
 
 {% block body %}
-    <pre>
-        {{ dump(classifier) }}
-    </pre>
+    <div {{ vue_component("TimelineWrapper", { selector: selector, id: classifier.id }) }}></div>
 {% endblock body %}

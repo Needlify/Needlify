@@ -72,15 +72,20 @@ const updateFeed = () => {
     cancelToken = axios.CancelToken.source();
     isLoading.value = true;
 
+    let apiRoute;
     const params = new URLSearchParams();
     params.append("offset", offset.value.toString());
+
     if (props.selector && props.id) {
         params.append("selector", props.selector);
         params.append("id", props.id);
+        apiRoute = "api_get_publications";
+    } else {
+        apiRoute = "api_get_threads";
     }
 
     axios
-        .get<ThreadsQuery>("/api/rest/threads", {
+        .get<ThreadsQuery>(Routing.generate(apiRoute), {
             params,
             cancelToken: cancelToken.token,
         })
