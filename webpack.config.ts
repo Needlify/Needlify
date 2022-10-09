@@ -32,6 +32,7 @@ Encore.setOutputPath("public/build/")
 
         /* Typescript files */
         "file:base": "./assets/files/base.ts",
+        "file:swup": "./assets/files/swup.ts",
 
         /* Custom Elements */
         "component:Timeline": "./assets/vue/Timeline",

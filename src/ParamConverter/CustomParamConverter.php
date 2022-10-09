@@ -11,13 +11,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInte
 
 class CustomParamConverter extends DoctrineParamConverter implements ParamConverterInterface
 {
-    public function apply(Request $request, ParamConverter $configuration): bool
+    public function apply(Request $request, ParamConverter $configuration)
     {
         try {
             return parent::apply($request, $configuration);
         } catch (\Throwable $exception) {
             if ($exception instanceof NotFoundHttpException) {
-                throw new RessourceNotFoundException([$configuration->getClass(), $configuration->getName(), $request->get($configuration->getName())]);
+                throw new RessourceNotFoundException([$configuration->getName(), $configuration->getClass()]);
             }
 
             return false;
