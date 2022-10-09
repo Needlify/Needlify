@@ -31,7 +31,7 @@ Encore.setOutputPath("public/build/")
         "page:feed": "./assets/styles/pages/feed.scss",
 
         /* Typescript files */
-        // "file:App": "./assets/app.ts",
+        "file:base": "./assets/base.ts",
 
         /* Custom Elements */
         "component:Timeline": "./assets/vue/Timeline",

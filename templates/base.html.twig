@@ -43,6 +43,8 @@
 
         {% endblock stylesheets %}
 
+        {{ encore_entry_script_tags("file:base") }}
+
         {% block javascripts %}
 
         {% endblock javascripts %}
@@ -50,7 +52,7 @@
     <body>
         <header id="header">
             <div id="header-container">
-                <img src="{{ asset("images/logo/icon-64.png") }}" alt="Notice logo" onclick="window.scrollTo(0, 0);" />
+                <a href="{{ url("app_home") }}"><img src="{{ asset("images/logo/icon-64.png") }}" class="glitch" alt="Notice logo" /></a>
 
                 <div id="header-search-bar">
                     Hello World
