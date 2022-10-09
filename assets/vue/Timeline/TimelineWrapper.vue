@@ -117,7 +117,7 @@ onMounted(() => {
 
 // TODO Changer l'url
 const generateTopicUrl = (slug: string) => Routing.generate("app_topic", { slug });
-const generateArticleUrl = (slug: string) => Routing.generate("app_home", { slug });
+const generateArticleUrl = (slug: string) => Routing.generate("app_article", { slug });
 </script>
 
 <style lang="scss" scoped>

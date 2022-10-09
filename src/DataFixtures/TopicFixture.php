@@ -3,8 +3,8 @@
 namespace App\DataFixtures;
 
 use App\Entity\Topic;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class TopicFixture extends Fixture
 {

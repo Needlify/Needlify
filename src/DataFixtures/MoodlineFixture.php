@@ -2,14 +2,14 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Moodline;
+use Faker\Factory;
 use App\Entity\Tag;
-use App\Entity\Topic;
 use App\Entity\User;
+use App\Entity\Topic;
+use App\Entity\Moodline;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 
 class MoodlineFixture extends Fixture implements DependentFixtureInterface
 {

@@ -2,9 +2,9 @@
 
 namespace App\Service;
 
+use Symfony\Component\Validator\Validation;
 use App\Exception\InvalidQueryParamException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validation;
 
 class RequestValidation
 {
