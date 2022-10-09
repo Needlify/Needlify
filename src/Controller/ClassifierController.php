@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Tag;
 use App\Entity\Topic;
+use App\Service\ClassifierType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +15,7 @@ class ClassifierController extends AbstractController
     public function topicList(Topic $topic): Response
     {
         return $this->render('pages/classifier.html.twig', [
+            'selector' => ClassifierType::TOPIC->value,
             'classifier' => $topic,
         ]);
     }
@@ -22,6 +24,7 @@ class ClassifierController extends AbstractController
     public function tagList(Tag $tag): Response
     {
         return $this->render('pages/classifier.html.twig', [
+            'selector' => ClassifierType::TAG->value,
             'classifier' => $tag,
         ]);
     }
