@@ -2,15 +2,15 @@
 
 namespace App\Tests\EventSubscriber;
 
-use App\EventSubscriber\JsonExceptionSubscriber;
-use App\Exception\InternalException;
-use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use PHPUnit\Framework\TestCase;
+use App\Exception\InternalException;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use App\EventSubscriber\JsonExceptionSubscriber;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class JsonExceptionSubscriberTest extends TestCase
 {
