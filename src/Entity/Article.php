@@ -10,6 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+
+use function Symfony\Component\String\u;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
@@ -105,7 +108,7 @@ class Article extends Publication implements ThreadInterface
     public function setSlug(): void
     {
         $slugger = new AsciiSlugger();
-        $this->slug = $slugger->slug($this->title) . '-' . hash('adler32', $this->title);
+        $this->slug = u($slugger->slug($this->title) . '-' . hash('adler32', $this->title))->lower();
     }
 
     #[SerializedName('type')]

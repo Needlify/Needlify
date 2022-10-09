@@ -10,6 +10,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+
+use function Symfony\Component\String\u;
+
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -95,7 +98,7 @@ abstract class Classifier
     public function setSlug(): void
     {
         $slugger = new AsciiSlugger();
-        $this->slug = $slugger->slug($this->name) . '-' . hash('adler32', $this->name);
+        $this->slug = u($slugger->slug($this->name))->lower();
     }
 
     public function __toString(): string
