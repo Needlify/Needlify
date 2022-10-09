@@ -11,7 +11,7 @@ class RessourceNotFoundException extends AbstractHttpException
     public const HTTP_ERROR_CODE = Response::HTTP_NOT_FOUND;
 
     // This message will only be displayed on dev environment
-    public const MESSAGE = "%s with %s '%s' not found";
+    public const MESSAGE = 'Ressource not found. Can not convert route parameter to retrieve $%s of type %s';
 
     /**
      * @param string[] $messageParams

@@ -38,12 +38,14 @@
         {{ encore_entry_link_tags("style:global") }}
         {{ encore_entry_link_tags("style:base") }}
         {{ encore_entry_link_tags("style:header") }}
+        {{ encore_entry_link_tags("file:swup") }}
 
         {% block stylesheets %}
 
         {% endblock stylesheets %}
 
         {{ encore_entry_script_tags("file:base") }}
+        {{ encore_entry_script_tags("file:swup") }}
 
         {% block javascripts %}
 
@@ -61,7 +63,7 @@
         </header>
 
         <main id="app">
-            <div id="main-container">
+            <div id="main-container" class="transition-fade">
                 {% block body %}
 
                 {% endblock body %}
