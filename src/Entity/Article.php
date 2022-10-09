@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use App\Entity\Interface\ThreadInterface;
-use App\Repository\ArticleRepository;
 use App\Service\ThreadType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Serializer\Annotation\SerializedName;
+use App\Repository\ArticleRepository;
+use App\Entity\Interface\ThreadInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\SerializedName;
+
+use function Symfony\Component\String\u;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -105,7 +107,7 @@ class Article extends Publication implements ThreadInterface
     public function setSlug(): void
     {
         $slugger = new AsciiSlugger();
-        $this->slug = $slugger->slug($this->title) . '-' . hash('adler32', $this->title);
+        $this->slug = u($slugger->slug($this->title) . '-' . hash('adler32', $this->title))->lower();
     }
 
     #[SerializedName('type')]

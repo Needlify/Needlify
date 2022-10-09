@@ -2,12 +2,12 @@
 
 namespace App\Tests\Command;
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 class CreateExceptionCommandTest extends KernelTestCase
 {

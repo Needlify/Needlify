@@ -2,11 +2,11 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Topic;
 use App\Entity\Article;
 use App\Entity\Publication;
-use App\Entity\Topic;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class TopicTest extends KernelTestCase

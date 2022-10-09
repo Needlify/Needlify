@@ -2,11 +2,11 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\Article;
 use App\Entity\Tag;
 use App\Entity\Topic;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\Article;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class PublicationTest extends KernelTestCase

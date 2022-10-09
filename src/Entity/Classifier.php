@@ -2,16 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\ClassifierRepository;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Uid\Uuid;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ClassifierRepository;
+use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+
+use function Symfony\Component\String\u;
 
 #[ORM\Entity(repositoryClass: ClassifierRepository::class)]
 #[ORM\InheritanceType('JOINED')]
@@ -95,7 +97,7 @@ abstract class Classifier
     public function setSlug(): void
     {
         $slugger = new AsciiSlugger();
-        $this->slug = $slugger->slug($this->name) . '-' . hash('adler32', $this->name);
+        $this->slug = u($slugger->slug($this->name))->lower();
     }
 
     public function __toString(): string

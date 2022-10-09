@@ -2,13 +2,13 @@
 
 namespace App\DataFixtures;
 
+use Faker\Factory;
+use App\Entity\User;
 use App\Entity\Event;
 use App\Entity\Topic;
-use App\Entity\User;
 use App\Service\EventMessage;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 
 class EventFixture extends Fixture
 {

@@ -67,7 +67,7 @@ class ArticleTest extends KernelTestCase
 
         $article->setTitle($title);
         $this->em->persist($article);
-        $this->assertEquals('Hello-World-' . $hash, $article->getSlug());
+        $this->assertEquals('hello-world-' . $hash, $article->getSlug());
         $this->em->remove($article);
     }
 

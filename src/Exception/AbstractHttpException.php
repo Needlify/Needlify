@@ -2,9 +2,9 @@
 
 namespace App\Exception;
 
+use Throwable;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Throwable;
 
 abstract class AbstractHttpException extends HttpException
 {

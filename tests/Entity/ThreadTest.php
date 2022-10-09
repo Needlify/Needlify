@@ -2,12 +2,12 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\Event;
 use App\Entity\User;
+use App\Entity\Event;
 use DateTimeInterface;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ThreadTest extends KernelTestCase
 {

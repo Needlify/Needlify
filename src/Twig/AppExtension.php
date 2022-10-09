@@ -2,8 +2,8 @@
 
 namespace App\Twig;
 
-use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use Twig\Extension\AbstractExtension;
 
 class AppExtension extends AbstractExtension
 {

@@ -13,6 +13,7 @@ return (new Config())
     ->setRules([
         '@Symfony' => true,
         'concat_space' => ['spacing' => 'one'],
+        'ordered_imports' => ['sort_algorithm' => 'length', 'imports_order' => ['const', 'class', 'function']],
     ])
     ->setFinder($finder)
 ;

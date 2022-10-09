@@ -2,13 +2,13 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\Tag;
 use DateTime;
+use App\Entity\Tag;
 use DateTimeImmutable;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 class ClassifierTest extends KernelTestCase
 {
@@ -79,12 +79,11 @@ class ClassifierTest extends KernelTestCase
     {
         $tag = new Tag();
 
-        $name = 'tagTest';
-        $hash = hash('adler32', $name);
+        $name = 'tag Test';
 
         $tag->setName($name);
         $this->em->persist($tag);
-        $this->assertEquals('tagTest-' . $hash, $tag->getSlug());
+        $this->assertEquals('tag-test', $tag->getSlug());
         $this->em->remove($tag);
     }
 }

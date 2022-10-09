@@ -2,14 +2,14 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\Article;
-use App\Entity\Thread;
 use App\Entity\User;
+use App\Entity\Thread;
 use DateTimeImmutable;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Article;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Uid\Uuid;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserTest extends KernelTestCase
 {

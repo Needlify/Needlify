@@ -115,6 +115,7 @@
         ],
         "cs:check": "./vendor/bin/phpcs -n",
         "cs:fix": "./vendor/bin/phpcbf",
+        "fos:routing": "php bin/console fos:js-routing:dump --format=json --target=assets/js/routes.json",
         "stan": "@stan:default --ansi --error-format=table",
         "stan:default": "vendor/bin/phpstan analyse -c phpstan.neon",
         "stan:github": "@stan:default --error-format=github --quiet",

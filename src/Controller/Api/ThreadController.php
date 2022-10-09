@@ -3,13 +3,13 @@
 namespace App\Controller\Api;
 
 use App\Entity\Thread;
-use App\Repository\ThreadRepository;
 use App\Service\RequestValidation;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\ThreadRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/api/rest')]
 class ThreadController extends AbstractController
