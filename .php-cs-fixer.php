@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ * Copyright (c) Needlify <https://needlify.com/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
@@ -14,6 +21,14 @@ return (new Config())
         '@Symfony' => true,
         'concat_space' => ['spacing' => 'one'],
         'ordered_imports' => ['sort_algorithm' => 'length', 'imports_order' => ['const', 'class', 'function']],
+        'header_comment' => [
+            'header' => <<<EOF
+This file is part of the Needlify project.
+Copyright (c) Needlify <https://needlify.com/>
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+EOF
+        ],
     ])
     ->setFinder($finder)
 ;
