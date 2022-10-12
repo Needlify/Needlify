@@ -3,6 +3,7 @@
         <img src="https://raw.githubusercontent.com/Needlify/Art/master/logo.svg" width="150">
     </a>
     <br>
+    <br>
     <a href="https://github.com/Needlify/Needlify/actions/workflows/security.yml" target="_blank">
         <img src="https://github.com/Needlify/Needlify/actions/workflows/security.yml/badge.svg?branch=dev" />
     </a>
