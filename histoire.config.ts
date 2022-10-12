@@ -3,7 +3,7 @@ import { defineConfig } from "histoire";
 
 export default defineConfig({
     plugins: [HstVue()],
-    setupFile: "histoire.setup.ts",
+    setupFile: ".histoire/histoire.setup.ts",
     theme: {
         title: "Needlify - Stories",
         logo: {
