@@ -3,7 +3,7 @@
         class="spinner-container"
         :id="id"
         :class="{ running: state === 'running', paused: state === 'paused' }"
-        :style="`width: ${width}; height: ${height}; border: ${borderWidth} solid ${color};`"
+        :style="`width: ${size}; height: ${size}; border: ${borderWidth} solid ${color};`"
     ></div>
 </template>
 
@@ -25,12 +25,7 @@ export default defineComponent({
                 return ["running", "paused"].includes(value);
             },
         },
-        width: {
-            type: String,
-            required: false,
-            default: "22px",
-        },
-        height: {
+        size: {
             type: String,
             required: false,
             default: "22px",
