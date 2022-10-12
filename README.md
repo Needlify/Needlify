@@ -1,4 +1,15 @@
-<p align="center"><a href="https://needlify.com" target="_blank"><img src="https://raw.githubusercontent.com/Needlify/Art/master/logo.svg" width="150"></a></p>
+<p align="center">
+    <a href="https://needlify.com" target="_blank">
+        <img src="https://raw.githubusercontent.com/Needlify/Art/master/logo.svg" width="150">
+    </a>
+    <br>
+    <a href="https://github.com/Needlify/Needlify/actions/workflows/security.yml" target="_blank">
+        <img src="https://github.com/Needlify/Needlify/actions/workflows/security.yml/badge.svg?branch=dev" />
+    </a>
+    <a href="https://github.com/Needlify/Needlify/actions/workflows/tests.yml" target="_blank">
+        <img src="https://github.com/Needlify/Needlify/actions/workflows/tests.yml/badge.svg" />
+    </a>
+</span>
 
 ## About Needlify
 
