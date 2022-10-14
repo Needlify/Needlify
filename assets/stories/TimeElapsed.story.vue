@@ -1,27 +1,27 @@
 <template>
-    <Story>
-        <Variant title="Default">
+    <story>
+        <variant title="Default">
             <time-elapsed></time-elapsed>
-        </Variant>
-        <Variant title="Secondes">
+        </variant>
+        <variant title="Secondes">
             <time-elapsed :date="dateSecondes"></time-elapsed>
-        </Variant>
-        <Variant title="Minutes">
+        </variant>
+        <variant title="Minutes">
             <time-elapsed :date="dateMinutes"></time-elapsed>
-        </Variant>
-        <Variant title="Hours">
+        </variant>
+        <variant title="Hours">
             <time-elapsed :date="dateHours"></time-elapsed>
-        </Variant>
-        <Variant title="Days">
+        </variant>
+        <variant title="Days">
             <time-elapsed :date="dateDays"></time-elapsed>
-        </Variant>
-        <Variant title="Months">
+        </variant>
+        <variant title="Months">
             <time-elapsed :date="dateMonths"></time-elapsed>
-        </Variant>
-        <Variant title="Years">
+        </variant>
+        <variant title="Years">
             <time-elapsed :date="dateYears"></time-elapsed>
-        </Variant>
-    </Story>
+        </variant>
+    </story>
 </template>
 
 <script setup lang="ts">

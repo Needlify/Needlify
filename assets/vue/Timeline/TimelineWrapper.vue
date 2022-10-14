@@ -2,36 +2,20 @@
     <section id="timeline">
         <div v-for="(thread, index) in threads" :key="index">
             <!-- Event -->
-            <timeline-thread v-if="thread.type === 'event'" :icon="ThreadIcon[thread.type].icon" :icon-color="ThreadIcon[thread.type].color" :display-line="index !== total - 1">
-                <div class="event-content">
-                    <span v-html="thread.preview"></span>
-                    <span class="dot">•</span>
-                    <time-elapsed class="date" :date="thread.publishedAt"></time-elapsed>
-                </div>
-            </timeline-thread>
+            <thread-event v-if="thread.type === 'event'" :type="thread.type" :preview="thread.preview" :published-at="thread.publishedAt" :display-line="index !== total - 1" />
 
-            <!-- Publication -->
-            <timeline-thread v-else :icon="ThreadIcon[thread.type].icon" :icon-color="ThreadIcon[thread.type].color" :display-line="index !== total - 1">
-                <div class="event-content in-publication">
-                    <span>
-                        Nouvelle publication dans le topic <a :href="generateTopicUrl(thread.topic.slug)">{{ thread.topic.name }}</a>
-                    </span>
-                </div>
-
-                <div class="publication-content">
-                    <h3 v-if="thread.type === ThreadTypeVariationEnum.ARTICLE">
-                        <a :href="generateArticleUrl(thread.slug)">{{ thread.title }}</a>
-                    </h3>
-
-                    <time-elapsed class="date" :date="thread.publishedAt"></time-elapsed>
-
-                    <div class="tag-container" v-show="thread.tags.length > 0">
-                        <tag :name="tag.name" :slug="tag.slug" v-for="(tag, indexTag) in thread.tags" :key="indexTag"></tag>
-                    </div>
-
-                    <p class="description" :class="{ 'with-max-line': thread.type === ThreadTypeVariationEnum.ARTICLE }">{{ thread.preview }}</p>
-                </div>
-            </timeline-thread>
+            <!-- Publication (Article & Moodline) -->
+            <thread-publication
+                v-else
+                :type="thread.type"
+                :slug="thread.slug"
+                :preview="thread.preview"
+                :title="thread.title"
+                :published-at="thread.publishedAt"
+                :tags="thread.tags"
+                :topic="thread.topic"
+                :display-line="index !== total - 1"
+            />
         </div>
     </section>
 
@@ -45,12 +29,10 @@ import axios, { CancelTokenSource } from "axios";
 import { onMounted, ref } from "vue";
 import Routing from "fos-router";
 
-import TimelineThread from "./TimelineThread.vue";
 import Spinner from "../Spinner/Spinner.vue";
-import Tag from "../Tag/Tag.vue";
-import TimeElapsed from "../TimeElapsed/TimeElapsed.vue";
+import ThreadEvent from "../Thread/ThreadEvent.vue";
+import ThreadPublication from "../Thread/ThreadPublication.vue";
 
-import { ThreadIcon, ThreadTypeVariationEnum } from "../../enum";
 import type { ThreadsQuery, Thread, ClassifierTypeVariation } from "../../types.d";
 
 let cancelToken: CancelTokenSource = axios.CancelToken.source();
@@ -114,10 +96,6 @@ onMounted(() => {
         }
     });
 });
-
-// TODO Changer l'url
-const generateTopicUrl = (slug: string) => Routing.generate("app_topic", { slug });
-const generateArticleUrl = (slug: string) => Routing.generate("app_article", { slug });
 </script>
 
 <style lang="scss" scoped>
@@ -142,130 +120,5 @@ const generateArticleUrl = (slug: string) => Routing.generate("app_article", { s
     margin-top: 20px;
     display: flex;
     justify-content: center;
-}
-
-.event-content {
-    line-height: 26px;
-    color: var(--dark-soft);
-    font-size: 16px;
-    font-weight: 450;
-
-    @include maxWidth(600px) {
-        font-size: 14px;
-        line-height: 20px;
-        padding-top: 2px;
-
-        & span:nth-child(1) {
-            display: block;
-        }
-        // &:not(.in-publication) span:nth-child(1) {
-        //     margin-bottom: -5px;
-        // }
-    }
-
-    &.in-publication {
-        margin-bottom: 10px;
-        @include maxWidth(600px) {
-            margin-bottom: 6px;
-        }
-    }
-
-    a {
-        color: var(--primary);
-        text-decoration: none;
-        transition: color 200ms ease-in-out;
-    }
-
-    a:hover {
-        color: var(--dark);
-    }
-
-    .dot {
-        padding: 0 6px;
-
-        @include maxWidth(600px) {
-            display: none;
-        }
-    }
-}
-
-.date {
-    font-size: 14px;
-    color: var(--light-dark);
-
-    @include maxWidth(600px) {
-        margin-bottom: 4px;
-        font-size: 12px;
-    }
-}
-
-.publication-content {
-    background-color: var(--white);
-    border: 2px solid var(--light-soft);
-    border-radius: 16px;
-    padding: 22px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 16px;
-
-    @include maxWidth(600px) {
-        padding: 16px;
-        border-radius: 6px;
-        row-gap: 10px;
-    }
-
-    h3 {
-        margin: 0;
-        display: block;
-
-        @include maxWidth(600px) {
-            font-size: 16px;
-        }
-
-        a {
-            color: var(--dark-light);
-            text-decoration: none;
-            transition: color 200ms ease-in-out;
-
-            &:hover {
-                color: var(--primary);
-            }
-        }
-    }
-
-    .description {
-        line-height: 24px;
-        color: var(--dark-very-soft);
-        font-size: 16px;
-        font-weight: 450;
-        margin: 0;
-
-        text-overflow: ellipsis;
-        overflow: hidden;
-        display: -webkit-box !important;
-        -webkit-box-orient: vertical;
-        white-space: normal;
-
-        &.with-max-line {
-            -webkit-line-clamp: var(--preview-max-lines);
-        }
-
-        @include maxWidth(600px) {
-            font-size: 12px;
-            line-height: 18px;
-        }
-    }
-
-    .tag-container {
-        display: flex;
-        column-gap: 10px;
-        row-gap: 6px;
-        flex-wrap: wrap;
-
-        @include maxWidth(600px) {
-            column-gap: 6px;
-            row-gap: 4px;
-        }
-    }
 }
 </style>

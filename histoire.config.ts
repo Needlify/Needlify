@@ -4,6 +4,11 @@ import { defineConfig } from "histoire";
 export default defineConfig({
     plugins: [HstVue()],
     setupFile: ".histoire/histoire.setup.ts",
+    vite: {
+        optimizeDeps: {
+            include: ["fos-router"],
+        },
+    },
     theme: {
         title: "Needlify - Stories",
         logo: {

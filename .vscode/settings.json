@@ -19,6 +19,8 @@
     "files.associations": {
         "*.twig": "twig"
     },
+    "volar.completion.preferredAttrNameCase": "kebab",
+    "volar.completion.preferredTagNameCase": "kebab",
     "testing.automaticallyOpenPeekView": "never",
     "typescript.tsdk": "node_modules/typescript/lib"
 }

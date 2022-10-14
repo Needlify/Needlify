@@ -1,7 +1,7 @@
 <template>
-    <Story>
+    <story>
         <spinner></spinner>
-    </Story>
+    </story>
 </template>
 
 <script setup lang="ts">
