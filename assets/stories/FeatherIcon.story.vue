@@ -1,7 +1,7 @@
 <template>
-    <Story>
+    <story>
         <feather-icon></feather-icon>
-    </Story>
+    </story>
 </template>
 
 <script setup lang="ts">
