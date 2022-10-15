@@ -35,11 +35,7 @@ Encore.setOutputPath("public/build/")
         "file:swup": "./assets/files/swup.ts",
 
         /* Custom Elements */
-        "component:Timeline": "./assets/vue/Timeline",
-        "component:Spinner": "./assets/vue/Spinner",
-        "component:FeatherIcon": "./assets/vue/FeatherIcon",
-        "component:Tag": "./assets/vue/Tag",
-        "component:TimeElapsed": "./assets/vue/TimeElapsed",
+        "component:vue": "./assets/plugins/vue.ts",
     })
 
     .splitEntryChunks()

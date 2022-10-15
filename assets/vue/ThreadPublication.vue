@@ -24,10 +24,10 @@
 
 <script setup lang="ts">
 import Routing from "fos-router";
-import { ThreadIcon, ThreadTypeVariationEnum } from "../../enum";
-import { Tag, ThreadTypeVariation, Topic } from "../../types";
-import XTag from "../Tag/Tag.vue";
-import TimeElapsed from "../TimeElapsed/TimeElapsed.vue";
+import TimeElapsed from "./TimeElapsed.vue";
+import { ThreadIcon, ThreadTypeVariationEnum } from "../enum";
+import { Tag, ThreadTypeVariation, Topic } from "../types";
+import XTag from "./Tag.vue";
 import Thread from "./Thread.vue";
 
 defineProps<{
@@ -46,7 +46,7 @@ const generateArticleUrl = (slug: string) => Routing.generate("app_article", { s
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/mixins";
+@import "../styles/mixins";
 
 .event-content {
     line-height: 26px;

@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import Spinner from "../vue/Spinner/Spinner.vue";
+import Spinner from "../vue/Spinner.vue";
 </script>

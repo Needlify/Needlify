@@ -29,11 +29,11 @@ import axios, { CancelTokenSource } from "axios";
 import { onMounted, ref } from "vue";
 import Routing from "fos-router";
 
-import Spinner from "../Spinner/Spinner.vue";
-import ThreadEvent from "../Thread/ThreadEvent.vue";
-import ThreadPublication from "../Thread/ThreadPublication.vue";
+import Spinner from "./Spinner.vue";
+import ThreadEvent from "./ThreadEvent.vue";
+import ThreadPublication from "./ThreadPublication.vue";
 
-import type { ThreadsQuery, Thread, ClassifierTypeVariation } from "../../types.d";
+import type { ThreadsQuery, Thread, ClassifierTypeVariation } from "../types";
 
 let cancelToken: CancelTokenSource = axios.CancelToken.source();
 const firstQuery = ref(true);
@@ -99,7 +99,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/mixins";
+@import "../styles/mixins";
 
 #timeline {
     width: calc(100% - 50px);

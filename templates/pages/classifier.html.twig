@@ -6,17 +6,17 @@
 
 {% block stylesheets %}
     {{ encore_entry_link_tags("page:feed") }}
-    {{ encore_entry_link_tags("component:Timeline") }}
+    {{ encore_entry_link_tags("component:vue") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags("component:Timeline") }}
+    {{ encore_entry_script_tags("component:vue") }}
 {% endblock javascripts %}
 
 {% block body %}
-    <h1 id="title">
-        Topic / {{ classifier.name }}
-    </h1>
+    <section>
+        <div {{ vue_component("FeatherIcon") }}></div>
+    </section>
 
     <div {{ vue_component("TimelineWrapper", { selector: selector, id: classifier.id }) }}></div>
 {% endblock body %}
