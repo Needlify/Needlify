@@ -9,7 +9,6 @@
 
 namespace App\Tests\Entity;
 
-use App\Entity\User;
 use App\Entity\Event;
 use DateTimeInterface;
 use Doctrine\ORM\EntityManager;
@@ -44,18 +43,6 @@ class ThreadTest extends KernelTestCase
         $event->setMessage('message');
         $this->em->persist($event);
         $this->assertInstanceOf(DateTimeInterface::class, $event->getPublishedAt());
-        $this->em->remove($event);
-    }
-
-    public function testAuthor(): void
-    {
-        $user = $this->em->getRepository(User::class)->findOneBy([]);
-        $event = new Event();
-        $event->setMessage('message');
-        $event->setAuthor($user);
-
-        $this->em->persist($event);
-        $this->assertInstanceOf(User::class, $event->getAuthor());
         $this->em->remove($event);
     }
 }

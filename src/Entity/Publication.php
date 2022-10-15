@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\HasLifecycleCallbacks]
 abstract class Publication extends Thread
 {
-    #[ORM\ManyToOne(inversedBy: 'publications')]
+    #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'publications')]
     #[Assert\NotNull(message: "Le topic d'une publication doit être renseigné")]
     #[Groups(['thread:extend'])]
     protected ?Topic $topic = null;
@@ -34,6 +34,10 @@ abstract class Publication extends Thread
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'publications')]
     #[Groups(['thread:extend'])]
     protected Collection $tags;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'publications')]
+    #[Assert\NotNull(message: "L'auteur d'une publication doit être renseigné")]
+    protected ?User $author = null;
 
     public function __construct()
     {
@@ -79,6 +83,18 @@ abstract class Publication extends Thread
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

@@ -61,12 +61,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:basic', 'user:extend'])]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Thread::class)]
-    private Collection $threads;
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Publication::class)]
+    private Collection $publications;
 
     public function __construct()
     {
-        $this->threads = new ArrayCollection();
+        $this->publications = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -160,27 +160,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Thread>
      */
-    public function getThreads(): Collection
+    public function getPublications(): Collection
     {
-        return $this->threads;
+        return $this->publications;
     }
 
-    public function addThread(Thread $thread): self
+    public function addPublication(Publication $publication): self
     {
-        if (!$this->threads->contains($thread)) {
-            $this->threads->add($thread);
-            $thread->setAuthor($this);
+        if (!$this->publications->contains($publication)) {
+            $this->publications->add($publication);
+            $publication->setAuthor($this);
         }
 
         return $this;
     }
 
-    public function removeThread(Thread $thread): self
+    public function removePublication(Publication $publication): self
     {
-        if ($this->threads->removeElement($thread)) {
+        if ($this->publications->removeElement($publication)) {
             // set the owning side to null (unless already changed)
-            if ($thread->getAuthor() === $this) {
-                $thread->setAuthor(null);
+            if ($publication->getAuthor() === $this) {
+                $publication->setAuthor(null);
             }
         }
 

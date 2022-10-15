@@ -10,8 +10,10 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Tag;
+use App\Entity\User;
 use App\Entity\Topic;
 use App\Entity\Article;
+use App\Entity\Moodline;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -55,5 +57,19 @@ class PublicationTest extends KernelTestCase
 
         $article->removeTag($last[0]);
         $this->assertEquals(new ArrayCollection($first), $article->getTags());
+    }
+
+    public function testAuthor(): void
+    {
+        $user = $this->em->getRepository(User::class)->findOneBy([]);
+        $topic = $this->em->getRepository(Topic::class)->findOneBy([]);
+
+        $moodline = new Moodline();
+        $moodline->setAuthor($user);
+        $moodline->setTopic($topic);
+
+        $this->em->persist($moodline);
+        $this->assertInstanceOf(User::class, $moodline->getAuthor());
+        $this->em->remove($moodline);
     }
 }

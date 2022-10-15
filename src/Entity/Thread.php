@@ -17,7 +17,6 @@ use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ThreadRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ThreadRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -41,10 +40,6 @@ abstract class Thread
     #[Groups(['thread:extend'])]
     protected ?\DateTimeImmutable $publishedAt = null; // publishedAt is the dateTime in UTC/GMT
 
-    #[ORM\ManyToOne(inversedBy: 'threads')]
-    #[Assert\NotNull(message: "L'auteur d'un thread doit être renseigné")]
-    protected ?User $author = null;
-
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -64,17 +59,5 @@ abstract class Thread
     public function setPublishedAt(): void
     {
         $this->publishedAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
-    }
-
-    public function getAuthor(): ?User
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?User $author): self
-    {
-        $this->author = $author;
-
-        return $this;
     }
 }

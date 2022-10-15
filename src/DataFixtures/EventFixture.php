@@ -29,7 +29,6 @@ class EventFixture extends Fixture
     public function getDependencies()
     {
         return [
-            UserFixture::class,
             TopicFixture::class,
         ];
     }
@@ -42,8 +41,7 @@ class EventFixture extends Fixture
         /** @var $topics Topic[] */
         foreach ($topics as $topic) {
             $event = new Event();
-            $event->setMessage(EventMessage::NEW_TOPIC->format([$topic->getName()]))
-                ->setAuthor($this->faker->randomElement($users));
+            $event->setMessage(EventMessage::NEW_TOPIC->format([$topic->getName()]));
 
             $manager->persist($event);
         }
