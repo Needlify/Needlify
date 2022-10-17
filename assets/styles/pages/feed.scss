@@ -4,6 +4,7 @@ h1#title {
     font-size: 30px;
     margin: 22px 0 40px 0;
     position: relative;
+    color: var(--dark-medium);
 
     &::before {
         content: "";
