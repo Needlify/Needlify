@@ -29,17 +29,14 @@ Encore.setOutputPath("public/build/")
 
         /* Page Style */
         "page:feed": "./assets/styles/pages/feed.scss",
+        "page:classifier": "./assets/styles/pages/classifier.scss",
 
         /* Typescript files */
         "file:base": "./assets/files/base.ts",
         "file:swup": "./assets/files/swup.ts",
 
         /* Custom Elements */
-        "component:Timeline": "./assets/vue/Timeline",
-        "component:Spinner": "./assets/vue/Spinner",
-        "component:FeatherIcon": "./assets/vue/FeatherIcon",
-        "component:Tag": "./assets/vue/Tag",
-        "component:TimeElapsed": "./assets/vue/TimeElapsed",
+        "component:vue": "./assets/plugins/vue.ts",
     })
 
     .splitEntryChunks()

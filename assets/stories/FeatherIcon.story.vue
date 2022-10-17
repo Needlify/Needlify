@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import FeatherIcon from "../vue/FeatherIcon/FeatherIcon.vue";
+import FeatherIcon from "../vue/FeatherIcon.vue";
 </script>

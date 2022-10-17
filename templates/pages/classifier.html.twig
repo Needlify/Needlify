@@ -5,18 +5,33 @@
 {% endblock title %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags("page:feed") }}
-    {{ encore_entry_link_tags("component:Timeline") }}
+    {{ encore_entry_link_tags("page:classifier") }}
+    {{ encore_entry_link_tags("component:vue") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags("component:Timeline") }}
+    {{ encore_entry_script_tags("component:vue") }}
 {% endblock javascripts %}
 
 {% block body %}
-    <h1 id="title">
-        Topic / {{ classifier.name }}
-    </h1>
+    <section id="breadcrumb-container">
+        {% if selector == constant("App\\Service\\ClassifierType::TOPIC").value %}
+            <div class="first-two-icon" {{ vue_component("FeatherIcon", { icon: "tag", size: "18px", strokeWidth: "2px" }) }}></div>
+        {% else %}
+            <div class="first-two-icon" {{ vue_component("FeatherIcon", { icon: "hash", size: "18px", strokeWidth: "2px" }) }}></div>
+        {% endif %}
+
+        <div class="first-two-icon" {{ vue_component("FeatherIcon", { icon: "chevron-right", size: "12px", strokeWidth: "3px" }) }}></div>
+
+        {% if selector == constant("App\\Service\\ClassifierType::TOPIC").value %}
+            <span class="secondary">Topic</span>
+        {% else %}
+            <span class="secondary">Tag</span>
+        {% endif %}
+
+        <div {{ vue_component("FeatherIcon", { icon: "chevron-right", size: "12px", strokeWidth: "3px" }) }}></div>
+        <span class="primary" title="{{ classifier.name }}">{{ classifier.name }}</span>
+    </section>
 
     <div {{ vue_component("TimelineWrapper", { selector: selector, id: classifier.id }) }}></div>
 {% endblock body %}

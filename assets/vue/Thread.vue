@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import FeatherIcon from "../FeatherIcon/FeatherIcon.vue";
+import FeatherIcon from "./FeatherIcon.vue";
 
 defineProps({
     icon: {
@@ -27,7 +27,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/mixins";
+@import "../styles/mixins";
 
 .timeline-thread {
     position: relative;

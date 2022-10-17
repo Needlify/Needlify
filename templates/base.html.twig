@@ -1,73 +1,64 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="author" href="{{ asset("humans.txt") }}" />
-        <meta name="language" content="en" />
-        <meta http-equiv="content-language" content="en" />
-        <meta name="copyright" content="https://needlify.com" />
-        <meta name="theme-color" content="#ff6e03" />
-        <meta name="twitter:widgets:new-embed-design" content="on" />
-        <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="author" href="{{ asset("humans.txt") }}"/>
+		<meta name="language" content="en"/>
+		<meta http-equiv="content-language" content="en"/>
+		<meta name="copyright" content="https://needlify.com"/>
+		<meta name="theme-color" content="#ff6e03"/>
+		<meta name="twitter:widgets:new-embed-design" content="on"/>
+		<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+		<meta property="og:description" content="{% block description %}Share and find tech information on Needlify !{% endblock description %}"/>
 
-        {% block og %}
-            <meta property="og:type" content="website" />
-            <meta property="og:url" content="{{ app.request.uri }}" />
-            <meta property="og:title" content="Needlify" />
-            <meta property="og:site_name" content="Needlify" />
-            <meta property="og:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
-            <meta property="og:description" content="Share and find tech information on Needlify !" />
-            <meta name="twitter:image:src" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
-            <meta name="twitter:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:title" content="Needlify" />
-        {% endblock og %}
+		<meta property="og:type" content="website"/>
+		<meta property="og:url" content="{{ app.request.uri }}"/>
+		<meta property="og:title" content="Needlify"/>
+		<meta property="og:site_name" content="Needlify"/>
+		<meta property="og:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
+		<meta name="twitter:card" content="summary_large_image"/>
+		<meta name="twitter:title" content="Needlify"/>
+		<meta name="twitter:image:src" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
+		<meta property="og:description" content="{% block og_description %}Share and find tech information on Needlify !{% endblock og_description %}"/>
+		<meta name="twitter:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
 
-        <link rel="shortcut icon" href="{{ asset("images/logo/favicon.ico") }}" type="image/x-icon" />
+		<link rel="shortcut icon" href="{{ asset("images/logo/favicon.ico") }}" type="image/x-icon"/>
 
-        <title>
-            Needlify -{% block title %}
+		<title>
+			Needlify -
+			{% block title %}{% endblock title %}
+		</title>
 
-            {% endblock title %}
-        </title>
+		<meta charset="UTF-8"/>
 
-        <meta charset="UTF-8" />
+		{{ encore_entry_link_tags("style:reset") }}
+		{{ encore_entry_link_tags("style:global") }}
+		{{ encore_entry_link_tags("style:base") }}
+		{{ encore_entry_link_tags("style:header") }}
+		{{ encore_entry_link_tags("file:swup") }}
 
-        {{ encore_entry_link_tags("style:reset") }}
-        {{ encore_entry_link_tags("style:global") }}
-        {{ encore_entry_link_tags("style:base") }}
-        {{ encore_entry_link_tags("style:header") }}
-        {{ encore_entry_link_tags("file:swup") }}
+		{% block stylesheets %}{% endblock stylesheets %}
 
-        {% block stylesheets %}
+		{{ encore_entry_script_tags("file:base") }}
+		{{ encore_entry_script_tags("file:swup") }}
 
-        {% endblock stylesheets %}
+		{% block javascripts %}{% endblock javascripts %}
+	</head>
+	<body>
+		<header id="header">
+			<div id="header-container">
+				<a href="{{ url("app_home") }}"><img src="{{ asset("images/logo/icon-64.png") }}" class="glitch" alt="Notice logo"/></a>
 
-        {{ encore_entry_script_tags("file:base") }}
-        {{ encore_entry_script_tags("file:swup") }}
+				<div id="header-search-bar">
+					Hello World
+				</div>
+			</div>
+		</header>
 
-        {% block javascripts %}
-
-        {% endblock javascripts %}
-    </head>
-    <body>
-        <header id="header">
-            <div id="header-container">
-                <a href="{{ url("app_home") }}"><img src="{{ asset("images/logo/icon-64.png") }}" class="glitch" alt="Notice logo" /></a>
-
-                <div id="header-search-bar">
-                    Hello World
-                </div>
-            </div>
-        </header>
-
-        <main id="app">
-            <div id="main-container" class="transition-fade">
-                {% block body %}
-
-                {% endblock body %}
-            </div>
-        </main>
-    </body>
-</html>
+		<main id="app">
+			<div id="main-container" class="transition-fade"> {% block body %}{% endblock body %}
+				</div>
+			</main>
+		</body>
+	</html>

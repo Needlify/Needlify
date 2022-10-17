@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import { DateTime } from "luxon";
-import TimeElapsed from "../vue/TimeElapsed/TimeElapsed.vue";
+import TimeElapsed from "../vue/TimeElapsed.vue";
 
 const dateSecondes = DateTime.now().minus({ seconds: 5 }).toISO();
 const dateMinutes = DateTime.now().minus({ minutes: 5 }).toISO();

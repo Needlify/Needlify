@@ -37,8 +37,8 @@
 <script setup lang="ts">
 import Routing from "fos-router";
 import { ThreadTypeVariation } from "../types";
-import ThreadEvent from "../vue/Thread/ThreadEvent.vue";
-import ThreadPublication from "../vue/Thread/ThreadPublication.vue";
+import ThreadEvent from "../vue/ThreadEvent.vue";
+import ThreadPublication from "../vue/ThreadPublication.vue";
 
 import routes from "../js/routes.json";
 

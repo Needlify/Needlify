@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import Routing from "fos-router";
-import FeatherIcon from "../FeatherIcon/FeatherIcon.vue";
+import FeatherIcon from "./FeatherIcon.vue";
 
 const props = defineProps({
     name: {
@@ -25,7 +25,7 @@ const generateTagUrl = (slug: string) => Routing.generate("app_tag", { slug });
 </script>
 
 <style lang="scss" scoped>
-@import "../../styles/mixins";
+@import "../styles/mixins";
 
 .tag {
     font-family: Supreme;

@@ -7,3 +7,8 @@ html.is-animating .transition-fade {
     opacity: 0;
     // transform: translateY(-5px);
 }
+
+.swup-progress-bar {
+    height: 3px;
+    background-color: var(--orange);
+}

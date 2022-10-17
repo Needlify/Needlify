@@ -1,17 +1,16 @@
 import { describe, expect, test } from "vitest";
 import { mount } from "@vue/test-utils";
-// import { DateTime, Interval } from "luxon";
-import TimeElapsed from "../vue/TimeElapsed/TimeElapsed.vue";
+import TimeElapsed from "../vue/TimeElapsed.vue";
 
 describe("Import vue component", () => {
     test("normal imports as expected", async () => {
-        const cmp = await import("../vue/TimeElapsed/TimeElapsed.vue");
+        const cmp = await import("../vue/TimeElapsed.vue");
         expect(cmp).toBeDefined();
     });
 
     test("dynamic imports as expected", async () => {
         const name = "TimeElapsed";
-        const cmp = await import(`../vue/TimeElapsed/${name}.vue`);
+        const cmp = await import(`../vue/${name}.vue`);
         expect(cmp).toBeDefined();
     });
 });

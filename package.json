@@ -68,6 +68,8 @@
         "webpack-notifier": "^1.15.0"
     },
     "dependencies": {
+        "@swup/head-plugin": "^1.2.1",
+        "@swup/progress-plugin": "^1.2.1",
         "powerglitch": "^2.2.0",
         "swup": "^2.0.19"
     }
