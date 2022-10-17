@@ -2,7 +2,10 @@
     <thread :icon="ThreadIcon[type].icon" :icon-color="ThreadIcon[type].color" :display-line="displayLine">
         <div class="event-content in-publication">
             <span>
-                Nouvelle publication dans le topic <a :href="generateTopicUrl(topic.slug)">{{ topic.name }}</a>
+                Nouvelle publication dans le topic
+                <strong>
+                    <a :href="generateTopicUrl(topic.slug)">{{ topic.name }}</a>
+                </strong>
             </span>
         </div>
 

@@ -1,7 +1,7 @@
 <template>
     <thread :icon="ThreadIcon[type].icon" :icon-color="ThreadIcon[type].color" :display-line="displayLine">
         <div class="event-content">
-            <span v-html="preview"></span>
+            <span class="actual-content" v-html="preview"></span>
             <span class="dot">•</span>
             <time-elapsed class="date" :date="publishedAt"></time-elapsed>
         </div>
@@ -40,14 +40,14 @@ defineProps<{
         }
     }
 
-    a {
+    :deep(a) {
         color: var(--primary);
         text-decoration: none;
         transition: color 200ms ease-in-out;
-    }
 
-    a:hover {
-        color: var(--dark);
+        &:hover {
+            color: var(--dark);
+        }
     }
 
     .dot {

@@ -16,14 +16,17 @@ use App\Entity\Topic;
 use App\Service\EventMessage;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class EventFixture extends Fixture
 {
     private $faker;
+    private UrlGeneratorInterface $router;
 
-    public function __construct()
+    public function __construct(UrlGeneratorInterface $router)
     {
         $this->faker = Factory::create();
+        $this->router = $router;
     }
 
     public function getDependencies()
@@ -41,7 +44,10 @@ class EventFixture extends Fixture
         /** @var $topics Topic[] */
         foreach ($topics as $topic) {
             $event = new Event();
-            $event->setMessage(EventMessage::NEW_TOPIC->format([$topic->getName()]));
+            $event->setMessage(EventMessage::NEW_TOPIC->format([
+                $topic->getName(),
+                $this->router->generate('app_topic', ['slug' => $topic->getSlug()]),
+            ]));
 
             $manager->persist($event);
         }

@@ -14,7 +14,7 @@ export default defineComponent({
         },
         color: {
             type: String,
-            default: "black",
+            default: "currentColor",
         },
         size: {
             type: String,
