@@ -1,0 +1,8 @@
+version: "3"
+
+tasks:
+    hello:
+        desc: "Shows a little message in the console"
+        cmds:
+            - echo "Hello World!"
+#
