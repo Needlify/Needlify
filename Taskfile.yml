@@ -57,3 +57,27 @@ tasks:
             - task: database:reset
               vars:
                   ENV: test
+
+    php:test:
+        desc: "Run php tests"
+        aliases: [p:t]
+        cmds:
+            - composer run stan
+            - composer run cs:check
+            - composer run test
+
+    node:test:
+        desc: "Run node tests"
+        alises: [n:t]
+        cmds:
+            - npm run lint
+            - npm run test
+
+    app:test:
+        desc: "Run global app tests"
+        aliases: ["a:t"]
+        cmds:
+            - npm run build
+            - task: database:reset
+            - task: php:test
+            - task: node:test
