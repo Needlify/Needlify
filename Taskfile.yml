@@ -1,8 +1,59 @@
 version: "3"
 
 tasks:
-    hello:
-        desc: "Shows a little message in the console"
+    database:drop:
+        desc: "Drop the database"
+        aliases: [d:d]
+        vars:
+            ENV: '{{default "dev" .ENV}}'
         cmds:
-            - echo "Hello World!"
-#
+            - php bin/console doctrine:database:drop --force --if-exists --no-interaction --quiet --env={{.ENV}}
+
+    database:create:
+        desc: "Create the database"
+        aliases: [d:c]
+        vars:
+            ENV: '{{default "dev" .ENV}}'
+        cmds:
+            - php bin/console doctrine:database:create --if-not-exists --no-interaction --quiet --env={{.ENV}}
+
+    database:migrate:
+        desc: "Run the database migrations"
+        aliases: [d:m]
+        vars:
+            ENV: '{{default "dev" .ENV}}'
+        cmds:
+            - php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration --quiet --env={{.ENV}}
+
+    database:fixtures:
+        desc: "Load the fixtures"
+        aliases: [d:f]
+        vars:
+            ENV: '{{default "dev" .ENV}}'
+        cmds:
+            - php bin/console doctrine:fixtures:load --no-interaction --quiet --env={{.ENV}}
+
+    database:reset:
+        desc: "Reset the database"
+        aliases: [d:r]
+        cmds:
+            - task: database:drop
+              vars:
+                  ENV: '{{default "dev" .ENV}}'
+            - task: database:create
+              vars:
+                  ENV: '{{default "dev" .ENV}}'
+            - task: database:migrate
+              vars:
+                  ENV: '{{default "dev" .ENV}}'
+            - task: database:fixtures
+              vars:
+                  ENV: '{{default "dev" .ENV}}'
+
+    database:reset:test:
+        desc: "Reset the database on test env"
+        aliases: [d:r:t]
+        cmds:
+            - task: database:reset
+              vars:
+                  ENV: test
