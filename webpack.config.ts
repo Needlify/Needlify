@@ -23,16 +23,18 @@ Encore.setOutputPath("public/build/")
     .addEntries({
         /* Styles */
         "style:global": "./assets/styles/global.scss",
-        "style:base": "./assets/styles/layout/base.scss",
+        "style:layout": "./assets/styles/layout/layout.scss",
+        "style:layout-auth": "./assets/styles/layout/layout-auth.scss",
         "style:header": "./assets/styles/layout/header.scss",
         "style:reset": "./assets/styles/reset.ts",
 
         /* Page Style */
         "page:feed": "./assets/styles/pages/feed.scss",
         "page:classifier": "./assets/styles/pages/classifier.scss",
+        "page:login": "./assets/styles/pages/login.scss",
 
         /* Typescript files */
-        "file:base": "./assets/files/base.ts",
+        "file:layout": "./assets/files/layout.ts",
         "file:swup": "./assets/files/swup.ts",
 
         /* Custom Elements */

@@ -40,16 +40,6 @@ defineProps<{
         }
     }
 
-    :deep(a) {
-        color: var(--primary);
-        text-decoration: none;
-        transition: color 200ms ease-in-out;
-
-        &:hover {
-            color: var(--dark);
-        }
-    }
-
     .dot {
         padding: 0 6px;
 

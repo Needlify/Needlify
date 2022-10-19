@@ -74,16 +74,6 @@ const generateArticleUrl = (slug: string) => Routing.generate("app_article", { s
         }
     }
 
-    a {
-        color: var(--primary);
-        text-decoration: none;
-        transition: color 200ms ease-in-out;
-    }
-
-    a:hover {
-        color: var(--dark);
-    }
-
     .dot {
         padding: 0 6px;
 

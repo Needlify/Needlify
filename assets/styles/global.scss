@@ -5,7 +5,27 @@ body {
     background-color: var(--light);
 }
 
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 * {
     font-family: Supreme;
     scroll-behavior: smooth;
+    outline: none;
+    box-sizing: border-box;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 200ms ease-in-out;
+
+    &:hover {
+        color: var(--dark);
+    }
 }
