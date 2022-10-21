@@ -19,6 +19,7 @@ use App\Repository\ClassifierRepository;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use function Symfony\Component\String\u;
 
@@ -30,6 +31,7 @@ use function Symfony\Component\String\u;
     Topic::class => Topic::class,
 ])]
 #[ORM\HasLifecycleCallbacks]
+#[UniqueEntity(['name'], 'Ce nom est déjà utilisé')]
 abstract class Classifier
 {
     #[ORM\Id]

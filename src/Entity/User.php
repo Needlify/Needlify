@@ -11,7 +11,6 @@ namespace App\Entity;
 
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
@@ -21,11 +20,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé')]
+#[UniqueEntity(fields: ['username'], message: 'Ce nom d\'utilisateur est déjà utilisé')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -53,9 +54,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Ignore]
     private ?string $password = null;
 
-    #[ORM\Column(type: Types::STRING, length: 50)]
+    #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
     #[Assert\NotBlank(message: "Le nom d'utilisateur ne peut pas être vide")]
     #[Assert\Length(max: 50, maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limite }} caractères")]
+    #[Assert\Regex(pattern: '/^(?=[a-zA-Z0-9._])(?!.*[_.]{2})[^.].*[^.]$/', message: "Nom d'utilisateur invalide")]
     #[Groups(['user:basic', 'user:extend'])]
     private ?string $username = null;
 
@@ -65,9 +67,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Publication::class)]
     private Collection $publications;
-
-    #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
 
     public function __construct()
     {
@@ -188,18 +187,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $publication->setAuthor(null);
             }
         }
-
-        return $this;
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
 
         return $this;
     }
