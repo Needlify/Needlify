@@ -55,7 +55,7 @@
 
                     {% for index, flash_error in app.flashes('info') %}
                         {% if index == 0 %}
-                            <div {{vue_component('CustomAlert', {type: "error", message: flash_error})}}></div>
+                            <div {{vue_component('CustomAlert', {type: "error", message: "Une erreur est survenue", description: flash_error})}}></div>
                         {% endif %}
                     {% endfor %}
 

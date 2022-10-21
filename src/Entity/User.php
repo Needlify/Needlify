@@ -40,7 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Email(message: "{{ value }} n'est pas un email valide")]
     #[Assert\Length(
         max: 180,
-        maxMessage: "L'email ne peut pas dépasser {{ limite }} caractères",
+        maxMessage: "L'email ne peut pas dépasser {{ limit }} caractères",
     )]
     #[Groups(['user:extend'])]
     private ?string $email = null;
@@ -54,9 +54,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Ignore]
     private ?string $password = null;
 
+    #[Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide')]
+    #[Assert\NotCompromisedPassword(message: 'Ce mot de passe est compromis, veuillez en utiliser un autre')]
+    #[Assert\Length(
+        min: 8, minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères',
+        max: 50, maxMessage: 'Le mot de passe ne peut pas dépasser {{ limit }} caractères',
+    )]
+    #[Assert\Regex(pattern: '/^.*?[A-Z].*?$/', match: true, message: 'Le mot de passe doit contenir au moins une majuscule')]
+    #[Assert\Regex(pattern: '/^.*?[0-9].*?$/', match: true, message: 'Le mot de passe doit contenir au moins un chiffre')]
+    #[Assert\Regex(pattern: '/^.*?[!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|].*?$/', match: true, message: 'Le mot de passe doit contenir au moins un caractère spécial')]
+    private ?string $rawPassword = null;
+
     #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
     #[Assert\NotBlank(message: "Le nom d'utilisateur ne peut pas être vide")]
-    #[Assert\Length(max: 50, maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limite }} caractères")]
+    #[Assert\Length(max: 50, maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères")]
     #[Assert\Regex(pattern: '/^(?=[a-zA-Z0-9._])(?!.*[_.]{2})[^.].*[^.]$/', message: "Nom d'utilisateur invalide")]
     #[Groups(['user:basic', 'user:extend'])]
     private ?string $username = null;
@@ -128,6 +139,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getRawPassword(): string
+    {
+        return $this->rawPassword;
+    }
+
+    public function setRawPassword(string $rawPassword): self
+    {
+        $this->rawPassword = $rawPassword;
 
         return $this;
     }

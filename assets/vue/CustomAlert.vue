@@ -65,6 +65,8 @@ const iconComposition = computed(() => {
 </script>
 
 <style lang="scss">
+@import "../styles/mixins";
+
 .v-enter-active,
 .v-leave-active {
     transition: opacity 200ms ease-in-out;
@@ -80,9 +82,17 @@ const iconComposition = computed(() => {
     padding: 18px 14px;
     box-shadow: 0 2px 6px var(--dark-transparent);
 
+    @include maxWidth(600px) {
+        padding: 12px 10px;
+    }
+
     .alert-container {
         display: flex;
         column-gap: 14px;
+
+        @include maxWidth(600px) {
+            column-gap: 8px;
+        }
 
         .alert-content-container {
             flex-grow: 1;
@@ -92,6 +102,9 @@ const iconComposition = computed(() => {
                 font-weight: 500;
                 font-size: 16px;
                 margin-top: 1px;
+                @include maxWidth(600px) {
+                    font-size: 13px;
+                }
             }
 
             .alert-description {
@@ -99,6 +112,9 @@ const iconComposition = computed(() => {
                 margin-top: 8px;
                 color: var(--dark-soft);
                 line-height: 18px;
+                @include maxWidth(600px) {
+                    font-size: 12px;
+                }
             }
         }
 

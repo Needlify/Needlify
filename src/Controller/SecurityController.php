@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\FormValidation;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +24,13 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class SecurityController extends AbstractController
 {
+    private FormValidation $formValidation;
+
+    public function __construct(FormValidation $formValidation)
+    {
+        $this->formValidation = $formValidation;
+    }
+
     #[Route(path: '/login', name: 'auth_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -65,11 +73,6 @@ class SecurityController extends AbstractController
             $password = $request->request->get('password');
             $passwordConfirm = $request->request->get('passwordConf');
 
-            if ('' === $password || '' === $passwordConfirm) {
-                $error = true;
-                $this->addFlash('info', 'Your password cannot be empty');
-            }
-
             if ($password !== $passwordConfirm) {
                 $error = true;
                 $this->addFlash('info', 'Passwords must match');
@@ -79,6 +82,7 @@ class SecurityController extends AbstractController
 
             $user->setEmail($email)
                  ->setUsername($username)
+                 ->setRawPassword($password)
                  ->setPassword(
                      $userPasswordHasher->hashPassword(
                          $user,
