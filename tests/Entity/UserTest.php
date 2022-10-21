@@ -112,11 +112,11 @@ class UserTest extends KernelTestCase
 
     public function testRemovePublication()
     {
-        /** @var User $user */
-        $user = $this->em->getRepository(User::class)->findOneBy([]);
-        $article = $user->getPublications()[0];
+        /** @var Publication $publication */
+        $publication = $this->em->getRepository(Publication::class)->findOneBy([]);
+        $author = $publication->getAuthor();
 
-        $user->removePublication($article);
-        $this->assertNotContains($article, $user->getPublications());
+        $author->removePublication($publication);
+        $this->assertNotContains($publication, $author->getPublications());
     }
 }
