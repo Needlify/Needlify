@@ -64,8 +64,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide')]
     #[Assert\NotCompromisedPassword(message: 'Ce mot de passe est compromis, veuillez en utiliser un autre')]
     #[Assert\Length(
-        min: 8, minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères',
-        max: 50, maxMessage: 'Le mot de passe ne peut pas dépasser {{ limit }} caractères',
+        min: 8,
+        minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères',
+        max: 50,
+        maxMessage: 'Le mot de passe ne peut pas dépasser {{ limit }} caractères',
     )]
     #[Assert\Regex(pattern: '/^.*?[A-Z].*?$/', message: 'Le mot de passe doit contenir au moins une majuscule')]
     #[Assert\Regex(pattern: '/^.*?[0-9].*?$/', message: 'Le mot de passe doit contenir au moins un chiffre')]
