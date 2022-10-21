@@ -35,9 +35,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
+    #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
+    #[Assert\NotBlank(message: "Le nom d'utilisateur ne peut pas être vide")]
+    #[Assert\Length(max: 50, maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\Regex(pattern: '/^[\w\-\.]*$/', message: "Nom d'utilisateur invalide")]
+    #[Groups(['user:basic', 'user:extend'])]
+    private ?string $username = null;
+
     #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     #[Assert\NotBlank(message: "L'email ne peut pas être vide")]
-    #[Assert\Email(message: "{{ value }} n'est pas un email valide")]
+    #[Assert\Email(message: 'Email invalide')]
     #[Assert\Length(
         max: 180,
         maxMessage: "L'email ne peut pas dépasser {{ limit }} caractères",
@@ -60,17 +67,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         min: 8, minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères',
         max: 50, maxMessage: 'Le mot de passe ne peut pas dépasser {{ limit }} caractères',
     )]
-    #[Assert\Regex(pattern: '/^.*?[A-Z].*?$/', match: true, message: 'Le mot de passe doit contenir au moins une majuscule')]
-    #[Assert\Regex(pattern: '/^.*?[0-9].*?$/', match: true, message: 'Le mot de passe doit contenir au moins un chiffre')]
-    #[Assert\Regex(pattern: '/^.*?[!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|].*?$/', match: true, message: 'Le mot de passe doit contenir au moins un caractère spécial')]
+    #[Assert\Regex(pattern: '/^.*?[A-Z].*?$/', message: 'Le mot de passe doit contenir au moins une majuscule')]
+    #[Assert\Regex(pattern: '/^.*?[0-9].*?$/', message: 'Le mot de passe doit contenir au moins un chiffre')]
+    #[Assert\Regex(pattern: '/^.*?[!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|].*?$/', message: 'Le mot de passe doit contenir au moins un caractère spécial')]
     private ?string $rawPassword = null;
-
-    #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
-    #[Assert\NotBlank(message: "Le nom d'utilisateur ne peut pas être vide")]
-    #[Assert\Length(max: 50, maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères")]
-    #[Assert\Regex(pattern: '/^(?=[a-zA-Z0-9._])(?!.*[_.]{2})[^.].*[^.]$/', message: "Nom d'utilisateur invalide")]
-    #[Groups(['user:basic', 'user:extend'])]
-    private ?string $username = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     #[Groups(['user:basic', 'user:extend'])]
@@ -87,6 +87,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?Uuid
     {
         return $this->id;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -159,18 +171,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?DateTimeImmutable

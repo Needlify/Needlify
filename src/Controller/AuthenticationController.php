@@ -10,7 +10,6 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Service\FormValidation;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,15 +21,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
-class SecurityController extends AbstractController
+class AuthenticationController extends AbstractController
 {
-    private FormValidation $formValidation;
-
-    public function __construct(FormValidation $formValidation)
-    {
-        $this->formValidation = $formValidation;
-    }
-
     #[Route(path: '/login', name: 'auth_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
