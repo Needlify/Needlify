@@ -27,3 +27,5 @@ export type ThreadsQuery = {
     total: number;
     data: Array<Thread>;
 };
+
+export type AlertType = "success" | "warning" | "error";

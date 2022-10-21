@@ -1,0 +1,57 @@
+{% extends "layout-auth.html.twig" %}
+
+{% block title %}
+    Register
+{% endblock title %}
+
+{% block form_title %}
+    Sign up to Needlify
+{% endblock form_title %}
+
+{% block form_subtitle %}
+    Lets see how Needlify can help you stay informed
+{% endblock form_subtitle %}
+
+{% block body %}
+    <form method="POST">
+        <div class="inputs">
+            <div class="custom-input-container">
+                <div class="custom-input">
+                    <div class="input-icon" {{ vue_component("FeatherIcon", { icon: "user", size: "16px", color: "#52616b" }) }}></div>
+                    <input type="text" name="username" placeholder="Choose a username" required />
+                </div>
+            </div>
+
+            <div class="custom-input-container">
+                <div class="custom-input">
+                    <div class="input-icon" {{ vue_component("FeatherIcon", { icon: "mail", size: "16px", color: "#52616b" }) }}></div>
+                    <input type="email" name="email" placeholder="Enter your email" required />
+                </div>
+            </div>
+
+            <div class="custom-input-container">
+                <div class="custom-input">
+                    <div class="input-icon" {{ vue_component("FeatherIcon", { icon: "lock", size: "16px", color: "#52616b" }) }}></div>
+                    <input type="password" name="password" placeholder="Enter your password" required />
+                </div>
+            </div>
+
+            <div class="custom-input-container">
+                <div class="custom-input">
+                    <div class="input-icon" {{ vue_component("FeatherIcon", { icon: "lock", size: "16px", color: "#52616b" }) }}></div>
+                    <input type="password" name="passwordConf" placeholder="Confirm your password" required />
+                </div>
+            </div>
+
+            {# <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}" /> #}
+        </div>
+
+        <button class="btn btn-lg btn-primary" type="submit">Sign up</button>
+    </form>
+{% endblock body %}
+
+{% block additional_info %}
+    <p>
+        Already have an account ? <a href="{{ url("auth_login") }}">Sign in</a>
+    </p>
+{% endblock additional_info %}

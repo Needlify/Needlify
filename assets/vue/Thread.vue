@@ -51,13 +51,14 @@ defineProps({
         top: -6px; /* Car border-top */
         left: -48px;
         width: 26px;
-        aspect-ratio: 1;
+        height: 26px;
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
         border-top: 6px solid var(--light);
         border-bottom: 6px solid var(--light);
+        box-sizing: content-box;
 
         @include maxWidth(600px) {
             left: -38px;
