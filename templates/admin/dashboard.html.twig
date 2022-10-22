@@ -1,0 +1,25 @@
+{% extends "@EasyAdmin/page/content.html.twig" %}
+
+{% block content_title %}
+    Project overview
+{% endblock content_title %}
+
+{% block main %}
+    {{ encore_entry_link_tags("page:dashboard") }}
+
+    <div id="custom-dashboard-wrapper">
+        {% for key, stats in data %}
+            <div class="card-stats">
+                <div class="icon">
+                    <i class="{{ stats.icon }}"></i>
+                </div>
+                <div class="data">
+                    <h3 class="value" title="{{ stats.value|number_format(0, ".", " ") }}">
+                        {{ stats.value|formatNumber }}
+                    </h3>
+                    <span class="subject">{{ key|capitalize }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock main %}

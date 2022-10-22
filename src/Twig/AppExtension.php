@@ -21,11 +21,27 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFilter('instanceOf', [$this, 'isInstanceof']),
+            new TwigFilter('formatNumber', [$this, 'formatNumber']),
         ];
     }
 
     public function isInstanceof($element, $meta): bool
     {
         return $element instanceof $meta;
+    }
+
+    public function formatNumber($num)
+    {
+        if ($num > 1_000_000_000_000) {
+            return round($num / 1_000_000_000_000, 1) . 'T';
+        } elseif ($num > 1_000_000_000) {
+            return round($num / 1_000_000_000, 1) . 'B';
+        } elseif ($num > 1_000_000) {
+            return round($num / 1_000_000, 1) . 'M';
+        } elseif ($num > 1_000) {
+            return round($num / 1_000, 1) . 'K';
+        }
+
+        return $num;
     }
 }

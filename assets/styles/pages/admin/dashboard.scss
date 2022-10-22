@@ -1,0 +1,42 @@
+#custom-dashboard-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+    grid-auto-rows: minmax(100px, auto);
+    margin-top: 20px;
+
+    .card-stats {
+        padding: 12px;
+        background-color: var(--sidebar-bg);
+        border: 1px solid var(--content-top-border-color);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: row;
+        column-gap: 15px;
+
+        .icon {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--sidebar-menu-active-item-color);
+            width: 65px;
+            font-size: 40px;
+        }
+
+        .data {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+            .value {
+                font-size: 26px;
+                font-weight: 700;
+            }
+            .subject {
+                color: var(--dropdown-settings-icon-color);
+                font-size: 18px;
+            }
+        }
+    }
+}

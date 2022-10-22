@@ -13,6 +13,7 @@
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
+        "easycorp/easyadmin-bundle": "^4.4",
         "erusev/parsedown": "^1.7",
         "friendsofsymfony/jsrouting-bundle": "^3.2",
         "phpdocumentor/reflection-docblock": "^5.3",
