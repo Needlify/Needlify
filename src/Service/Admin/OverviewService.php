@@ -9,7 +9,11 @@
 
 namespace App\Service\Admin;
 
+use App\Entity\Tag;
+use App\Entity\Event;
+use App\Entity\Topic;
 use App\Entity\Article;
+use App\Entity\Moodline;
 use Doctrine\ORM\EntityManagerInterface;
 
 class OverviewService
@@ -30,19 +34,19 @@ class OverviewService
             ],
             'moodline' => [
                 'icon' => 'fas fa-bolt',
-                'value' => 203,
+                'value' => $this->em->getRepository(Moodline::class)->countAll(),
             ],
             'tag' => [
                 'icon' => 'fas fa-hashtag',
-                'value' => 2356000000000000,
+                'value' => $this->em->getRepository(Tag::class)->countAll(),
             ],
             'topic' => [
                 'icon' => 'fas fa-tags',
-                'value' => 5,
+                'value' => $this->em->getRepository(Topic::class)->countAll(),
             ],
             'event' => [
                 'icon' => 'fas fa-bell',
-                'value' => 12,
+                'value' => $this->em->getRepository(Event::class)->countAll(),
             ],
         ];
     }

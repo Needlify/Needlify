@@ -11,6 +11,7 @@ namespace App\Repository;
 
 use App\Entity\Tag;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Interface\DashboardRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -21,7 +22,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  * @method Tag[]    findAll()
  * @method Tag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TagRepository extends ServiceEntityRepository
+class TagRepository extends ServiceEntityRepository implements DashboardRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -50,6 +51,14 @@ class TagRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function countAll(): int
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 //    /**

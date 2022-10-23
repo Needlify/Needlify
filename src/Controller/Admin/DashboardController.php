@@ -16,7 +16,9 @@ use App\Service\Admin\OverviewService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use Symfony\Component\Security\Core\User\UserInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
@@ -61,7 +63,7 @@ class DashboardController extends AbstractDashboardController
             // use this method to display a custom favicon: the given path is passed
             // "as is" to the Twig asset() function:
             // <link rel="shortcut icon" href="{{ asset('...') }}">
-            // ->setFaviconPath('favicon.svg')
+            ->setFaviconPath('images/logo/favicon.ico')
 
             // the domain used by default is 'messages'
             // ->setTranslationDomain('my-custom-domain')
@@ -96,10 +98,10 @@ class DashboardController extends AbstractDashboardController
             // to customize the labels of locales, pass a key => value array
             // (e.g. to display flags; although it's not a recommended practice,
             // because many languages/locales are not associated to a single country)
-            ->setLocales([
-                'en' => '🇬🇧 English',
-                'fr' => '🇫🇷 Français',
-            ])
+            // ->setLocales([
+            //     'en' => '🇬🇧 English',
+            //     'fr' => '🇫🇷 Français',
+            // ])
             // to further customize the locale option, pass an instance of
             // EasyCorp\Bundle\EasyAdminBundle\Config\Locale
             // ->setLocales([
@@ -112,12 +114,29 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         // TODO Customiser le page du dashboard
-        yield MenuItem::linkToDashboard('Overview');
+        yield MenuItem::linkToDashboard('Overview', 'fas fa-chart-pie');
 
         yield MenuItem::section('Classifiers');
         yield MenuItem::linkToCrud('Tag', 'fas fa-hashtag', Tag::class);
         yield MenuItem::linkToCrud('Topic', 'fas fa-tag', Topic::class);
 
         yield MenuItem::linkToCrud('User', 'fas fa-user', User::class);
+    }
+
+    /**
+     * @param User $user
+     */
+    public function configureUserMenu(UserInterface $user): UserMenu
+    {
+        return parent::configureUserMenu($user)
+            ->setName($user->getUsername())
+            ->displayUserName(false)
+            ->displayUserAvatar(false)
+            ->setMenuItems([
+                // MenuItem::linkToRoute('My Profile', 'fa fa-id-card', '...', ['...' => '...']),
+                // MenuItem::linkToRoute('Settings', 'fa fa-user-cog', '...', ['...' => '...']),
+                // MenuItem::section(),
+                MenuItem::linkToLogout('Logout', 'fa fa-sign-out'),
+            ]);
     }
 }
