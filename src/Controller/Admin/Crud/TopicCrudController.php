@@ -10,20 +10,49 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Topic;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use App\Controller\Admin\Crud\Traits\ClassifierCrudTrait;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class TopicCrudController extends AbstractCrudController
 {
+    use ClassifierCrudTrait;
+
     public static function getEntityFqcn(): string
     {
         return Topic::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setSearchFields(['name'])
+            ->setDateTimeFormat('d LLL. yyyy HH:mm:ss ZZZZ');
+    }
+
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-        ];
+        yield FormField::addPanel('Essential');
+        yield IdField::new('id')->onlyOnDetail();
+        yield TextField::new('name');
+        yield TextField::new('slug')->onlyOnDetail();
+
+        yield FormField::addPanel('Date Details')->hideOnForm();
+        yield DateTimeField::new('createdAt')->hideOnForm();
+        yield DateTimeField::new('lastUseAt')->hideOnForm();
+
+        yield FormField::addPanel('Associations')->hideOnForm();
+        yield AssociationField::new('publications')->hideOnForm();
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $this->defaultActionConfiguration($actions, Topic::class);
     }
 }

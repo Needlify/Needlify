@@ -34,7 +34,7 @@ abstract class Thread
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
-    private ?Uuid $id = null;
+    protected ?Uuid $id = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     #[Groups(['thread:extend'])]

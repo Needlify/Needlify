@@ -114,7 +114,9 @@ class Article extends Publication implements ThreadInterface
     public function setSlug(): void
     {
         $slugger = new AsciiSlugger();
-        $this->slug = u($slugger->slug($this->title) . '-' . hash('adler32', $this->title))->lower();
+        $this->slug = $slugger->slug(
+            u($this->title)->lower() . ' ' . uniqid()
+        );
     }
 
     #[SerializedName('type')]
@@ -129,5 +131,10 @@ class Article extends Publication implements ThreadInterface
     public function getPreview(): string
     {
         return $this->getDescription();
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

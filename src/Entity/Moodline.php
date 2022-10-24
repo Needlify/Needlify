@@ -51,4 +51,9 @@ class Moodline extends Publication implements ThreadInterface
     {
         return $this->getContent();
     }
+
+    public function __toString()
+    {
+        return $this->id->toRfc4122();
+    }
 }

@@ -90,7 +90,7 @@ class ClassifierTest extends KernelTestCase
 
         $tag->setName($name);
         $this->em->persist($tag);
-        $this->assertEquals('tag-test', $tag->getSlug());
+        $this->assertMatchesRegularExpression('/tag-test-[a-z0-9]{13}/', $tag->getSlug());
         $this->em->remove($tag);
     }
 }
