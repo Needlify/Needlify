@@ -38,6 +38,9 @@ Encore.setOutputPath("public/build/")
         "file:layout": "./assets/files/layout.ts",
         "file:swup": "./assets/files/swup.ts",
 
+        /* EasyAdmin custom style */
+        "admin:event": "./assets/admin/event.scss",
+
         /* Custom Elements */
         "component:vue": "./assets/plugins/vue.ts",
     })

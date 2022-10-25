@@ -14,10 +14,30 @@ use App\Entity\Topic;
 use App\Entity\Classifier;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 trait ClassifierCrudTrait
 {
+    public function defaultFieldConfiguration(string $pageName, string $classifierFqcn): iterable
+    {
+        yield FormField::addPanel('Essential');
+        yield IdField::new('id')->onlyOnDetail();
+        yield TextField::new('name');
+        yield TextField::new('slug')->onlyOnDetail();
+
+        yield FormField::addPanel('Date Details')->hideOnForm();
+        yield DateTimeField::new('createdAt')->hideOnForm();
+        yield DateTimeField::new('lastUseAt')->hideOnForm();
+
+        yield FormField::addPanel('Associations')->hideOnForm();
+        yield AssociationField::new('publications')->hideOnForm();
+    }
+
     public function defaultActionConfiguration(Actions $actions, string $classifierFqcn): Actions
     {
         if (Tag::class === $classifierFqcn) {
@@ -38,7 +58,7 @@ trait ClassifierCrudTrait
                 ];
             });
 
-        return $actions
+        $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('Details'))
 
@@ -54,7 +74,12 @@ trait ClassifierCrudTrait
 
             // ->reorder(Crud::PAGE_DETAIL, [Action::DELETE, 'goTo', Action::INDEX, Action::EDIT])
 
-            ->remove(Crud::PAGE_INDEX, Action::NEW)
         ;
+
+        if (Tag::class === $classifierFqcn) {
+            $actions->remove(Crud::PAGE_INDEX, Action::NEW);
+        }
+
+        return $actions;
     }
 }

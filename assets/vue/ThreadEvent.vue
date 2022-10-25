@@ -40,6 +40,11 @@ defineProps<{
         }
     }
 
+    .actual-content ::v-deep(p) {
+        margin: 0;
+        display: inline-block;
+    }
+
     .dot {
         padding: 0 6px;
 

@@ -11,13 +11,8 @@ namespace App\Controller\Admin\Crud;
 
 use App\Entity\Topic;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use App\Controller\Admin\Crud\Traits\ClassifierCrudTrait;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class TopicCrudController extends AbstractCrudController
@@ -38,17 +33,7 @@ class TopicCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield FormField::addPanel('Essential');
-        yield IdField::new('id')->onlyOnDetail();
-        yield TextField::new('name');
-        yield TextField::new('slug')->onlyOnDetail();
-
-        yield FormField::addPanel('Date Details')->hideOnForm();
-        yield DateTimeField::new('createdAt')->hideOnForm();
-        yield DateTimeField::new('lastUseAt')->hideOnForm();
-
-        yield FormField::addPanel('Associations')->hideOnForm();
-        yield AssociationField::new('publications')->hideOnForm();
+        return $this->defaultFieldConfiguration($pageName, Topic::class);
     }
 
     public function configureActions(Actions $actions): Actions
