@@ -1,0 +1,33 @@
+{% if ea.crud.currentAction == "detail" %}
+
+{% if field.value|length == 0 %}
+    <span class="badge badge-secondary">NULL</span>
+{% else %}
+    <div id="threads-container">
+        {% for type in "App\\Service\\ThreadType"|enumValues %}
+            {% if field.value|filter(t => t.type == type)|length > 0 %}
+
+                <h4>{{type|capitalize}}s</h4>
+                <div class="custom-thread-container">
+                    {% for thread in field.value|filter(t => t.type == type) %}
+
+                        {% if thread.type == constant("App\\Service\\ThreadType::ARTICLE").value %}
+                            <details>
+                                    <summary>{{thread.title}}</summary>
+                                {{thread.preview}}
+                            </details>
+                        {% else %}
+                            <div class="thread-container">{{thread.preview}}</div>
+                        {% endif %}
+
+                    {% endfor %}
+                </div>
+
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% else %}
+    <span class="badge badge-secondary">{{ field.value|length }}</span>
+{% endif %}

@@ -1,0 +1,48 @@
+@import "../../styles/fonts";
+@import "../../styles/variables";
+
+#threads-container {
+    font-family: Supreme;
+}
+
+h4 {
+    margin-bottom: 15px;
+    &:not(:first-child) {
+        margin-top: 35px;
+    }
+}
+
+.custom-thread-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    details {
+        border: 1px solid var(--datalist-border-color);
+        border-radius: 4px;
+        padding: 0.5em 0.5em 0;
+
+        summary {
+            font-weight: bold;
+            margin: -0.5em -0.5em 0;
+            padding: 0.5em;
+            color: var(--datalist-label-color);
+        }
+
+        &[open] {
+            padding: 0.5em;
+
+            & summary {
+                border-bottom: 1px solid var(--datalist-border-color);
+                margin-bottom: 0.5em;
+            }
+        }
+    }
+
+    div.thread-container {
+        border: 1px solid var(--datalist-border-color);
+        border-radius: 4px;
+        padding: 0.5em;
+        color: var(--datalist-label-color);
+    }
+}

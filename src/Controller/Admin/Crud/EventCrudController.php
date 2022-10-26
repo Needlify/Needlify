@@ -14,16 +14,32 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class EventCrudController extends AbstractCrudController
 {
+    use ThreadCrudTrait;
+
     public static function getEntityFqcn(): string
     {
         return Event::class;
+    }
+
+    // public function configureFilters(Filters $filters): Filters
+    // {
+    //     return $filters->add(DateTimeFilter::new('publishedAt'));
+    // }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $this->defaultThreadCrudConfiguration($crud)
+            ->setSearchFields(['message']);
     }
 
     public function configureFields(string $pageName): iterable
@@ -37,11 +53,8 @@ class EventCrudController extends AbstractCrudController
             ])
             ->setNumOfRows(1)
             ->addWebpackEncoreEntries('admin:event')
-            ->onlyOnForms();
-
-        yield TextEditorField::new('message')
             ->formatValue(fn (string $value) => $value) // To render content as html rather than just text
-            ->hideOnForm();
+        ;
 
         yield FormField::addPanel('Date Details')->hideOnForm();
         yield DateTimeField::new('publishedAt')->hideOnForm();

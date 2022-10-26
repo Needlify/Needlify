@@ -1,0 +1,12 @@
+{% if ea.crud.currentAction == "detail" %}
+    <div id="custom-tags-container">
+        {% for tag in field.value %}
+            <a class="tag" href="{{ url("app_tag", { slug: tag.slug }) }}" title="{{ tag.name }}">
+                <div {{ vue_component("FeatherIcon", { icon: "hash", color: "#a8a8a8", strokeWidth: "2.5px", size: "14px" }) }}></div>
+                <span>{{ tag.name }}</span>
+            </a>
+        {% endfor %}
+    </div>
+{% else %}
+    <span class="badge badge-secondary">{{ field.value|length }}</span>
+{% endif %}

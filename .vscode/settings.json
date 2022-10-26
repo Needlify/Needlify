@@ -22,5 +22,7 @@
     "volar.completion.preferredAttrNameCase": "kebab",
     "volar.completion.preferredTagNameCase": "kebab",
     "testing.automaticallyOpenPeekView": "never",
-    "typescript.tsdk": "node_modules/typescript/lib"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "search.useGlobalIgnoreFiles": false,
+    "search.useParentIgnoreFiles": false
 }

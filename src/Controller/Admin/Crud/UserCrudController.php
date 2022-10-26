@@ -10,8 +10,14 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class UserCrudController extends AbstractCrudController
@@ -21,11 +27,30 @@ class UserCrudController extends AbstractCrudController
         return User::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setDefaultSort(['createdAt' => 'DESC']);
+    }
+
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('username'),
-        ];
+        yield FormField::addPanel('Essentials');
+        yield IdField::new('id')->onlyOnDetail();
+        yield TextField::new('username');
+        yield EmailField::new('email');
+
+        yield FormField::addPanel('Associations')->hideOnForm();
+        yield AssociationField::new('publications')
+            ->setTemplatePath('admin/components/publications.html.twig')
+            ->addWebpackEncoreEntries('admin:component:publications')
+            ->hideOnForm();
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+        ;
     }
 }

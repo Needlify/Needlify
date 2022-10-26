@@ -10,20 +10,57 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Article;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
+use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ArticleCrudController extends AbstractCrudController
 {
+    use ThreadCrudTrait;
+    use ContentCrudTrait;
+
     public static function getEntityFqcn(): string
     {
         return Article::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $this->defaultThreadCrudConfiguration($crud);
+    }
+
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-        ];
+        yield FormField::addPanel('Essential');
+        yield IdField::new('id')->onlyOnDetail();
+        yield TextField::new('slug')->onlyOnDetail();
+        yield TextareaField::new('description')->hideOnIndex();
+        yield TextEditorField::new('description')->onlyOnIndex();
+
+        yield FormField::addPanel('Date Details')->hideOnForm();
+        yield DateTimeField::new('publishedAt')->hideOnForm();
+
+        yield FormField::addPanel('Associations');
+        yield AssociationField::new('topic')->setRequired(true);
+        yield AssociationField::new('tags')
+            ->setTemplatePath('admin/components/tags.html.twig')
+            ->addWebpackEncoreEntries('admin:component:tags', 'component:vue');
+
+        yield FormField::addPanel('Content');
+        yield TextEditorField::new('content');
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $this->defaultContentActionConfiguration($actions, Article::class);
     }
 }

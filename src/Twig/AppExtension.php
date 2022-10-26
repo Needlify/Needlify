@@ -22,12 +22,22 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('instanceOf', [$this, 'isInstanceof']),
             new TwigFilter('formatNumber', [$this, 'formatNumber']),
+            new TwigFilter('enumValues', [$this, 'enumValues']),
         ];
     }
 
     public function isInstanceof($element, $meta): bool
     {
         return $element instanceof $meta;
+    }
+
+    public function enumValues(string $enumFqcn): array
+    {
+        if (!enum_exists($enumFqcn)) {
+            return [];
+        }
+
+        return $enumFqcn::values();
     }
 
     public function formatNumber($num)

@@ -12,12 +12,14 @@ namespace App\Controller\Admin\Crud;
 use App\Entity\Tag;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
 use App\Controller\Admin\Crud\Traits\ClassifierCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class TagCrudController extends AbstractCrudController
 {
     use ClassifierCrudTrait;
+    use ContentCrudTrait;
 
     public static function getEntityFqcn(): string
     {
@@ -26,18 +28,16 @@ class TagCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud
-            ->setSearchFields(['name'])
-            ->setDateTimeFormat('d LLL. yyyy HH:mm:ss ZZZZ');
+        return $this->defaultClassifierCrudConfiguration($crud);
     }
 
     public function configureFields(string $pageName): iterable
     {
-        return $this->defaultFieldConfiguration($pageName, Tag::class);
+        return $this->defaultClassifierFieldConfiguration($pageName, Tag::class);
     }
 
     public function configureActions(Actions $actions): Actions
     {
-        return $this->defaultActionConfiguration($actions, Tag::class);
+        return $this->defaultContentActionConfiguration($actions, Tag::class);
     }
 }

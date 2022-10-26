@@ -40,6 +40,8 @@ Encore.setOutputPath("public/build/")
 
         /* EasyAdmin custom style */
         "admin:event": "./assets/admin/event.scss",
+        "admin:component:tags": "./assets/admin/component/tags.scss",
+        "admin:component:publications": "./assets/admin/component/publications.scss",
 
         /* Custom Elements */
         "component:vue": "./assets/plugins/vue.ts",
