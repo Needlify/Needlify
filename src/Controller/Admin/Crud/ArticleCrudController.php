@@ -42,6 +42,8 @@ class ArticleCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('Essential');
         yield IdField::new('id')->onlyOnDetail();
+        yield TextField::new('title');
+        yield AssociationField::new('author')->hideOnForm();
         yield TextField::new('slug')->onlyOnDetail();
         yield TextareaField::new('description')->hideOnIndex();
         yield TextEditorField::new('description')->onlyOnIndex();

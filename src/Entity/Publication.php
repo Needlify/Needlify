@@ -36,7 +36,6 @@ abstract class Publication extends Thread
     protected Collection $tags;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'publications')]
-    #[Assert\NotNull(message: "L'auteur d'une publication doit être renseigné")]
     protected ?User $author = null;
 
     public function __construct()
