@@ -27,6 +27,19 @@ h4 {
             margin: -0.5em -0.5em 0;
             padding: 0.5em;
             color: var(--datalist-label-color);
+
+            .summary-content {
+                display: inline-flex;
+                justify-content: space-between;
+                width: calc(100% - 15px);
+                column-gap: 20px;
+
+                .article-links {
+                    flex-shrink: 0;
+                    display: flex;
+                    column-gap: 10px;
+                }
+            }
         }
 
         &[open] {
