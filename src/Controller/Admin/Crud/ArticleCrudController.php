@@ -42,14 +42,10 @@ class ArticleCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('Essential');
         yield IdField::new('id')->onlyOnDetail();
-        yield TextField::new('title')
-            ->setMaxLength(120)
-            ->setFormTypeOption('attr.maxLength', 120);
+        yield TextField::new('title');
         yield AssociationField::new('author')->onlyOnDetail();
         yield TextField::new('slug')->onlyOnDetail();
         yield TextareaField::new('description')
-            ->setMaxLength(500)
-            ->setFormTypeOption('attr.maxLength', 500)
             ->hideOnIndex();
         yield TextEditorField::new('description')->onlyOnIndex();
 

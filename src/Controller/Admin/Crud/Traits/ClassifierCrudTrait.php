@@ -22,7 +22,7 @@ trait ClassifierCrudTrait
     {
         yield FormField::addPanel('Essential');
         yield IdField::new('id')->onlyOnDetail();
-        yield TextField::new('name')->setMaxLength(50)->setFormTypeOption('attr.maxLength', 50);
+        yield TextField::new('name');
         yield TextField::new('slug')->onlyOnDetail();
 
         yield FormField::addPanel('Date Details')->hideOnForm();

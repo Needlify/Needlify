@@ -43,7 +43,7 @@ class Article extends Publication implements ThreadInterface
 
     #[ORM\Column(type: Types::INTEGER)]
     #[Assert\PositiveOrZero(message: 'Le nombre de vues doit être positif ou null')]
-    private int $views = 0;
+    private ?int $views = 0;
 
     #[ORM\Column(type: Types::STRING, length: 134)]
     #[Assert\Length(max: 134, maxMessage: "Le slug d'un article ne peut pas dépasser {{ limit }} caractères")]
