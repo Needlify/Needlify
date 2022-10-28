@@ -62,7 +62,7 @@ class AuthenticationController extends AbstractController
         if ('POST' === $request->getMethod()) {
             $token = $request->request->get('_csrf_token');
 
-            if ($this->isCsrfTokenValid('register', $token)) {
+            if (!$this->isCsrfTokenValid('register', $token)) {
                 throw new InvalidCsrfTokenException();
             }
 

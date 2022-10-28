@@ -9,12 +9,12 @@
 
 namespace App\EventSubscriber\admin;
 
-use App\Entity\Article;
+use App\Entity\Publication;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 
-class ArticleCrudSubscriber implements EventSubscriberInterface
+class PublicationCrudSubscriber implements EventSubscriberInterface
 {
     private $security;
 
@@ -26,15 +26,15 @@ class ArticleCrudSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            BeforeEntityPersistedEvent::class => ['setBlogPostSlug'],
+            BeforeEntityPersistedEvent::class => ['setAuthor'],
         ];
     }
 
-    public function setBlogPostSlug(BeforeEntityPersistedEvent $event)
+    public function setAuthor(BeforeEntityPersistedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
-        if (!($entity instanceof Article)) {
+        if (!($entity instanceof Publication)) {
             return;
         }
 

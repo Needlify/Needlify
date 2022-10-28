@@ -17,7 +17,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -42,17 +41,21 @@ class MoodlineCrudController extends AbstractCrudController
         yield FormField::addPanel('Essential');
         yield IdField::new('id')->onlyOnDetail();
 
-        yield TextEditorField::new('content')->onlyOnIndex();
-        yield TextareaField::new('content')
-            ->hideOnIndex()
-            ->setMaxLength(350)
-            ->setFormTypeOption('attr.maxLength', 350);
+        yield TextEditorField::new('content')
+            ->setTrixEditorConfig([
+                'blockAttributes' => [
+                    'default' => ['tagName' => 'p'],
+                ],
+            ])
+            ->setNumOfRows(3)
+            ->addWebpackEncoreEntries('admin:event')
+            ->formatValue(fn (string $value) => $value);
 
         yield FormField::addPanel('Date Details')->hideOnForm();
         yield DateTimeField::new('publishedAt')->hideOnForm();
 
         yield FormField::addPanel('Associations');
-        yield AssociationField::new('topic');
+        yield AssociationField::new('topic')->setRequired(true);
         yield AssociationField::new('tags')
             ->setTemplatePath('admin/components/tags.html.twig')
             ->addWebpackEncoreEntries('admin:component:tags', 'component:vue');

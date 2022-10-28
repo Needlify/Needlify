@@ -21,10 +21,13 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event extends Thread implements ThreadInterface
 {
-    #[ORM\Column(type: Types::STRING, length: 350)]
-    #[Assert\NotBlank(message: "Le message d'une évènement ne pas être vide")]
-    #[Assert\Length(max: 350, maxMessage: "Le message d'une évènement ne peut pas dépasser {{ limite }} caractères")]
+    #[ORM\Column(type: Types::STRING, length: 240)] // 240 = 150 * 0.6
+    #[Assert\Length(max: 240, maxMessage: "Le message d'une évènement ne peut pas dépasser {{ limit }} caractères")]
     private ?string $message = null;
+
+    #[Assert\Length(max: 150, maxMessage: "Le message brut d'une évènement ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\NotBlank(message: "Le message brut d'une évènement ne pas être vide")]
+    private ?string $rawMessage = null;
 
     public function __construct(?string $message = null)
     {
@@ -40,7 +43,16 @@ class Event extends Thread implements ThreadInterface
     {
         $this->message = $message;
 
+        if (null !== $message) {
+            $this->rawMessage = strip_tags($message);
+        }
+
         return $this;
+    }
+
+    public function getRawMessage(): ?string
+    {
+        return $this->rawMessage;
     }
 
     #[SerializedName('type')]

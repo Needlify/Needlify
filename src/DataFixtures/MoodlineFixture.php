@@ -44,7 +44,7 @@ class MoodlineFixture extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i < 5; ++$i) {
             $moodline = new Moodline();
-            $moodline->setContent($this->faker->text(350))
+            $moodline->setContent($this->faker->text(500))
                 ->setTopic($this->faker->randomElement($topics))
                 ->setTags($this->faker->randomElements($tags, 3))
                 ->setAuthor($this->faker->randomElement($users));

@@ -21,10 +21,13 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ORM\Entity(repositoryClass: MoodlineRepository::class)]
 class Moodline extends Publication implements ThreadInterface
 {
-    #[ORM\Column(type: Types::TEXT, length: 350)]
-    #[Assert\NotBlank(message: "Le contenu d'une moodline ne pas être vide")]
-    #[Assert\Length(max: 350, maxMessage: "Le contenu d'une moodline ne peut pas dépasser {{ limite }} caractères")]
+    #[ORM\Column(type: Types::TEXT, length: 800)]
+    #[Assert\Length(max: 800, maxMessage: "Le contenu d'une moodline ne peut pas dépasser {{ limit }} caractères")]
     private ?string $content = null;
+
+    #[Assert\Length(max: 500, maxMessage: "Le contenu brut d'une moodline ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\NotBlank(message: "Le contenu brut d'une moodline ne pas être vide")]
+    private ?string $rawContent = null;
 
     public function getContent(): ?string
     {
@@ -35,7 +38,16 @@ class Moodline extends Publication implements ThreadInterface
     {
         $this->content = $content;
 
+        if (null !== $content) {
+            $this->rawContent = strip_tags($content);
+        }
+
         return $this;
+    }
+
+    public function getRawContent(): ?string
+    {
+        return $this->rawContent;
     }
 
     #[SerializedName('type')]

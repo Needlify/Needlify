@@ -43,7 +43,7 @@ abstract class Classifier
 
     #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
     #[Assert\NotBlank(message: "Le nom d'un classificateur ne peut pas être vide")]
-    #[Assert\Length(max: 50, maxMessage: "Le nom d'un classificateur ne peut pas dépasser {{ limite }} caractères")]
+    #[Assert\Length(max: 50, maxMessage: "Le nom d'un classifier ne peut pas dépasser {{ limit }} caractères")]
     #[Groups(['thread:extend'])]
     protected ?string $name = null;
 
@@ -53,7 +53,8 @@ abstract class Classifier
     #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
     protected ?\DateTimeInterface $lastUseAt = null;
 
-    #[ORM\Column(type: Types::STRING, length: 50)]
+    #[ORM\Column(type: Types::STRING, length: 64)]
+    #[Assert\Length(max: 64, maxMessage: "Le slug d'un classifier ne peut pas dépasser {{ limit }} caractères")]
     #[Groups(['thread:extend'])]
     protected ?string $slug = null;
 
