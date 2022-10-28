@@ -79,7 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:basic', 'user:extend'])]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Publication::class)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Publication::class, cascade: ['remove'])]
     private Collection $publications;
 
     public function __construct()
