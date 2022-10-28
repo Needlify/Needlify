@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -36,11 +37,16 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield FormField::addPanel('Essentials');
-        yield IdField::new('id')->onlyOnDetail();
-        yield TextField::new('username')->setMaxLength(50)->setFormTypeOption('attr.maxLength', 50);
-        yield EmailField::new('email')->setFormTypeOption('attr.maxLength', 180);
+        yield IdField::new('id')
+            ->onlyOnDetail();
+        yield TextField::new('username');
+        yield EmailField::new('email');
+        yield ArrayField::new('roles')
+            ->setTemplatePath('admin/components/roles.html.twig')
+            ->hideOnForm();
 
-        yield FormField::addPanel('Associations')->hideOnForm();
+        yield FormField::addPanel('Associations')
+            ->hideOnForm();
         yield AssociationField::new('publications')
             ->setTemplatePath('admin/components/publications.html.twig')
             ->addWebpackEncoreEntries('admin:component:publications')
@@ -50,7 +56,6 @@ class UserCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('Details'))
-        ;
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('Details'));
     }
 }
