@@ -42,10 +42,15 @@ class ArticleCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('Essential');
         yield IdField::new('id')->onlyOnDetail();
-        yield TextField::new('title');
-        yield AssociationField::new('author')->hideOnForm();
+        yield TextField::new('title')
+            ->setMaxLength(120)
+            ->setFormTypeOption('attr.maxLength', 120);
+        yield AssociationField::new('author')->onlyOnDetail();
         yield TextField::new('slug')->onlyOnDetail();
-        yield TextareaField::new('description')->hideOnIndex();
+        yield TextareaField::new('description')
+            ->setMaxLength(500)
+            ->setFormTypeOption('attr.maxLength', 500)
+            ->hideOnIndex();
         yield TextEditorField::new('description')->onlyOnIndex();
 
         yield FormField::addPanel('Date Details')->hideOnForm();
@@ -58,7 +63,8 @@ class ArticleCrudController extends AbstractCrudController
             ->addWebpackEncoreEntries('admin:component:tags', 'component:vue');
 
         yield FormField::addPanel('Content');
-        yield TextEditorField::new('content');
+        yield TextEditorField::new('content')
+            ->formatValue(fn (string $value) => $value); // To render content as html rather than just text
     }
 
     public function configureActions(Actions $actions): Actions

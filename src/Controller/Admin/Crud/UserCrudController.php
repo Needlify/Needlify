@@ -37,8 +37,8 @@ class UserCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('Essentials');
         yield IdField::new('id')->onlyOnDetail();
-        yield TextField::new('username');
-        yield EmailField::new('email');
+        yield TextField::new('username')->setMaxLength(50)->setFormTypeOption('attr.maxLength', 50);
+        yield EmailField::new('email')->setFormTypeOption('attr.maxLength', 180);
 
         yield FormField::addPanel('Associations')->hideOnForm();
         yield AssociationField::new('publications')
@@ -50,7 +50,7 @@ class UserCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('Details'))
         ;
     }
 }

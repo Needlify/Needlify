@@ -15,9 +15,15 @@ use App\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 trait ContentCrudTrait
 {
+    public function __construct(
+        private UrlGeneratorInterface $urlGenerator
+    ) {
+    }
+
     public function defaultContentActionConfiguration(Actions $actions, string $classifierFqcn): Actions
     {
         if (Tag::class === $classifierFqcn) {
@@ -35,20 +41,19 @@ trait ContentCrudTrait
         }
 
         /** @var Classifier|Article $content */
-        $goToAction = Action::new('goTo', $actionLabel)
-            ->linkToRoute($actionRouteName, function ($content): array {
-                return [
-                    'slug' => $content->getSlug(),
-                ];
-            });
+        $url = fn ($content) => $this->urlGenerator->generate($actionRouteName, ['slug' => $content->getSlug()]);
+
+        $goToActionIndex = Action::new('goTo', $actionLabel)
+            ->linkToUrl($url);
+
+        $goToActionDetails = Action::new('goTo', $actionLabel)
+            ->linkToUrl($url)
+            ->addCssClass('btn btn-secondary');
 
         $actions
-            ->add(Crud::PAGE_INDEX, Action::DETAIL)
-
-            ->add(Crud::PAGE_INDEX, $goToAction)
-
-            ->add(Crud::PAGE_DETAIL, $goToAction)
-            ->update(Crud::PAGE_DETAIL, 'goTo', fn (Action $action) => $action->setCssClass('btn btn-secondary'))
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('Details'))
+            ->add(Crud::PAGE_INDEX, $goToActionIndex)
+            ->add(Crud::PAGE_DETAIL, $goToActionDetails)
 
             // ->update(Crud::PAGE_DETAIL, Action::DELETE, fn (Action $action) => $action->setLabel(''))
             // ->update(Crud::PAGE_DETAIL, Action::INDEX, fn (Action $action) => $action->setLabel('')->setIcon('fas fa-list'))
