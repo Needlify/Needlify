@@ -36,8 +36,8 @@ defineProps({
         content: "";
         position: absolute;
         width: 2px;
-        height: calc(100% + 30px); /* 30px from row-gap on TimelineWrapper */
-        top: 0px;
+        height: calc(100% + 30px - 26px - 5px - 5px); /* 30px from row-gap on TimelineWrapper */
+        top: calc(26px + 5px);
         left: -36px;
         background-color: var(--light-medium);
 
@@ -48,7 +48,7 @@ defineProps({
 
     .timeline-icon-container {
         position: absolute;
-        top: -6px; /* Car border-top */
+        top: 0px; /* Car border-top */
         left: -48px;
         width: 26px;
         height: 26px;
@@ -56,8 +56,6 @@ defineProps({
         display: flex;
         justify-content: center;
         align-items: center;
-        border-top: 6px solid var(--light);
-        border-bottom: 6px solid var(--light);
         box-sizing: content-box;
 
         @include maxWidth(600px) {
