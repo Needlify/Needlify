@@ -20,7 +20,6 @@ use App\Repository\ClassifierRepository;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use function Symfony\Component\String\u;
 
@@ -32,7 +31,6 @@ use function Symfony\Component\String\u;
     Topic::class => Topic::class,
 ])]
 #[ORM\HasLifecycleCallbacks]
-#[UniqueEntity(['name'], 'Ce nom est déjà utilisé')]
 abstract class Classifier
 {
     #[ORM\Id]
@@ -41,8 +39,8 @@ abstract class Classifier
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     protected ?Uuid $id = null;
 
-    #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
-    #[Assert\NotBlank(message: "Le nom d'un classificateur ne peut pas être vide")]
+    #[ORM\Column(type: Types::STRING, length: 50)]
+    #[Assert\NotBlank(message: "Le nom d'un classifier ne peut pas être vide")]
     #[Assert\Length(max: 50, maxMessage: "Le nom d'un classifier ne peut pas dépasser {{ limit }} caractères")]
     #[Groups(['thread:extend'])]
     protected ?string $name = null;
