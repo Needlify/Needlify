@@ -70,11 +70,11 @@ class ArticleTest extends KernelTestCase
         $article = new Article();
 
         $title = 'Hello World';
-        $hash = hash('adler32', $title);
 
         $article->setTitle($title);
         $this->em->persist($article);
-        $this->assertEquals('hello-world-' . $hash, $article->getSlug());
+
+        $this->assertMatchesRegularExpression('/hello-world-[a-z0-9]{13}/', $article->getSlug());
         $this->em->remove($article);
     }
 

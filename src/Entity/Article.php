@@ -27,13 +27,13 @@ class Article extends Publication implements ThreadInterface
 {
     #[ORM\Column(type: Types::STRING, length: 120)]
     #[Assert\NotBlank(message: "Le titre d'un article ne pas être vide")]
-    #[Assert\Length(max: 120, maxMessage: "Le titre d'un article ne peut pas dépasser {{ limite }} caractères")]
+    #[Assert\Length(max: 120, maxMessage: "Le titre d'un article ne peut pas dépasser {{ limit }} caractères")]
     #[Groups(['thread:extend'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::STRING, length: 500)]
     #[Assert\NotBlank(message: "La description de l'article ne pas être vide")]
-    #[Assert\Length(max: 500, maxMessage: "La description d'un article ne peut pas dépasser {{ limite }} caractères")]
+    #[Assert\Length(max: 500, maxMessage: "La description d'un article ne peut pas dépasser {{ limit }} caractères")]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -43,11 +43,10 @@ class Article extends Publication implements ThreadInterface
 
     #[ORM\Column(type: Types::INTEGER)]
     #[Assert\PositiveOrZero(message: 'Le nombre de vues doit être positif ou null')]
-    private ?int $views = null;
+    private ?int $views = 0;
 
-    #[ORM\Column(type: Types::STRING, length: 130)]
-    #[Assert\NotBlank(message: "Le slug de l'article ne pas être vide")]
-    #[Assert\Length(max: 130, maxMessage: "Le slug d'un article ne peut pas dépasser {{ limite }} caractères")]
+    #[ORM\Column(type: Types::STRING, length: 134)]
+    #[Assert\Length(max: 134, maxMessage: "Le slug d'un article ne peut pas dépasser {{ limit }} caractères")]
     #[Groups(['thread:extend'])]
     private ?string $slug = null;
 
@@ -114,7 +113,9 @@ class Article extends Publication implements ThreadInterface
     public function setSlug(): void
     {
         $slugger = new AsciiSlugger();
-        $this->slug = u($slugger->slug($this->title) . '-' . hash('adler32', $this->title))->lower();
+        $this->slug = $slugger->slug(
+            u($this->title)->lower() . ' ' . uniqid()
+        );
     }
 
     #[SerializedName('type')]
@@ -129,5 +130,10 @@ class Article extends Publication implements ThreadInterface
     public function getPreview(): string
     {
         return $this->getDescription();
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }

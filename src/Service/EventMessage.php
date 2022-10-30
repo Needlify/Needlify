@@ -15,8 +15,13 @@ enum EventMessage: string
 
     public function format(array $params): string
     {
+        return $this->toMarkdown(vsprintf($this->value, $params));
+    }
+
+    private function toMarkdown(string $formatedMarkdown)
+    {
         $parsedown = ParsedownFactory::create();
 
-        return $parsedown->line(vsprintf($this->value, $params));
+        return '<div>' . $parsedown->line($formatedMarkdown) . '</div>';
     }
 }

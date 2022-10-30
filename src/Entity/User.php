@@ -9,6 +9,7 @@
 
 namespace App\Entity;
 
+use DateTimeZone;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
@@ -78,7 +79,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['user:basic', 'user:extend'])]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Publication::class)]
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Publication::class, cascade: ['remove'])]
     private Collection $publications;
 
     public function __construct()
@@ -157,12 +158,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getRawPassword(): string
+    public function getRawPassword(): ?string
     {
         return $this->rawPassword;
     }
 
-    public function setRawPassword(string $rawPassword): self
+    public function setRawPassword(?string $rawPassword = null): self
     {
         $this->rawPassword = $rawPassword;
 
@@ -183,7 +184,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\PrePersist]
     public function setCreatedAt(): void
     {
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
     }
 
     /**
@@ -214,5 +215,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 }

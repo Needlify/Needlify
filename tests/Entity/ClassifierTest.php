@@ -15,7 +15,6 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 class ClassifierTest extends KernelTestCase
 {
@@ -46,22 +45,6 @@ class ClassifierTest extends KernelTestCase
         $tag = new Tag();
         $tag->setName($name);
         $this->assertEquals($name, $tag->getName());
-        $this->em->persist($tag);
-
-        $tagCopy = new Tag();
-        $tagCopy->setName($name);
-        $this->em->persist($tagCopy);
-
-        try {
-            $this->em->flush($tag);
-            $this->em->flush($tagCopy);
-        } catch (UniqueConstraintViolationException $e) {
-            $this->assertTrue(true);
-
-            return;
-        }
-
-        $this->fail();
     }
 
     public function testCreatedAt(): void
@@ -90,7 +73,7 @@ class ClassifierTest extends KernelTestCase
 
         $tag->setName($name);
         $this->em->persist($tag);
-        $this->assertEquals('tag-test', $tag->getSlug());
+        $this->assertMatchesRegularExpression('/tag-test-[a-z0-9]{13}/', $tag->getSlug());
         $this->em->remove($tag);
     }
 }

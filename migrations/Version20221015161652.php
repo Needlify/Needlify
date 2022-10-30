@@ -2,6 +2,13 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Needlify project.
+ * Copyright (c) Needlify <https://needlify.com/>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
@@ -14,7 +21,7 @@ final class Version20221015161652 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Updated publication and thread tables';
     }
 
     public function up(Schema $schema): void

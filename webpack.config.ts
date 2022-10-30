@@ -32,10 +32,17 @@ Encore.setOutputPath("public/build/")
         "page:feed": "./assets/styles/pages/feed.scss",
         "page:classifier": "./assets/styles/pages/classifier.scss",
         "page:login": "./assets/styles/pages/login.scss",
+        "page:dashboard": "./assets/styles/pages/admin/dashboard.scss",
 
         /* Typescript files */
         "file:layout": "./assets/files/layout.ts",
         "file:swup": "./assets/files/swup.ts",
+
+        /* EasyAdmin custom style */
+        "admin:editor:onlyText": "./assets/admin/editor/onlyText.scss",
+        "admin:editor": "./assets/admin/editor/default.scss",
+        "admin:component:tags": "./assets/admin/component/tags.scss",
+        "admin:component:publications": "./assets/admin/component/publications.scss",
 
         /* Custom Elements */
         "component:vue": "./assets/plugins/vue.ts",

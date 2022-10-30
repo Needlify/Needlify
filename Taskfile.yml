@@ -68,7 +68,7 @@ tasks:
 
     node:test:
         desc: "Run node tests"
-        alises: [n:t]
+        aliases: [n:t]
         cmds:
             - npm run lint
             - npm run test

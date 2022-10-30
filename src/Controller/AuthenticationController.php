@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Exception\InvalidCsrfTokenException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,6 +60,12 @@ class AuthenticationController extends AbstractController
         }
 
         if ('POST' === $request->getMethod()) {
+            $token = $request->request->get('_csrf_token');
+
+            if (!$this->isCsrfTokenValid('register', $token)) {
+                throw new InvalidCsrfTokenException();
+            }
+
             $error = false;
             $email = $request->request->get('email');
             $username = $request->request->get('username');

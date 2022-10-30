@@ -17,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 #[ORM\Entity(repositoryClass: TopicRepository::class)]
 class Topic extends Classifier
 {
-    #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Publication::class)]
+    #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Publication::class, cascade: ['remove'])]
     private Collection $publications;
 
     public function __construct()

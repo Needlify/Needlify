@@ -20,7 +20,8 @@
                 <x-tag :name="tag.name" :slug="tag.slug" v-for="(tag, indexTag) in tags" :key="indexTag" />
             </div>
 
-            <p class="preview" :class="{ 'with-max-line': type === ThreadTypeVariationEnum.ARTICLE }">{{ preview }}</p>
+            <p v-if="type === ThreadTypeVariationEnum.ARTICLE" class="preview with-max-line">{{ preview }}</p>
+            <span v-else class="preview" v-html="preview"></span>
         </div>
     </thread>
 </template>
@@ -139,6 +140,11 @@ const generateArticleUrl = (slug: string) => Routing.generate("app_article", { s
         display: -webkit-box !important;
         -webkit-box-orient: vertical;
         white-space: normal;
+
+        ::v-deep(p) {
+            margin: 0;
+            display: inline-block;
+        }
 
         &.with-max-line {
             -webkit-line-clamp: var(--preview-max-lines);

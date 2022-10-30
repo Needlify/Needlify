@@ -21,24 +21,42 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event extends Thread implements ThreadInterface
 {
-    #[ORM\Column(type: Types::STRING, length: 350)]
-    #[Assert\NotBlank(message: "Le message d'une évènement ne pas être vide")]
-    #[Assert\Length(max: 350, maxMessage: "Le message d'une évènement ne peut pas dépasser {{ limite }} caractères")]
-    private ?string $message = null;
+    #[ORM\Column(type: Types::STRING, length: 240)] // 240 = 150 * 0.6
+    #[Assert\Length(max: 240, maxMessage: "Le contenu d'une évènement ne peut pas dépasser {{ limit }} caractères")]
+    private ?string $content = null;
 
-    public function __construct(?string $message = null)
+    #[Assert\Length(max: 150, maxMessage: "Le contenu brut d'une évènement ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\NotBlank(message: "Le contenu brut d'une évènement ne pas être vide")]
+    private ?string $rawContent = null;
+
+    public function __construct(?string $content = null)
     {
-        $this->setMessage($message);
+        $this->setContent($content);
     }
 
-    public function getMessage(): ?string
+    public function getContent(): ?string
     {
-        return $this->message;
+        return $this->content;
     }
 
-    public function setMessage(?string $message = null): self
+    public function setContent(?string $content = null): self
     {
-        $this->message = $message;
+        $this->content = $content;
+        $this->setRawContent($content);
+
+        return $this;
+    }
+
+    public function getRawContent(): ?string
+    {
+        return $this->rawContent;
+    }
+
+    public function setRawContent(?string $content = null): self
+    {
+        if (null !== $content) {
+            $this->rawContent = strip_tags($content);
+        }
 
         return $this;
     }
@@ -54,6 +72,6 @@ class Event extends Thread implements ThreadInterface
     #[Groups(['thread:extend'])]
     public function getPreview(): string
     {
-        return $this->getMessage();
+        return $this->getContent();
     }
 }

@@ -1,0 +1,27 @@
+{% if ea.crud.currentAction == "detail" %}
+    {% if (field.value|length) > 0 %}
+        <div id="custom-tags-container">
+            {% for tag in field.value %}
+                <a class="tag"
+                    href="{{
+                    ea_url().setController("App\\Controller\\Admin\\Crud\\TagCrudController").setAction(
+                        constant("EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::DETAIL")
+                    ).setEntityId(
+                        tag.id
+                    ).set(
+                        "menuIndex",
+                        6
+                    )
+                    }}"
+                    title="{{ tag.name }}">
+                    <div {{ vue_component("FeatherIcon", { icon: "hash", color: "#a8a8a8", strokeWidth: "2.5px", size: "14px" }) }}></div>
+                    <span>{{ tag.name }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <span class="badge badge-secondary">No tags</span>
+    {% endif %}
+{% else %}
+    <span class="badge badge-secondary">{{ field.value|length }}</span>
+{% endif %}

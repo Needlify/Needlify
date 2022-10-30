@@ -31,7 +31,7 @@ class ThreadTest extends KernelTestCase
     public function testId(): void
     {
         $event = new Event();
-        $event->setMessage('message');
+        $event->setContent('message');
         $this->em->persist($event);
         $this->assertInstanceOf(Uuid::class, $event->getId());
         $this->em->remove($event);
@@ -40,7 +40,7 @@ class ThreadTest extends KernelTestCase
     public function testPublishedAt(): void
     {
         $event = new Event();
-        $event->setMessage('message');
+        $event->setContent('message');
         $this->em->persist($event);
         $this->assertInstanceOf(DateTimeInterface::class, $event->getPublishedAt());
         $this->em->remove($event);

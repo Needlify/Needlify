@@ -1,0 +1,34 @@
+{% extends "@EasyAdmin/page/content.html.twig" %}
+
+{% block content_title %}
+	Project overview
+{% endblock content_title %}
+
+{% block page_title %}
+	Overview
+{% endblock page_title %}
+
+{% block page_actions %}
+	<a class="btn btn-secondary" href="{{ ea_url().setController('App\\Controller\\Admin\\Crud\\MoodlineCrudController').setAction(constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::NEW')).set('menuIndex', 4) }}">New Moodline</a>
+	<a class="btn btn-primary" href="{{ ea_url().setController('App\\Controller\\Admin\\Crud\\ArticleCrudController').setAction(constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::NEW')).set('menuIndex', 3) }}">New Article</a>
+{% endblock %}
+
+{% block main %}
+	{{ encore_entry_link_tags("page:dashboard") }}
+
+	<div id="custom-dashboard-wrapper">
+		{% for key, stats in data %}
+			<div class="card-stats">
+				<div class="icon">
+					<i class="{{ stats.icon }}"></i>
+				</div>
+				<div class="data">
+					<h3 class="value" title="{{ stats.value|number_format(0, ".", " ") }}">
+						{{ stats.value|formatNumber }}
+					</h3>
+					<span class="subject">{{ key|capitalize }}</span>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock main %}

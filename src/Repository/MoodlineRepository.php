@@ -11,6 +11,7 @@ namespace App\Repository;
 
 use App\Entity\Moodline;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Interface\DashboardRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -21,7 +22,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  * @method Moodline[]    findAll()
  * @method Moodline[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MoodlineRepository extends ServiceEntityRepository
+class MoodlineRepository extends ServiceEntityRepository implements DashboardRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -50,6 +51,14 @@ class MoodlineRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function countAll(): int
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 //    /**

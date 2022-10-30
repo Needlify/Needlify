@@ -102,7 +102,7 @@ onMounted(() => {
 @import "../styles/mixins";
 
 #timeline {
-    width: calc(100% - 50px);
+    width: 100%;
     padding-left: 50px;
     position: relative;
     display: flex;
@@ -110,7 +110,7 @@ onMounted(() => {
     row-gap: 30px;
 
     @include maxWidth(600px) {
-        width: calc(100% - 40px);
+        width: 100%;
         padding-left: 40px;
         row-gap: 20px;
     }

@@ -11,6 +11,7 @@ namespace App\Repository;
 
 use App\Entity\Event;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Interface\DashboardRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -21,7 +22,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  * @method Event[]    findAll()
  * @method Event[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EventRepository extends ServiceEntityRepository
+class EventRepository extends ServiceEntityRepository implements DashboardRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -50,6 +51,14 @@ class EventRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function countAll(): int
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 //    /**

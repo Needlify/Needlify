@@ -16,9 +16,9 @@ class EventTest extends TestCase
 {
     public function testMessage(): void
     {
-        $message = 'Test';
+        $content = 'Test';
         $event = new Event();
-        $event->setMessage($message);
-        $this->assertEquals($message, $event->getMessage());
+        $event->setContent($content);
+        $this->assertEquals($content, $event->getContent());
     }
 }
