@@ -1,3 +1,18 @@
 trix-toolbar .trix-input--dialog {
     background-color: unset;
 }
+
+.trix-content {
+    h1 {
+        margin-bottom: 6px;
+    }
+
+    pre {
+        margin: 10px 0;
+    }
+
+    ul,
+    ol {
+        margin: 10px 0;
+    }
+}

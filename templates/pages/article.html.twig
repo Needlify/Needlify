@@ -15,24 +15,29 @@
 
 {% block body %}
     <article id="article-container">
+        <div id="topic-container">
+            <a id="topic" href="{{ url("app_topic", { slug: article.topic.slug }) }}">
+                <div {{ vue_component("FeatherIcon", { icon: "tag", size: "14px", strokeWidth: "3px" }) }}></div>{{ article.topic.name }}
+            </a>
+        </div>
+
         <h1 id="article-title">
             {{ article.title }}
         </h1>
 
+        <div id="info">
+            <span>{{ article.publishedAt|date("F j, Y") }}</span>
+            <span>•</span>
+            <div id="author">
+                <div {{ vue_component("FeatherIcon", { icon: "user", size: "16px", strokeWidth: "2px" }) }}></div>by {{ article.author.username }}
+            </div>
+            <span>•</span>
+            <span>{{ article.content|timeToRead }} min to read</span>
+        </div>
+
         <div id="thumbnail-container">
+            <img src="https://picsum.photos/1920/1080" id="blured" />
             <img src="https://picsum.photos/1920/1080" id="thumbnail" />
-        </div>
-
-        <div id="publishedAt">
-            {{ article.publishedAt|date("F j, Y") }}
-        </div>
-
-        <div id="time-to-read">
-            {{ article.content|timeToRead }} minutes to read
-        </div>
-
-        <div id="author">
-            <div {{ vue_component("FeatherIcon", { icon: "user", size: "16px", strokeWidth: "3px" }) }}></div>by {{ article.author.username }}
         </div>
 
         <section id="content-container">
