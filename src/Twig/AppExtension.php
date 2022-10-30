@@ -23,6 +23,7 @@ class AppExtension extends AbstractExtension
             new TwigFilter('instanceOf', [$this, 'isInstanceof']),
             new TwigFilter('formatNumber', [$this, 'formatNumber']),
             new TwigFilter('enumValues', [$this, 'enumValues']),
+            new TwigFilter('timeToRead', [$this, 'timeToRead']),
         ];
     }
 
@@ -53,5 +54,10 @@ class AppExtension extends AbstractExtension
         }
 
         return $num;
+    }
+
+    public function timeToRead(string $content)
+    {
+        return ceil(str_word_count($content) / 225);
     }
 }

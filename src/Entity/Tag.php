@@ -9,13 +9,15 @@
 
 namespace App\Entity;
 
+use App\Service\ClassifierType;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TagRepository;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Interface\EntityTypeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
-class Tag extends Classifier
+class Tag extends Classifier implements EntityTypeInterface
 {
     #[ORM\ManyToMany(targetEntity: Publication::class, mappedBy: 'tags')]
     private Collection $publications;
@@ -50,5 +52,10 @@ class Tag extends Classifier
         }
 
         return $this;
+    }
+
+    public function getType(): string
+    {
+        return ClassifierType::TAG->value;
     }
 }

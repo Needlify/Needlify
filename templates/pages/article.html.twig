@@ -1,11 +1,42 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    Hello ArticleController!
+    {{ article.title }}
 {% endblock title %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags("page:article") }}
+    {{ encore_entry_link_tags("component:vue") }}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags("component:vue") }}
+{% endblock javascripts %}
+
 {% block body %}
-    <pre>
-        {{ dump(article) }}
-    </pre>
+    <article id="article-container">
+        <h1 id="article-title">
+            {{ article.title }}
+        </h1>
+
+        <div id="thumbnail-container">
+            <img src="https://picsum.photos/1920/1080" id="thumbnail" />
+        </div>
+
+        <div id="publishedAt">
+            {{ article.publishedAt|date("F j, Y") }}
+        </div>
+
+        <div id="time-to-read">
+            {{ article.content|timeToRead }} minutes to read
+        </div>
+
+        <div id="author">
+            <div {{ vue_component("FeatherIcon", { icon: "user", size: "16px", strokeWidth: "3px" }) }}></div>by {{ article.author.username }}
+        </div>
+
+        <section id="content-container">
+            {{ article.content|raw }}
+        </section>
+    </article>
 {% endblock body %}

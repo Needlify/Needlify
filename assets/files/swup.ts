@@ -16,5 +16,5 @@ const swup = new Swup({
         new SwupHeadPlugin(),
     ],
     containers: ["#main-container"],
-    cache: false, // TODO Checker la pertinence de cette option
+    // cache: false, // TODO Checker la pertinence de cette option
 });
