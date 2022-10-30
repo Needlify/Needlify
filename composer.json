@@ -118,7 +118,7 @@
         "cs:fix": "./vendor/bin/phpcbf",
         "fos:routing": "php bin/console fos:js-routing:dump --format=json --target=assets/js/routes.json",
         "stan": "@stan:default --ansi --error-format=table",
-        "stan:default": "vendor/bin/phpstan analyse -c phpstan.neon",
+        "stan:default": "vendor/bin/phpstan analyse -c phpstan.neon --memory-limit 500M",
         "stan:github": "@stan:default --error-format=github --quiet",
         "test": "./vendor/bin/pest",
         "test:cov": "@test  --coverage --min=80"
