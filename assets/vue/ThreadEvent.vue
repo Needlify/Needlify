@@ -40,9 +40,8 @@ defineProps<{
         }
     }
 
-    .actual-content ::v-deep(p) {
-        margin: 0;
-        display: inline-block;
+    .actual-content ::v-deep(> div) {
+        display: unset;
     }
 
     .dot {

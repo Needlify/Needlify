@@ -1,7 +1,7 @@
 {% if ea.crud.currentAction == "detail" %}
 
 	{% if field.value|length == 0 %}
-		<span class="badge badge-secondary">NULL</span>
+		<span class="badge badge-secondary">No publications</span>
 	{% else %}
 		<div id="threads-container">
 			{% for type in "App\\Service\\ThreadType"|enumValues %}

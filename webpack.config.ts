@@ -39,7 +39,8 @@ Encore.setOutputPath("public/build/")
         "file:swup": "./assets/files/swup.ts",
 
         /* EasyAdmin custom style */
-        "admin:event": "./assets/admin/event.scss",
+        "admin:editor:onlyText": "./assets/admin/editor/onlyText.scss",
+        "admin:editor": "./assets/admin/editor/default.scss",
         "admin:component:tags": "./assets/admin/component/tags.scss",
         "admin:component:publications": "./assets/admin/component/publications.scss",
 

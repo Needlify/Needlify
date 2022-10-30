@@ -39,20 +39,24 @@ class EventCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $this->defaultThreadCrudConfiguration($crud)
-            ->setSearchFields(['message']);
+            ->setSearchFields(['content']);
     }
 
     public function configureFields(string $pageName): iterable
     {
         yield FormField::addPanel('Essential');
         yield IdField::new('id')->onlyOnDetail();
-        yield TextEditorField::new('message')->setTrixEditorConfig([
-                'blockAttributes' => [
-                    'default' => ['tagName' => 'p'],
+        yield TextEditorField::new('content')->setTrixEditorConfig([
+                'textAttributes' => [
+                    'frozen' => [
+                        'style' => [
+                            'backgroundColor' => 'unset',
+                        ],
+                    ],
                 ],
             ])
             ->setNumOfRows(1)
-            ->addWebpackEncoreEntries('admin:event')
+            ->addWebpackEncoreEntries('admin:editor:onlyText', 'admin:editor')
             ->formatValue(fn (string $value) => $value) // To render content as html rather than just text
         ;
 

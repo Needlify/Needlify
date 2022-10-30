@@ -60,6 +60,16 @@ class ArticleCrudController extends AbstractCrudController
 
         yield FormField::addPanel('Content');
         yield TextEditorField::new('content')
+            ->setTrixEditorConfig([
+                'textAttributes' => [
+                    'frozen' => [
+                        'style' => [
+                            'backgroundColor' => 'unset',
+                        ],
+                    ],
+                ],
+            ])
+            ->addWebpackEncoreEntries('admin:editor')
             ->formatValue(fn (string $value) => $value); // To render content as html rather than just text
     }
 

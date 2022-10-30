@@ -20,6 +20,7 @@ use App\Repository\ClassifierRepository;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 use function Symfony\Component\String\u;
 
@@ -31,6 +32,7 @@ use function Symfony\Component\String\u;
     Topic::class => Topic::class,
 ])]
 #[ORM\HasLifecycleCallbacks]
+#[UniqueEntity(['slug'], 'Le slug {{ value }} est déjà utilisé')]
 abstract class Classifier
 {
     #[ORM\Id]
@@ -51,7 +53,7 @@ abstract class Classifier
     #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
     protected ?\DateTimeInterface $lastUseAt = null;
 
-    #[ORM\Column(type: Types::STRING, length: 64)]
+    #[ORM\Column(type: Types::STRING, length: 64, unique: true)]
     #[Assert\Length(max: 64, maxMessage: "Le slug d'un classifier ne peut pas dépasser {{ limit }} caractères")]
     #[Groups(['thread:extend'])]
     protected ?string $slug = null;

@@ -44,7 +44,7 @@ class EventFixture extends Fixture
         /** @var $topics Topic[] */
         foreach ($topics as $topic) {
             $event = new Event();
-            $event->setMessage(EventMessage::NEW_TOPIC->format([
+            $event->setContent(EventMessage::NEW_TOPIC->format([
                 $topic->getName(),
                 $this->router->generate('app_topic', ['slug' => $topic->getSlug()]),
             ]));

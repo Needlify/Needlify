@@ -34,13 +34,10 @@ class Moodline extends Publication implements ThreadInterface
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content = null): self
     {
         $this->content = $content;
-
-        if (null !== $content) {
-            $this->rawContent = strip_tags($content);
-        }
+        $this->setRawContent($content);
 
         return $this;
     }
@@ -48,6 +45,15 @@ class Moodline extends Publication implements ThreadInterface
     public function getRawContent(): ?string
     {
         return $this->rawContent;
+    }
+
+    public function setRawContent(?string $content = null)
+    {
+        if (null !== $content) {
+            $this->rawContent = strip_tags($content);
+        }
+
+        return $this;
     }
 
     #[SerializedName('type')]

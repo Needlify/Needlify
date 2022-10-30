@@ -22,6 +22,6 @@ enum EventMessage: string
     {
         $parsedown = ParsedownFactory::create();
 
-        return $parsedown->text($formatedMarkdown);
+        return '<div>' . $parsedown->line($formatedMarkdown) . '</div>';
     }
 }

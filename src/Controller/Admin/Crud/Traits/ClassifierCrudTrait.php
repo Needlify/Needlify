@@ -30,7 +30,10 @@ trait ClassifierCrudTrait
         yield DateTimeField::new('lastUseAt')->hideOnForm();
 
         yield FormField::addPanel('Associations')->hideOnForm();
-        yield AssociationField::new('publications')->hideOnForm();
+        yield AssociationField::new('publications')
+            ->setTemplatePath('admin/components/publications.html.twig')
+            ->addWebpackEncoreEntries('admin:component:publications')
+            ->hideOnForm();
     }
 
     public function defaultClassifierCrudConfiguration(Crud $crud): Crud

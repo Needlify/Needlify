@@ -22,37 +22,43 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class Event extends Thread implements ThreadInterface
 {
     #[ORM\Column(type: Types::STRING, length: 240)] // 240 = 150 * 0.6
-    #[Assert\Length(max: 240, maxMessage: "Le message d'une évènement ne peut pas dépasser {{ limit }} caractères")]
-    private ?string $message = null;
+    #[Assert\Length(max: 240, maxMessage: "Le contenu d'une évènement ne peut pas dépasser {{ limit }} caractères")]
+    private ?string $content = null;
 
-    #[Assert\Length(max: 150, maxMessage: "Le message brut d'une évènement ne peut pas dépasser {{ limit }} caractères")]
-    #[Assert\NotBlank(message: "Le message brut d'une évènement ne pas être vide")]
-    private ?string $rawMessage = null;
+    #[Assert\Length(max: 150, maxMessage: "Le contenu brut d'une évènement ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\NotBlank(message: "Le contenu brut d'une évènement ne pas être vide")]
+    private ?string $rawContent = null;
 
-    public function __construct(?string $message = null)
+    public function __construct(?string $content = null)
     {
-        $this->setMessage($message);
+        $this->setContent($content);
     }
 
-    public function getMessage(): ?string
+    public function getContent(): ?string
     {
-        return $this->message;
+        return $this->content;
     }
 
-    public function setMessage(?string $message = null): self
+    public function setContent(?string $content = null): self
     {
-        $this->message = $message;
-
-        if (null !== $message) {
-            $this->rawMessage = strip_tags($message);
-        }
+        $this->content = $content;
+        $this->setRawContent($content);
 
         return $this;
     }
 
-    public function getRawMessage(): ?string
+    public function getRawContent(): ?string
     {
-        return $this->rawMessage;
+        return $this->rawContent;
+    }
+
+    public function setRawContent(?string $content = null): self
+    {
+        if (null !== $content) {
+            $this->rawContent = strip_tags($content);
+        }
+
+        return $this;
     }
 
     #[SerializedName('type')]
@@ -66,6 +72,6 @@ class Event extends Thread implements ThreadInterface
     #[Groups(['thread:extend'])]
     public function getPreview(): string
     {
-        return $this->getMessage();
+        return $this->getContent();
     }
 }

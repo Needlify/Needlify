@@ -21,7 +21,7 @@
             </div>
 
             <p v-if="type === ThreadTypeVariationEnum.ARTICLE" class="preview with-max-line">{{ preview }}</p>
-            <p v-else class="preview" v-html="preview"></p>
+            <span v-else class="preview" v-html="preview"></span>
         </div>
     </thread>
 </template>
