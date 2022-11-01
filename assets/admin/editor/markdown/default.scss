@@ -1,0 +1,62 @@
+section.content-header,
+label::after {
+    z-index: 3;
+}
+
+.EasyMDEContainer {
+    .editor-toolbar {
+        border: 1px solid var(--form-input-border-color);
+        background-color: var(--sidebar-bg);
+        overflow: auto;
+        height: unset;
+        display: flex;
+        column-gap: 4px;
+        align-items: center;
+
+        &.fullscreen {
+            z-index: 9999;
+        }
+
+        button {
+            color: var(--form-label-color);
+
+            &.active,
+            &:hover {
+                background-color: var(--form-input-border-color);
+                border: 1px solid transparent;
+            }
+        }
+
+        i.separator {
+            border-color: var(--form-input-border-color);
+            border-left: unset;
+            height: 20px;
+        }
+    }
+
+    .CodeMirror {
+        border: 1px solid var(--form-input-border-color);
+        background-color: var(--form-control-bg);
+        color: var(--form-input-text-color);
+
+        .CodeMirror-cursor {
+            border-left: 1px solid var(--popover-color);
+        }
+
+        .CodeMirror-selectedtext {
+            color: #292d42;
+        }
+    }
+
+    .CodeMirror-fullscreen {
+        z-index: 9999;
+    }
+
+    .editor-preview-side {
+        z-index: 9999;
+    }
+
+    .editor-preview {
+        background-color: var(--form-control-bg);
+    }
+}
