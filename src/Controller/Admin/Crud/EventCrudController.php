@@ -46,17 +46,10 @@ class EventCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('Essential');
         yield IdField::new('id')->onlyOnDetail();
-        yield TextEditorField::new('content')->setTrixEditorConfig([
-                'textAttributes' => [
-                    'frozen' => [
-                        'style' => [
-                            'backgroundColor' => 'unset',
-                        ],
-                    ],
-                ],
-            ])
+        yield TextEditorField::new('content')
+            ->setTrixEditorConfig(self::$defaultEditorConfig)
             ->setNumOfRows(1)
-            ->addWebpackEncoreEntries('admin:editor:onlyText', 'admin:editor')
+            ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
             ->formatValue(fn (string $value) => $value) // To render content as html rather than just text
         ;
 

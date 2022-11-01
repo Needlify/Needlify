@@ -39,8 +39,10 @@ Encore.setOutputPath("public/build/")
         "file:swup": "./assets/files/swup.ts",
 
         /* EasyAdmin custom style */
-        "admin:editor:onlyText": "./assets/admin/editor/onlyText.scss",
-        "admin:editor": "./assets/admin/editor/default.scss",
+        "admin:markdown:default": "./assets/admin/editor/markdown/markdown.ts",
+        "admin:markdown:onlyText": "./assets/admin/editor/markdown/onlyText.scss",
+        "admin:trix:default": "./assets/admin/editor/trix/default.scss",
+        "admin:trix:onlyText": "./assets/admin/editor/trix/onlyText.scss",
         "admin:component:tags": "./assets/admin/component/tags.scss",
         "admin:component:publications": "./assets/admin/component/publications.scss",
 
@@ -61,7 +63,7 @@ Encore.setOutputPath("public/build/")
 
     .cleanupOutputBeforeBuild()
     .enableBuildNotifications()
-    .enableSourceMaps(!Encore.isProduction())
+    // .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
 
     // .configureBabel(config => {})

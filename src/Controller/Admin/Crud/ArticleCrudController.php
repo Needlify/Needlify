@@ -10,6 +10,8 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Article;
+use App\Service\ParsedownFactory;
+use App\Admin\Field\MarkdownField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -19,6 +21,7 @@ use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
 use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -47,7 +50,9 @@ class ArticleCrudController extends AbstractCrudController
         yield TextField::new('slug')->onlyOnDetail();
         yield TextareaField::new('description')
             ->hideOnIndex();
-        yield TextEditorField::new('description')->onlyOnIndex();
+        yield TextEditorField::new('description')
+            ->setTrixEditorConfig(self::$defaultEditorConfig)
+            ->onlyOnIndex();
 
         yield FormField::addPanel('Date Details')->hideOnForm();
         yield DateTimeField::new('publishedAt')->hideOnForm();
@@ -59,18 +64,12 @@ class ArticleCrudController extends AbstractCrudController
             ->addWebpackEncoreEntries('admin:component:tags', 'component:vue');
 
         yield FormField::addPanel('Content');
-        yield TextEditorField::new('content')
-            ->setTrixEditorConfig([
-                'textAttributes' => [
-                    'frozen' => [
-                        'style' => [
-                            'backgroundColor' => 'unset',
-                        ],
-                    ],
-                ],
-            ])
-            ->addWebpackEncoreEntries('admin:editor')
-            ->formatValue(fn (string $value) => $value); // To render content as html rather than just text
+        yield CodeEditorField::new('content')
+            // ->setTrixEditorConfig(self::$defaultEditorConfig)
+            ->setTemplatePath('admin/components/markdown.html.twig')
+            ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
+            ->hideOnForm();
+        yield MarkdownField::new('content')->onlyOnForms(); // To render content as html rather than just text
     }
 
     public function configureActions(Actions $actions): Actions

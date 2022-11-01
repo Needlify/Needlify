@@ -1,0 +1,16 @@
+.EasyMDEContainer {
+    button.mde-horizontal-rule,
+    button.mde-quote,
+    button.mde-code,
+    button.mde-unordered-list,
+    button.mde-ordered-list,
+    button.mde-checkbox,
+    button.mde-image,
+    button.mde-table {
+        display: none;
+    }
+
+    i.separator {
+        display: none;
+    }
+}

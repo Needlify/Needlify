@@ -13,6 +13,16 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 trait ThreadCrudTrait
 {
+    protected static array $defaultEditorConfig = [
+        'textAttributes' => [
+            'frozen' => [
+                'style' => [
+                    'backgroundColor' => 'unset',
+                ],
+            ],
+        ],
+    ];
+
     public function defaultThreadCrudConfiguration(Crud $crud): Crud
     {
         return $crud
