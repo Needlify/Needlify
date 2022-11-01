@@ -41,7 +41,8 @@
         </div>
 
         <section id="content-container">
-            {{ article.content|raw }}
+            Ajouter une table des matière automatique comme larabiz
+            {{ article.content|markdown|raw }}
         </section>
     </article>
 {% endblock body %}

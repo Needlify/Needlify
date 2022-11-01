@@ -10,6 +10,7 @@
 namespace App\Twig;
 
 use Twig\TwigFilter;
+use App\Service\ParsedownFactory;
 use Twig\Extension\AbstractExtension;
 
 class AppExtension extends AbstractExtension
@@ -24,12 +25,18 @@ class AppExtension extends AbstractExtension
             new TwigFilter('formatNumber', [$this, 'formatNumber']),
             new TwigFilter('enumValues', [$this, 'enumValues']),
             new TwigFilter('timeToRead', [$this, 'timeToRead']),
+            new TwigFilter('markdown', [$this, 'markdown']),
         ];
     }
 
     public function isInstanceof($element, $meta): bool
     {
         return $element instanceof $meta;
+    }
+
+    public function markdown($content): string
+    {
+        return ParsedownFactory::create()->text($content);
     }
 
     public function enumValues(string $enumFqcn): array

@@ -8,6 +8,7 @@
         margin-top: 20px;
         width: 100%;
         max-width: var(--content-size);
-        margin: 0 var(--mobile-border-margin);
+        margin-left: var(--mobile-border-margin);
+        margin-right: var(--mobile-border-margin);
     }
 }

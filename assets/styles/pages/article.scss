@@ -74,18 +74,38 @@
     #content-container {
         margin-top: 90px;
 
-        h1 {
-            font-family: Jakarta;
-            font-size: 26px;
-            margin-bottom: 16px;
+        p {
+            color: var(--text);
+            font-size: 16px;
+            line-height: 1.7;
         }
 
-        > div {
-            margin: 12px 0;
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: Jakarta;
+            margin-top: 2.2em;
+            margin-bottom: 1em;
         }
 
         pre {
-            background-color: lightcyan;
+            display: block;
+            padding: 30px;
+            background-color: #292d3e;
+            border-radius: 8px;
+            overflow: auto;
+
+            color: white; // TODO Temporaire
+        }
+
+        img {
+            width: 80%;
+            height: auto;
+            margin: 35px auto;
+            display: block;
         }
     }
 }
