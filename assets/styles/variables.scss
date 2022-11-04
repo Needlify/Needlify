@@ -51,7 +51,7 @@
 
     --mobile-border-margin: 18px;
 
-    --content-size: 1000px;
+    --content-size: calc(1000px + 2 * var(--mobile-border-margin));
 
     --preview-max-lines: 5;
 }

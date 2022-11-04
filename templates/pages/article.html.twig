@@ -10,6 +10,7 @@
 {% endblock stylesheets %}
 
 {% block javascripts %}
+    {{ encore_entry_script_tags("page:article") }}
     {{ encore_entry_script_tags("component:vue") }}
 {% endblock javascripts %}
 
@@ -17,7 +18,8 @@
     <article id="article-container">
         <div id="topic-container">
             <a id="topic" href="{{ url("app_topic", { slug: article.topic.slug }) }}">
-                <div {{ vue_component("FeatherIcon", { icon: "tag", size: "14px", strokeWidth: "3px" }) }}></div>{{ article.topic.name }}
+                <div {{ vue_component("FeatherIcon", { icon: "tag", size: "14px", strokeWidth: "3px" }) }}></div>
+                {{ article.topic.name }}
             </a>
         </div>
 
@@ -26,23 +28,34 @@
         </h1>
 
         <div id="info">
-            <span>{{ article.publishedAt|date("F j, Y") }}</span>
-            <span>•</span>
-            <div id="author">
-                <div {{ vue_component("FeatherIcon", { icon: "user", size: "16px", strokeWidth: "2px" }) }}></div>by {{ article.author.username }}
-            </div>
-            <span>•</span>
-            <span>{{ article.content|timeToRead }} min to read</span>
+            <span id="date">{{ article.publishedAt|date("F j, Y") }}</span>
+            <span class="dot">•</span>
+            <span id="author">
+                <div {{ vue_component("FeatherIcon", { icon: "user", size: "16px", strokeWidth: "2px" }) }}></div>by
+                {{ article.author.username }}
+            </span>
+            <span class="dot">•</span>
+            <span id="time-to-read">
+                {{ article.content|timeToRead }}
+                min to read
+            </span>
         </div>
 
         <div id="thumbnail-container">
-            <img src="https://picsum.photos/1920/1080" id="blured" />
-            <img src="https://picsum.photos/1920/1080" id="thumbnail" />
+            <img src="https://picsum.photos/1000/400" id="blured" />
+            <img src="https://picsum.photos/1000/400" id="thumbnail" />
         </div>
 
-        <section id="content-container">
-            Ajouter une table des matière automatique comme larabiz
-            {{ article.content|markdown|raw }}
+        <section id="content-wrapper">
+            <nav id="toc-container">
+                <h3 id="toc-title">
+                    Table des matières
+                </h3>
+                <div id="toc"></div>
+            </nav>
+            <div id="content-container">
+                {{ article.content|markdown|raw }}
+            </div>
         </section>
     </article>
 {% endblock body %}
