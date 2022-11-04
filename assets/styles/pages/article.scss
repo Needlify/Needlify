@@ -121,6 +121,13 @@
             color: var(--text);
         }
 
+        hr {
+            background-color: var(--light-light);
+            height: 1px;
+            border: 0;
+            margin: 0 10%;
+        }
+
         :not(pre) > code {
             // inline code
             font-family: JetBrains Mono;
@@ -381,6 +388,22 @@
                     }
                 }
             }
+        }
+    }
+    #license {
+        margin-top: 30px;
+        line-height: 22px;
+        color: var(--text);
+
+        #license-image-link {
+            display: inline-block;
+            width: 80px;
+            height: 19px;
+            vertical-align: bottom;
+        }
+
+        @include maxWidth(600px) {
+            font-size: 14.5px;
         }
     }
 }
