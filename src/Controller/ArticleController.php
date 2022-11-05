@@ -20,7 +20,7 @@ class ArticleController extends AbstractController
     #[Route('/article/{slug}', name: 'app_article', methods: ['GET'], options: ['expose' => true])]
     public function article(Article $article): Response
     {
-        dd(ParsedownFactory::create()->text($article->getContent()));
+        // dd(ParsedownFactory::create()->text($article->getContent()));
 
         return $this->render('pages/article.html.twig', [
             'article' => $article,

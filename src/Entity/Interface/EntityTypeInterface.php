@@ -9,7 +9,7 @@
 
 namespace App\Entity\Interface;
 
-interface ThreadInterface extends EntityTypeInterface
+interface EntityTypeInterface
 {
-    public function getPreview(): string;
+    public function getType(): string;
 }

@@ -9,13 +9,15 @@
 
 namespace App\Entity;
 
+use App\Service\ClassifierType;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TopicRepository;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Interface\EntityTypeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: TopicRepository::class)]
-class Topic extends Classifier
+class Topic extends Classifier implements EntityTypeInterface
 {
     #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Publication::class, cascade: ['remove'])]
     private Collection $publications;
@@ -53,5 +55,10 @@ class Topic extends Classifier
         }
 
         return $this;
+    }
+
+    public function getType(): string
+    {
+        return ClassifierType::TOPIC->value;
     }
 }

@@ -31,6 +31,7 @@ Encore.setOutputPath("public/build/")
         /* Page Style */
         "page:feed": "./assets/styles/pages/feed.scss",
         "page:classifier": "./assets/styles/pages/classifier.scss",
+        "page:article": "./assets/pages/article.ts",
         "page:login": "./assets/styles/pages/login.scss",
         "page:dashboard": "./assets/styles/pages/admin/dashboard.scss",
 

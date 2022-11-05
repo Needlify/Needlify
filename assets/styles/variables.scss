@@ -27,6 +27,7 @@
     --text-primary: #516cc5;
     --soft-primary: #d6e0ff;
     --primary-transparent: #5c81fc17;
+    --primary-transparent-hover: #3151bd17;
     --primary-hover: #446cf0;
 
     --secondary: #00adb5;
@@ -50,7 +51,7 @@
 
     --mobile-border-margin: 18px;
 
-    --content-size: 1000px;
+    --content-size: calc(1000px + 2 * var(--mobile-border-margin));
 
     --preview-max-lines: 5;
 }
