@@ -125,7 +125,7 @@
             background-color: var(--light-light);
             height: 1px;
             border: 0;
-            margin: 0 10%;
+            margin: 40px 10%;
         }
 
         :not(pre) > code {
@@ -264,7 +264,7 @@
                     position: absolute;
                     top: 8px;
                     right: 12px;
-                    color: var(--dark-light);
+                    color: var(--light-dark);
                     transition: right 200ms ease-in-out;
                 }
 
