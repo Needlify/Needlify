@@ -40,6 +40,7 @@ Encore.setOutputPath("public/build/")
         "file:swup": "./assets/files/swup.ts",
 
         /* EasyAdmin custom style */
+        "admin:thumbnail": "./assets/admin/thumbnail.scss",
         "admin:markdown:default": "./assets/admin/editor/markdown/markdown.ts",
         "admin:markdown:onlyText": "./assets/admin/editor/markdown/onlyText.scss",
         "admin:trix:default": "./assets/admin/editor/trix/default.scss",

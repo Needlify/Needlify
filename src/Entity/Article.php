@@ -9,18 +9,25 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeZone;
 use App\Service\ThreadType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArticleRepository;
 use App\Entity\Interface\ThreadInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 use function Symfony\Component\String\u;
 
+/**
+ * @Vich\Uploadable
+ */
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ORM\HasLifecycleCallbacks]
 class Article extends Publication implements ThreadInterface
@@ -49,6 +56,24 @@ class Article extends Publication implements ThreadInterface
     #[Assert\Length(max: 134, maxMessage: "Le slug d'un article ne peut pas dépasser {{ limit }} caractères")]
     #[Groups(['thread:extend'])]
     private ?string $slug = null;
+
+    #[ORM\Column(type: Types::STRING, length: 255)]
+    #[Assert\NotNull(message: "L'image d'un article doit être renseignée")]
+    private ?string $thumbnail = null;
+
+    /**
+     * @Vich\UploadableField(mapping="thumbnail", fileNameProperty="thumbnail")
+     */
+    #[Assert\File(
+        maxSize: '800k',
+        maxSizeMessage: "L'image ne peut pas dépasser {{ limit }}{{ suffix }}",
+        mimeTypes: ['image/png', 'image/jpeg'],
+        mimeTypesMessage: "Mauvais format d'image (jpeg, jpg, png)"
+    )]
+    private ?File $thumbnailFile = null;
+
+    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
+    private ?\DateTime $updatedAt = null;
 
     public function getTitle(): ?string
     {
@@ -116,6 +141,46 @@ class Article extends Publication implements ThreadInterface
         $this->slug = $slugger->slug(
             u($this->title)->lower() . ' ' . uniqid()
         );
+    }
+
+    public function setThumbnailFile(?File $thumbnail = null)
+    {
+        $this->thumbnailFile = $thumbnail;
+
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($thumbnail) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getThumbnailFile()
+    {
+        return $this->thumbnailFile;
+    }
+
+    public function setThumbnail(?string $thumbnail = null): self
+    {
+        $this->thumbnail = $thumbnail;
+
+        return $this;
+    }
+
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    #[ORM\PrePersist]
+    public function setUpdatedAt()
+    {
+        $this->updatedAt = new DateTime('now', new DateTimeZone('UTC'));
     }
 
     #[SerializedName('type')]

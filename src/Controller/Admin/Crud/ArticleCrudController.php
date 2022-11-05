@@ -13,23 +13,37 @@ use App\Entity\Article;
 use App\Service\ParsedownFactory;
 use App\Admin\Field\MarkdownField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ArticleCrudController extends AbstractCrudController
 {
     use ThreadCrudTrait;
-    use ContentCrudTrait;
+    use ContentCrudTrait {
+        // On link le constructor du trait avec une propriété du ArticleCrudController
+        ContentCrudTrait::__construct as private __contentConstruct;
+    }
+
+    private string $uploadDir;
+
+    public function __construct(string $uploadDir, UrlGeneratorInterface $urlGenerator)
+    {
+        $this->__contentConstruct($urlGenerator);
+        $this->uploadDir = $uploadDir;
+    }
 
     public static function getEntityFqcn(): string
     {
@@ -46,6 +60,13 @@ class ArticleCrudController extends AbstractCrudController
         yield FormField::addPanel('Essential');
         yield IdField::new('id')->onlyOnDetail();
         yield TextField::new('title');
+        yield TextField::new('thumbnailFile')
+            ->setFormType(VichImageType::class)
+            ->addWebpackEncoreEntries('admin:thumbnail')
+            ->onlyOnForms();
+        yield ImageField::new('thumbnail')
+            ->setBasePath($this->uploadDir)
+            ->hideOnForm();
         yield AssociationField::new('author')->onlyOnDetail();
         yield TextField::new('slug')->onlyOnDetail();
         yield TextareaField::new('description')
@@ -69,7 +90,7 @@ class ArticleCrudController extends AbstractCrudController
             ->setTemplatePath('admin/components/markdown.html.twig')
             ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
             ->hideOnForm();
-        yield MarkdownField::new('content')->onlyOnForms(); // To render content as html rather than just text
+        yield MarkdownField::new('content')->onlyOnForms();
     }
 
     public function configureActions(Actions $actions): Actions
