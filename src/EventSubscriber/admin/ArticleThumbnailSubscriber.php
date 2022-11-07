@@ -10,14 +10,16 @@
 namespace App\EventSubscriber\admin;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityBuiltEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 
 class ArticleThumbnailSubscriber implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {
         return [
-            AfterEntityBuiltEvent::class => ['setDefaultImage'],
+            BeforeEntityUpdatedEvent::class => ['setDefaultImage'],
+            BeforeEntityPersistedEvent::class => ['setDefaultImage'],
         ];
     }
 
@@ -26,8 +28,9 @@ class ArticleThumbnailSubscriber implements EventSubscriberInterface
      *
      * @return void
      */
-    public function setDefaultImage(AfterEntityBuiltEvent $event)
+    public function setDefaultImage(BeforeEntityUpdatedEvent|BeforeEntityPersistedEvent $event)
     {
+        // dd($event);
         // dd($event->getEntity());
         // $action = $event->getAdminContext()->getCrud()->getCurrentAction();
         // $entityFqcn = $event->getAdminContext()->getEntity()->getFqcn();

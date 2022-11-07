@@ -9,8 +9,6 @@
 
 namespace App\Entity;
 
-use DateTime;
-use DateTimeZone;
 use App\Service\ThreadType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -58,7 +56,7 @@ class Article extends Publication implements ThreadInterface
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    #[Assert\NotNull(message: "L'image d'un article doit être renseignée")]
+    #[Assert\NotNull(message: "L'image d'un article doit être renseignée", groups: ['admin:form:edit'])]
     private ?string $thumbnail = null;
 
     /**
@@ -70,6 +68,7 @@ class Article extends Publication implements ThreadInterface
         mimeTypes: ['image/png', 'image/jpeg'],
         mimeTypesMessage: "Mauvais format d'image (jpeg, jpg, png)"
     )]
+    #[Assert\NotNull(message: "L'image d'un article doit être renseignée", groups: ['admin:form:new'])]
     private ?File $thumbnailFile = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
@@ -180,7 +179,7 @@ class Article extends Publication implements ThreadInterface
     #[ORM\PrePersist]
     public function setUpdatedAt()
     {
-        $this->updatedAt = new DateTime('now', new DateTimeZone('UTC'));
+        $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     #[SerializedName('type')]

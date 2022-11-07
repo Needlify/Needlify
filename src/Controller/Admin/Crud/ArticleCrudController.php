@@ -26,24 +26,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ArticleCrudController extends AbstractCrudController
 {
     use ThreadCrudTrait;
-    use ContentCrudTrait {
-        // On link le constructor du trait avec une propriété du ArticleCrudController
-        ContentCrudTrait::__construct as private __contentConstruct;
-    }
-
-    private string $uploadDir;
-
-    public function __construct(string $uploadDir, UrlGeneratorInterface $urlGenerator)
-    {
-        $this->__contentConstruct($urlGenerator);
-        $this->uploadDir = $uploadDir;
-    }
+    use ContentCrudTrait;
 
     public static function getEntityFqcn(): string
     {
@@ -52,7 +40,13 @@ class ArticleCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return $this->defaultThreadCrudConfiguration($crud);
+        $crudValue = $this->defaultThreadCrudConfiguration($crud);
+        $crudValue->setFormOptions(
+            newFormOptions: ['validation_groups' => ['Default', 'admin:form:new']],
+            editFormOptions: ['validation_groups' => ['Default', 'admin:form:edit']]
+        );
+
+        return $crudValue;
     }
 
     public function configureFields(string $pageName): iterable
@@ -65,7 +59,7 @@ class ArticleCrudController extends AbstractCrudController
             ->addWebpackEncoreEntries('admin:thumbnail')
             ->onlyOnForms();
         yield ImageField::new('thumbnail')
-            ->setBasePath($this->uploadDir)
+            ->setBasePath($this->getParameter('app.thumbnails.upload_dir'))
             ->hideOnForm();
         yield AssociationField::new('author')->onlyOnDetail();
         yield TextField::new('slug')->onlyOnDetail();

@@ -2,7 +2,7 @@ twig:
     default_path: "%kernel.project_dir%/templates"
 
     globals:
-        uploadDir: "%upload_dir%"
+        uploadDir: "%app.thumbnails.upload_dir%"
 
 when@test:
     twig:

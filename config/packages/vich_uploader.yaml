@@ -3,8 +3,8 @@ vich_uploader:
 
     mappings:
         thumbnail:
-            uri_prefix: "%upload_dir%"
-            upload_destination: "%kernel.project_dir%/public%upload_dir%"
+            uri_prefix: "%app.thumbnails.upload_dir%"
+            upload_destination: "%kernel.project_dir%/public%app.thumbnails.upload_dir%"
             delete_on_remove: true
             delete_on_update: true
             namer: Vich\UploaderBundle\Naming\UniqidNamer
