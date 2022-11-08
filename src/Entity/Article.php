@@ -74,6 +74,9 @@ class Article extends Publication implements ThreadInterface
     #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
     private ?\DateTime $updatedAt = null;
 
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private ?bool $license = true;
+
     public function getTitle(): ?string
     {
         return $this->title;
@@ -199,5 +202,17 @@ class Article extends Publication implements ThreadInterface
     public function __toString()
     {
         return $this->title;
+    }
+
+    public function hasLicense(): ?bool
+    {
+        return $this->license;
+    }
+
+    public function setLicense(bool $license): self
+    {
+        $this->license = $license;
+
+        return $this;
     }
 }
