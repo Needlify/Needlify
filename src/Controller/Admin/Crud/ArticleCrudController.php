@@ -21,10 +21,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -54,6 +54,8 @@ class ArticleCrudController extends AbstractCrudController
         yield FormField::addPanel('Essential');
         yield IdField::new('id')->onlyOnDetail();
         yield TextField::new('title');
+        yield TextField::new('slug')->onlyOnDetail();
+        yield BooleanField::new('license')->setHelp("L'article est-t-il sous la licence CC-BY-NC-SA ?");
         yield TextField::new('thumbnailFile')
             ->setFormType(VichImageType::class)
             ->addWebpackEncoreEntries('admin:thumbnail')
@@ -62,12 +64,8 @@ class ArticleCrudController extends AbstractCrudController
             ->setBasePath($this->getParameter('app.thumbnails.upload_dir'))
             ->hideOnForm();
         yield AssociationField::new('author')->onlyOnDetail();
-        yield TextField::new('slug')->onlyOnDetail();
         yield TextareaField::new('description')
             ->hideOnIndex();
-        yield TextEditorField::new('description')
-            ->setTrixEditorConfig(self::$defaultEditorConfig)
-            ->onlyOnIndex();
 
         yield FormField::addPanel('Date Details')->hideOnForm();
         yield DateTimeField::new('publishedAt')->hideOnForm();
@@ -83,7 +81,7 @@ class ArticleCrudController extends AbstractCrudController
             // ->setTrixEditorConfig(self::$defaultEditorConfig)
             ->setTemplatePath('admin/components/markdown.html.twig')
             ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
-            ->hideOnForm();
+            ->onlyOnDetail();
         yield MarkdownField::new('content')->onlyOnForms();
     }
 

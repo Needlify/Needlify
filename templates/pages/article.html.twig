@@ -57,14 +57,16 @@
                 {{ article.content|markdown|raw }}
             </div>
 
-            <hr />
+            {% if article.license %}
+                <hr />
 
-            <div id="license">
-                Cette œuvre est mise à disposition selon les termes de la licence
-                <a target="_blank" rel="license" id="license-image-link" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
-                    <img alt="Licence Creative Commons" width="80" height="15" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />
-                </a>
-            </div>
+                <div id="license">
+                    Cette œuvre est mise à disposition selon les termes de la licence
+                    <a target="_blank" rel="license" id="license-image-link" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+                        <img alt="Licence Creative Commons" width="80" height="15" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />
+                    </a>
+                </div>
+            {% endif %}
         </section>
     </article>
 {% endblock body %}
