@@ -45,6 +45,7 @@ class ArticleFixture extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 5; ++$i) {
             $article = new Article();
             $article->setTitle($this->faker->text(120))
+                ->setThumbnail('image.jpg')
                 ->setDescription($this->faker->text(500))
                 ->setContent($this->faker->text(1000))
                 ->setTopic($this->faker->randomElement($topics))

@@ -1,0 +1,10 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        thumbnail:
+            uri_prefix: "%app.thumbnails.upload_dir%"
+            upload_destination: "%kernel.project_dir%/public%app.thumbnails.upload_dir%"
+            delete_on_remove: true
+            delete_on_update: true
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

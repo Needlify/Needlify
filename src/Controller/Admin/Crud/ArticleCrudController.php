@@ -13,11 +13,13 @@ use App\Entity\Article;
 use App\Service\ParsedownFactory;
 use App\Admin\Field\MarkdownField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
@@ -38,7 +40,13 @@ class ArticleCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return $this->defaultThreadCrudConfiguration($crud);
+        $crudValue = $this->defaultThreadCrudConfiguration($crud);
+        $crudValue->setFormOptions(
+            newFormOptions: ['validation_groups' => ['Default', 'admin:form:new']],
+            editFormOptions: ['validation_groups' => ['Default', 'admin:form:edit']]
+        );
+
+        return $crudValue;
     }
 
     public function configureFields(string $pageName): iterable
@@ -46,6 +54,13 @@ class ArticleCrudController extends AbstractCrudController
         yield FormField::addPanel('Essential');
         yield IdField::new('id')->onlyOnDetail();
         yield TextField::new('title');
+        yield TextField::new('thumbnailFile')
+            ->setFormType(VichImageType::class)
+            ->addWebpackEncoreEntries('admin:thumbnail')
+            ->onlyOnForms();
+        yield ImageField::new('thumbnail')
+            ->setBasePath($this->getParameter('app.thumbnails.upload_dir'))
+            ->hideOnForm();
         yield AssociationField::new('author')->onlyOnDetail();
         yield TextField::new('slug')->onlyOnDetail();
         yield TextareaField::new('description')
@@ -69,7 +84,7 @@ class ArticleCrudController extends AbstractCrudController
             ->setTemplatePath('admin/components/markdown.html.twig')
             ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
             ->hideOnForm();
-        yield MarkdownField::new('content')->onlyOnForms(); // To render content as html rather than just text
+        yield MarkdownField::new('content')->onlyOnForms();
     }
 
     public function configureActions(Actions $actions): Actions
