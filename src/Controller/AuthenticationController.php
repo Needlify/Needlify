@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Exception\InvalidCsrfTokenException;
@@ -54,8 +55,9 @@ class AuthenticationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         UserAuthenticatorInterface $userAuthenticator,
         AppAuthenticator $authenticator,
+        UserRepository $userRepository
     ): Response {
-        if ($this->getUser()) {
+        if ($this->getUser() || $userRepository->atLeastOneUserExist()) {
             return $this->redirectToRoute('app_home');
         }
 
