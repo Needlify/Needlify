@@ -1,5 +1,5 @@
 <template>
-    <section id="timeline">
+    <section id="timeline" v-if="total > 0">
         <div v-for="(thread, index) in threads" :key="index">
             <!-- Event -->
             <thread-event v-if="thread.type === 'event'" :type="thread.type" :preview="thread.preview" :published-at="thread.publishedAt" :display-line="index !== total - 1" />
@@ -18,6 +18,12 @@
             />
         </div>
     </section>
+
+    <div v-else-if="total === 0" id="empty-container">
+        <img src="images/empty-timeline.svg" alt="empty timeline image" />
+
+        <p>Aucun contenu n'a été publié pour le moment</p>
+    </div>
 
     <div id="spinner-container" v-show="isLoading">
         <spinner color="#8a9399"></spinner>
@@ -91,7 +97,7 @@ const updateFeed = () => {
 onMounted(() => {
     updateFeed();
     window.addEventListener("scroll", () => {
-        if (window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 800 && !isLoading.value && offset.value < total.value) {
+        if (window.pageYOffset + window.innerHeight >= document.body.scrollHeight - 1000 && !isLoading.value && offset.value < total.value) {
             updateFeed();
         }
     });
@@ -113,6 +119,43 @@ onMounted(() => {
         width: 100%;
         padding-left: 40px;
         row-gap: 20px;
+    }
+}
+
+#empty-container {
+    height: calc(100vh - 240px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.4;
+
+    @include maxWidth(600px) {
+        height: calc(100vh - 220px);
+    }
+
+    img {
+        max-width: 50%;
+        max-height: 50%;
+        margin: 0 auto;
+        display: block;
+        // @include maxWidth(600px) {
+        //     max-width: 50%;
+        //     max-height: 50%;
+        // }
+    }
+
+    p {
+        margin-top: 50px;
+        text-align: center;
+        font-size: 18px;
+        font-family: Jakarta;
+        padding: 0 20px;
+        color: var(--text);
+
+        @include maxWidth(600px) {
+            font-size: 14px;
+        }
     }
 }
 
