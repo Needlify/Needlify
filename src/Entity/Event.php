@@ -63,9 +63,9 @@ class Event extends Thread implements ThreadInterface
 
     #[SerializedName('type')]
     #[Groups(['thread:extend'])]
-    public function getType(): string
+    public function getType(): ThreadType
     {
-        return ThreadType::EVENT->value;
+        return ThreadType::EVENT;
     }
 
     #[SerializedName('preview')]

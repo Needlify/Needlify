@@ -29,7 +29,7 @@ class MoodlineTest extends TestCase
         $moodline = new Moodline();
         $moodline->setContent($content);
         $this->assertEquals($moodline->getType(), 'moodline');
-        $this->assertEquals($moodline->getType(), ThreadType::MOODLINE->value);
+        $this->assertEquals($moodline->getType(), ThreadType::MOODLINE);
     }
 
     public function testPreview(): void
