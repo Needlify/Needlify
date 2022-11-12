@@ -9,7 +9,8 @@
 
 namespace App\ParamConverter;
 
-use App\Exception\RessourceNotFoundException;
+use App\Exception\ExceptionCode;
+use App\Exception\ExceptionFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -24,7 +25,7 @@ class CustomParamConverter extends DoctrineParamConverter implements ParamConver
             return parent::apply($request, $configuration);
         } catch (\Throwable $exception) {
             if ($exception instanceof NotFoundHttpException) {
-                throw new RessourceNotFoundException([$configuration->getName(), $configuration->getClass()]);
+                throw ExceptionFactory::throw(NotFoundHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'Ressource not found. Can not convert route parameter to retrieve $%s of type %s', [$configuration->getName(), $configuration->getClass()]);
             }
 
             return false;

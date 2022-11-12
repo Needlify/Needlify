@@ -11,7 +11,6 @@ namespace App\Tests\EventSubscriber;
 
 use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\TestCase;
-use App\Exception\InternalException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelEvents;
 use App\EventSubscriber\JsonExceptionSubscriber;
@@ -35,7 +34,7 @@ class JsonExceptionSubscriberTest extends TestCase
 
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
 
-        $event = new ExceptionEvent($kernel, new Request(), 1, new InternalException());
+        $event = new ExceptionEvent($kernel, new Request(), 1, new \Exception());
 
         $logger->expects($this->once())->method('error');
 

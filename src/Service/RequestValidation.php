@@ -9,9 +9,11 @@
 
 namespace App\Service;
 
+use App\Exception\ExceptionCode;
+use App\Exception\ExceptionFactory;
 use Symfony\Component\Validator\Validation;
-use App\Exception\InvalidQueryParamException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class RequestValidation
 {
@@ -22,7 +24,7 @@ class RequestValidation
         $errors = $validator->validate($queryParams, $constraints);
 
         if (count($errors) > 0) {
-            throw new InvalidQueryParamException();
+            throw ExceptionFactory::throw(BadRequestException::class, ExceptionCode::INVALID_QUERY_PARAM, 'Invalid query param');
         }
     }
 }

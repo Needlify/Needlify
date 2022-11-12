@@ -10,10 +10,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Exception\ExceptionCode;
 use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
+use App\Exception\ExceptionFactory;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Exception\InvalidCsrfTokenException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,6 +22,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class AuthenticationController extends AbstractController
@@ -55,7 +57,7 @@ class AuthenticationController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher,
         UserAuthenticatorInterface $userAuthenticator,
         AppAuthenticator $authenticator,
-        UserRepository $userRepository
+        UserRepository $userRepository,
     ): Response {
         if ($this->getUser() || $userRepository->atLeastOneUserExist()) {
             return $this->redirectToRoute('app_home');
@@ -65,7 +67,7 @@ class AuthenticationController extends AbstractController
             $token = $request->request->get('_csrf_token');
 
             if (!$this->isCsrfTokenValid('register', $token)) {
-                throw new InvalidCsrfTokenException();
+                throw ExceptionFactory::throw(InvalidCsrfTokenException::class, ExceptionCode::INVALID_CSRF_TOKEN, 'Invalid CSRF token');
             }
 
             $error = false;
