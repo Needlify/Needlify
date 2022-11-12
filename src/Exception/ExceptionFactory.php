@@ -9,14 +9,10 @@
 
 namespace App\Exception;
 
-/**
- * @deprecated
- */
-interface ExceptionInterface
+class ExceptionFactory
 {
-    public function getErrorCode(): int;
-
-    public function getStatusCode(): int;
-
-    public function getMessageFormat(): string;
+    public static function throw($exception, ExceptionCode $code, string $message = 'An error occured', array $messageParams = [])
+    {
+        return new $exception(message: vsprintf($message, $messageParams), code: $code->value);
+    }
 }

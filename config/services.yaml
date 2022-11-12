@@ -34,3 +34,12 @@ services:
     App\ParamConverter\CustomParamConverter:
         tags:
             - { name: "request.param_converter", converter: 'App\ParamConverter\CustomParamConverter' }
+
+    monolog.formatter.extra_log:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] %%channel%%.%%level_name%% [%%extra.ip%% %%extra.user%% %%extra.protocol%% %%extra.method%% %%extra.url%%] %%message%% %%context%% %%extra%%\n"
+
+    App\Logger\ExtraLogProcessor:
+        tags:
+            - { name: monolog.processor }
