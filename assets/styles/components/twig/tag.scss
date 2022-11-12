@@ -1,0 +1,42 @@
+@import "../../mixins";
+
+.tag {
+    font-family: Supreme;
+    display: inline-flex;
+    align-items: center;
+    color: var(--dark-soft);
+    column-gap: 4px;
+    border: 2px solid var(--light-soft);
+    border-radius: 6px;
+    padding: 4px 6px;
+    text-decoration: none;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+
+    .icon {
+        width: 14px;
+        height: 14px;
+        color: #a8a8a8;
+        stroke-width: 2.5px;
+    }
+
+    @include maxWidth(600px) {
+        column-gap: 1px;
+        padding: 3px 4px;
+    }
+
+    &:hover {
+        background-color: var(--light);
+    }
+}
+
+span {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 0;
+
+    @include maxWidth(600px) {
+        font-size: 12px;
+    }
+}

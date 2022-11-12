@@ -9,7 +9,6 @@
 
 namespace App\Controller;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FeedController extends AbstractController
 {
     #[Route('/', name: 'app_home', methods: ['GET'], options: ['expose' => true])]
-    public function index(LoggerInterface $logger): Response
+    public function index(): Response
     {
         return $this->render('pages/feed.html.twig');
     }
