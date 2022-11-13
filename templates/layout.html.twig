@@ -49,9 +49,23 @@
 		<header id="header">
 			<div id="header-container">
 				<a href="{{ url("app_home") }}"><img src="{{ asset("images/logo/icon-64.png") }}" class="glitch" alt="Notice logo"/></a>
+				<div id="header-links">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a href="{{ url('admin_global') }}" class="secondary">
+                            <i data-feather="grid" class="icon"></i>
+                            Dashboard
+                        </a>
+                        <a href="{{ url('auth_logout') }}" class="primary">
+                            <i data-feather="log-out" class="icon"></i>
+                            Log out
+                        </a>
 
-				<div id="header-search-bar">
-					Hello World
+                    {% else %}
+                        <a href="{{ url('auth_login') }}">
+                            <i data-feather="log-in" class="icon"></i>
+                            Log in
+                        </a>
+                    {% endif %}
 				</div>
 			</div>
 		</header>
