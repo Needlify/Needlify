@@ -28,6 +28,11 @@ Encore.setOutputPath("public/build/")
         "style:header": "./assets/styles/layout/header.scss",
         "style:reset": "./assets/styles/reset.ts",
 
+        /* Twig Component Style */
+        "style:component:breadcrumb": "./assets/styles/components/twig/breadcrumb.scss",
+        "style:component:spinner": "./assets/styles/components/twig/spinner.scss",
+        "style:component:tag": "./assets/styles/components/twig/tag.scss",
+
         /* Page Style */
         "page:feed": "./assets/styles/pages/feed.scss",
         "page:classifier": "./assets/styles/pages/classifier.scss",

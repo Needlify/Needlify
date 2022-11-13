@@ -1,4 +1,5 @@
 import { PowerGlitch } from "powerglitch";
+import * as feather from "feather-icons";
 
 PowerGlitch.glitch(".glitch", {
     playMode: "hover",
@@ -26,3 +27,5 @@ PowerGlitch.glitch(".glitch", {
         hueRotate: true,
     },
 });
+
+feather.replace();

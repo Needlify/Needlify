@@ -187,9 +187,9 @@ class Article extends Publication implements ThreadInterface
 
     #[SerializedName('type')]
     #[Groups(['thread:extend'])]
-    public function getType(): string
+    public function getType(): ThreadType
     {
-        return ThreadType::ARTICLE->value;
+        return ThreadType::ARTICLE;
     }
 
     #[SerializedName('preview')]

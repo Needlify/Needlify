@@ -6,19 +6,17 @@
 
 {% block stylesheets %}
     {{ encore_entry_link_tags("page:article") }}
-    {{ encore_entry_link_tags("component:vue") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags("page:article") }}
-    {{ encore_entry_script_tags("component:vue") }}
 {% endblock javascripts %}
 
 {% block body %}
     <article id="article-container">
         <div id="topic-container">
             <a id="topic" href="{{ url("app_topic", { slug: article.topic.slug }) }}">
-                <div {{ vue_component("FeatherIcon", { icon: "tag", size: "14px", strokeWidth: "3px" }) }}></div>
+                <i data-feather="tag" width="14px" height="14px" stroke-width="3px"></i>
                 {{ article.topic.name }}
             </a>
         </div>
@@ -31,7 +29,7 @@
             <span id="date">{{ article.publishedAt|date("F j, Y") }}</span>
             <span class="dot">•</span>
             <span id="author">
-                <div {{ vue_component("FeatherIcon", { icon: "user", size: "16px", strokeWidth: "2px" }) }}></div>by
+                <i data-feather="user" width="16px" height="16px" stroke-width="2px"></i>by
                 {{ article.author.username }}
             </span>
             <span class="dot">•</span>

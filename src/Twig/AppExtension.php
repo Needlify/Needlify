@@ -23,7 +23,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFilter('instanceOf', [$this, 'isInstanceof']),
             new TwigFilter('formatNumber', [$this, 'formatNumber']),
-            new TwigFilter('enumValues', [$this, 'enumValues']),
+            new TwigFilter('cases', [$this, 'enumCases']),
             new TwigFilter('timeToRead', [$this, 'timeToRead']),
             new TwigFilter('markdown', [$this, 'markdown']),
         ];
@@ -39,13 +39,13 @@ class AppExtension extends AbstractExtension
         return ParsedownFactory::create()->text($content);
     }
 
-    public function enumValues(string $enumFqcn): array
+    public function enumCases(string $enumFqcn): array
     {
         if (!enum_exists($enumFqcn)) {
             return [];
         }
 
-        return $enumFqcn::values();
+        return $enumFqcn::cases();
     }
 
     public function formatNumber($num)
