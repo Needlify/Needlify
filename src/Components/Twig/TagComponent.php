@@ -16,4 +16,6 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 class TagComponent
 {
     public Tag $tag;
+
+    public ?string $url = null;
 }

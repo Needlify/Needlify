@@ -1,4 +1,4 @@
-<a class="tag" href="{{ url("app_tag", { slug: tag.slug }) }}">
+<a class="tag" href="{{ url != null ? url : url("app_tag", { slug: tag.slug }) }}">
     <i data-feather="hash" class="icon"></i>
     <span>{{ tag.name }}</span>
 </a>
