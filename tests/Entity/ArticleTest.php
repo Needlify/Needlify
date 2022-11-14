@@ -83,7 +83,7 @@ class ArticleTest extends KernelTestCase
         $title = 'Test';
         $article = new Article();
         $article->setTitle($title);
-        $this->assertEquals($article->getType(), 'article');
+        $this->assertEquals($article->getType()->value, 'article');
         $this->assertEquals($article->getType(), ThreadType::ARTICLE);
     }
 
