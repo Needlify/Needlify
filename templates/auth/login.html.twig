@@ -21,14 +21,14 @@
         <div class="inputs">
             <div class="custom-input-container">
                 <div class="custom-input">
-                    <div class="input-icon" {{ vue_component("FeatherIcon", { icon: "user", size: "16px", color: "#52616b" }) }}></div>
+                    <i data-feather="user" class="input-icon" width="16px" height="16px" color="#52616b"></i>
                     <input type="text" name="identifier" placeholder="Enter your email or username" required />
                 </div>
             </div>
 
             <div class="custom-input-container">
                 <div class="custom-input">
-                    <div class="input-icon" {{ vue_component("FeatherIcon", { icon: "lock", size: "16px", color: "#52616b" }) }}></div>
+                    <i data-feather="lock" class="input-icon" width="16px" height="16px" color="#52616b"></i>
                     <input type="password" name="password" placeholder="Enter your password" required />
                 </div>
             </div>
@@ -42,8 +42,8 @@
     </form>
 {% endblock body %}
 
-{% block additional_info %}
+{# {% block additional_info %}
     <p>
         Don't have an account yet ? <a href="{{ url("auth_register") }}">Sign up</a>
     </p>
-{% endblock additional_info %}
+{% endblock additional_info %} #}

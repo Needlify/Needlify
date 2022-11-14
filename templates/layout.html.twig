@@ -35,12 +35,14 @@
 		{{ encore_entry_link_tags("style:global") }}
 		{{ encore_entry_link_tags("style:layout") }}
 		{{ encore_entry_link_tags("style:header") }}
+		{{ encore_entry_link_tags("style:footer") }}
 		{{ encore_entry_link_tags("file:swup") }}
 
 		{% block stylesheets %}{% endblock stylesheets %}
 
 		{{ encore_entry_script_tags("file:layout") }}
 		{{ encore_entry_script_tags("file:swup") }}
+        {{ encore_entry_script_tags("file:global") }}
 
 		{% block javascripts %}{% endblock javascripts %}
 
@@ -71,7 +73,25 @@
 		</header>
 
 		<main id="app">
-			<div id="main-container" class="transition-fade"> {% block body %}{% endblock body %}</div>
+			<div id="main-container" class="transition-fade">{% block body %}{% endblock body %}</div>
         </main>
+
+        <footer id="footer">
+            <div id="links">
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+                <a href="#">Termes of use</a>
+                <a href="#">Newsletter</a>
+            </div>
+            <div id="social">
+                <a href="https://www.instagram.com/rob.bch/" target="_blank"><i data-feather="instagram"></i></a>
+                <a href="https://twitter.com/MrAnyx" target="_blank"><i data-feather="twitter"></i></a>
+                <a href="https://github.com/Needlify"><i data-feather="github"></i></a>
+                <a href="https://www.linkedin.com/in/rob-bch/"><i data-feather="linkedin"></i></a>
+            </div>
+            <div id="credit">
+                © 2020 - Needlify. All rights reserved.
+            </div>
+        </footer>
     </body>
 </html>
