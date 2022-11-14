@@ -11,6 +11,7 @@
     padding: 4px 6px;
     text-decoration: none;
     transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+    background-color: var(--white);
 
     .icon {
         width: 14px;
@@ -25,18 +26,18 @@
     }
 
     &:hover {
-        background-color: var(--light);
+        background-color: var(--light-soft);
     }
-}
 
-span {
-    padding: 0;
-    margin: 0;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 0;
+    span {
+        padding: 0;
+        margin: 0;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 0;
 
-    @include maxWidth(600px) {
-        font-size: 12px;
+        @include maxWidth(600px) {
+            font-size: 12px;
+        }
     }
 }

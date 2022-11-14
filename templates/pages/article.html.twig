@@ -6,6 +6,8 @@
 
 {% block stylesheets %}
     {{ encore_entry_link_tags("page:article") }}
+    {{ encore_entry_link_tags("style:component:spinner") }}
+    {{ encore_entry_link_tags("style:component:tag") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
@@ -47,12 +49,20 @@
         <section id="content-wrapper">
             <nav id="toc-container">
                 <h3 id="toc-title">
-                    Table des matières
+                    Table des matières<div id="spinner">
+                        {{ component("spinner", { color: "#8a9399", borderWidth: "2px", size: "16px" }) }}
+                    </div>
                 </h3>
                 <div id="toc"></div>
             </nav>
             <div id="content-container">
                 {{ article.content|markdown|raw }}
+            </div>
+
+            <div id="tags">
+                {% for tag in article.tags %}
+                    {{ component("tag", { tag: tag }) }}
+                {% endfor %}
             </div>
 
             {% if article.license %}

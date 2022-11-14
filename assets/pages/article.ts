@@ -96,6 +96,7 @@ if (headings.length > 0) {
     });
 
     document.querySelector("#toc")?.appendChild(ul);
+    document.querySelector("#toc-title #spinner")?.remove();
 } else {
     document.querySelector("#toc-title")?.remove();
 }
