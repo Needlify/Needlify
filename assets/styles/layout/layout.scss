@@ -3,9 +3,9 @@
     display: flex;
     justify-content: center;
     padding: 80px 0 40px 0;
+    min-height: calc(100% - var(--footer-height));
 
     #main-container {
-        margin-top: 20px;
         width: 100%;
         max-width: var(--content-size);
         padding-left: var(--mobile-border-margin);

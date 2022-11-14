@@ -26,6 +26,7 @@ Encore.setOutputPath("public/build/")
         "style:layout": "./assets/styles/layout/layout.scss",
         "style:layout-auth": "./assets/styles/layout/layout-auth.scss",
         "style:header": "./assets/styles/layout/header.scss",
+        "style:footer": "./assets/styles/layout/footer.scss",
         "style:reset": "./assets/styles/reset.ts",
 
         /* Twig Component Style */
@@ -42,6 +43,7 @@ Encore.setOutputPath("public/build/")
 
         /* Typescript files */
         "file:layout": "./assets/files/layout.ts",
+        "file:global": "./assets/files/global.ts",
         "file:swup": "./assets/files/swup.ts",
 
         /* EasyAdmin custom style */

@@ -1,3 +1,5 @@
+@import "mixins";
+
 :root {
     --white: #fff;
     --light: #f9f7f7;
@@ -48,6 +50,11 @@
     --soft-blue-background-hover: #eeeeee;
 
     --header-height: 58px;
+    --footer-height: 154px;
+
+    @include maxWidth(600px) {
+        --footer-height: 120px;
+    }
 
     --mobile-border-margin: 18px;
 
