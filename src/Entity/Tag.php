@@ -54,8 +54,8 @@ class Tag extends Classifier implements EntityTypeInterface
         return $this;
     }
 
-    public function getType(): string
+    public function getType(): ClassifierType
     {
-        return ClassifierType::TAG->value;
+        return ClassifierType::TAG;
     }
 }

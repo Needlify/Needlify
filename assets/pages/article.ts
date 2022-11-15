@@ -72,24 +72,31 @@ Array.from(code).forEach(element => {
 
 const headings = document.querySelectorAll<HTMLHeadingElement>("#content-container :is(h1, h2, h3, h4, h5, h6)");
 
-const ul = document.createElement("ul");
+console.log(headings);
 
-Array.from(headings).forEach((h, index) => {
-    // Add link to each headers
-    const hId = slugify(h.innerText, { lower: true });
-    h.id = hId;
-    const hlink = document.createElement("a");
-    hlink.href = `#${hId}`;
-    wrap(h, hlink);
+if (headings.length > 0) {
+    const ul = document.createElement("ul");
 
-    // create the toc
-    const li = document.createElement("li");
+    Array.from(headings).forEach((h, index) => {
+        // Add link to each headers
+        const hId = slugify(h.innerText, { lower: true });
+        h.id = hId;
+        const hlink = document.createElement("a");
+        hlink.href = `#${hId}`;
+        wrap(h, hlink);
 
-    li.innerHTML = /* html */ `
-        <span class="toc-indicator">${index + 1}</span>
-        <a href="#${hId}">${h.innerHTML}</a>
+        // create the toc
+        const li = document.createElement("li");
+
+        li.innerHTML = /* html */ `
+    <span class="toc-indicator">${index + 1}</span>
+    <a href="#${hId}">${h.innerHTML}</a>
     `;
-    ul.appendChild(li);
-});
+        ul.appendChild(li);
+    });
 
-document.querySelector("#toc")?.appendChild(ul);
+    document.querySelector("#toc")?.appendChild(ul);
+    document.querySelector("#toc-title #spinner")?.remove();
+} else {
+    document.querySelector("#toc-title")?.remove();
+}

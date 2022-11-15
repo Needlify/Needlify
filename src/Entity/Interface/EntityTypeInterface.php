@@ -9,7 +9,10 @@
 
 namespace App\Entity\Interface;
 
+use App\Service\ThreadType;
+use App\Service\ClassifierType;
+
 interface EntityTypeInterface
 {
-    public function getType(): string;
+    public function getType(): ThreadType|ClassifierType;
 }

@@ -57,8 +57,8 @@ class Topic extends Classifier implements EntityTypeInterface
         return $this;
     }
 
-    public function getType(): string
+    public function getType(): ClassifierType
     {
-        return ClassifierType::TOPIC->value;
+        return ClassifierType::TOPIC;
     }
 }

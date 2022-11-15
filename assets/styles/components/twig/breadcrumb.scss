@@ -1,0 +1,47 @@
+@import "../../mixins";
+
+#breadcrumb-container {
+    display: flex;
+    align-items: center;
+    color: var(--light-dark);
+    column-gap: 6px;
+    font-size: 18px;
+
+    .type-icon {
+        width: 18px;
+        height: 18px;
+        stroke-width: 2px;
+    }
+
+    .separator {
+        width: 12px;
+        height: 12px;
+        stroke-width: 3px;
+
+        @include maxWidth(600px) {
+            stroke-width: 2px;
+        }
+    }
+
+    .secondary {
+        color: var(--light-dark);
+    }
+
+    .primary {
+        color: var(--dark-light);
+        font-weight: 700;
+        flex-grow: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 0; /* Pour éviter qu'en format mobile, la margin de la timeline s'enlève */
+    }
+
+    @include maxWidth(600px) {
+        font-size: 16px;
+
+        .first-two-icon {
+            display: none;
+        }
+    }
+}

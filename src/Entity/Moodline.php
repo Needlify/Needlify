@@ -58,9 +58,9 @@ class Moodline extends Publication implements ThreadInterface
 
     #[SerializedName('type')]
     #[Groups(['thread:extend'])]
-    public function getType(): string
+    public function getType(): ThreadType
     {
-        return ThreadType::MOODLINE->value;
+        return ThreadType::MOODLINE;
     }
 
     #[SerializedName('preview')]
