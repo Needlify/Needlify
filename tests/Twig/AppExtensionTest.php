@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Tests\Repository;
+namespace App\Tests\Twig;
 
 use App\Entity\Topic;
 use App\Twig\AppExtension;

@@ -18,6 +18,8 @@ RUN chmod -R 0777 /var/www/
 
 COPY ./apache/vhosts.conf /etc/apache2/sites-available/000-default.conf
 
-ENTRYPOINT [ "bash", "./docker.sh" ]
+# ENTRYPOINT [ "bash", "./docker.sh" ]
+
+CMD apachectl -D FOREGROUND
 
 WORKDIR /var/www
