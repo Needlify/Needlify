@@ -3,23 +3,22 @@
     "forwardPorts": [8080, 8081, 8082],
     "portsAttributes": {
         "8080": {
-            "label": "Web",
-	   },
+            "label": "Web"
+        },
         "8081": {
-	      "label": "Mailer",
-	   },
-	   "8082": {
-	      "label": "Adminer",
-	   }
+            "label": "Mailer"
+        },
+        "8082": {
+            "label": "Adminer"
+        }
     },
     "dockerComposeFile": "../docker-compose.yaml",
     "service": "web",
     "postCreateCommand": "task app:default:config",
     "workspaceFolder": "/var/www",
-	"features": {
-		"docker-in-docker": "latest",
-		"github-cli": "latest"
-	},
+    "features": {
+        "github-cli": "latest"
+    },
     "extensions": [
         "bmewburn.vscode-intelephense-client",
         "dbaeumer.vscode-eslint",
