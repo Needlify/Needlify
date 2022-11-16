@@ -81,3 +81,13 @@ tasks:
             - task: database:reset
             - task: php:test
             - task: node:test
+
+    app:default:config:
+        desc: "Run required commands in order to make the project functional"
+        aliases: ["a:d:c"]
+        cmds:
+            - cp .env.example .env.local
+            - composer install --ansi --prefer-dist --no-interaction --no-progress
+            - npm install --silent
+            - npm run dev
+            - task: database:reset

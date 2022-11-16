@@ -1,18 +1,26 @@
 {
     "name": "Needlify",
     "forwardPorts": [8080, 8081, 8082],
+    "portsAttributes": {
+        "8080": {
+            "label": "Web",
+	   },
+        "8081": {
+	      "label": "Mailer",
+	   },
+	   "8082": {
+	      "label": "Adminer",
+	   }
+    },
     "dockerComposeFile": "../docker-compose.yaml",
     "service": "web",
-    "postCreateCommand": [
-        "cp .env.example .env.local",
-        "composer install",
-        "npm i",
-        "npm run dev",
-        "task d:r"
-    ],
+    "postCreateCommand": "task app:default:config",
     "workspaceFolder": "/var/www",
+	"features": {
+		"docker-in-docker": "latest",
+		"github-cli": "latest"
+	},
     "extensions": [
-        "alefragnani.project-manager",
         "bmewburn.vscode-intelephense-client",
         "dbaeumer.vscode-eslint",
         "donjayamanne.githistory",
