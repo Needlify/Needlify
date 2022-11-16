@@ -1,0 +1,13 @@
+admin.user_menu.logout: "Logout"
+
+admin.sidebar.overview: "Overview"
+admin.sidebar.home: "Timeline"
+admin.sidebar.section.publication: "Publications"
+admin.sidebar.section.publication.article: "Articles"
+admin.sidebar.section.publication.moodline: "Moodlines"
+admin.sidebar.section.publication.event: "Events"
+admin.sidebar.section.classifier: "Classifiers"
+admin.sidebar.section.classifier.tag: "Tags"
+admin.sidebar.section.classifier.topic: "Topics"
+admin.sidebar.section.account: "Accounts"
+admin.sidebar.section.account.user: "Users"

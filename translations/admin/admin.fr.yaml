@@ -1,0 +1,13 @@
+admin.user_menu.logout: "Déconnexion"
+
+admin.sidebar.overview: "Vue d'ensemble"
+admin.sidebar.home: "Fil d'actualité"
+admin.sidebar.section.publication: "Publications"
+admin.sidebar.section.publication.article: "Articles"
+admin.sidebar.section.publication.moodline: "Moodlines"
+admin.sidebar.section.publication.event: "Évènements"
+admin.sidebar.section.classifier: "Classifieurs"
+admin.sidebar.section.classifier.tag: "Tags"
+admin.sidebar.section.classifier.topic: "Topics"
+admin.sidebar.section.account: "Comptes"
+admin.sidebar.section.account.user: "Utilisateurs"

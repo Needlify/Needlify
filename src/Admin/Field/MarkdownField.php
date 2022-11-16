@@ -25,13 +25,9 @@ final class MarkdownField implements FieldInterface
         return (new self())
             ->setProperty($propertyName)
             ->setLabel($label)
-
-            // ->setTemplatePath('admin/field/map.html.twig')
-
             ->setFormType(TextareaType::class)
             ->setFormTypeOption('attr.class', 'field-markdown-editor-textarea')
             ->addCssClass('field-markdown-editor')
-
             ->addWebpackEncoreEntries('admin:markdown:default')
         ;
     }

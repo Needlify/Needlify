@@ -10,9 +10,9 @@ article.thumbnail.max_size: "L'image ne peut pas dépasser {{ limit }}{{ suffix 
 article.thumbnail.mime_type: "Mauvais format d'image (jpeg, jpg, png)"
 
 classifier.slug.unique: "Le slug {{ value }} est déjà utilisé"
-classifier.name.not_blank: "Le nom d'un classifier ne pas être vide"
-classifier.name.length: "Le nom d'un classifier ne peut pas dépasser {{ limit }} caractères"
-classifier.slug.length: "Le slug d'un classifier ne peut pas dépasser {{ limit }} caractères"
+classifier.name.not_blank: "Le nom d'un classifieur ne pas être vide"
+classifier.name.length: "Le nom d'un classifieur ne peut pas dépasser {{ limit }} caractères"
+classifier.slug.length: "Le slug d'un classifieur ne peut pas dépasser {{ limit }} caractères"
 
 event.content.length: "Le contenu d'un évènement ne peut pas dépasser {{ limit }} caractères"
 event.raw_content.length: "Le contenu brut d'un évènement ne peut pas dépasser {{ limit }} caractères"
