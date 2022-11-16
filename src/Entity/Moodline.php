@@ -22,11 +22,11 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class Moodline extends Publication implements ThreadInterface
 {
     #[ORM\Column(type: Types::TEXT, length: 800)]
-    #[Assert\Length(max: 800, maxMessage: "Le contenu d'une moodline ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\Length(max: 800, maxMessage: 'moodline.content.length')]
     private ?string $content = null;
 
-    #[Assert\Length(max: 500, maxMessage: "Le contenu brut d'une moodline ne peut pas dépasser {{ limit }} caractères")]
-    #[Assert\NotBlank(message: "Le contenu brut d'une moodline ne pas être vide")]
+    #[Assert\Length(max: 500, maxMessage: 'moodline.raw_content.length')]
+    #[Assert\NotBlank(message: 'moodline.raw_content.not_blank')]
     private ?string $rawContent = null;
 
     public function getContent(): ?string

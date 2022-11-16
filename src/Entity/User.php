@@ -9,8 +9,6 @@
 
 namespace App\Entity;
 
-use DateTimeZone;
-use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
@@ -26,8 +24,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé')]
-#[UniqueEntity(fields: ['username'], message: 'Ce nom d\'utilisateur est déjà utilisé')]
+#[UniqueEntity(fields: ['email'], message: 'user.email.unique')]
+#[UniqueEntity(fields: ['username'], message: 'user.username.unique')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -37,19 +35,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?Uuid $id = null;
 
     #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
-    #[Assert\NotBlank(message: "Le nom d'utilisateur ne peut pas être vide")]
-    #[Assert\Length(max: 50, maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères")]
-    #[Assert\Regex(pattern: '/^[\w\-\.]*$/', message: "Nom d'utilisateur invalide")]
+    #[Assert\NotBlank(message: 'user.username.not_blank')]
+    #[Assert\Length(max: 50, maxMessage: 'user.username.length')]
+    #[Assert\Regex(pattern: '/^[\w\-\.]*$/', message: 'user.username.regex')]
     #[Groups(['user:basic', 'user:extend'])]
     private ?string $username = null;
 
     #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
-    #[Assert\NotBlank(message: "L'email ne peut pas être vide")]
-    #[Assert\Email(message: 'Email invalide')]
-    #[Assert\Length(
-        max: 180,
-        maxMessage: "L'email ne peut pas dépasser {{ limit }} caractères",
-    )]
+    #[Assert\NotBlank(message: 'user.email.not_blank')]
+    #[Assert\Email(message: 'user.email.email')]
+    #[Assert\Length(max: 180, maxMessage: 'user.email.length')]
     #[Groups(['user:extend'])]
     private ?string $email = null;
 
@@ -58,21 +53,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = ['ROLE_USER'];
 
     #[ORM\Column(type: Types::STRING)]
-    #[Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide')]
+    #[Assert\NotBlank(message: 'user.password.not_blank')]
     #[Ignore]
     private ?string $password = null;
 
-    #[Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide')]
-    #[Assert\NotCompromisedPassword(message: 'Ce mot de passe est compromis, veuillez en utiliser un autre')]
+    #[Assert\NotBlank(message: 'user.password.not_blank')]
+    #[Assert\NotCompromisedPassword(message: 'user.raw_password.not_compromised_password')]
     #[Assert\Length(
         min: 8,
-        minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères',
+        minMessage: 'user.raw_password.min_length',
         max: 50,
-        maxMessage: 'Le mot de passe ne peut pas dépasser {{ limit }} caractères',
+        maxMessage: 'user.raw_password.max_length',
     )]
-    #[Assert\Regex(pattern: '/^.*?[A-Z].*?$/', message: 'Le mot de passe doit contenir au moins une majuscule')]
-    #[Assert\Regex(pattern: '/^.*?[0-9].*?$/', message: 'Le mot de passe doit contenir au moins un chiffre')]
-    #[Assert\Regex(pattern: '/^.*?[!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|].*?$/', message: 'Le mot de passe doit contenir au moins un caractère spécial')]
+    #[Assert\Regex(pattern: '/^.*?[A-Z].*?$/', message: 'user.raw_password.upper_case')]
+    #[Assert\Regex(pattern: '/^.*?[0-9].*?$/', message: 'user.raw_password.number')]
+    #[Assert\Regex(pattern: '/^.*?[!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|].*?$/', message: 'user.raw_password.special_char')]
     private ?string $rawPassword = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
@@ -176,7 +171,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getCreatedAt(): ?DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -184,7 +179,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\PrePersist]
     public function setCreatedAt(): void
     {
-        $this->createdAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     /**

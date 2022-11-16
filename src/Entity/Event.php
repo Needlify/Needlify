@@ -22,11 +22,11 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class Event extends Thread implements ThreadInterface
 {
     #[ORM\Column(type: Types::STRING, length: 240)] // 240 = 150 * 0.6
-    #[Assert\Length(max: 240, maxMessage: "Le contenu d'une évènement ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\Length(max: 240, maxMessage: 'event.content.length')]
     private ?string $content = null;
 
-    #[Assert\Length(max: 150, maxMessage: "Le contenu brut d'une évènement ne peut pas dépasser {{ limit }} caractères")]
-    #[Assert\NotBlank(message: "Le contenu brut d'une évènement ne pas être vide")]
+    #[Assert\Length(max: 150, maxMessage: 'event.raw_content.length')]
+    #[Assert\NotBlank(message: 'event.raw_content.not_blank')]
     private ?string $rawContent = null;
 
     public function __construct(?string $content = null)
