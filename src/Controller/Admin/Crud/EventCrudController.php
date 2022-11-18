@@ -44,23 +44,23 @@ class EventCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield FormField::addPanel('Essential');
+        yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id')->onlyOnDetail();
-        yield TextEditorField::new('content')
+        yield TextEditorField::new('content', 'admin.crud.event.column.content')
             ->setTrixEditorConfig(self::$defaultEditorConfig)
             ->setNumOfRows(1)
             ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
             ->formatValue(fn (string $value) => $value) // To render content as html rather than just text
         ;
 
-        yield FormField::addPanel('Date Details')->hideOnForm();
-        yield DateTimeField::new('publishedAt')->hideOnForm();
+        yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
+        yield DateTimeField::new('publishedAt', 'admin.crud.event.column.published_at')->hideOnForm();
     }
 
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('Details'))
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
         ;
     }
 }

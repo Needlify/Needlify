@@ -38,7 +38,7 @@ class MoodlineCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield FormField::addPanel('Essential');
+        yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id')->onlyOnDetail();
 
         yield TextEditorField::new('content')
@@ -47,10 +47,10 @@ class MoodlineCrudController extends AbstractCrudController
             ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
             ->formatValue(fn (string $value) => $value);
 
-        yield FormField::addPanel('Date Details')->hideOnForm();
+        yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('publishedAt')->hideOnForm();
 
-        yield FormField::addPanel('Associations');
+        yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('topic')->setRequired(true);
         yield AssociationField::new('tags')
             ->setTemplatePath('admin/components/tags.html.twig')

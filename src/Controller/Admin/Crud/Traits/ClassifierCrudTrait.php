@@ -20,16 +20,16 @@ trait ClassifierCrudTrait
 {
     public function defaultClassifierFieldConfiguration(string $pageName, string $classifierFqcn): iterable
     {
-        yield FormField::addPanel('Essential');
+        yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id')->onlyOnDetail();
         yield TextField::new('name');
         yield TextField::new('slug')->onlyOnDetail();
 
-        yield FormField::addPanel('Date Details')->hideOnForm();
+        yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('createdAt')->hideOnForm();
         yield DateTimeField::new('lastUseAt')->hideOnForm();
 
-        yield FormField::addPanel('Associations')->hideOnForm();
+        yield FormField::addPanel('admin.crud.section.associations')->hideOnForm();
         yield AssociationField::new('publications')
             ->setTemplatePath('admin/components/publications.html.twig')
             ->addWebpackEncoreEntries('admin:component:publications')

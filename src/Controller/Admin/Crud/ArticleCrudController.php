@@ -51,38 +51,38 @@ class ArticleCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield FormField::addPanel('Essential');
-        yield IdField::new('id')->onlyOnDetail();
-        yield TextField::new('title');
-        yield TextField::new('slug')->onlyOnDetail();
-        yield BooleanField::new('license')->setHelp("L'article est-t-il sous la licence CC-BY-NC-SA ?");
-        yield TextField::new('thumbnailFile')
+        yield FormField::addPanel('admin.crud.section.essential');
+        yield IdField::new('id', 'admin.crud.article.column.id')->onlyOnDetail();
+        yield TextField::new('title', 'admin.crud.article.column.title');
+        yield TextField::new('slug', 'admin.crud.article.column.slug')->onlyOnDetail();
+        yield BooleanField::new('license', 'admin.crud.article.column.license')->setHelp("L'article est-t-il sous la licence CC-BY-NC-SA ?");
+        yield TextField::new('thumbnailFile', 'admin.crud.article.column.thumbnail')
             ->setFormType(VichImageType::class)
             ->addWebpackEncoreEntries('admin:thumbnail')
             ->onlyOnForms();
-        yield ImageField::new('thumbnail')
+        yield ImageField::new('thumbnail', 'admin.crud.article.column.thumbnail')
             ->setBasePath($this->getParameter('app.thumbnails.upload_dir'))
             ->hideOnForm();
-        yield AssociationField::new('author')->onlyOnDetail();
-        yield TextareaField::new('description')
+        yield AssociationField::new('author', 'admin.crud.article.column.author')->onlyOnDetail();
+        yield TextareaField::new('description', 'admin.crud.article.column.description')
             ->hideOnIndex();
 
-        yield FormField::addPanel('Date Details')->hideOnForm();
-        yield DateTimeField::new('publishedAt')->hideOnForm();
+        yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
+        yield DateTimeField::new('publishedAt', 'admin.crud.article.column.published_at')->hideOnForm();
 
-        yield FormField::addPanel('Associations');
-        yield AssociationField::new('topic')->setRequired(true);
-        yield AssociationField::new('tags')
+        yield FormField::addPanel('admin.crud.section.associations');
+        yield AssociationField::new('topic', 'admin.crud.article.column.topic')->setRequired(true);
+        yield AssociationField::new('tags', 'admin.crud.article.column.tags')
             ->setTemplatePath('admin/components/tags.html.twig')
             ->addWebpackEncoreEntries('admin:component:tags', 'component:vue');
 
-        yield FormField::addPanel('Content');
-        yield CodeEditorField::new('content')
+        yield FormField::addPanel('admin.crud.section.content');
+        yield CodeEditorField::new('content', 'admin.crud.article.column.content')
             // ->setTrixEditorConfig(self::$defaultEditorConfig)
             ->setTemplatePath('admin/components/markdown.html.twig')
             ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
             ->onlyOnDetail();
-        yield MarkdownField::new('content')->onlyOnForms();
+        yield MarkdownField::new('content', 'admin.crud.article.column.content')->onlyOnForms();
     }
 
     public function configureActions(Actions $actions): Actions
