@@ -1,3 +1,5 @@
+{% trans_default_domain "admin" %}
+
 {% if ea.crud.currentAction == "detail" %}
 	{% if field.value|length == 0 %}
 		<span class="badge badge-secondary">No publications</span>
@@ -14,8 +16,12 @@
 										<div class="summary-content">
 											{{thread.title}}
 											<div class="article-links">
-												<a href="{{ ea_url().setController('App\\Controller\\Admin\\Crud\\ArticleCrudController').setAction(constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::DETAIL')).setEntityId(thread.id).set('menuIndex', 3) }}">Details</a>
-												<a href="{{url('app_article', {slug: thread.slug})}}">Read more</a>
+												<a href="{{ ea_url().setController('App\\Controller\\Admin\\Crud\\ArticleCrudController').setAction(constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::DETAIL')).setEntityId(thread.id).set('menuIndex', 3) }}">
+                                                    {{"admin.component.publications.details"|trans}}
+                                                </a>
+												<a href="{{url('app_article', {slug: thread.slug})}}">
+                                                    {{"admin.component.publications.read_more"|trans}}
+                                                </a>
 											</div>
 										</div>
 									</summary>

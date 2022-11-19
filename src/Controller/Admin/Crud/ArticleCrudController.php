@@ -14,6 +14,7 @@ use App\Service\ParsedownFactory;
 use App\Admin\Field\MarkdownField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
@@ -21,17 +22,28 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use App\Controller\Admin\Crud\Traits\CrudTranslationTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ArticleCrudController extends AbstractCrudController
 {
-    use ThreadCrudTrait;
-    use ContentCrudTrait;
+    use ThreadCrudTrait, ContentCrudTrait, CrudTranslationTrait {
+        ContentCrudTrait::__construct as private __contentConstruct;
+        CrudTranslationTrait::__construct as private __translationConstruct;
+    }
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
+    {
+        $this->__contentConstruct($urlGenerator);
+        $this->__translationConstruct($translator);
+    }
 
     public static function getEntityFqcn(): string
     {
@@ -40,13 +52,15 @@ class ArticleCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        $crudValue = $this->defaultThreadCrudConfiguration($crud);
-        $crudValue->setFormOptions(
-            newFormOptions: ['validation_groups' => ['Default', 'admin:form:new']],
-            editFormOptions: ['validation_groups' => ['Default', 'admin:form:edit']]
-        );
-
-        return $crudValue;
+        return $this->defaultThreadCrudConfiguration($crud)
+                    ->setFormOptions(
+                        newFormOptions: ['validation_groups' => ['Default', 'admin:form:new']],
+                        editFormOptions: ['validation_groups' => ['Default', 'admin:form:edit']]
+                    )
+                    ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.article.index.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.article.new.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.article.edit.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.article.details.title', [], 'admin'));
     }
 
     public function configureFields(string $pageName): iterable
@@ -55,7 +69,7 @@ class ArticleCrudController extends AbstractCrudController
         yield IdField::new('id', 'admin.crud.article.column.id')->onlyOnDetail();
         yield TextField::new('title', 'admin.crud.article.column.title');
         yield TextField::new('slug', 'admin.crud.article.column.slug')->onlyOnDetail();
-        yield BooleanField::new('license', 'admin.crud.article.column.license')->setHelp("L'article est-t-il sous la licence CC-BY-NC-SA ?");
+        yield BooleanField::new('license', 'admin.crud.article.column.license')->setHelp('admin.crud.article.column.license.help');
         yield TextField::new('thumbnailFile', 'admin.crud.article.column.thumbnail')
             ->setFormType(VichImageType::class)
             ->addWebpackEncoreEntries('admin:thumbnail')
@@ -87,6 +101,8 @@ class ArticleCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        $actions->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.article.actions.create'));
+
         return $this->defaultContentActionConfiguration($actions, Article::class);
     }
 }

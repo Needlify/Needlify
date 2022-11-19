@@ -18,13 +18,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use App\Controller\Admin\Crud\Traits\CrudTranslationTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class EventCrudController extends AbstractCrudController
 {
-    use ThreadCrudTrait;
+    use ThreadCrudTrait, CrudTranslationTrait;
 
     public static function getEntityFqcn(): string
     {
@@ -39,7 +40,11 @@ class EventCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $this->defaultThreadCrudConfiguration($crud)
-            ->setSearchFields(['content']);
+            ->setSearchFields(['content'])
+            ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.event.index.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.event.new.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.event.edit.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.event.details.title', [], 'admin'));
     }
 
     public function configureFields(string $pageName): iterable
@@ -60,6 +65,7 @@ class EventCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
+            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.event.actions.create'))
             ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
         ;
     }
