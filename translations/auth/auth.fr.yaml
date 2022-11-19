@@ -1,3 +1,5 @@
+auth.error.message: "Une erreur est survenue"
+
 auth.login.title: "Connexion"
 auth.login.form.title: "Content de vous revoir"
 auth.login.form.subtitle: "Entrez vos identifiants pour accéder à la plateforme"

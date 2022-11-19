@@ -1,3 +1,5 @@
+auth.error.message: "An error occured"
+
 auth.login.title: "Login"
 auth.login.form.title: "Welcome back"
 auth.login.form.subtitle: "Enter your credentials to access the platform"
