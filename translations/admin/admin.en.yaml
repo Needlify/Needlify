@@ -95,3 +95,5 @@ admin.crud.classifier.column.publications: "Publications"
 
 admin.component.publications.details: "Details"
 admin.component.publications.read_more: "Read more"
+admin.component.publications.empty: "No publication"
+admin.component.tags.empty: "No tag"

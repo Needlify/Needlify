@@ -2,7 +2,7 @@
 
 {% if ea.crud.currentAction == "detail" %}
 	{% if field.value|length == 0 %}
-		<span class="badge badge-secondary">No publications</span>
+		<span class="badge badge-secondary">{{"admin.component.publications.empty" | trans}}</span>
 	{% else %}
 		<div id="threads-container">
 			{% for type in "App\\Service\\ThreadType"|cases %}
