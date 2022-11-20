@@ -26,18 +26,18 @@ trait ContentCrudTrait
 
     public function defaultContentActionConfiguration(Actions $actions, string $classifierFqcn): Actions
     {
+        $actionLabel = '';
+        $actionRouteName = '';
+
         if (Tag::class === $classifierFqcn) {
-            $actionLabel = 'View tag page';
+            $actionLabel = 'admin.crud.action.view_tag';
             $actionRouteName = 'app_tag';
         } elseif (Topic::class === $classifierFqcn) {
-            $actionLabel = 'View topic page';
+            $actionLabel = 'admin.crud.action.view_topic';
             $actionRouteName = 'app_topic';
         } elseif (Article::class === $classifierFqcn) {
-            $actionLabel = 'View article page';
+            $actionLabel = 'admin.crud.action.view_article';
             $actionRouteName = 'app_article';
-        } else {
-            $actionLabel = 'View page';
-            $actionRouteName = 'app_home';
         }
 
         /** @var Classifier|Article $content */
@@ -51,7 +51,7 @@ trait ContentCrudTrait
             ->addCssClass('btn btn-secondary');
 
         $actions
-            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('Details'))
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
             ->add(Crud::PAGE_INDEX, $goToActionIndex)
             ->add(Crud::PAGE_DETAIL, $goToActionDetails)
 

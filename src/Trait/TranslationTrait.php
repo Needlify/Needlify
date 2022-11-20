@@ -7,10 +7,14 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Tests\Twig;
+namespace App\Trait;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-class AppExtensionTest extends KernelTestCase
+trait TranslationTrait
 {
+    public function __construct(
+        private TranslatorInterface $translator
+    ) {
+    }
 }

@@ -31,22 +31,27 @@ class OverviewService
             'article' => [
                 'icon' => 'fas fa-book',
                 'value' => $this->em->getRepository(Article::class)->countAll(),
+                'translation' => 'admin.dashboard.cards.articles',
             ],
             'moodline' => [
                 'icon' => 'fas fa-bolt',
                 'value' => $this->em->getRepository(Moodline::class)->countAll(),
+                'translation' => 'admin.dashboard.cards.moodlines',
             ],
             'tag' => [
                 'icon' => 'fas fa-hashtag',
                 'value' => $this->em->getRepository(Tag::class)->countAll(),
+                'translation' => 'admin.dashboard.cards.tags',
             ],
             'topic' => [
                 'icon' => 'fas fa-tags',
                 'value' => $this->em->getRepository(Topic::class)->countAll(),
+                'translation' => 'admin.dashboard.cards.topics',
             ],
             'event' => [
                 'icon' => 'fas fa-bell',
                 'value' => $this->em->getRepository(Event::class)->countAll(),
+                'translation' => 'admin.dashboard.cards.events',
             ],
         ];
     }

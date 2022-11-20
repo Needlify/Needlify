@@ -26,7 +26,7 @@ trait ThreadCrudTrait
     public function defaultThreadCrudConfiguration(Crud $crud): Crud
     {
         return $crud
-            ->setDateTimeFormat('d LLL. yyyy HH:mm:ss ZZZZ')
+            ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
             ->setDefaultSort(['publishedAt' => 'DESC']);
     }
 }

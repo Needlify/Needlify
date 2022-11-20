@@ -37,7 +37,7 @@
             <span class="dot">•</span>
             <span id="time-to-read">
                 {{ article.content|timeToRead }}
-                min to read
+                {{ "article.info.time_to_read"|trans }}
             </span>
         </div>
 
@@ -49,7 +49,9 @@
         <section id="content-wrapper">
             <nav id="toc-container">
                 <h3 id="toc-title">
-                    Table des matières<div id="spinner">
+                    {{ "article.content.table_of_content"|trans }}
+
+                    <div id="spinner">
                         {{ component("spinner", { color: "#8a9399", borderWidth: "2px", size: "16px" }) }}
                     </div>
                 </h3>
@@ -59,19 +61,21 @@
                 {{ article.content|markdown|raw }}
             </div>
 
-            <div id="tags">
-                {% for tag in article.tags %}
-                    {{ component("tag", { tag: tag }) }}
-                {% endfor %}
-            </div>
+            {% if (article.tags|length) > 0 %}
+                <div id="tags">
+                    {% for tag in article.tags %}
+                        {{ component("tag", { tag: tag }) }}
+                    {% endfor %}
+                </div>
+            {% endif %}
 
             {% if article.license %}
                 <hr />
 
                 <div id="license">
-                    Cette œuvre est mise à disposition selon les termes de la licence
+                    {{ "article.content.license"|trans }}
                     <a target="_blank" rel="license" id="license-image-link" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
-                        <img alt="Licence Creative Commons" width="80" height="15" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" />
+                        <img alt="Licence Creative Commons" width="80" height="15" src="{{ asset("images/license/cc.png") }}" />
                     </a>
                 </div>
             {% endif %}

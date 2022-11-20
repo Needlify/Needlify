@@ -1,7 +1,8 @@
 {% extends "layout-auth.html.twig" %}
+{% trans_default_domain "auth" %}
 
 {% block title %}
-    Login - {{ parent() }}
+    {{ "auth.login.title"|trans }} - {{ parent() }}
 {% endblock title %}
 
 {% block stylesheets %}
@@ -9,11 +10,11 @@
 {% endblock stylesheets %}
 
 {% block form_title %}
-    Welcome back
+    {{ "auth.login.form.title"|trans }}
 {% endblock form_title %}
 
 {% block form_subtitle %}
-    Enter your credentials to access the platform
+    {{ "auth.login.form.subtitle"|trans }}
 {% endblock form_subtitle %}
 
 {% block body %}
@@ -22,21 +23,21 @@
             <div class="custom-input-container">
                 <div class="custom-input">
                     <i data-feather="user" class="input-icon" width="16px" height="16px" color="#52616b"></i>
-                    <input type="text" name="identifier" placeholder="Enter your email or username" required />
+                    <input type="text" name="identifier" placeholder="{{ "auth.login.form.identifier.placeholder"|trans }}" required />
                 </div>
             </div>
 
             <div class="custom-input-container">
                 <div class="custom-input">
                     <i data-feather="lock" class="input-icon" width="16px" height="16px" color="#52616b"></i>
-                    <input type="password" name="password" placeholder="Enter your password" required />
+                    <input type="password" name="password" placeholder="{{ "auth.login.form.password.placeholder"|trans }}" required />
                 </div>
             </div>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token("authenticate") }}" />
         </div>
 
-        <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary" type="submit">{{ "auth.login.form.button"|trans }}</button>
 
         {# <a id="forgot-password" href="#">Forgot password</a> #}
     </form>

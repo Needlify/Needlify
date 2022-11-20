@@ -10,16 +10,28 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Topic;
+use App\Trait\TranslationTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Controller\Admin\Crud\Traits\ClassifierCrudTrait;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class TopicCrudController extends AbstractCrudController
 {
-    use ClassifierCrudTrait;
-    use ContentCrudTrait;
+    use ClassifierCrudTrait, ContentCrudTrait, TranslationTrait {
+        ContentCrudTrait::__construct as private __contentConstruct;
+        TranslationTrait::__construct as private __translationConstruct;
+    }
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
+    {
+        $this->__contentConstruct($urlGenerator);
+        $this->__translationConstruct($translator);
+    }
 
     public static function getEntityFqcn(): string
     {
@@ -28,7 +40,11 @@ class TopicCrudController extends AbstractCrudController
 
     public function configureCrud(Crud $crud): Crud
     {
-        return $this->defaultClassifierCrudConfiguration($crud);
+        return $this->defaultClassifierCrudConfiguration($crud)
+                    ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.topic.index.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.topic.new.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.topic.edit.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.topic.details.title', [], 'admin'));
     }
 
     public function configureFields(string $pageName): iterable
@@ -38,6 +54,8 @@ class TopicCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        $actions->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.topic.actions.create'));
+
         return $this->defaultContentActionConfiguration($actions, Topic::class);
     }
 }

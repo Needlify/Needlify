@@ -1,3 +1,5 @@
+{% trans_default_domain "admin" %}
+
 {% if ea.crud.currentAction == "detail" %}
     {% if (field.value|length) > 0 %}
         <div id="custom-tags-container">
@@ -20,7 +22,7 @@
             {% endfor %}
         </div>
     {% else %}
-        <span class="badge badge-secondary">No tags</span>
+        <span class="badge badge-secondary">{{ "admin.component.tags.empty"|trans }}</span>
     {% endif %}
 {% else %}
     <span class="badge badge-secondary">{{ field.value|length }}</span>

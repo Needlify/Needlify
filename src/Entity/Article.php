@@ -31,32 +31,32 @@ use function Symfony\Component\String\u;
 class Article extends Publication implements ThreadInterface
 {
     #[ORM\Column(type: Types::STRING, length: 120)]
-    #[Assert\NotBlank(message: "Le titre d'un article ne pas être vide")]
-    #[Assert\Length(max: 120, maxMessage: "Le titre d'un article ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\NotBlank(message: 'article.title.not_blank')]
+    #[Assert\Length(max: 120, maxMessage: 'article.title.length')]
     #[Groups(['thread:extend'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::STRING, length: 500)]
-    #[Assert\NotBlank(message: "La description de l'article ne pas être vide")]
-    #[Assert\Length(max: 500, maxMessage: "La description d'un article ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\NotBlank(message: 'article.description.not_blank')]
+    #[Assert\Length(max: 500, maxMessage: 'article.description.length')]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank(message: "La contenu de l'article ne pas être vide")]
+    #[Assert\NotBlank(message: 'article.content.not_blank')]
     #[Groups(['thread:extend'])]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::INTEGER)]
-    #[Assert\PositiveOrZero(message: 'Le nombre de vues doit être positif ou null')]
+    #[Assert\PositiveOrZero(message: 'article.views.positive_of_zero')]
     private ?int $views = 0;
 
     #[ORM\Column(type: Types::STRING, length: 134)]
-    #[Assert\Length(max: 134, maxMessage: "Le slug d'un article ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\Length(max: 134, maxMessage: 'article.slug.length')]
     #[Groups(['thread:extend'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    #[Assert\NotNull(message: "L'image d'un article doit être renseignée", groups: ['admin:form:edit'])]
+    #[Assert\NotNull(message: 'article.thumbnail.not_null', groups: ['admin:form:edit'])]
     private ?string $thumbnail = null;
 
     /**
@@ -64,11 +64,11 @@ class Article extends Publication implements ThreadInterface
      */
     #[Assert\File(
         maxSize: '800k',
-        maxSizeMessage: "L'image ne peut pas dépasser {{ limit }}{{ suffix }}",
+        maxSizeMessage: 'article.thumbnail.max_size',
         mimeTypes: ['image/png', 'image/jpeg'],
-        mimeTypesMessage: "Mauvais format d'image (jpeg, jpg, png)"
+        mimeTypesMessage: 'article.thumbnail.mime_type'
     )]
-    #[Assert\NotNull(message: "L'image d'un article doit être renseignée", groups: ['admin:form:new'])]
+    #[Assert\NotNull(message: 'article.thumbnail.not_null', groups: ['admin:form:new'])]
     private ?File $thumbnailFile = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]

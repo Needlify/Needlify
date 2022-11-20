@@ -9,10 +9,6 @@
 
 namespace App\Entity;
 
-use DateTime;
-use DateTimeZone;
-use DateTimeImmutable;
-use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,7 +28,7 @@ use function Symfony\Component\String\u;
     Topic::class => Topic::class,
 ])]
 #[ORM\HasLifecycleCallbacks]
-#[UniqueEntity(['slug'], 'Le slug {{ value }} est déjà utilisé')]
+#[UniqueEntity(['slug'], 'classifier.slug.unique')]
 abstract class Classifier
 {
     #[ORM\Id]
@@ -42,8 +38,8 @@ abstract class Classifier
     protected ?Uuid $id = null;
 
     #[ORM\Column(type: Types::STRING, length: 50)]
-    #[Assert\NotBlank(message: "Le nom d'un classifier ne peut pas être vide")]
-    #[Assert\Length(max: 50, maxMessage: "Le nom d'un classifier ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\NotBlank(message: 'classifier.name.not_blank')]
+    #[Assert\Length(max: 50, maxMessage: 'classifier.name.length')]
     #[Groups(['thread:extend'])]
     protected ?string $name = null;
 
@@ -54,7 +50,7 @@ abstract class Classifier
     protected ?\DateTimeInterface $lastUseAt = null;
 
     #[ORM\Column(type: Types::STRING, length: 64, unique: true)]
-    #[Assert\Length(max: 64, maxMessage: "Le slug d'un classifier ne peut pas dépasser {{ limit }} caractères")]
+    #[Assert\Length(max: 64, maxMessage: 'classifier.slug.length')]
     #[Groups(['thread:extend'])]
     protected ?string $slug = null;
 
@@ -75,7 +71,7 @@ abstract class Classifier
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -83,10 +79,10 @@ abstract class Classifier
     #[ORM\PrePersist]
     public function setCreatedAt(): void
     {
-        $this->createdAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
-    public function getLastUseAt(): ?DateTimeInterface
+    public function getLastUseAt(): ?\DateTimeInterface
     {
         return $this->lastUseAt;
     }
@@ -95,7 +91,7 @@ abstract class Classifier
     #[ORM\PreUpdate]
     public function updateLastUseAt(): void
     {
-        $this->lastUseAt = new DateTime('now', new DateTimeZone('UTC'));
+        $this->lastUseAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     public function getSlug(): ?string

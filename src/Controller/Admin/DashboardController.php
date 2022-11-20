@@ -44,9 +44,9 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('<img src="../images/logo/logo.svg" style="height: 32px; display: block; margin: 0 auto;">')
+            ->setTitle('<img src="images/logo/logo.svg" style="height: 32px; display: block; margin: 0 auto;">')
             ->setFaviconPath('images/logo/favicon.ico')
-            // ->setTranslationDomain('admin')
+            ->setTranslationDomain('admin')
             ->setTextDirection('ltr')
             ->renderContentMaximized()
             // ->generateRelativeUrls()
@@ -60,20 +60,20 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         // TODO Customiser le page du dashboard
-        yield MenuItem::linkToDashboard('Overview', 'fas fa-chart-pie');
-        yield MenuItem::linkToUrl('Home', 'fas fa-house', $this->generateUrl('app_home'));
+        yield MenuItem::linkToDashboard('admin.sidebar.overview', 'fas fa-chart-pie');
+        yield MenuItem::linkToUrl('admin.sidebar.home', 'fas fa-house', $this->generateUrl('app_home'));
 
-        yield MenuItem::section('Publications');
-        yield MenuItem::linkToCrud('Article', 'fas fa-book', Article::class);
-        yield MenuItem::linkToCrud('Moodline', 'fas fa-bolt', Moodline::class);
-        yield MenuItem::linkToCrud('Event', 'fas fa-bell', Event::class);
+        yield MenuItem::section('admin.sidebar.section.publication');
+        yield MenuItem::linkToCrud('admin.sidebar.section.publication.articles', 'fas fa-book', Article::class);
+        yield MenuItem::linkToCrud('admin.sidebar.section.publication.moodlines', 'fas fa-bolt', Moodline::class);
+        yield MenuItem::linkToCrud('admin.sidebar.section.publication.events', 'fas fa-bell', Event::class);
 
-        yield MenuItem::section('Classifiers');
-        yield MenuItem::linkToCrud('Tag', 'fas fa-hashtag', Tag::class);
-        yield MenuItem::linkToCrud('Topic', 'fas fa-tag', Topic::class);
+        yield MenuItem::section('admin.sidebar.section.classifier');
+        yield MenuItem::linkToCrud('admin.sidebar.section.classifier.tags', 'fas fa-hashtag', Tag::class);
+        yield MenuItem::linkToCrud('admin.sidebar.section.classifier.topics', 'fas fa-tag', Topic::class);
 
-        yield MenuItem::section('Account');
-        yield MenuItem::linkToCrud('User', 'fas fa-user', User::class);
+        yield MenuItem::section('admin.sidebar.section.account');
+        yield MenuItem::linkToCrud('admin.sidebar.section.account.users', 'fas fa-user', User::class);
     }
 
     /**
@@ -86,10 +86,7 @@ class DashboardController extends AbstractDashboardController
             ->displayUserName(false)
             ->displayUserAvatar(false)
             ->setMenuItems([
-                // MenuItem::linkToRoute('My Profile', 'fa fa-id-card', '...', ['...' => '...']),
-                // MenuItem::linkToRoute('Settings', 'fa fa-user-cog', '...', ['...' => '...']),
-                // MenuItem::section(),
-                MenuItem::linkToLogout('Logout', 'fa fa-sign-out'),
+                MenuItem::linkToLogout('admin.user_menu.logout', 'fa fa-sign-out'),
             ]);
     }
 }

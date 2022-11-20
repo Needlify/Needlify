@@ -20,17 +20,17 @@ trait ClassifierCrudTrait
 {
     public function defaultClassifierFieldConfiguration(string $pageName, string $classifierFqcn): iterable
     {
-        yield FormField::addPanel('Essential');
-        yield IdField::new('id')->onlyOnDetail();
-        yield TextField::new('name');
-        yield TextField::new('slug')->onlyOnDetail();
+        yield FormField::addPanel('admin.crud.section.essential');
+        yield IdField::new('id', 'admin.crud.classifier.column.id')->onlyOnDetail();
+        yield TextField::new('name', 'admin.crud.classifier.column.name');
+        yield TextField::new('slug', 'admin.crud.classifier.column.slug')->onlyOnDetail();
 
-        yield FormField::addPanel('Date Details')->hideOnForm();
-        yield DateTimeField::new('createdAt')->hideOnForm();
-        yield DateTimeField::new('lastUseAt')->hideOnForm();
+        yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
+        yield DateTimeField::new('createdAt', 'admin.crud.classifier.column.created_at')->hideOnForm();
+        yield DateTimeField::new('lastUseAt', 'admin.crud.classifier.column.last_use_at')->hideOnForm();
 
-        yield FormField::addPanel('Associations')->hideOnForm();
-        yield AssociationField::new('publications')
+        yield FormField::addPanel('admin.crud.section.associations')->hideOnForm();
+        yield AssociationField::new('publications', 'admin.crud.classifier.column.publications')
             ->setTemplatePath('admin/components/publications.html.twig')
             ->addWebpackEncoreEntries('admin:component:publications')
             ->hideOnForm();
@@ -39,7 +39,7 @@ trait ClassifierCrudTrait
     public function defaultClassifierCrudConfiguration(Crud $crud): Crud
     {
         return $crud
-            ->setDateTimeFormat('d LLL. yyyy HH:mm:ss ZZZZ')
+            ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
             ->setDefaultSort(['createdAt' => 'DESC']);
     }
 }

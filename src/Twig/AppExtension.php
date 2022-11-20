@@ -21,17 +21,11 @@ class AppExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('instanceOf', [$this, 'isInstanceof']),
             new TwigFilter('formatNumber', [$this, 'formatNumber']),
             new TwigFilter('cases', [$this, 'enumCases']),
             new TwigFilter('timeToRead', [$this, 'timeToRead']),
             new TwigFilter('markdown', [$this, 'markdown']),
         ];
-    }
-
-    public function isInstanceof($element, $meta): bool
-    {
-        return $element instanceof $meta;
     }
 
     public function markdown($content): string

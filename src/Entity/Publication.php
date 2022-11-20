@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 abstract class Publication extends Thread
 {
     #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'publications')]
-    #[Assert\NotNull(message: "Le topic d'une publication doit être renseigné")]
+    #[Assert\NotNull(message: 'publication.topic.not_null')]
     #[Groups(['thread:extend'])]
     protected ?Topic $topic = null;
 

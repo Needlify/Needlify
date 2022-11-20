@@ -1,0 +1,17 @@
+layout.meta.description: "Partagez et trouvez des informations tech sur Needlify !"
+
+layout.header.dashboard: "Tableau de bord"
+layout.header.logout: "Déconnexion"
+layout.header.login: "Se connecter"
+
+layout.footer.about: "À propos"
+layout.footer.contact: "Contact"
+layout.footer.terms: "Conditions d'utilisation"
+layout.footer.newsletter: "Newsletter"
+layout.footer.rights: "Tous droits réservé"
+
+feed.title: "Fil d'actualités"
+
+article.info.time_to_read: "min de lecture"
+article.content.table_of_content: "Table des matières"
+article.content.license: "Cette œuvre est mise à disposition selon les termes de la licence"
