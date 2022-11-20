@@ -26,6 +26,9 @@ trait ContentCrudTrait
 
     public function defaultContentActionConfiguration(Actions $actions, string $classifierFqcn): Actions
     {
+        $actionLabel = '';
+        $actionRouteName = '';
+
         if (Tag::class === $classifierFqcn) {
             $actionLabel = 'admin.crud.action.view_tag';
             $actionRouteName = 'app_tag';
