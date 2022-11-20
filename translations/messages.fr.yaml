@@ -6,7 +6,9 @@ layout.header.login: "Se connecter"
 
 layout.footer.about: "À propos"
 layout.footer.contact: "Contact"
+layout.footer.legal_texts: "Textes légaux"
 layout.footer.terms: "Conditions d'utilisation"
+layout.footer.conduct: "Code d'éthique"
 layout.footer.newsletter: "Newsletter"
 layout.footer.rights: "Tous droits réservé"
 
@@ -15,3 +17,24 @@ feed.title: "Fil d'actualités"
 article.info.time_to_read: "min de lecture"
 article.content.table_of_content: "Table des matières"
 article.content.license: "Cette œuvre est mise à disposition selon les termes de la licence"
+
+legal.legal.title: "Textes légaux"
+
+legal.privacy.title: "Vie privée"
+
+legal.conduct.title: "Code d'éthique"
+
+legal.about.title: "À propos"
+legal.about.text.1: "Needlify is a platform for sharing content and knowledge around IT and new technologies."
+legal.about.text.2: "Au départ, ce projet était une preuve de concept, mais au fur et à mesure du développement, l'idée s'est concrétisée et il serait dommage d'abandonner le projet."
+legal.about.text.3: "Notre objectif est de pouvoir offrir une plateforme de partage des connaissances à travers le monde."
+
+legal.contact.title: "Contact"
+legal.contact.text.1: "N'hésitez pas à nous contacter, nous serons ravis de vous entendre."
+legal.contact.text.2: "En rejoignant le discord, vous aurez une description des nouvelles fonctionnalités et des annonces spéciales."
+legal.contact.text.3: "Vous pouvez également signaler les problèmes par courrier à l'adresse suivante"
+legal.contact.text.4: "ou via le repository github"
+
+legal.terms.title: "Conditions d'utilisation"
+legal.terms.text.1: "En utilisant cette plateforme, vous certifiez avoir lu et approuvé les différents textes relatifs à la sécurité et à l'utilisation des informations que vous nous avez transmises. Vous pouvez trouver ces textes ici :"
+legal.terms.text.2: "Politique en matière de protection de la vie privée"

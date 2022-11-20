@@ -1,0 +1,74 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ "legal.terms.title"|trans }} - {{ parent() }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags("style:markdown") }}
+{% endblock stylesheets %}
+
+{% block body %}
+    <section class="markdown-style">
+        <h1>
+            {{ "legal.terms.title"|trans }}
+        </h1>
+        <p>
+            {{ "legal.terms.text.1"|trans }}
+        </p>
+        <ul>
+            <li><a href="https://needlify.com/privacy">Privacy</a></li>
+            <li><a href="https://needlify.com/code-of-conduct">Code of conduct</a></li>
+            <li><a href="https://needlify.com/contact">Contact</a></li>
+        </ul>
+
+        <h2>
+            {{ "legal.terms.text.2"|trans }}
+        </h2>
+        <p>
+            This platform uses cookies to store information while you browse the site. These cookies are in no way harmful. Nor are they intended to be used to steal personal
+            information. For more information, see the privacy section.
+        </p>
+        <p>
+            We have no control over, nor do we claim any responsibility for, the content or privacy policies of external websites.
+        </p>
+
+        <h2>
+            User account
+        </h2>
+        <p>
+            As a user, you will be asked to register by entering private information (email, password). You are responsible for the accuracy of this information. Similarly, you are
+            responsible for the secrecy of this information. You are also responsible for your activities and actions on this platform.
+        </p>
+        <p>
+            We reserve the right to edit, suspend or delete any information or content you may write.
+        </p>
+        <p>
+            If you think there is a problem of any kind, we advise you to inform us by email at the following address: <a href="mailto:security@needlify.com">
+                security@needlify.com
+            </a>.
+        </p>
+
+        <h2>
+            Intellectual Property
+        </h2>
+        <p>
+            The information available and published on the website is the licensed property of this platform. It includes the website design, images, graphics and image
+            representations on the website. Reproduction is strictly prohibited.
+        </p>
+        <p>
+            Some of the information available on the site is collected from other sources and each external source is cited in accordance with intellectual property rights laws
+            available <a href="https://needlify.com/code-of-conduct">here</a>.
+        </p>
+
+        <h2>
+            Limitation of liability
+        </h2>
+        <p>
+            This platform will not be held responsible for any damage caused by misuse of this platform.
+        </p>
+        <p>
+            This platform reserves the right to modify this text at any time. You will be informed at the appropriate time.
+        </p>
+    </section>
+{% endblock body %}
