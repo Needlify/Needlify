@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    Feed - {{ parent() }}
+    {{ "feed.title"|trans }} - {{ parent() }}
 {% endblock title %}
 
 {% block stylesheets %}
@@ -15,7 +15,7 @@
 
 {% block body %}
     <h1 id="title">
-        Fil d'actualités
+        {{ "feed.title"|trans }}
     </h1>
 
     <div {{ vue_component("TimelineWrapper") }}></div>

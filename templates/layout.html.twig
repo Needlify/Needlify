@@ -1,16 +1,18 @@
+{% set lang = app.request.locale|split('_')[0] %}
+
 <!DOCTYPE html>
-<html>
+<html lang="{{ lang }}">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<link rel="author" href="{{ asset("humans.txt") }}"/>
-		<meta name="language" content="en"/>
-		<meta http-equiv="content-language" content="en"/>
+		<meta name="language" content="{{ lang }}"/>
+		<meta http-equiv="content-language" content="{{ lang }}"/>
 		<meta name="copyright" content="https://needlify.com"/>
 		<meta name="theme-color" content="#ff6e03"/>
 		<meta name="twitter:widgets:new-embed-design" content="on"/>
 		<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
-		<meta property="og:description" content="{% block description %}Share and find tech information on Needlify !{% endblock description %}"/>
+		<meta property="og:description" content="{% block description %}{{"layout.meta.description" | trans}}{% endblock description %}"/>
 
 		<meta property="og:type" content="website"/>
 		<meta property="og:url" content="{{ app.request.uri }}"/>
@@ -20,7 +22,7 @@
 		<meta name="twitter:card" content="summary_large_image"/>
 		<meta name="twitter:title" content="Needlify"/>
 		<meta name="twitter:image:src" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
-		<meta property="og:description" content="{% block og_description %}Share and find tech information on Needlify !{% endblock og_description %}"/>
+		<meta property="og:description" content="{% block og_description %}{{"layout.meta.description" | trans}}{% endblock og_description %}"/>
 		<meta name="twitter:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
 
 		<link rel="shortcut icon" href="{{ asset("images/logo/favicon.ico") }}" type="image/x-icon"/>
@@ -54,19 +56,19 @@
 				<a href="{{ url("app_home") }}"><img src="{{ asset("images/logo/icon-64.png") }}" class="glitch" alt="Notice logo"/></a>
 				<div id="header-links">
 					{% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-						<a href="{{ url('admin_global') }}" class="secondary">
+						<a href="{{ url('admin_global') }}" class="primary">
 							<i data-feather="grid" class="icon"></i>
-							Dashboard
+							{{"layout.header.dashboard" | trans}}
 						</a>
-						<a href="{{ url('auth_logout') }}" class="primary">
+						<a href="{{ url('auth_logout') }}" class="secondary">
 							<i data-feather="log-out" class="icon"></i>
-							Log out
+							{{'layout.header.logout' | trans}}
 						</a>
 
 					{% else %}
 						<a href="{{ url('auth_login') }}" class="secondary">
 							<i data-feather="log-in" class="icon"></i>
-							Log in
+							{{"layout.header.login" | trans}}
 						</a>
 					{% endif %}
 				</div>
@@ -80,10 +82,10 @@
 
 			<footer id="footer">
 				<div id="links">
-					<a href="#">About</a>
-					<a href="#">Contact</a>
-					<a href="#">Termes of use</a>
-					<a href="#">Newsletter</a>
+					<a href="#">{{"layout.footer.about" | trans}}</a>
+					<a href="#">{{"layout.footer.contact" | trans}}</a>
+					<a href="#">{{"layout.footer.terms" | trans}}</a>
+					<a href="#">{{"layout.footer.newsletter" | trans}}</a>
 				</div>
 				<div id="social">
 					<a href="https://www.instagram.com/rob.bch/" target="_blank">
@@ -100,7 +102,7 @@
 					</a>
 				</div>
 				<div id="credit">
-					© 2020 - Needlify. All rights reserved.
+					© 2020 - Needlify. {{"layout.footer.rights" | trans}}.
 				</div>
 			</footer>
 		</body>
