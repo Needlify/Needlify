@@ -24,7 +24,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class MoodlineCrudController extends AbstractCrudController
 {
-    use ThreadCrudTrait, TranslationTrait;
+    use ThreadCrudTrait;
+    use TranslationTrait;
 
     public static function getEntityFqcn(): string
     {
