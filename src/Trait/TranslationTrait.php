@@ -7,11 +7,11 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Controller\Admin\Crud\Traits;
+namespace App\Trait;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-trait CrudTranslationTrait
+trait TranslationTrait
 {
     public function __construct(
         private TranslatorInterface $translator

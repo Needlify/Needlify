@@ -1,4 +1,6 @@
 auth.error.message: "An error occured"
+auth.error.invalid_credentials: "Invalid credentials"
+auth.error.passwords_match: "Passwords must match"
 
 auth.login.title: "Login"
 auth.login.form.title: "Welcome back"

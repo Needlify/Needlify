@@ -10,21 +10,21 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Tag;
+use App\Trait\TranslationTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use App\Controller\Admin\Crud\Traits\ClassifierCrudTrait;
-use App\Controller\Admin\Crud\Traits\CrudTranslationTrait;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class TagCrudController extends AbstractCrudController
 {
-    use ClassifierCrudTrait, ContentCrudTrait, CrudTranslationTrait {
+    use ClassifierCrudTrait, ContentCrudTrait, TranslationTrait {
         ContentCrudTrait::__construct as private __contentConstruct;
-        CrudTranslationTrait::__construct as private __translationConstruct;
+        TranslationTrait::__construct as private __translationConstruct;
     }
 
     public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)

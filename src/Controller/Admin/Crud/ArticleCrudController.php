@@ -10,6 +10,7 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Article;
+use App\Trait\TranslationTrait;
 use App\Service\ParsedownFactory;
 use App\Admin\Field\MarkdownField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -26,7 +27,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use App\Controller\Admin\Crud\Traits\CrudTranslationTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -34,9 +34,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ArticleCrudController extends AbstractCrudController
 {
-    use ThreadCrudTrait, ContentCrudTrait, CrudTranslationTrait {
+    use ThreadCrudTrait, ContentCrudTrait, TranslationTrait {
         ContentCrudTrait::__construct as private __contentConstruct;
-        CrudTranslationTrait::__construct as private __translationConstruct;
+        TranslationTrait::__construct as private __translationConstruct;
     }
 
     public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)

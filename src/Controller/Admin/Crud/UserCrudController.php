@@ -10,6 +10,7 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\User;
+use App\Trait\TranslationTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -18,13 +19,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
-use App\Controller\Admin\Crud\Traits\CrudTranslationTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class UserCrudController extends AbstractCrudController
 {
-    use CrudTranslationTrait;
+    use TranslationTrait;
 
     public static function getEntityFqcn(): string
     {
