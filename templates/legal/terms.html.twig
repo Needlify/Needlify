@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ "legal.terms.title"|trans }} - {{ parent() }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags("style:markdown") }}
+{% endblock stylesheets %}
+
+{% block body %}
+    <section class="markdown-style">
+        <h1>
+            {{ "legal.terms.title"|trans }}
+        </h1>
+
+        {{ "legal.terms.text"|trans({ "%privacy_url%": url("app_privacy"), "%conduct_url%": url("app_conduct"), "%contact_url%": url("app_contact") })|raw }}
+    </section>
+{% endblock body %}

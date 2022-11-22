@@ -6,6 +6,7 @@
 
 {% block stylesheets %}
     {{ encore_entry_link_tags("page:article") }}
+    {{ encore_entry_link_tags("style:markdown") }}
     {{ encore_entry_link_tags("style:component:spinner") }}
     {{ encore_entry_link_tags("style:component:tag") }}
 {% endblock stylesheets %}
@@ -31,7 +32,7 @@
             <span id="date">{{ article.publishedAt|date("F j, Y") }}</span>
             <span class="dot">•</span>
             <span id="author">
-                <i data-feather="user" width="16px" height="16px" stroke-width="2px"></i>by
+                <i data-feather="user" width="16px" height="16px" stroke-width="2px"></i>
                 {{ article.author.username }}
             </span>
             <span class="dot">•</span>
@@ -46,7 +47,7 @@
             <img src="{{ vich_uploader_asset(article, "thumbnailFile") }}" id="thumbnail" />
         </div>
 
-        <section id="content-wrapper">
+        <section id="content-wrapper" class="markdown-style">
             <nav id="toc-container">
                 <h3 id="toc-title">
                     {{ "article.content.table_of_content"|trans }}
