@@ -188,6 +188,7 @@
         // specific to content
         #content-container {
             margin-top: 60px;
+            color: var(--text);
         }
     }
 
@@ -197,6 +198,13 @@
         flex-wrap: wrap;
         column-gap: 6px;
         row-gap: 4px;
+    }
+
+    hr.tag-license-separator {
+        background-color: var(--light-light);
+        height: 1px;
+        border: 0;
+        margin: 40px 10%;
     }
 
     #license {

@@ -28,7 +28,7 @@ Encore.setOutputPath("public/build/")
         "style:header": "./assets/styles/layout/header.scss",
         "style:footer": "./assets/styles/layout/footer.scss",
         "style:reset": "./assets/styles/reset.ts",
-        "style:markdown": "./assets/styles/markdown.scss",
+        "style:markdown": "./assets/styles/markdown.ts",
 
         /* Twig Component Style */
         "style:component:breadcrumb": "./assets/styles/components/twig/breadcrumb.scss",

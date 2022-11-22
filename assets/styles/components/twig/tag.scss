@@ -4,7 +4,7 @@
     font-family: Supreme;
     display: inline-flex;
     align-items: center;
-    color: var(--dark-soft);
+    color: var(--dark-soft) !important;
     column-gap: 4px;
     border: 2px solid var(--light-soft);
     border-radius: 6px;

@@ -10,7 +10,6 @@
         font-family: Jakarta;
         margin-top: 2.2em;
         margin-bottom: 1em;
-        color: var(--text);
     }
 
     hr {
@@ -32,7 +31,6 @@
     }
 
     p {
-        color: var(--text);
         font-size: 16px;
         line-height: 1.7;
 
@@ -181,7 +179,6 @@
         table {
             border-spacing: 0;
             width: 100%;
-            color: var(--text);
 
             @include maxWidth(600px) {
                 font-size: 14.5px;

@@ -30,11 +30,15 @@ h6 {
 }
 
 a {
-    color: var(--primary);
     text-decoration: none;
     transition: color 200ms ease-in-out;
+    color: unset;
 
-    &:hover {
-        color: var(--dark);
+    &:not(.cancel) {
+        color: var(--primary);
+
+        &:hover {
+            color: var(--dark);
+        }
     }
 }

@@ -112,6 +112,7 @@ const generateArticleUrl = (slug: string) => Routing.generate("app_article", { s
     h3 {
         margin: 0;
         display: block;
+        line-height: 26px;
 
         @include maxWidth(600px) {
             font-size: 16px;

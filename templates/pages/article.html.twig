@@ -13,6 +13,7 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags("page:article") }}
+    {{ encore_entry_script_tags("style:markdown") }}
 {% endblock javascripts %}
 
 {% block body %}
@@ -47,7 +48,7 @@
             <img src="{{ vich_uploader_asset(article, "thumbnailFile") }}" id="thumbnail" />
         </div>
 
-        <section id="content-wrapper" class="markdown-style">
+        <section id="content-wrapper">
             <nav id="toc-container">
                 <h3 id="toc-title">
                     {{ "article.content.table_of_content"|trans }}
@@ -58,7 +59,7 @@
                 </h3>
                 <div id="toc"></div>
             </nav>
-            <div id="content-container">
+            <div id="content-container" class="markdown-style">
                 {{ article.content|markdown|raw }}
             </div>
 
@@ -71,7 +72,7 @@
             {% endif %}
 
             {% if article.license %}
-                <hr />
+                <hr class="tag-license-separator" />
 
                 <div id="license">
                     {{ "article.content.license"|trans }}

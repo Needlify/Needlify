@@ -92,8 +92,9 @@ class ArticleCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.content');
         yield CodeEditorField::new('content', 'admin.crud.article.column.content')
-            // ->setTrixEditorConfig(self::$defaultEditorConfig)
             ->setTemplatePath('admin/components/markdown.html.twig')
+            ->addWebpackEncoreEntries('style:markdown')
+            ->addCssClass('markdown-style')
             ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
             ->onlyOnDetail();
         yield MarkdownField::new('content', 'admin.crud.article.column.content')->onlyOnForms();

@@ -1,5 +1,5 @@
 <template>
-    <a class="tag" :href="generateTagUrl(props.slug)">
+    <a class="tag" data-tag :href="generateTagUrl(props.slug)">
         <FeatherIcon icon="hash" color="#a8a8a8" stroke-width="2.5px" size="14px"></FeatherIcon>
         <span>{{ props.name }}</span>
     </a>
@@ -27,7 +27,7 @@ const generateTagUrl = (slug: string) => Routing.generate("app_tag", { slug });
 <style lang="scss" scoped>
 @import "../styles/mixins";
 
-.tag {
+a {
     font-family: Supreme;
     display: inline-flex;
     align-items: center;
