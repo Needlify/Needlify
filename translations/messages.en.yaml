@@ -20,21 +20,164 @@ article.content.license: "This work is made available under the terms of the lic
 
 legal.legal.title: "Legal texts"
 
-legal.privacy.title: "Privacy"
+legal.privacy.title: "Privacy policy"
+legal.privacy.text: |
+    <p>For the sake of our users, we are committed to respecting the privacy and confidentiality of everyone.</p>
+
+    <h2>Collection of information</h2>
+    <p>For the proper functioning of the platform but also to avoid certain abuses, we must collect the following information:</p>
+    <ul>
+        <li>Email address</li>
+        <li>User name</li>
+    </ul>
+    <Other>This information will be stored as soon as your account is created. Other information is collected through log files:</p>
+    <ul>
+        <li>IP address</li>
+        <li>Date of connection</li>
+        <li>Visited page</li>
+    </ul>
+    <p>This information will be used by the administrator in case of abuse.</p>
+
+    <h2>Cookies</h2>
+    <p>Several cookies will be created when you browse the platform.</p>
+    <ul>
+        <li>A connection cookie when you are logged in</li>
+        <li>A retention cookie when you check the <code>remember me</code> option when logging in</li>
+    </ul>
+    <p>The two cookies mentioned above are the only ones that are generated and used.</p>
+
+    <h2>Publishing content</h2>
+    <p>Information related to the content you post will be collected and stored. Text and images will be stored for later display.</p>
+    <p>Only the author of an article and the administrator can make changes to an article.</p>
+    <p>You also have the possibility to change the <code>visibility</code> of an article when editing. <code>Public</code> articles will be visible to everyone, while <code>private</code> articles will only be visible to the author.</p>
+
+    <h2>Data storage time</h2>
+    <p>As soon as your account is created, the data you enter will be stored indefinitely until your account is deleted due to abuse or a request from you. Also, the content you post will be stored indefinitely until it is deleted.</p>
+
+    <h2>Data Protection</h2>
+    <p>We have strict measures in place to protect your data.</p>
+
+    <h3>Security</h3>
+    <p>For user security, we have implemented CSRF tokens to protect the forms. An SSL certificate has also been set up to protect exchanges between the user and the server. Finally, character string anonymisation algorithms (<i>hash</i>) are generated to anonymise data but also to prevent the decryption of this information.</p>
+    <p>As for the server, we have set up an authentication system to restrict access to it. Other software such as a firewall has also been put in place.</p>
+
+    <h3>Procedures in place</h3>
+    <p>In accordance with the general regulations on data protection, in the event of a personal data leak, we will inform you of the nature of the data within a maximum of 72 hours after the data leak has been identified.</p>
 
 legal.conduct.title: "Code of conduct"
+legal.conduct.text: |
+    <p>All persons registered or not on the <b>Needlify</b> platform are expected to follow the rules of good conduct. These rules apply to any individual or legal entity using this exchange and sharing platform.</p>
+    <p>Due to the very identity of this platform, you will inevitably read articles with which you do not agree. If this is the case, do not get carried away. Stay calm, take time to think about it and come back a few minutes later.</p>
+    <p>Needlify is above all a platform for exchange and sharing. You should therefore follow a few rules to keep this platform cool and pleasant. Here is a non-exhaustive list of behaviours that you <b>MUST NOT</b> adopt.</p>
+
+    <h3>Share violent content</h3>
+    <p>The content you share will be seen by anyone. Anyone means adults and young people alike can read the articles on this platform. Think about all the people who will be able to see your post and ask if the content is offensive and appropriate.</p>
+
+    <h3>The topic of the articles</h3>
+    <p>Obviously, the articles you write must relate to the theme of the platform. In other words, an article about fairy unicorns in the world of magic stars will, of course, not be accepted. On the other hand, you can deal with subjects concerning new technologies, development, programming, design, entrepreneurship, organization, management, ...</p>
+
+    <h3>Insults/hate</h3>
+    <p>First and foremost, please be aware that in many countries, laws exist to punish hate speech and defamation on the internet. We reserve the right to deal with hateful content and to remove such content when appropriate.</p>
+
+    <h3>Harassment</h3>
+    <p>Harassment in any form is not tolerated.</p>
+    <ul>
+        <li>The publication of humiliating texts or images</li>
+        <li>Bullying</li>
+        <li>The publication of private messages</li>
+        <li>Insults</li>
+        <li>All other forms of harassment</li>
+    </ul>
+    <p>All these forms of harassment will not be tolerated on this platform.</p>
+
+    <h3>Inappropriate content for minors</h3>
+    <p>Inappropriate or unsuitable content for minors will not be allowed. Violent or sexual content directed at or featuring minors is not permitted.</p>
+
+    <h3>Discrimination</h3>
+    <p>Discrimination, as well as harassment, will not be allowed.</p>
+
+    <h3>Spam</h3>
+    <p>The publication and sharing of similar content repeatedly is not allowed. Likewise, massive account creation will be sanctioned.</p>
+
+    <h3>Use of bot and automation</h3>
+    <p>The use of programs allowing the automation of actions such as:</p>
+    <ul>
+        <li>The creation of an account</li>
+        <li>The publication of content</li>
+    </ul>
+    <p>is not allowed.</p>
+
+    <h3>Copyright</h3>
+    <p>Respect for copyright is paramount. You must not use content for which you do not have the authorisation of the creator.</p>
+
+    <h3>Impersonation</h3>
+    <p>Impersonation or pretending to be someone else is not allowed.</p>
+
+    <h3>Pornography</h3>
+    <p>This platform is not intended to share pornographic content. Other platforms are designed for that.</p>
+
+    <h3>Violation of privacy</h3>
+    <p>Content that shares private or personally identifiable information without consent is not allowed. This includes the sharing of credentials, credit card numbers, social security numbers or any other personally identifiable information.</p>
+
+    <h3>Phishing &amp; malicious content</h3>
+    <p>The sharing of malicious and fraudulent content is not permitted. Similarly, sharing malicious code will not be allowed.</p>
+
+    <h2>If you break any of these rules</h2>
+    <p>Depending on the severity of the situation, we will first send you an email asking you to explain your actions. At the same time, your account will receive a warning. After two warnings, your account will be temporarily suspended. If you receive another warning after your account has been reinstated, your account will be deleted.</p>
+    <p>We reserve the right to delete content that is deemed inappropriate. We hope it doesn't come to that.</p>
+    <p>If you have any questions, please contact us at: <a href="mailto:support@needlify.com">support@needlify.com</a></p>
 
 legal.about.title: "About"
-legal.about.text.1: "Needlify is a platform for sharing content and knowledge around IT and new technologies."
-legal.about.text.2: "Initially, this project was a proof of concept, however, as the development progressed, the idea materialized and it would be a shame to abandon the project."
-legal.about.text.3: "Our goal is to be able to offer a platform for sharing knowledge across the world."
+legal.about.text: |
+    <p>Needlify is a platform for sharing content and knowledge around IT and new technologies.</p>
+    <p>Initially, this project was a proof of concept, however, as the development progressed, the idea materialized and it would be a shame to abandon the project.</p>
+    <p>Our goal is to be able to offer a platform for sharing knowledge across the world.</p>
 
 legal.contact.title: "Contact"
-legal.contact.text.1: "Feel free to contact us, we would love to hear from you."
-legal.contact.text.2: "By joining the discord, you will have a description on new features and special announcements."
-legal.contact.text.3: "You can also report issues by mail at"
-legal.contact.text.4: "or via the github repository"
+legal.contact.text: |
+    <p>Feel free to contact us, we would love to hear from you.</p>
+    <ul>
+        <li><b>Email</b>: <a href="mailto:support@needlify.com">support@needlify.com</a></li>
+        <li><b>Discord</b>: <a href="https://discord.gg/aVYBcexpEE" target="_blank">https://discord.gg/aVYBcexpEE</a></li>
+        <li><b>Twitter</b>: <a href="https://twitter.com/NeedlifyCom" target="_blank">https://twitter.com/NeedlifyCom</a></li>
+        <li><b>Instagram</b>: <a href="https://www.instagram.com/needlify/" target="_blank">https://www.instagram.com/needlify/</a></li>
+    </ul>
+    <p>By joining the discord, you will have a description on new features and special announcements.</p>
+    <p>
+        You can also report issues by mail at
+        <a href="mailto:security@needlify.com">security@needlify.com</a>
+        or via the github repository
+        <a href="https://github.com/Needlify/Community/issues" target="_blank">Needlify/Needlify</a>.
+    </p>
 
 legal.terms.title: "Terms of use"
-legal.terms.text.1: "By using this platform, you certify that you have read and approved the various texts relating to the security and use of the information you have transmitted to us. You can find these texts here :"
-legal.terms.text.2: "Privacy policy"
+legal.terms.text: |
+    <p>By using this platform, you certify that you have read and approved the various texts relating to the security and use of the information you have transmitted to us. You can find these texts here:</p>
+    <ul>
+        <li><a href="%privacy_url%">Privacy policy</a></li>
+        <li><a href="%conduct_url%">Code of conduct</a></li>
+        <li><a href="%contact_url%">Contact</a></li>
+    </ul>
+
+    <h2>Privacy policy</h2>
+    <p>This platform uses cookies to store information while you browse the site. These cookies are in no way harmful. Nor are they intended to be used to steal personal information. For more information, see the privacy section.</p>
+    <p>We have no control over, nor do we claim any responsibility for, the content or privacy policies of external websites.</p>
+
+    <h2>User accounts</h2>
+    <p>As a user, you will be asked to register by entering private information (email, password). You are responsible for the accuracy of this information. Similarly, you are responsible for the secrecy of this information. You are also responsible for your activities and actions on this platform.</p>
+    <p>We reserve the right to edit, suspend or delete any information or content you may write.</p>
+    <p>
+        If you think there is a problem of any kind, we advise you to inform us by email at the following address:
+        <a href="mailto:security@needlify.com">security@needlify.com</a>.
+    </p>
+
+    <h2>Intellectual Property</h2>
+    <p>The information available and published on the website is the licensed property of this platform. It includes the website design, images, graphics and image representations on the website. Reproduction is strictly prohibited.</p>
+    <p>
+        Some of the information available on the site is collected from other sources and each external source is cited in accordance with intellectual property rights laws available
+        <a href="%conduct_url%">here</a>.
+    </p>
+
+    <h2>Limitation of liability</h2>
+    <p>This platform will not be held responsible for any damage caused by misuse of this platform.</p>
+    <p>This platform reserves the right to modify this text at any time. You will be informed at the appropriate time</p>

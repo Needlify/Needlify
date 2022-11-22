@@ -14,26 +14,6 @@
             {{ "legal.contact.title"|trans }}
         </h1>
 
-        <p>
-            {{ "legal.contact.text.1"|trans }}
-        </p>
-
-        <ul>
-            <li><b>Email</b> : <a href="mailto:support@needlify.com">support@needlify.com</a>,</li>
-            <li><b>Discord</b> : <a href="https://discord.gg/aVYBcexpEE" target="_blank">https://discord.gg/aVYBcexpEE</a>.</li>
-            <li><b>Twitter</b> : <a href="https://twitter.com/NeedlifyCom" target="_blank">https://twitter.com/NeedlifyCom</a>.</li>
-            <li><b>Instagram</b> : <a href="https://www.instagram.com/needlify/" target="_blank">https://www.instagram.com/needlify/</a>.</li>
-        </ul>
-
-        <p>
-            {{ "legal.contact.text.2"|trans }}
-        </p>
-
-        <p>
-            {{ "legal.contact.text.3"|trans }}
-            <a href="mailto:security@needlify.com">security@needlify.com</a>
-            {{ "legal.contact.text.4"|trans }}
-            <a href="https://github.com/Needlify/Community/issues" target="_blank">Needlify/Needlify</a>.
-        </p>
+        {{ "legal.contact.text"|trans|raw }}
     </section>
 {% endblock body %}
