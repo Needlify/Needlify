@@ -21,8 +21,25 @@
     },
     "volar.completion.preferredAttrNameCase": "kebab",
     "volar.completion.preferredTagNameCase": "kebab",
-    "testing.automaticallyOpenPeekView": "never",
     "typescript.tsdk": "node_modules/typescript/lib",
     "search.useGlobalIgnoreFiles": false,
-    "search.useParentIgnoreFiles": false
+    "search.useParentIgnoreFiles": false,
+    "remote.restoreForwardedPorts": true,
+    "remote.SSH.defaultForwardedPorts": [
+        {
+            "localPort": 8080,
+            "remotePort": 8080,
+            "name": "Web"
+        },
+        {
+            "localPort": 8081,
+            "remotePort": 8081,
+            "name": "Mailer"
+        },
+        {
+            "localPort": 8082,
+            "remotePort": 8082,
+            "name": "Adminer"
+        }
+    ]
 }
