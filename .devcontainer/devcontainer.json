@@ -32,12 +32,12 @@
         "GitHub.github-vscode-theme",
         "GitHub.vscode-pull-request-github",
         "Gruntfuggly.todo-tree",
-        "hbenl.vscode-test-explorer",
         "ikappas.phpcs",
         "junstyle.php-cs-fixer",
         "mblode.twig-language-2",
         "miguelsolorio.fluent-icons",
         "mikestead.dotenv",
+        "ms-azuretools.vscode-docker",
         "ms-vscode-remote.remote-containers",
         "ms-vscode-remote.remote-wsl",
         "ms-vscode.remote-explorer",
@@ -48,7 +48,6 @@
         "Vue.volar",
         "Vue.vscode-typescript-vue-plugin",
         "xdebug.php-debug",
-        "zhuangtongfa.material-theme",
-        "ZixuanChen.vitest-explorer"
+        "zhuangtongfa.material-theme"
     ]
 }
