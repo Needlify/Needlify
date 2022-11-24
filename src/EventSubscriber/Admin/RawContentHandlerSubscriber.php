@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\EventSubscriber\admin;
+namespace App\EventSubscriber\Admin;
 
 use App\Entity\Event;
 use App\Entity\Moodline;

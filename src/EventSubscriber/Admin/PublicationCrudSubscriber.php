@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\EventSubscriber\admin;
+namespace App\EventSubscriber\Admin;
 
 use App\Entity\Publication;
 use Symfony\Component\Security\Core\Security;
