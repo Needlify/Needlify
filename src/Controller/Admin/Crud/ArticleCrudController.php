@@ -25,6 +25,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
@@ -70,6 +71,8 @@ class ArticleCrudController extends AbstractCrudController
         yield TextField::new('title', 'admin.crud.article.column.title');
         yield TextField::new('slug', 'admin.crud.article.column.slug')->onlyOnDetail();
         yield BooleanField::new('license', 'admin.crud.article.column.license')->setHelp('admin.crud.article.column.license.help');
+        yield IntegerField::new('views', 'admin.crud.article.column.views')->onlyOnDetail();
+        yield IntegerField::new('popularity', 'admin.crud.article.column.popularity')->hideOnForm();
         yield TextField::new('thumbnailFile', 'admin.crud.article.column.thumbnail')
             ->setFormType(VichImageType::class)
             ->addWebpackEncoreEntries('admin:thumbnail')

@@ -40,6 +40,9 @@ abstract class Thread
     #[Groups(['thread:extend'])]
     protected ?\DateTimeImmutable $publishedAt = null; // publishedAt is the dateTime in UTC/GMT
 
+    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
+    private ?\DateTime $updatedAt = null;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -59,5 +62,22 @@ abstract class Thread
     public function setPublishedAt(): void
     {
         $this->publishedAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function autoUpdatedAt()
+    {
+        $this->refreshUpdatedAt();
+    }
+
+    public function refreshUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 }

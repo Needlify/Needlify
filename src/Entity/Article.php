@@ -12,6 +12,7 @@ namespace App\Entity;
 use App\Service\ThreadType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use PopularityCalculatorService;
 use App\Repository\ArticleRepository;
 use App\Entity\Interface\ThreadInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -71,10 +72,7 @@ class Article extends Publication implements ThreadInterface
     #[Assert\NotNull(message: 'article.thumbnail.not_null', groups: ['admin:form:new'])]
     private ?File $thumbnailFile = null;
 
-    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
-    private ?\DateTime $updatedAt = null;
-
-    #[ORM\Column(type: Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
     private ?bool $license = true;
 
     public function getTitle(): ?string
@@ -113,15 +111,9 @@ class Article extends Publication implements ThreadInterface
         return $this;
     }
 
-    public function getViews(): ?int
+    public function getViews(): int
     {
         return $this->views;
-    }
-
-    #[ORM\PrePersist]
-    public function setViews(): void
-    {
-        $this->views = 0;
     }
 
     public function incrementViews(): self
@@ -129,6 +121,11 @@ class Article extends Publication implements ThreadInterface
         ++$this->views;
 
         return $this;
+    }
+
+    public function getPopularity(): float
+    {
+        return PopularityCalculatorService::calculatePopularity($this->views, $this->publishedAt);
     }
 
     public function getSlug(): ?string
@@ -149,11 +146,8 @@ class Article extends Publication implements ThreadInterface
     {
         $this->thumbnailFile = $thumbnail;
 
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
         if ($thumbnail) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
+            $this->refreshUpdatedAt();
         }
     }
 
@@ -172,17 +166,6 @@ class Article extends Publication implements ThreadInterface
     public function getThumbnail()
     {
         return $this->thumbnail;
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    #[ORM\PrePersist]
-    public function setUpdatedAt()
-    {
-        $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     #[SerializedName('type')]

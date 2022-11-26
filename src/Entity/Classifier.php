@@ -49,6 +49,9 @@ abstract class Classifier
     #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
     protected ?\DateTimeInterface $lastUseAt = null;
 
+    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
+    protected ?\DateTimeInterface $updatedAt = null;
+
     #[ORM\Column(type: Types::STRING, length: 64, unique: true)]
     #[Assert\Length(max: 64, maxMessage: 'classifier.slug.length')]
     #[Groups(['thread:extend'])]
@@ -88,10 +91,26 @@ abstract class Classifier
     }
 
     #[ORM\PrePersist]
-    #[ORM\PreUpdate]
     public function updateLastUseAt(): void
     {
         $this->lastUseAt = new \DateTime('now', new \DateTimeZone('UTC'));
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function autoUpdatedAt()
+    {
+        $this->refreshUpdatedAt();
+    }
+
+    public function refreshUpdatedAt()
+    {
+        $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     public function getSlug(): ?string
