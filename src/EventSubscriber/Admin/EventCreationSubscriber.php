@@ -12,6 +12,7 @@ namespace App\EventSubscriber\Admin;
 use App\Entity\Event;
 use App\Entity\Topic;
 use App\Service\EventMessage;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;

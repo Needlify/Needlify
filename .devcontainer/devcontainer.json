@@ -18,36 +18,5 @@
     "workspaceFolder": "/var/www",
     "features": {
         "github-cli": "latest"
-    },
-    "extensions": [
-        "bmewburn.vscode-intelephense-client",
-        "dbaeumer.vscode-eslint",
-        "donjayamanne.githistory",
-        "eamodio.gitlens",
-        "EditorConfig.EditorConfig",
-        "eg2.vscode-npm-script",
-        "esbenp.prettier-vscode",
-        "formulahendry.auto-close-tag",
-        "formulahendry.auto-rename-tag",
-        "GitHub.github-vscode-theme",
-        "GitHub.vscode-pull-request-github",
-        "Gruntfuggly.todo-tree",
-        "ikappas.phpcs",
-        "junstyle.php-cs-fixer",
-        "mblode.twig-language-2",
-        "miguelsolorio.fluent-icons",
-        "mikestead.dotenv",
-        "ms-azuretools.vscode-docker",
-        "ms-vscode-remote.remote-containers",
-        "ms-vscode-remote.remote-wsl",
-        "ms-vscode.remote-explorer",
-        "ms-vscode.test-adapter-converter",
-        "phproberto.vscode-php-getters-setters",
-        "PKief.material-icon-theme",
-        "recca0120.vscode-phpunit",
-        "Vue.volar",
-        "Vue.vscode-typescript-vue-plugin",
-        "xdebug.php-debug",
-        "zhuangtongfa.material-theme"
-    ]
+    }
 }
