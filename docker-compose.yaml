@@ -1,55 +1,54 @@
 version: "3.8"
 
 services:
+    database:
+        container_name: needlify-database
+        image: mariadb
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+        volumes:
+            - data:/var/lib/mariadb
+        networks:
+            - dev
 
-   database:
-      container_name: needlify-database
-      image: mariadb
-      restart: always
-      environment:
-         MYSQL_ROOT_PASSWORD: password
-      volumes:
-         - data:/var/lib/mariadb
-      networks:
-         - dev
+    maildev:
+        image: maildev/maildev
+        container_name: needlify-mail
+        command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
+        ports:
+            - 8081:80
+        restart: always
+        networks:
+            - dev
 
-   maildev:
-      image: maildev/maildev
-      container_name: needlify-mail
-      command: bin/maildev --web 80 --smtp 25 --hide-extensions STARTTLS
-      ports:
-         - 127.0.0.1:8081:80
-      restart: always
-      networks:
-         - dev
+    adminer:
+        container_name: needlify-adminer
+        image: adminer
+        restart: always
+        ports:
+            - 8082:8080
+        networks:
+            - dev
 
-   adminer:
-      container_name: needlify-adminer
-      image: adminer
-      restart: always
-      ports:
-         - 127.0.0.1:8082:8080
-      networks:
-         - dev
-
-   web:
-      container_name: needlify-web
-      restart: always
-      build:
-         context: .
-         dockerfile: Dockerfile
-      ports:
-         - 127.0.0.1:8080:80
-      volumes:
-         - ./:/var/www
-         # - ./apache:/etc/apache2/sites-enabled
-      networks:
-         - dev
-      depends_on:
-         - database
+    web:
+        container_name: needlify-web
+        restart: always
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - 8080:80
+        volumes:
+            - ./:/var/www
+            # - ./apache:/etc/apache2/sites-enabled
+        networks:
+            - dev
+        depends_on:
+            - database
 
 volumes:
-  data:
+    data:
 
 networks:
-   dev:
+    dev:
