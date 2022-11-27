@@ -10,6 +10,7 @@
 namespace App\EventSubscriber\Admin;
 
 use App\Entity\Publication;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
@@ -17,10 +18,12 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 class PublicationCrudSubscriber implements EventSubscriberInterface
 {
     private $security;
+    private $em;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, EntityManagerInterface $em)
     {
         $this->security = $security;
+        $this->em = $em;
     }
 
     public static function getSubscribedEvents()
@@ -38,6 +41,13 @@ class PublicationCrudSubscriber implements EventSubscriberInterface
             return;
         }
 
+        // Set default author
         $entity->setAuthor($this->security->getUser());
+
+        // Update last use
+        $entity->getTopic()->refreshLastUseAt();
+        foreach ($entity->getTags() as $tag) {
+            $tag->refreshLastUseAt();
+        }
     }
 }

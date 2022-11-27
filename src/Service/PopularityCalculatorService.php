@@ -7,6 +7,12 @@
  * file that was distributed with this source code.
  */
 
+namespace App\Service;
+
+use DateTime;
+use DateTimeZone;
+use DateTimeInterface;
+
 class PopularityCalculatorService
 {
     public const ALPHA = 2;

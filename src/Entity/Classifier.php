@@ -91,7 +91,7 @@ abstract class Classifier
     }
 
     #[ORM\PrePersist]
-    public function updateLastUseAt(): void
+    public function refreshLastUseAt(): void
     {
         $this->lastUseAt = new \DateTime('now', new \DateTimeZone('UTC'));
     }

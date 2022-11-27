@@ -19,7 +19,6 @@ class UserFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         Factory::delayFlush(function () {
-            UserFactory::createMany(20);
             UserFactory::createOne(['username' => 'MrAnyx']);
         });
     }
