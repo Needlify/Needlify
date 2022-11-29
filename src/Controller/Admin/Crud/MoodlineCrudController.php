@@ -45,20 +45,20 @@ class MoodlineCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield FormField::addPanel('admin.crud.section.essential');
-        yield IdField::new('id')->onlyOnDetail();
+        yield IdField::new('id', 'admin.crud.moodline.column.id')->onlyOnDetail();
 
-        yield TextEditorField::new('content')
+        yield TextEditorField::new('content', 'admin.crud.moodline.column.content')
             ->setTrixEditorConfig(self::$defaultEditorConfig)
             ->setNumOfRows(3)
             ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
             ->formatValue(fn (string $value) => $value);
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
-        yield DateTimeField::new('publishedAt')->hideOnForm();
+        yield DateTimeField::new('publishedAt', 'admin.crud.moodline.column.published_at')->hideOnForm();
 
         yield FormField::addPanel('admin.crud.section.associations');
-        yield AssociationField::new('topic')->setRequired(true);
-        yield AssociationField::new('tags')
+        yield AssociationField::new('topic', 'admin.crud.moodline.column.topic')->setRequired(true);
+        yield AssociationField::new('tags', 'admin.crud.moodline.column.tags')
             ->setTemplatePath('admin/components/tags.html.twig')
             ->addWebpackEncoreEntries('admin:component:tags', 'component:vue');
     }

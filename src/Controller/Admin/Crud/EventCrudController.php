@@ -51,7 +51,7 @@ class EventCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield FormField::addPanel('admin.crud.section.essential');
-        yield IdField::new('id')->onlyOnDetail();
+        yield IdField::new('id', 'admin.crud.event.column.id')->onlyOnDetail();
         yield TextEditorField::new('content', 'admin.crud.event.column.content')
             ->setTrixEditorConfig(self::$defaultEditorConfig)
             ->setNumOfRows(1)
