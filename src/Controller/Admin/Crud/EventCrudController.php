@@ -61,6 +61,7 @@ class EventCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('publishedAt', 'admin.crud.event.column.published_at')->hideOnForm();
+        yield DateTimeField::new('updatedAt', 'admin.crud.event.column.updated_at')->onlyOnDetail();
     }
 
     public function configureActions(Actions $actions): Actions

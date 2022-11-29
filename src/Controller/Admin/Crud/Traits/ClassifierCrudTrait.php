@@ -28,6 +28,7 @@ trait ClassifierCrudTrait
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('createdAt', 'admin.crud.classifier.column.created_at')->hideOnForm();
         yield DateTimeField::new('lastUseAt', 'admin.crud.classifier.column.last_use_at')->hideOnForm();
+        yield DateTimeField::new('updatedAt', 'admin.crud.classifier.column.updated_at')->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations')->hideOnForm();
         yield AssociationField::new('publications', 'admin.crud.classifier.column.publications')

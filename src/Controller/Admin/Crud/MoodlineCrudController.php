@@ -55,6 +55,7 @@ class MoodlineCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('publishedAt', 'admin.crud.moodline.column.published_at')->hideOnForm();
+        yield DateTimeField::new('updatedAt', 'admin.crud.moodline.column.updated_at')->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('topic', 'admin.crud.moodline.column.topic')->setRequired(true);

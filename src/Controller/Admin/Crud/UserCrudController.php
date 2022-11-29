@@ -19,6 +19,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -34,6 +35,7 @@ class UserCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
             ->setDefaultSort(['createdAt' => 'DESC'])
             ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.user.index.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.user.new.title', [], 'admin'))
@@ -51,6 +53,10 @@ class UserCrudController extends AbstractCrudController
         yield ArrayField::new('roles', 'admin.crud.user.column.roles')
             ->setTemplatePath('admin/components/roles.html.twig')
             ->hideOnForm();
+
+        yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
+        yield DateTimeField::new('createdAt', 'admin.crud.user.column.created_at')->hideOnForm();
+        yield DateTimeField::new('updatedAt', 'admin.crud.user.column.updated_at')->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations')
             ->hideOnForm();
