@@ -97,7 +97,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function atLeastOneUserExist()
     {
-        return null === $this->createQueryBuilder('u')
+        return null !== $this->createQueryBuilder('u')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();

@@ -98,7 +98,7 @@ class AuthenticationController extends AbstractController
                      )
                  );
 
-            $errors = $validator->validate($user);
+            $errors = $validator->validate($user, null, ['Default', 'auth:check:full']);
 
             if (count($errors) > 0) {
                 $error = true;
