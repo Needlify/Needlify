@@ -11,21 +11,42 @@ namespace App\Controller\Admin\Crud;
 
 use App\Entity\User;
 use App\Trait\TranslationTrait;
+use Symfony\Component\Form\FormInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use Symfony\Component\Form\FormBuilderInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+use App\EventSubscriber\Admin\UserCrudPreSubmitSubscriber;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserCrudController extends AbstractCrudController
 {
-    use TranslationTrait;
+    use TranslationTrait {
+        TranslationTrait::__construct as private __translationConstruct;
+    }
+
+    private UserPasswordHasherInterface $encoder;
+
+    public function __construct(TranslatorInterface $translator, UserPasswordHasherInterface $encoder)
+    {
+        $this->__translationConstruct($translator);
+        $this->encoder = $encoder;
+    }
 
     public static function getEntityFqcn(): string
     {
@@ -35,12 +56,34 @@ class UserCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
+            ->setFormOptions(
+                newFormOptions: ['validation_groups' => ['Default', 'auth:check:full']],
+                editFormOptions: ['validation_groups' => function (FormInterface $form) {
+                    // If the password is empty, we don't want to validate it.
+                    $groups = ['Default'];
+
+                    if (null !== $form->get('rawPassword')->getData()) {
+                        $groups[] = 'auth:check:full';
+                    }
+
+                    return $groups;
+                }]
+            )
             ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
             ->setDefaultSort(['createdAt' => 'DESC'])
             ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.user.index.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.user.new.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.user.edit.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.user.details.title', [], 'admin'));
+    }
+
+    public function createEditFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
+    {
+        // We need to add the subscriber to the form builder so that we can update the submitted data before it is validated.
+        $formBuilder = parent::createEditFormBuilder($entityDto, $formOptions, $context);
+        $formBuilder->addEventSubscriber(new UserCrudPreSubmitSubscriber($this->encoder));
+
+        return $formBuilder;
     }
 
     public function configureFields(string $pageName): iterable
@@ -53,6 +96,19 @@ class UserCrudController extends AbstractCrudController
         yield ArrayField::new('roles', 'admin.crud.user.column.roles')
             ->setTemplatePath('admin/components/roles.html.twig')
             ->hideOnForm();
+
+        yield FormField::addPanel('admin.crud.section.security')->onlyOnForms();
+        yield TextField::new('password')
+            ->setFormType(RepeatedType::class)
+            ->setRequired(Crud::PAGE_NEW === $pageName)
+            ->setFormTypeOptions([
+                'type' => PasswordType::class,
+                'first_options' => ['label' => 'admin.crud.user.column.password_new'],
+                'second_options' => ['label' => 'admin.crud.user.column.password_confirmation'],
+            ])
+            ->onlyOnForms();
+        yield HiddenField::new('rawPassword')
+            ->onlyOnForms();
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('createdAt', 'admin.crud.user.column.created_at')->hideOnForm();

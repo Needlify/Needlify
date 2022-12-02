@@ -53,21 +53,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = ['ROLE_USER'];
 
     #[ORM\Column(type: Types::STRING)]
-    #[Assert\NotBlank(message: 'user.password.not_blank')]
+    #[Assert\NotBlank(message: 'user.password.not_blank', groups: ['auth:check:full'])]
     #[Ignore]
     private ?string $password = null;
 
-    #[Assert\NotBlank(message: 'user.password.not_blank')]
-    #[Assert\NotCompromisedPassword(message: 'user.raw_password.not_compromised_password')]
+    #[Assert\NotBlank(message: 'toto', groups: ['auth:check:full'])]
+    #[Assert\NotCompromisedPassword(message: 'user.raw_password.not_compromised_password', groups: ['auth:check:full'])]
     #[Assert\Length(
         min: 8,
         minMessage: 'user.raw_password.min_length',
         max: 50,
         maxMessage: 'user.raw_password.max_length',
+        groups: ['auth:check:full']
     )]
-    #[Assert\Regex(pattern: '/^.*?[A-Z].*?$/', message: 'user.raw_password.upper_case')]
-    #[Assert\Regex(pattern: '/^.*?[0-9].*?$/', message: 'user.raw_password.number')]
-    #[Assert\Regex(pattern: '/^.*?[!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|].*?$/', message: 'user.raw_password.special_char')]
+    #[Assert\Regex(pattern: '/^.*?[A-Z].*?$/', message: 'user.raw_password.upper_case', groups: ['auth:check:full'])]
+    #[Assert\Regex(pattern: '/^.*?[0-9].*?$/', message: 'user.raw_password.number', groups: ['auth:check:full'])]
+    #[Assert\Regex(pattern: '/^.*?[!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|].*?$/', message: 'user.raw_password.special_char', groups: ['auth:check:full'])]
     private ?string $rawPassword = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
@@ -144,14 +145,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
-        $this->password = $password;
+        if (null !== $password) {
+            $this->password = $password;
+        }
 
         return $this;
     }
@@ -161,9 +164,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->rawPassword;
     }
 
-    public function setRawPassword(?string $rawPassword = null): self
+    public function setRawPassword(?string $rawPassword): self
     {
-        $this->rawPassword = $rawPassword;
+        if (null !== $rawPassword) {
+            $this->rawPassword = $rawPassword;
+        }
 
         return $this;
     }

@@ -10,7 +10,6 @@
 namespace App\EventSubscriber\Admin;
 
 use App\Entity\Publication;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
@@ -18,12 +17,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 class PublicationCrudSubscriber implements EventSubscriberInterface
 {
     private $security;
-    private $em;
 
-    public function __construct(Security $security, EntityManagerInterface $em)
+    public function __construct(Security $security)
     {
         $this->security = $security;
-        $this->em = $em;
     }
 
     public static function getSubscribedEvents()
