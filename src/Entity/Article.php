@@ -24,11 +24,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 use function Symfony\Component\String\u;
 
-/**
- * @Vich\Uploadable
- */
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[ORM\HasLifecycleCallbacks]
+#[Vich\Uploadable]
 class Article extends Publication implements ThreadInterface
 {
     #[ORM\Column(type: Types::STRING, length: 120)]
@@ -60,9 +58,7 @@ class Article extends Publication implements ThreadInterface
     #[Assert\NotNull(message: 'article.thumbnail.not_null', groups: ['admin:form:edit'])]
     private ?string $thumbnail = null;
 
-    /**
-     * @Vich\UploadableField(mapping="thumbnail", fileNameProperty="thumbnail")
-     */
+    #[Vich\UploadableField(mapping: 'thumbnail', fileNameProperty: 'thumbnail')]
     #[Assert\File(
         maxSize: '800k',
         maxSizeMessage: 'article.thumbnail.max_size',

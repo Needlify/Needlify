@@ -86,6 +86,14 @@ class UserCrudController extends AbstractCrudController
         return $formBuilder;
     }
 
+    public function createNewFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
+    {
+        $formBuilder = parent::createNewFormBuilder($entityDto, $formOptions, $context);
+        $formBuilder->addEventSubscriber(new UserCrudPreSubmitSubscriber($this->encoder));
+
+        return $formBuilder;
+    }
+
     public function configureFields(string $pageName): iterable
     {
         yield FormField::addPanel('admin.crud.section.essential');
@@ -126,6 +134,7 @@ class UserCrudController extends AbstractCrudController
     {
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
-            ->remove(Crud::PAGE_INDEX, Action::NEW);
+            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.user.actions.create'));
+        // ->remove(Crud::PAGE_INDEX, Action::NEW);
     }
 }

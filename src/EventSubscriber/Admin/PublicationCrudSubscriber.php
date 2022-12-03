@@ -10,7 +10,7 @@
 namespace App\EventSubscriber\Admin;
 
 use App\Entity\Publication;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 
@@ -23,7 +23,7 @@ class PublicationCrudSubscriber implements EventSubscriberInterface
         $this->security = $security;
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             BeforeEntityPersistedEvent::class => ['setAuthor'],

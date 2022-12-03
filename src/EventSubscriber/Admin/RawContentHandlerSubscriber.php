@@ -21,7 +21,7 @@ class RawContentHandlerSubscriber implements EventSubscriberInterface
 
     private const ALLOWED_ACTION = [Action::EDIT];
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             BeforeCrudActionEvent::class => ['setRawContent'],

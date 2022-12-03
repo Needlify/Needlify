@@ -11,7 +11,7 @@ namespace App\Logger;
 
 use App\Entity\User;
 use Monolog\LogRecord;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class ExtraLogProcessor

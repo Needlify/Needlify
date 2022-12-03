@@ -57,7 +57,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Ignore]
     private ?string $password = null;
 
-    #[Assert\NotBlank(message: 'toto', groups: ['auth:check:full'])]
+    #[Assert\NotBlank(message: 'user.password.not_blank', groups: ['auth:check:full'])]
     #[Assert\NotCompromisedPassword(message: 'user.raw_password.not_compromised_password', groups: ['auth:check:full'])]
     #[Assert\Length(
         min: 8,
