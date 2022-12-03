@@ -21,9 +21,9 @@ class AppExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('formatNumber', [$this, 'formatNumber']),
+            new TwigFilter('format_number', [$this, 'formatNumber']),
             new TwigFilter('cases', [$this, 'enumCases']),
-            new TwigFilter('timeToRead', [$this, 'timeToRead']),
+            new TwigFilter('time_to_read', [$this, 'timeToRead']),
             new TwigFilter('markdown', [$this, 'markdown']),
         ];
     }
@@ -42,7 +42,7 @@ class AppExtension extends AbstractExtension
         return $enumFqcn::cases();
     }
 
-    public function formatNumber($num)
+    public function formatNumber($num): string
     {
         if ($num > 1_000_000_000_000) {
             return round($num / 1_000_000_000_000, 1) . 'T';
@@ -57,8 +57,8 @@ class AppExtension extends AbstractExtension
         return $num;
     }
 
-    public function timeToRead(string $content)
+    public function timeToRead(string $content): int
     {
-        return ceil(str_word_count($content) / 225);
+        return (int) ceil(str_word_count($content) / 225);
     }
 }

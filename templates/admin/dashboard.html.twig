@@ -41,7 +41,7 @@
                 </div>
                 <div class="data">
                     <h3 class="value" title="{{ stats.value|number_format(0, ".", " ") }}">
-                        {{ stats.value|formatNumber }}
+                        {{ stats.value|format_number }}
                     </h3>
                     <span class="subject">{{ stats.translation|trans({ "%count%": stats.value }, "admin") }}</span>
                 </div>

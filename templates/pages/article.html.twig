@@ -38,14 +38,15 @@
             </span>
             <span class="dot">•</span>
             <span id="time-to-read">
-                {{ article.content|timeToRead }}
+                {{ article.content|time_to_read }}
                 {{ "article.info.time_to_read"|trans }}
             </span>
         </div>
 
         <div id="thumbnail-container">
-            <img src="{{ vich_uploader_asset(article, "thumbnailFile") }}" id="blured" />
-            <img src="{{ vich_uploader_asset(article, "thumbnailFile") }}" id="thumbnail" />
+            {# We use the same size in order to prevent the download of another image #}
+            <img src="{{ image_url(article.thumbnail, 250, 100, { q: 10 }) }}" id="blured" />
+            <img src="{{ image_url(article.thumbnail, 1000, 400) }}" id="thumbnail" />
         </div>
 
         <section id="content-wrapper">

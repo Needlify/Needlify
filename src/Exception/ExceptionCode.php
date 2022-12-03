@@ -18,4 +18,6 @@ enum ExceptionCode: int
     case RESSOURCE_NOT_FOUND = 4000;
     case INVALID_QUERY_PARAM = 4001;
     case INVALID_CSRF_TOKEN = 4002;
+
+    case INVALID_IMAGE_SIGNATURE = 4003;
 }

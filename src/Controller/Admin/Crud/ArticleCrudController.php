@@ -13,6 +13,7 @@ use App\Entity\Article;
 use App\Trait\TranslationTrait;
 use App\Service\ParsedownFactory;
 use App\Admin\Field\MarkdownField;
+use App\Service\ImageResizerService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -40,10 +41,13 @@ class ArticleCrudController extends AbstractCrudController
         TranslationTrait::__construct as private __translationConstruct;
     }
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
+    private ImageResizerService $imageResizerService;
+
+    public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ImageResizerService $imageResizerService)
     {
         $this->__contentConstruct($urlGenerator);
         $this->__translationConstruct($translator);
+        $this->imageResizerService = $imageResizerService;
     }
 
     public static function getEntityFqcn(): string
@@ -78,7 +82,7 @@ class ArticleCrudController extends AbstractCrudController
             ->addWebpackEncoreEntries('admin:thumbnail')
             ->onlyOnForms();
         yield ImageField::new('thumbnail', 'admin.crud.article.column.thumbnail')
-            ->setBasePath($this->getParameter('app.thumbnails.upload_dir'))
+            ->formatValue(fn (string $value) => $this->imageResizerService->resize($value, 500, 200))
             ->hideOnForm();
         yield AssociationField::new('author', 'admin.crud.article.column.author')->onlyOnDetail();
         yield TextareaField::new('description', 'admin.crud.article.column.description')

@@ -9,6 +9,8 @@ parameters:
     app.thumbnails.upload_dir: "%app.upload_dir%/thumbnails"
     app.thumbnails.base_dir: "/public%app.thumbnails.upload_dir%"
 
+    app.image.key: "%env(string:GLIDE_KEY)%"
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -43,3 +45,7 @@ services:
     App\Logger\ExtraLogProcessor:
         tags:
             - { name: monolog.processor }
+
+    App\Service\ImageResizerService:
+        arguments:
+            - "%app.image.key%"
