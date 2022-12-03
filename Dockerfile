@@ -5,7 +5,7 @@ RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b  /usr/lo
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions
 
-RUN install-php-extensions pdo_mysql opcache intl gd opcache zip dom mbstring
+RUN install-php-extensions pdo_mysql opcache intl gd opcache zip dom mbstring exif
 
 RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
    mv composer.phar /usr/local/bin/composer
