@@ -9,8 +9,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Tag;
+use App\Entity\Topic;
+use App\Entity\Classifier;
 use App\Entity\Publication;
-use Symfony\Component\Uid\Uuid;
+use App\Service\ClassifierType;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -54,24 +57,28 @@ class PublicationRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllWithPagination(int $offset = 0, ?string $selector = null, ?string $id = null)
+    public function findAllWithPagination(int $offset = 0, ?string $id = null)
     {
+        /** @var Topic|Tag $classifier */
+        $classifier = $this->getEntityManager()->find(Classifier::class, $id);
+
+        // TODO: Refactor this
         $query = $this->createQueryBuilder('p')
             ->orderBy('p.publishedAt', 'DESC')
             ->setFirstResult($offset)
             ->setMaxResults(50);
 
-        switch ($selector) {
-            case 'topic':
+        switch ($classifier->getType()) {
+            case ClassifierType::TOPIC:
                 $query
                     ->andWhere('p.topic = :topic')
-                    ->setParameter('topic', Uuid::fromRfc4122($id)->toBinary());
+                    ->setParameter('topic', $classifier->getId()->toBinary());
                 break;
-            case 'tag':
+            case ClassifierType::TAG:
                 $query
                     ->join('p.tags', 't')
                     ->andWhere('t.id = :tag')
-                    ->setParameter('tag', Uuid::fromRfc4122($id)->toBinary());
+                    ->setParameter('tag', $classifier->getId()->toBinary());
                 break;
         }
 

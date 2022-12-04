@@ -55,6 +55,7 @@ class ThreadRepository extends ServiceEntityRepository
 
     public function findAllWithPagination(int $offset = 0)
     {
+        // TODO: Refactor this
         $query = $this->createQueryBuilder('t')
             ->orderBy('t.publishedAt', 'DESC')
             ->setFirstResult($offset)

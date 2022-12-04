@@ -17,5 +17,5 @@
 {% block body %}
     {{ component("breadcrumb", { name: classifier.name, type: classifier.type }) }}
 
-    <div {{ vue_component("TimelineWrapper", { selector: classifier.type, id: classifier.id }) }}></div>
+    <div {{ vue_component("TimelineWrapper", { id: classifier.id }) }}></div>
 {% endblock body %}

@@ -9,7 +9,6 @@
 
 namespace App\Controller\Api;
 
-use App\Entity\Thread;
 use App\Service\RequestValidation;
 use App\Repository\ThreadRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +33,7 @@ class ThreadController extends AbstractController
     #[Route('/threads', 'api_get_threads', methods: ['GET'], options: ['expose' => true])]
     public function getUsersAction(Request $request): JsonResponse
     {
+        // TODO: Refctor this method
         $constraints = new Assert\Collection([
             'offset' => new Assert\Optional([
                 new Assert\Type('numeric'),
@@ -48,11 +48,5 @@ class ThreadController extends AbstractController
             $this->threadRepository->findAllWithPagination($offset),
             context: ['groups' => 'thread:extend']
         );
-    }
-
-    #[Route('/threads/{id}', 'api_get_thread', methods: ['GET'], options: ['expose' => true])]
-    public function getUserAction(Thread $thread): JsonResponse
-    {
-        return $this->json($thread, context: ['groups' => 'thread:extend']);
     }
 }

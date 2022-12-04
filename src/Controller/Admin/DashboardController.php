@@ -59,7 +59,6 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        // TODO Customiser le page du dashboard
         yield MenuItem::linkToDashboard('admin.sidebar.overview', 'fas fa-chart-pie');
         yield MenuItem::linkToUrl('admin.sidebar.home', 'fas fa-house', $this->generateUrl('app_home'));
 

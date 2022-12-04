@@ -20,7 +20,7 @@
     </section>
 
     <div v-else-if="total === 0" id="empty-container">
-        <img src="images/empty-timeline.svg" alt="empty timeline image" />
+        <img src="/images/empty-timeline.svg" alt="empty timeline image" />
 
         <p>Aucun contenu n'a été publié pour le moment</p>
     </div>
@@ -39,7 +39,7 @@ import Spinner from "./Spinner.vue";
 import ThreadEvent from "./ThreadEvent.vue";
 import ThreadPublication from "./ThreadPublication.vue";
 
-import type { ThreadsQuery, Thread, ClassifierTypeVariation } from "../types";
+import type { ThreadsQuery, Thread } from "../types";
 
 let cancelToken: CancelTokenSource = axios.CancelToken.source();
 const firstQuery = ref(true);
@@ -49,7 +49,6 @@ const offset = ref(0);
 const threads = ref<Array<Thread>>([]);
 
 const props = defineProps<{
-    selector?: ClassifierTypeVariation;
     id?: string;
 }>();
 
@@ -64,8 +63,7 @@ const updateFeed = () => {
     const params = new URLSearchParams();
     params.append("offset", offset.value.toString());
 
-    if (props.selector && props.id) {
-        params.append("selector", props.selector);
+    if (props.id) {
         params.append("id", props.id);
         apiRoute = "api_get_publications";
     } else {

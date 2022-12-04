@@ -13,7 +13,7 @@ use App\Exception\ExceptionCode;
 use App\Exception\ExceptionFactory;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class RequestValidation
 {
@@ -24,7 +24,7 @@ class RequestValidation
         $errors = $validator->validate($queryParams, $constraints);
 
         if (count($errors) > 0) {
-            throw ExceptionFactory::throw(BadRequestException::class, ExceptionCode::INVALID_QUERY_PARAM, 'Invalid query param');
+            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM, 'Invalid query param');
         }
     }
 }

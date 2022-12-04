@@ -20,7 +20,6 @@ const props = defineProps({
     },
 });
 
-// TODO Changer l'url des tags
 const generateTagUrl = (slug: string) => Routing.generate("app_tag", { slug });
 </script>
 

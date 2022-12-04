@@ -9,8 +9,6 @@
 
 namespace App\Controller\Api;
 
-use App\Entity\Publication;
-use App\Service\ClassifierType;
 use App\Service\RequestValidation;
 use App\Repository\PublicationRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,14 +32,11 @@ class PublicationController extends AbstractController
     #[Route('/publications', 'api_get_publications', methods: ['GET'], options: ['expose' => true])]
     public function getUsersAction(Request $request): JsonResponse
     {
+        // TODO: Refctor this method
         $constraints = new Assert\Collection([
             'offset' => new Assert\Optional([
                 new Assert\Type('numeric'),
                 new Assert\PositiveOrZero(),
-            ]),
-            'selector' => new Assert\Optional([
-                new Assert\Type('string'),
-                new Assert\Choice(ClassifierType::values()),
             ]),
             'id' => new Assert\Optional([
                 new Assert\Type('string'),
@@ -52,15 +47,8 @@ class PublicationController extends AbstractController
         $this->requestValidation->validateRequestQueryParams($request, $constraints);
 
         $offset = $request->query->get('offset') ?? 0;
-        $selector = $request->query->get('selector') ?? null;
         $id = $request->query->get('id') ?? null;
 
-        return $this->json($this->publicationRepository->findAllWithPagination($offset, $selector, $id), context: ['groups' => 'thread:extend']);
-    }
-
-    #[Route('/publications/{id}', 'api_get_publication', methods: ['GET'], options: ['expose' => true])]
-    public function getUserAction(Publication $publication): JsonResponse
-    {
-        return $this->json($publication, context: ['groups' => 'thread:extend']);
+        return $this->json($this->publicationRepository->findAllWithPagination($offset, $id), context: ['groups' => 'thread:extend']);
     }
 }
