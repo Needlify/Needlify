@@ -1,0 +1,70 @@
+{% set lang = app.request.locale|split("_")[0] %}
+
+{% trans_default_domain "error" %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="author" href="{{ asset("humans.txt") }}" />
+        <meta name="language" content="{{ lang }}" />
+        <meta http-equiv="content-language" content="{{ lang }}" />
+        <meta name="copyright" content="https://needlify.com" />
+        <meta name="theme-color" content="#ff6e03" />
+        <meta name="twitter:widgets:new-embed-design" content="on" />
+        <meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        <meta property="og:description" content="{{ "layout.meta.description"|trans }}" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ app.request.uri }}" />
+        <meta property="og:title" content="Needlify" />
+        <meta property="og:site_name" content="Needlify" />
+        <meta property="og:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Needlify" />
+        <meta name="twitter:image:src" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+        <meta property="og:description" content="{{ "layout.meta.description"|trans }}" />
+        <meta name="twitter:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}" />
+
+        <link rel="shortcut icon" href="{{ asset("images/logo/favicon.ico") }}" type="image/x-icon" />
+
+        <title>
+            {{ status_text }} - {{ status_code }} - Needlify
+        </title>
+
+        <meta charset="UTF-8" />
+
+        {{ encore_entry_link_tags("style:reset") }}
+        {{ encore_entry_link_tags("style:global") }}
+        {{ encore_entry_link_tags("style:error") }}
+    </head>
+    <body>
+        <div id="parent">
+            <div id="image-div">
+                {% block image %}
+
+                {% endblock image %}
+            </div>
+            <div id="content">
+                <h1 id="title">
+                    {% block title %}
+
+                    {% endblock title %}
+                </h1>
+                <span id="description">
+                    {% block description %}
+
+                    {% endblock description %}
+                </span>
+                <div id="links">
+                    <span id="links-text">{{ "links.title"|trans }}</span>
+                    <div id="links-items">
+                        <a href="{{ url("app_home") }}">{{ "links.home"|trans }}</a>
+                        <a href="{{ url("app_contact") }}">{{ "links.contact"|trans }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
