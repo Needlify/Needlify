@@ -47,6 +47,7 @@ trait ClassifierCrudTrait
     {
         return $crud
             ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
-            ->setDefaultSort(['createdAt' => 'DESC']);
+            ->setDefaultSort(['createdAt' => 'DESC'])
+            ->setSearchFields(['name']);
     }
 }

@@ -69,6 +69,7 @@ class UserCrudController extends AbstractCrudController
                     return $groups;
                 }]
             )
+            ->setSearchFields(['email', 'username'])
             ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
             ->setDefaultSort(['createdAt' => 'DESC'])
             ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.user.index.title', [], 'admin'))

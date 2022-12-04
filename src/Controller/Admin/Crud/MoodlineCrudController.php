@@ -35,7 +35,7 @@ class MoodlineCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $this->defaultThreadCrudConfiguration($crud)
-            ->setSearchFields(['content', 'topic.name', 'tags.name'])
+            ->setSearchFields(['content', 'topic.name', 'tags.name', 'author.username', 'author.email'])
             ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.moodline.index.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.moodline.new.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.moodline.edit.title', [], 'admin'))

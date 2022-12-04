@@ -62,6 +62,7 @@ class ArticleCrudController extends AbstractCrudController
                         newFormOptions: ['validation_groups' => ['Default', 'admin:form:new']],
                         editFormOptions: ['validation_groups' => ['Default', 'admin:form:edit']]
                     )
+                    ->setSearchFields(['title', 'description', 'topic.name', 'tags.name', 'content', 'author.username', 'author.email'])
                     ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.article.index.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.article.new.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.article.edit.title', [], 'admin'))
@@ -84,7 +85,7 @@ class ArticleCrudController extends AbstractCrudController
         yield ImageField::new('thumbnail', 'admin.crud.article.column.thumbnail')
             ->formatValue(fn (string $value) => $this->imageResizerService->resize($value, 500, 200))
             ->hideOnForm();
-        yield AssociationField::new('author', 'admin.crud.article.column.author')->onlyOnDetail();
+        yield AssociationField::new('author', 'admin.crud.article.column.author')->hideOnForm();
         yield TextareaField::new('description', 'admin.crud.article.column.description')
             ->hideOnIndex();
 
