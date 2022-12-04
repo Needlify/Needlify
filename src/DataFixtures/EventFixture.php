@@ -9,6 +9,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Event;
 use App\Factory\EventFactory;
 use App\Factory\TopicFactory;
 use App\Service\EventMessage;
@@ -37,10 +38,15 @@ class EventFixture extends Fixture
     {
         Factory::delayFlush(function () {
             foreach (TopicFactory::all() as $topic) {
-                EventFactory::createOne(['content' => EventMessage::NEW_TOPIC->format([
+                $eventProxy = EventFactory::createOne(['content' => EventMessage::NEW_TOPIC->format([
                     $topic->object()->getName(),
                     $this->router->generate('app_topic', ['slug' => $topic->object()->getSlug()]),
                 ])]);
+
+                /** @var Event $event */
+                $event = $eventProxy->object();
+
+                $topic->setEvent($event);
             }
         });
     }

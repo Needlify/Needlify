@@ -9,6 +9,7 @@
 
 namespace App\Controller\Admin\Crud\Traits;
 
+use App\Entity\Topic;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
@@ -31,6 +32,11 @@ trait ClassifierCrudTrait
         yield DateTimeField::new('updatedAt', 'admin.crud.classifier.column.updated_at')->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations')->hideOnForm();
+
+        if (Topic::class === $classifierFqcn) {
+            yield AssociationField::new('event', 'admin.crud.classifier.column.event')->hideOnForm();
+        }
+
         yield AssociationField::new('publications', 'admin.crud.classifier.column.publications')
             ->setTemplatePath('admin/components/publications.html.twig')
             ->addWebpackEncoreEntries('admin:component:publications')

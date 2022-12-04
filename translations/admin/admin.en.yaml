@@ -109,6 +109,7 @@ admin.crud.classifier.column.slug: "Slug"
 admin.crud.classifier.column.created_at: "Created at"
 admin.crud.classifier.column.last_use_at: "Last use at"
 admin.crud.classifier.column.updated_at: "Last update"
+admin.crud.classifier.column.event: "Event"
 admin.crud.classifier.column.publications: "Publications"
 
 admin.component.publications.details: "Details"

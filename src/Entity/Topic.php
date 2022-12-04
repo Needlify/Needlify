@@ -22,6 +22,10 @@ class Topic extends Classifier implements EntityTypeInterface
     #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Publication::class, cascade: ['remove'])]
     private Collection $publications;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?Event $event = null;
+
     public function __construct()
     {
         $this->publications = new ArrayCollection();
@@ -60,5 +64,17 @@ class Topic extends Classifier implements EntityTypeInterface
     public function getType(): ClassifierType
     {
         return ClassifierType::TOPIC;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
+
+        return $this;
     }
 }

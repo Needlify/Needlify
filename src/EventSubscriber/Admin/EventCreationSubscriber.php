@@ -41,8 +41,11 @@ class EventCreationSubscriber implements EventSubscriberInterface
                 $this->router->generate('app_topic', ['slug' => $entity->getSlug()]),
             ]));
 
-            $this->em->persist($event);
-            $this->em->flush($event);
+            $entity->setEvent($event);
+
+            // Event is automatically persisted by Doctrine
+            $this->em->persist($entity);
+            $this->em->flush();
         }
     }
 }
