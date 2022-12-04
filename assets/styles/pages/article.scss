@@ -26,6 +26,22 @@
             font-weight: 600;
             transition: color 200ms ease-in-out, background-color 200ms ease-in-out;
 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            svg {
+                flex-shrink: 0;
+            }
+
+            span {
+                flex-grow: 1;
+
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
             &:hover {
                 background-color: var(--primary-transparent-hover);
             }
