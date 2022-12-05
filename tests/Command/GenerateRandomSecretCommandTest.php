@@ -13,7 +13,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class GenerateAppSecretTest extends KernelTestCase
+class GenerateRandomSecretCommandTest extends KernelTestCase
 {
     private Application $application;
 
@@ -26,18 +26,22 @@ class GenerateAppSecretTest extends KernelTestCase
 
     public function testExecutePlainCommand(): void
     {
-        $command = $this->application->find('app:key:generate');
+        $command = $this->application->find('app:secret:generate');
         $commandTester = new CommandTester($command);
-        $commandTester->execute([]);
+        $commandTester->execute([
+            '--length' => 32,
+        ]);
 
         $commandTester->assertCommandIsSuccessful();
     }
 
     public function testExecuteAliasCommand(): void
     {
-        $command = $this->application->find('a:k:g');
+        $command = $this->application->find('a:s:g');
         $commandTester = new CommandTester($command);
-        $commandTester->execute([]);
+        $commandTester->execute([
+            '--length' => 32,
+        ]);
 
         $commandTester->assertCommandIsSuccessful();
     }
