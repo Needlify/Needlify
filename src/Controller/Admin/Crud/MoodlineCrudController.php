@@ -10,13 +10,13 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Moodline;
-use App\Trait\TranslationTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -25,7 +25,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 class MoodlineCrudController extends AbstractCrudController
 {
     use ThreadCrudTrait;
-    use TranslationTrait;
+
+    private TranslatorInterface $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
 
     public static function getEntityFqcn(): string
     {

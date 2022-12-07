@@ -9,8 +9,8 @@
 
 namespace App\Entity\Interface;
 
-use App\Service\ThreadType;
-use App\Service\ClassifierType;
+use App\Enum\ThreadType;
+use App\Enum\ClassifierType;
 
 interface EntityTypeInterface
 {

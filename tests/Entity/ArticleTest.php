@@ -10,7 +10,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Article;
-use App\Service\ThreadType;
+use App\Enum\ThreadType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

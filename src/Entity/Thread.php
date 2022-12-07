@@ -10,8 +10,6 @@
 namespace App\Entity;
 
 use DateTime;
-use DateTimeZone;
-use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
@@ -48,20 +46,20 @@ abstract class Thread
         return $this->id;
     }
 
-    public function getPublishedAt(): ?DateTimeImmutable
+    public function getPublishedAt(): ?\DateTimeImmutable
     {
         return $this->publishedAt;
     }
 
     public function getPublishedAtToISO8601(): string
     {
-        return $this->publishedAt->format(DateTime::ATOM);
+        return $this->publishedAt->format(\DateTime::ATOM);
     }
 
     #[ORM\PrePersist]
     public function setPublishedAt(): void
     {
-        $this->publishedAt = new DateTimeImmutable('now', new DateTimeZone('UTC'));
+        $this->publishedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     public function getUpdatedAt()

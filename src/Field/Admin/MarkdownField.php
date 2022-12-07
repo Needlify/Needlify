@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Admin\Field;
+namespace App\Field\Admin;
 
 use EasyCorp\Bundle\EasyAdminBundle\Field\FieldTrait;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;

@@ -9,7 +9,7 @@
 
 namespace App\Entity;
 
-use App\Service\ClassifierType;
+use App\Enum\ClassifierType;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TagRepository;
 use Doctrine\Common\Collections\Collection;

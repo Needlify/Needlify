@@ -10,9 +10,8 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Article;
-use App\Trait\TranslationTrait;
 use App\Service\ParsedownFactory;
-use App\Admin\Field\MarkdownField;
+use App\Field\Admin\MarkdownField;
 use App\Service\ImageResizerService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -36,17 +35,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ArticleCrudController extends AbstractCrudController
 {
-    use ThreadCrudTrait, ContentCrudTrait, TranslationTrait {
+    use ThreadCrudTrait, ContentCrudTrait {
         ContentCrudTrait::__construct as private __contentConstruct;
-        TranslationTrait::__construct as private __translationConstruct;
     }
 
     private ImageResizerService $imageResizerService;
 
+    private TranslatorInterface $translator;
+
     public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ImageResizerService $imageResizerService)
     {
         $this->__contentConstruct($urlGenerator);
-        $this->__translationConstruct($translator);
+        $this->translator = $translator;
         $this->imageResizerService = $imageResizerService;
     }
 

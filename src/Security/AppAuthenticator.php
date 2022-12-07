@@ -11,7 +11,6 @@ namespace App\Security;
 
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
@@ -37,8 +36,6 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     public function authenticate(Request $request): Passport
     {
         $identifier = $request->request->get('identifier', '');
-
-        $request->getSession()->set(Security::LAST_USERNAME, $identifier);
 
         return new Passport(
             new UserBadge($identifier),

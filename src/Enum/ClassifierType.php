@@ -7,11 +7,13 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Service;
+namespace App\Enum;
+
+use App\Trait\EnumUtilityTrait;
 
 enum ClassifierType: string
 {
-    use EnumTrait;
+    use EnumUtilityTrait;
 
     case TOPIC = 'topic';
     case TAG = 'tag';

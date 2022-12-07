@@ -9,7 +9,7 @@
 
 namespace App\Entity;
 
-use App\Service\ThreadType;
+use App\Enum\ThreadType;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EventRepository;

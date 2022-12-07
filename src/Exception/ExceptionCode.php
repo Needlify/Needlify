@@ -9,11 +9,11 @@
 
 namespace App\Exception;
 
-use App\Service\EnumTrait;
+use App\Trait\EnumUtilityTrait;
 
 enum ExceptionCode: int
 {
-    use EnumTrait;
+    use EnumUtilityTrait;
 
     case RESSOURCE_NOT_FOUND = 4000;
     case INVALID_QUERY_PARAM = 4001;

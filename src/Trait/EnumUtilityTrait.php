@@ -7,9 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Service;
+namespace App\Trait;
 
-trait EnumTrait
+trait EnumUtilityTrait
 {
     public static function names(): array
     {

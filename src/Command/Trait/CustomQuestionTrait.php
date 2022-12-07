@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Trait\Command;
+namespace App\Command\Trait;
 
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Input\InputInterface;

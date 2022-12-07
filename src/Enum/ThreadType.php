@@ -7,11 +7,13 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Service;
+namespace App\Enum;
+
+use App\Trait\EnumUtilityTrait;
 
 enum ThreadType: string
 {
-    use EnumTrait;
+    use EnumUtilityTrait;
 
     case ARTICLE = 'article';
     case MOODLINE = 'moodline';

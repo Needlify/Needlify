@@ -10,9 +10,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
+use App\Enum\EventMessage;
 use App\Factory\EventFactory;
 use App\Factory\TopicFactory;
-use App\Service\EventMessage;
 use Zenstruck\Foundry\Factory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;

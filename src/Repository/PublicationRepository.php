@@ -13,7 +13,7 @@ use App\Entity\Tag;
 use App\Entity\Topic;
 use App\Entity\Classifier;
 use App\Entity\Publication;
-use App\Service\ClassifierType;
+use App\Entity\Enum\ClassifierType;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -91,29 +91,4 @@ class PublicationRepository extends ServiceEntityRepository
             'data' => $paginator->getQuery()->getResult(),
         ];
     }
-
-//    /**
-//     * @return Publication[] Returns an array of Publication objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Publication
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

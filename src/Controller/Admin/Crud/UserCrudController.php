@@ -10,7 +10,6 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\User;
-use App\Trait\TranslationTrait;
 use Symfony\Component\Form\FormInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,15 +35,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserCrudController extends AbstractCrudController
 {
-    use TranslationTrait {
-        TranslationTrait::__construct as private __translationConstruct;
-    }
-
     private UserPasswordHasherInterface $encoder;
+
+    private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator, UserPasswordHasherInterface $encoder)
     {
-        $this->__translationConstruct($translator);
+        $this->translator = $translator;
         $this->encoder = $encoder;
     }
 

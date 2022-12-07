@@ -9,7 +9,7 @@
 
 namespace App\Components\Twig;
 
-use App\Service\ClassifierType;
+use App\Entity\Enum\ClassifierType;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
 

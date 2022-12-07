@@ -7,10 +7,15 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Service;
+namespace App\Enum;
+
+use App\Trait\EnumUtilityTrait;
+use App\Service\ParsedownFactory;
 
 enum EventMessage: string
 {
+    use EnumUtilityTrait;
+
     case NEW_TOPIC = 'The topic **[%s](%s)** has been created';
 
     public function format(array $params): string

@@ -5,12 +5,12 @@
 		<span class="badge badge-secondary">{{"admin.component.publications.empty" | trans}}</span>
 	{% else %}
 		<div id="threads-container">
-			{% for type in "App\\Service\\ThreadType"|cases %}
+			{% for type in "App\\Enum\\ThreadType"|cases %}
 				{% if field.value|filter(t => t.type == type)|length > 0 %}
 					<h4>{{ type.value|capitalize }}s</h4>
 					<div class="custom-thread-container">
 						{% for thread in field.value|filter(t => t.type == type) %}
-							{% if thread.type == constant("App\\Service\\ThreadType::ARTICLE") %}
+							{% if thread.type == constant("App\\Enum\\ThreadType::ARTICLE") %}
 								<details>
 									<summary>
 										<div class="summary-content">

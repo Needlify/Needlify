@@ -10,7 +10,6 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Topic;
-use App\Trait\TranslationTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -22,15 +21,16 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class TopicCrudController extends AbstractCrudController
 {
-    use ClassifierCrudTrait, ContentCrudTrait, TranslationTrait {
+    use ClassifierCrudTrait, ContentCrudTrait {
         ContentCrudTrait::__construct as private __contentConstruct;
-        TranslationTrait::__construct as private __translationConstruct;
     }
+
+    private TranslatorInterface $translator;
 
     public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
     {
         $this->__contentConstruct($urlGenerator);
-        $this->__translationConstruct($translator);
+        $this->translator = $translator;
     }
 
     public static function getEntityFqcn(): string
