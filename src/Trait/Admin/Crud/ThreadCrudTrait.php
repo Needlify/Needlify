@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Controller\Admin\Crud\Trait;
+namespace App\Trait\Admin\Crud;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 

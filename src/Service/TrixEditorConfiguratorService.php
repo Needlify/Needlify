@@ -7,6 +7,8 @@
  * file that was distributed with this source code.
  */
 
+namespace App\Service;
+
 class TrixEditorConfiguratorService
 {
     public const DEFAULT_TRIX_CONFIGURATION = [

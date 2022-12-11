@@ -9,7 +9,7 @@
 
 namespace App\Controller\Api;
 
-use App\Service\RequestValidation;
+use App\Trait\RequestValidationTrait;
 use App\Repository\PublicationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,13 +20,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/rest')]
 class PublicationController extends AbstractController
 {
-    private PublicationRepository $publicationRepository;
-    private RequestValidation $requestValidation;
+    use RequestValidationTrait;
 
-    public function __construct(PublicationRepository $publicationRepository, RequestValidation $requestValidation)
+    private PublicationRepository $publicationRepository;
+
+    public function __construct(PublicationRepository $publicationRepository)
     {
         $this->publicationRepository = $publicationRepository;
-        $this->requestValidation = $requestValidation;
     }
 
     #[Route('/publications', 'api_get_publications', methods: ['GET'], options: ['expose' => true])]
@@ -44,10 +44,10 @@ class PublicationController extends AbstractController
             ]),
         ]);
 
-        $this->requestValidation->validateRequestQueryParams($request, $constraints);
+        $this->validateRequestQueryParams($request, $constraints);
 
-        $offset = $request->query->get('offset') ?? 0;
-        $id = $request->query->get('id') ?? null;
+        $offset = $request->query->get('offset', 0);
+        $id = $request->query->get('id', null);
 
         return $this->json($this->publicationRepository->findAllWithPagination($offset, $id), context: ['groups' => 'thread:extend']);
     }

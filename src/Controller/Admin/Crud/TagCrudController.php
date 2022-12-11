@@ -10,12 +10,12 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Tag;
+use App\Trait\Admin\Crud\ContentCrudTrait;
+use App\Trait\Admin\Crud\ClassifierCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use App\Controller\Admin\Crud\Trait\ContentCrudTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use App\Controller\Admin\Crud\Trait\ClassifierCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class TagCrudController extends AbstractCrudController

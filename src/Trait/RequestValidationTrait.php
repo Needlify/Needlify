@@ -7,15 +7,14 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Service;
+namespace App\Trait;
 
 use App\Exception\ExceptionCode;
 use App\Exception\ExceptionFactory;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class RequestValidation
+trait RequestValidationTrait
 {
     public function validateRequestQueryParams(Request $request, $constraints)
     {

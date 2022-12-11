@@ -10,17 +10,16 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Event;
+use App\Trait\Admin\Crud\ThreadCrudTrait;
+use App\Service\TrixEditorConfiguratorService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-use App\Controller\Admin\Crud\Trait\ThreadCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class EventCrudController extends AbstractCrudController
@@ -39,11 +38,6 @@ class EventCrudController extends AbstractCrudController
         return Event::class;
     }
 
-    // public function configureFilters(Filters $filters): Filters
-    // {
-    //     return $filters->add(DateTimeFilter::new('publishedAt'));
-    // }
-
     public function configureCrud(Crud $crud): Crud
     {
         return $this->defaultThreadCrudConfiguration($crud)
@@ -59,7 +53,7 @@ class EventCrudController extends AbstractCrudController
         yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id', 'admin.crud.event.column.id')->onlyOnDetail();
         yield TextEditorField::new('content', 'admin.crud.event.column.content')
-            ->setTrixEditorConfig(\TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
+            ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setNumOfRows(1)
             ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
             ->formatValue(fn (string $value) => $value) // To render content as html rather than just text

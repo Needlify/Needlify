@@ -63,10 +63,8 @@ class ThreadRepository extends ServiceEntityRepository
 
         $paginator = new Paginator($query->getQuery());
 
-        $total = count($paginator);
-
         return [
-            'total' => $total,
+            'total' => $paginator->count(),
             'data' => $paginator->getQuery()->getResult(),
         ];
     }

@@ -9,8 +9,8 @@
 
 namespace App\Controller\Api;
 
-use App\Service\RequestValidation;
 use App\Repository\ThreadRepository;
+use App\Trait\RequestValidationTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,14 +20,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/rest')]
 class ThreadController extends AbstractController
 {
+    use RequestValidationTrait;
+
     private ThreadRepository $threadRepository;
 
-    private RequestValidation $requestValidation;
-
-    public function __construct(ThreadRepository $threadRepository, RequestValidation $requestValidation)
+    public function __construct(ThreadRepository $threadRepository)
     {
         $this->threadRepository = $threadRepository;
-        $this->requestValidation = $requestValidation;
     }
 
     #[Route('/threads', 'api_get_threads', methods: ['GET'], options: ['expose' => true])]
@@ -40,7 +39,8 @@ class ThreadController extends AbstractController
                 new Assert\PositiveOrZero(),
             ]),
         ]);
-        $this->requestValidation->validateRequestQueryParams($request, $constraints);
+
+        $this->validateRequestQueryParams($request, $constraints);
 
         $offset = $request->query->get('offset') ?? 0;
 

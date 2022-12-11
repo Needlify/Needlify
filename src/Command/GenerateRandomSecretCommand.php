@@ -9,7 +9,7 @@
 
 namespace App\Command;
 
-use App\Command\Trait\CustomQuestionTrait;
+use App\Trait\Command\CustomQuestionTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Style\SymfonyStyle;

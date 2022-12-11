@@ -10,11 +10,12 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Moodline;
+use App\Trait\Admin\Crud\ThreadCrudTrait;
+use App\Service\TrixEditorConfiguratorService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use App\Controller\Admin\Crud\Trait\ThreadCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -54,7 +55,7 @@ class MoodlineCrudController extends AbstractCrudController
         yield IdField::new('id', 'admin.crud.moodline.column.id')->onlyOnDetail();
 
         yield TextEditorField::new('content', 'admin.crud.moodline.column.content')
-            ->setTrixEditorConfig(\TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
+            ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setNumOfRows(3)
             ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
             ->formatValue(fn (string $value) => $value);
