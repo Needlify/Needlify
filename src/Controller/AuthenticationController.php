@@ -28,8 +28,11 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class AuthenticationController extends AbstractController
 {
-    public function __construct(private TranslatorInterface $translator)
+    private TranslatorInterface $translator;
+
+    public function __construct(TranslatorInterface $translator)
     {
+        $this->translator = $translator;
     }
 
     #[Route(path: '/login', name: 'auth_login')]

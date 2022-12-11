@@ -19,8 +19,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
 
 class EventCreationSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private UrlGeneratorInterface $router, private EntityManagerInterface $em)
+    private UrlGeneratorInterface $router;
+    private EntityManagerInterface $em;
+
+    public function __construct(UrlGeneratorInterface $router, EntityManagerInterface $em)
     {
+        $this->router = $router;
+        $this->em = $em;
     }
 
     public static function getSubscribedEvents(): array

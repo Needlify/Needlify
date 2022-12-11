@@ -13,6 +13,7 @@ use App\Exception\ExceptionCode;
 use App\Exception\ExceptionFactory;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 trait RequestValidationTrait
 {

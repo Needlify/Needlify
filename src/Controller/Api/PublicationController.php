@@ -32,6 +32,7 @@ class PublicationController extends AbstractController
     #[Route('/publications', 'api_get_publications', methods: ['GET'], options: ['expose' => true])]
     public function getUsersAction(Request $request): JsonResponse
     {
+        // ? https://dev.to/hantsy_26/-building-restful-apis-with-symfony-5-and-php-8-1p2e
         // TODO: Refctor this method
         $constraints = new Assert\Collection([
             'offset' => new Assert\Optional([
