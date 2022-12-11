@@ -15,8 +15,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use App\Controller\Admin\Crud\Trait\ThreadCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -59,7 +59,7 @@ class EventCrudController extends AbstractCrudController
         yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id', 'admin.crud.event.column.id')->onlyOnDetail();
         yield TextEditorField::new('content', 'admin.crud.event.column.content')
-            ->setTrixEditorConfig(self::$defaultEditorConfig)
+            ->setTrixEditorConfig(\TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setNumOfRows(1)
             ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
             ->formatValue(fn (string $value) => $value) // To render content as html rather than just text

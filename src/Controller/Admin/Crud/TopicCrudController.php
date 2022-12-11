@@ -13,23 +13,19 @@ use App\Entity\Topic;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
+use App\Controller\Admin\Crud\Trait\ContentCrudTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use App\Controller\Admin\Crud\Traits\ClassifierCrudTrait;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use App\Controller\Admin\Crud\Trait\ClassifierCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class TopicCrudController extends AbstractCrudController
 {
-    use ClassifierCrudTrait, ContentCrudTrait {
-        ContentCrudTrait::__construct as private __contentConstruct;
-    }
+    use ClassifierCrudTrait, ContentCrudTrait;
 
     private TranslatorInterface $translator;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator)
     {
-        $this->__contentConstruct($urlGenerator);
         $this->translator = $translator;
     }
 

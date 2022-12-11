@@ -7,13 +7,9 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Controller\Admin\Crud\Traits;
-
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-
-trait ThreadCrudTrait
+class TrixEditorConfiguratorService
 {
-    protected static array $defaultEditorConfig = [
+    public const DEFAULT_TRIX_CONFIGURATION = [
         'textAttributes' => [
             'frozen' => [
                 'style' => [
@@ -22,11 +18,4 @@ trait ThreadCrudTrait
             ],
         ],
     ];
-
-    public function defaultThreadCrudConfiguration(Crud $crud): Crud
-    {
-        return $crud
-            ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
-            ->setDefaultSort(['publishedAt' => 'DESC']);
-    }
 }

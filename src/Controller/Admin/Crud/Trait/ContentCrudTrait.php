@@ -7,21 +7,25 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Controller\Admin\Crud\Traits;
+namespace App\Controller\Admin\Crud\Trait;
 
 use App\Entity\Tag;
 use App\Entity\Topic;
 use App\Entity\Article;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use Symfony\Contracts\Service\Attribute\Required;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 trait ContentCrudTrait
 {
-    public function __construct(
-        private UrlGeneratorInterface $urlGenerator
-    ) {
+    private UrlGeneratorInterface|null $urlGenerator;
+
+    #[Required]
+    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator)
+    {
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function defaultContentActionConfiguration(Actions $actions, string $classifierFqcn): Actions

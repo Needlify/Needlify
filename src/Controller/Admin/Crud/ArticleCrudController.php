@@ -18,11 +18,11 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use App\Controller\Admin\Crud\Trait\ThreadCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use App\Controller\Admin\Crud\Traits\ThreadCrudTrait;
+use App\Controller\Admin\Crud\Trait\ContentCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use App\Controller\Admin\Crud\Traits\ContentCrudTrait;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -30,22 +30,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ArticleCrudController extends AbstractCrudController
 {
-    use ThreadCrudTrait, ContentCrudTrait {
-        ContentCrudTrait::__construct as private __contentConstruct;
-    }
+    use ThreadCrudTrait, ContentCrudTrait;
 
     private ImageResizerService $imageResizerService;
 
     private TranslatorInterface $translator;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator, TranslatorInterface $translator, ImageResizerService $imageResizerService)
+    public function __construct(TranslatorInterface $translator, ImageResizerService $imageResizerService)
     {
-        $this->__contentConstruct($urlGenerator);
         $this->translator = $translator;
         $this->imageResizerService = $imageResizerService;
     }

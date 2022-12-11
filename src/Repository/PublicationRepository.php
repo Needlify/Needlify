@@ -13,7 +13,7 @@ use App\Entity\Tag;
 use App\Entity\Topic;
 use App\Entity\Classifier;
 use App\Entity\Publication;
-use App\Entity\Enum\ClassifierType;
+use App\Enum\ClassifierType;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
