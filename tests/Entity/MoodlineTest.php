@@ -10,7 +10,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Moodline;
-use App\Service\ThreadType;
+use App\Enum\ThreadType;
 use PHPUnit\Framework\TestCase;
 
 class MoodlineTest extends TestCase
