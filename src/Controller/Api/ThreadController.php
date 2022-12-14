@@ -30,7 +30,7 @@ class ThreadController extends AbstractController
     }
 
     #[Route('/threads', 'api_get_threads', methods: ['GET'], options: ['expose' => true])]
-    public function getUsersAction(Request $request): JsonResponse
+    public function getThreads(Request $request): JsonResponse
     {
         // TODO: Refctor this method
         $constraints = new Assert\Collection([

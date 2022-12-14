@@ -9,6 +9,9 @@
 
 namespace App\Controller\Api;
 
+use App\Attribut\QueryParam;
+use App\Enum\QueryParamType;
+use App\Service\ParamFetcher;
 use App\Trait\RequestValidationTrait;
 use App\Repository\PublicationRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,10 +33,12 @@ class PublicationController extends AbstractController
     }
 
     #[Route('/publications', 'api_get_publications', methods: ['GET'], options: ['expose' => true])]
-    public function getUsersAction(Request $request): JsonResponse
+    #[QueryParam('offset', type: QueryParamType::INTEGER)]
+    #[QueryParam('id')]
+    public function getPublications(Request $request, ParamFetcher $fetcher): JsonResponse
     {
-        // ? https://dev.to/hantsy_26/-building-restful-apis-with-symfony-5-and-php-8-1p2e
-        // TODO: Refctor this method
+        dd($fetcher);
+        // TODO: Refactor this method
         $constraints = new Assert\Collection([
             'offset' => new Assert\Optional([
                 new Assert\Type('numeric'),
