@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use Symfony\Component\Uid\Uuid;
 
 class QueryParamArgumentResolver implements ValueResolverInterface
 {
@@ -51,11 +52,13 @@ class QueryParamArgumentResolver implements ValueResolverInterface
             $queryParamParameters = $this->getQueryParamParameters($attribut);
             $queryParamName = $queryParamParameters->getName();
             if ($request->query->has($queryParamName)) {
-                $fetcher->set($queryParamName, $request->query->get($queryParamName));
+                $queryParamValue = $request->query->get($queryParamName);
             } else {
-                $fetcher->set($queryParamName, $queryParamParameters->getDefault());
+                $queryParamValue = $queryParamParameters->getDefault();
             }
-            $this->validateParamFetcher($fetcher, $queryParamParameters);
+
+            $formattedValue = $this->validateParamFetcher($queryParamValue, $queryParamParameters);
+            $fetcher->set($queryParamName, $formattedValue);
         }
 
         return [$fetcher];
@@ -81,18 +84,51 @@ class QueryParamArgumentResolver implements ValueResolverInterface
     /**
      * @throws BadRequestHttpException
      */
-    private function validateParamFetcher(ParamFetcher $fetcher, QueryParam $queryParam): void
+    private function validateParamFetcher(string $value, QueryParam $queryParam): string|int|float|bool|null|Uuid
     {
-        dd($fetcher, $queryParam);
-        $value = $fetcher->get($queryParam->getName());
-
         switch ($queryParam->getType()) {
             case QueryParamType::INTEGER:
-                // $validatedType = filter_var();
-                // https://www.php.net/manual/en/filter.filters.validate.php
-                break;
+                $validatedValue = filter_var($value, FILTER_VALIDATE_INT);
+                if(!$validatedValue) {
+                    // TODO Modifier message d'erreur
+                    throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'Ressource not found. Can not convert route parameter to retrieve', []);
+                }
+
+                // Possibilité de mettre positif ou negatif
+
+                return (int) $validatedValue;
+
+            case QueryParamType::FLOAT:
+                $validatedValue = filter_var($value, FILTER_VALIDATE_FLOAT);
+                if(!$validatedValue) {
+                    // TODO Modifier message d'erreur
+                    throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'Ressource not found. Can not convert route parameter to retrieve', []);
+                }
+
+                return (float) $validatedValue;
+
+            case QueryParamType::STRING:
+                if(!is_string($value)) {
+                    // TODO Modifier message d'erreur
+                    throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'Ressource not found. Can not convert route parameter to retrieve', []);
+                }
+
+                return $value;
+
+
+            case QueryParamType::UUID:
+                if(!is_string($value)) {
+                    // TODO Modifier message d'erreur
+                    throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'Ressource not found. Can not convert route parameter to retrieve', []);
+                }
+
+                if(!Uuid::isValid($value)) {
+                    // TODO Modifier message d'erreur
+                    throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'Ressource not found. Can not convert route parameter to retrieve', []);
+                }
+
+                return Uuid::fromString($value);
         }
 
-        throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'Ressource not found. Can not convert route parameter to retrieve', []);
     }
 }

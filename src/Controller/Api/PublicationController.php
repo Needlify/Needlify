@@ -34,7 +34,7 @@ class PublicationController extends AbstractController
 
     #[Route('/publications', 'api_get_publications', methods: ['GET'], options: ['expose' => true])]
     #[QueryParam('offset', type: QueryParamType::INTEGER)]
-    #[QueryParam('id')]
+    #[QueryParam('id', type: QueryParamType::STRING)]
     public function getPublications(Request $request, ParamFetcher $fetcher): JsonResponse
     {
         dd($fetcher);
