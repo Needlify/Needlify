@@ -19,7 +19,7 @@ class QueryParam
     private string|array|null $requirements = null;
     private string|int|float|bool|null $default = null;
     private ?string $description = null;
-    private bool $optional = true;
+    private bool $optional = false;
 
     public function __construct(
         string $name,
@@ -27,7 +27,7 @@ class QueryParam
         string|array|null $requirements = null,
         string|int|float|bool|null $default = null,
         ?string $description = null,
-        bool $optional = true
+        bool $optional = false
     ) {
         $this->name = $name;
         $this->type = $type;

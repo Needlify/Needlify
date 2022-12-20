@@ -14,10 +14,10 @@ use App\Enum\QueryParamType;
 use App\Service\ParamFetcher;
 use App\Trait\RequestValidationTrait;
 use App\Repository\PublicationRepository;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\PositiveOrZero;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/api/rest')]
@@ -33,28 +33,10 @@ class PublicationController extends AbstractController
     }
 
     #[Route('/publications', 'api_get_publications', methods: ['GET'], options: ['expose' => true])]
-    #[QueryParam('offset', type: QueryParamType::INTEGER)]
-    #[QueryParam('id', type: QueryParamType::STRING)]
-    public function getPublications(Request $request, ParamFetcher $fetcher): JsonResponse
+    #[QueryParam('offset', type: QueryParamType::INTEGER, requirements: [new PositiveOrZero()])]
+    #[QueryParam('id', type: QueryParamType::UUID)]
+    public function getPublications(ParamFetcher $fetcher): JsonResponse
     {
-        dd($fetcher);
-        // TODO: Refactor this method
-        $constraints = new Assert\Collection([
-            'offset' => new Assert\Optional([
-                new Assert\Type('numeric'),
-                new Assert\PositiveOrZero(),
-            ]),
-            'id' => new Assert\Optional([
-                new Assert\Type('string'),
-                new Assert\Uuid(),
-            ]),
-        ]);
-
-        $this->validateRequestQueryParams($request, $constraints);
-
-        $offset = $request->query->get('offset', 0);
-        $id = $request->query->get('id', null);
-
-        return $this->json($this->publicationRepository->findAllWithPagination($offset, $id), context: ['groups' => 'thread:extend']);
+        return $this->json($this->publicationRepository->findAllWithPagination($fetcher->get('offset'), $fetcher->get('id')), context: ['groups' => 'thread:extend']);
     }
 }

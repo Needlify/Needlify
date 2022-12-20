@@ -14,6 +14,7 @@ use App\Entity\Topic;
 use App\Entity\Classifier;
 use App\Entity\Publication;
 use App\Enum\ClassifierType;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -57,10 +58,17 @@ class PublicationRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllWithPagination(int $offset = 0, ?string $id = null)
+    public function findAllWithPagination(int $offset, Uuid $id)
     {
         /** @var Topic|Tag $classifier */
         $classifier = $this->getEntityManager()->find(Classifier::class, $id);
+
+        if (!$classifier) {
+            return [
+                'total' => 0,
+                'data' => [],
+            ];
+        }
 
         // TODO: Refactor this
         $query = $this->createQueryBuilder('p')
