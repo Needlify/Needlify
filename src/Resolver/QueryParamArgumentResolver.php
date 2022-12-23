@@ -93,7 +93,7 @@ class QueryParamArgumentResolver implements ValueResolverInterface
 
     private function getQueryParamValue(Request $request, string $name, QueryParam $queryParam): ?string
     {
-        if ($request->query->has($name) && false === $queryParam->getOptional()) {
+        if ($request->query->has($name)) {
             return $request->query->get($name);
         } else {
             return $queryParam->getDefault();

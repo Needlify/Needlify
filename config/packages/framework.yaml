@@ -21,6 +21,9 @@ framework:
     php_errors:
         log: true
 
+    serializer:
+        enabled: true
+
 when@test:
     framework:
         test: true

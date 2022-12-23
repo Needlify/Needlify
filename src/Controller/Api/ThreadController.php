@@ -13,18 +13,18 @@ use App\Attribut\QueryParam;
 use App\Enum\QueryParamType;
 use App\Service\ParamFetcher;
 use App\Repository\ThreadRepository;
-use App\Trait\RequestValidationTrait;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\PositiveOrZero;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/rest')]
 class ThreadController extends AbstractController
 {
-    use RequestValidationTrait;
-
     private ThreadRepository $threadRepository;
+
 
     public function __construct(ThreadRepository $threadRepository)
     {
@@ -32,12 +32,15 @@ class ThreadController extends AbstractController
     }
 
     #[Route('/threads', 'api_get_threads', methods: ['GET'], options: ['expose' => true])]
-    #[QueryParam('offset', type: QueryParamType::INTEGER, requirements: [new PositiveOrZero()])]
+    #[QueryParam('offset', type: QueryParamType::INTEGER, requirements: [new PositiveOrZero()], optional: true, default: 0)]
     public function getThreads(ParamFetcher $fetcher): JsonResponse
     {
+        $paginatedData = $this->threadRepository->findAllWithPagination($fetcher->get('offset'));
+
+
         return $this->json(
-            $this->threadRepository->findAllWithPagination($fetcher->get('offset')),
-            context: ['groups' => 'thread:extend']
+            $paginatedData->getSerializedData(),
+            context: ['groups' => ['thread:extend']]
         );
     }
 }

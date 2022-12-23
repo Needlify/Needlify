@@ -12,7 +12,6 @@ namespace App\Controller\Api;
 use App\Attribut\QueryParam;
 use App\Enum\QueryParamType;
 use App\Service\ParamFetcher;
-use App\Trait\RequestValidationTrait;
 use App\Repository\PublicationRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Uuid;
@@ -23,7 +22,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/rest')]
 class PublicationController extends AbstractController
 {
-    use RequestValidationTrait;
 
     private PublicationRepository $publicationRepository;
 
@@ -33,10 +31,16 @@ class PublicationController extends AbstractController
     }
 
     #[Route('/publications', 'api_get_publications', methods: ['GET'], options: ['expose' => true])]
-    #[QueryParam('offset', type: QueryParamType::INTEGER, requirements: [new PositiveOrZero()])]
+    #[QueryParam('offset', type: QueryParamType::INTEGER, requirements: [new PositiveOrZero()], optional: true, default: 0)]
     #[QueryParam('id', type: QueryParamType::UUID)]
     public function getPublications(ParamFetcher $fetcher): JsonResponse
     {
-        return $this->json($this->publicationRepository->findAllWithPagination($fetcher->get('offset'), $fetcher->get('id')), context: ['groups' => 'thread:extend']);
+        return $this->json(
+            $this->publicationRepository->findAllWithPagination(
+                $fetcher->get('offset'),
+                $fetcher->get('id')
+            ),
+            context: ['groups' => 'thread:extend']
+        );
     }
 }

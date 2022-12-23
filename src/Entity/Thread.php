@@ -36,7 +36,7 @@ abstract class Thread
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     #[Groups(['thread:extend'])]
-    protected ?\DateTimeImmutable $publishedAt = null; // publishedAt is the dateTime in UTC/GMT
+    protected ?\DateTimeImmutable $publishedAt = null; // publishedAt is in UTC/GMT
 
     #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
     private ?\DateTime $updatedAt = null;

@@ -10,6 +10,7 @@
 namespace App\Repository;
 
 use App\Entity\Thread;
+use App\Service\Paginator as ServicePaginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -25,12 +26,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class ThreadRepository extends ServiceEntityRepository
 {
-    private SerializerInterface $serializer;
 
-    public function __construct(ManagerRegistry $registry, SerializerInterface $serializer)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Thread::class);
-        $this->serializer = $serializer;
     }
 
     /**
@@ -63,15 +62,17 @@ class ThreadRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('t')
             ->orderBy('t.publishedAt', 'DESC')
             ->setFirstResult($offset)
-            ->setMaxResults(50);
+            ->setMaxResults(ServicePaginator::ITEMS_PER_PAGE);
 
-        $paginator = new Paginator($query->getQuery());
+        $paginator = new ServicePaginator($query->getQuery());
 
-        // TODO Utiliser le paginator custom
+        return $paginator;
 
-        return [
-            'total' => $paginator->count(),
-            'data' => $paginator->getQuery()->getResult(),
-        ];
+        // // TODO Utiliser le paginator custom
+
+        // return [
+        //     'total' => $paginator->count(),
+        //     'data' => $paginator->getQuery()->getResult(),
+        // ];
     }
 }
