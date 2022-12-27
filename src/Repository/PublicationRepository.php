@@ -14,10 +14,13 @@ use App\Entity\Topic;
 use App\Entity\Classifier;
 use App\Entity\Publication;
 use App\Enum\ClassifierType;
+use App\Exception\ExceptionCode;
+use App\Exception\ExceptionFactory;
+use App\Service\Paginator;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * @extends ServiceEntityRepository<Publication>
@@ -58,23 +61,17 @@ class PublicationRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllWithPagination(int $offset, Uuid $id)
+    public function findAllWithPagination(int $page, Uuid $id)
     {
         /** @var Topic|Tag $classifier */
         $classifier = $this->getEntityManager()->find(Classifier::class, $id);
 
         if (!$classifier) {
-            return [
-                'total' => 0,
-                'data' => [],
-            ];
+            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, "Classifier with id '%s' not found", [$id->toRfc4122()]);
         }
 
-        // TODO: Refactor this
         $query = $this->createQueryBuilder('p')
-            ->orderBy('p.publishedAt', 'DESC')
-            ->setFirstResult($offset)
-            ->setMaxResults(50);
+            ->orderBy('p.publishedAt', 'DESC');
 
         switch ($classifier->getType()) {
             case ClassifierType::TOPIC:
@@ -90,11 +87,8 @@ class PublicationRepository extends ServiceEntityRepository
                 break;
         }
 
-        $paginator = new Paginator($query->getQuery());
+        $paginator = new Paginator($query->getQuery(), $page);
 
-        return [
-            'total' => $paginator->count(),
-            'data' => $paginator->getQuery()->getResult(),
-        ];
+        return $paginator;
     }
 }

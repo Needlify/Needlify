@@ -23,9 +23,19 @@ export type Thread = {
     topic: Topic;
 };
 
-export type ThreadsQuery = {
+export type Pagination = {
     total: number;
-    data: Array<Thread>;
+    count: number;
+    items_per_page: number;
+    total_pages: number;
+    current_page: number;
+    has_next_page: boolean;
+    has_previous_page: boolean;
+};
+
+export type Paginate<T> = {
+    data: Array<T>;
+    pagination: Pagination;
 };
 
 export type AlertType = "success" | "warning" | "error";

@@ -10,10 +10,8 @@
 namespace App\Repository;
 
 use App\Entity\Thread;
-use App\Service\Paginator as ServicePaginator;
+use App\Service\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Component\Serializer\SerializerInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -56,23 +54,13 @@ class ThreadRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllWithPagination(int $offset = 0)
+    public function findAllWithPagination(int $page)
     {
-        // TODO: Refactor this
         $query = $this->createQueryBuilder('t')
-            ->orderBy('t.publishedAt', 'DESC')
-            ->setFirstResult($offset)
-            ->setMaxResults(ServicePaginator::ITEMS_PER_PAGE);
+            ->orderBy('t.publishedAt', 'DESC');
 
-        $paginator = new ServicePaginator($query->getQuery());
+        $paginator = new Paginator($query->getQuery(), $page);
 
         return $paginator;
-
-        // // TODO Utiliser le paginator custom
-
-        // return [
-        //     'total' => $paginator->count(),
-        //     'data' => $paginator->getQuery()->getResult(),
-        // ];
     }
 }

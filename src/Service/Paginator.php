@@ -10,6 +10,9 @@
 namespace App\Service;
 
 use ArrayIterator;
+use DivisionByZeroError;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 
 class Paginator extends DoctrinePaginator
@@ -19,15 +22,25 @@ class Paginator extends DoctrinePaginator
     private int $total;
     private array $data;
     private int $count;
-    private int $pages;
+    private int $totalpages;
+    private int $page;
 
-    public function __construct($query, bool $fetchJoinCollection = true)
+    public function __construct(QueryBuilder|Query $query, int $page = 1, bool $fetchJoinCollection = true)
     {
+        $query->setFirstResult(($page - 1) * self::ITEMS_PER_PAGE);
+        $query->setMaxResults(self::ITEMS_PER_PAGE);
+
         parent::__construct($query, $fetchJoinCollection);
         $this->total = $this->count();
         $this->data = iterator_to_array(parent::getIterator());
         $this->count = count($this->data);
-        $this->pages = ceil($this->count / $this->total);
+        $this->page = $page;
+
+        try {
+            $this->totalpages = ceil($this->total / self::ITEMS_PER_PAGE);
+        } catch(DivisionByZeroError $e) {
+            $this->totalpages = 0;
+        }
     }
 
     public function getTotal(): int
@@ -47,7 +60,7 @@ class Paginator extends DoctrinePaginator
 
     public function getPages(): int
     {
-        return $this->pages;
+        return $this->totalpages;
     }
 
     public function getItemsPerPage() {
@@ -55,7 +68,7 @@ class Paginator extends DoctrinePaginator
     }
 
     public function getCurrentPage() {
-        return ceil($this->getQuery()->getFirstResult() / $this->getItemsPerPage()) + 1;
+        return $this->page;
     }
 
     public function hasNextPage() {
@@ -72,6 +85,10 @@ class Paginator extends DoctrinePaginator
         }
 
         return true;
+    }
+
+    public function getOffset() {
+        return $this->getQuery()->getFirstResult();
     }
 
     public function getIterator(): ArrayIterator

@@ -18,11 +18,11 @@ use Symfony\Component\Validator\Constraints\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\PositiveOrZero;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints\Positive;
 
 #[Route('/api/rest')]
 class PublicationController extends AbstractController
 {
-
     private PublicationRepository $publicationRepository;
 
     public function __construct(PublicationRepository $publicationRepository)
@@ -31,16 +31,12 @@ class PublicationController extends AbstractController
     }
 
     #[Route('/publications', 'api_get_publications', methods: ['GET'], options: ['expose' => true])]
-    #[QueryParam('offset', type: QueryParamType::INTEGER, requirements: [new PositiveOrZero()], optional: true, default: 0)]
+    #[QueryParam('page', type: QueryParamType::INTEGER, requirements: [new Positive()], optional: true, default: 1)]
     #[QueryParam('id', type: QueryParamType::UUID)]
     public function getPublications(ParamFetcher $fetcher): JsonResponse
     {
-        return $this->json(
-            $this->publicationRepository->findAllWithPagination(
-                $fetcher->get('offset'),
-                $fetcher->get('id')
-            ),
-            context: ['groups' => 'thread:extend']
-        );
+        $paginatedData = $this->publicationRepository->findAllWithPagination($fetcher->get('page'), $fetcher->get('id'));
+
+        return $this->json($paginatedData, context: ['groups' => 'thread:extend']);
     }
 }

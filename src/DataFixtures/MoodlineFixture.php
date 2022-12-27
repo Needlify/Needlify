@@ -29,7 +29,7 @@ class MoodlineFixture extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         Factory::delayFlush(function () {
-            MoodlineFactory::createMany(1);
+            MoodlineFactory::createMany(100);
         });
     }
 }

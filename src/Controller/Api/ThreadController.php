@@ -20,6 +20,7 @@ use Symfony\Component\Validator\Constraints\PositiveOrZero;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Constraints\Positive;
 
 #[Route('/api/rest')]
 class ThreadController extends AbstractController
@@ -33,14 +34,11 @@ class ThreadController extends AbstractController
     }
 
     #[Route('/threads', 'api_get_threads', methods: ['GET'], options: ['expose' => true])]
-    #[QueryParam('offset', type: QueryParamType::INTEGER, requirements: [new PositiveOrZero()], optional: true, default: 0)]
-    public function getThreads(ParamFetcher $fetcher, SerializerInterface $serializer): JsonResponse
+    #[QueryParam('page', type: QueryParamType::INTEGER, requirements: [new Positive()], optional: true, default: 1)]
+    public function getThreads(ParamFetcher $fetcher): JsonResponse
     {
-        $paginatedData = $this->threadRepository->findAllWithPagination($fetcher->get('offset'));
+        $paginatedData = $this->threadRepository->findAllWithPagination($fetcher->get('page'));
 
-        return $this->json(
-            $paginatedData,
-            context: ['groups' => ['thread:extend']]
-        );
+        return $this->json($paginatedData, context: ['groups' => ['thread:extend']]);
     }
 }
