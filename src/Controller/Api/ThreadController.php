@@ -13,20 +13,15 @@ use App\Attribut\QueryParam;
 use App\Enum\QueryParamType;
 use App\Service\ParamFetcher;
 use App\Repository\ThreadRepository;
-use Monolog\Formatter\JsonFormatter;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Validator\Constraints\PositiveOrZero;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\Positive;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/api/rest')]
 class ThreadController extends AbstractController
 {
     private ThreadRepository $threadRepository;
-
 
     public function __construct(ThreadRepository $threadRepository)
     {
@@ -34,11 +29,11 @@ class ThreadController extends AbstractController
     }
 
     #[Route('/threads', 'api_get_threads', methods: ['GET'], options: ['expose' => true])]
-    #[QueryParam('page', type: QueryParamType::INTEGER, requirements: [new Positive()], optional: true, default: 1)]
+    // #[QueryParam('page', type: QueryParamType::INTEGER, requirements: [new Positive()], optional: true, default: 1)]
     public function getThreads(ParamFetcher $fetcher): JsonResponse
     {
-        $paginatedData = $this->threadRepository->findAllWithPagination($fetcher->get('page'));
+        // $paginatedData = $this->threadRepository->findAllWithPagination($fetcher->get('page'));
 
-        return $this->json($paginatedData, context: ['groups' => ['thread:extend']]);
+        // return $this->json($paginatedData, context: ['groups' => ['thread:extend']]);
     }
 }
