@@ -37,10 +37,10 @@ trait ClassifierCrudTrait
             yield AssociationField::new('event', 'admin.crud.classifier.column.event')->hideOnForm();
         }
 
-        yield AssociationField::new('publications', 'admin.crud.classifier.column.publications')
-            ->setTemplatePath('admin/components/publications.html.twig')
-            ->addWebpackEncoreEntries('admin:component:publications')
-            ->hideOnForm();
+        // yield AssociationField::new('publications', 'admin.crud.classifier.column.publications')
+        //     ->setTemplatePath('admin/components/publications.html.twig')
+        //     ->addWebpackEncoreEntries('admin:component:publications')
+        //     ->hideOnForm();
     }
 
     public function defaultClassifierCrudConfiguration(Crud $crud): Crud

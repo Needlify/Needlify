@@ -29,7 +29,7 @@ class ArticleFixture extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         Factory::delayFlush(function () {
-            ArticleFactory::createMany(100);
+            ArticleFactory::createMany(500);
         });
     }
 }

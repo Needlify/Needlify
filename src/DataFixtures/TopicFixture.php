@@ -19,7 +19,7 @@ class TopicFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         Factory::delayFlush(function () {
-            TopicFactory::createMany(5);
+            TopicFactory::createMany(100);
         });
     }
 }

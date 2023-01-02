@@ -27,7 +27,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use App\EventSubscriber\Admin\UserCrudPreSubmitSubscriber;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -119,13 +118,6 @@ class UserCrudController extends AbstractCrudController
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('createdAt', 'admin.crud.user.column.created_at')->hideOnForm();
         yield DateTimeField::new('updatedAt', 'admin.crud.user.column.updated_at')->onlyOnDetail();
-
-        yield FormField::addPanel('admin.crud.section.associations')
-            ->hideOnForm();
-        yield AssociationField::new('publications', 'admin.crud.user.column.publications')
-            ->setTemplatePath('admin/components/publications.html.twig')
-            ->addWebpackEncoreEntries('admin:component:publications')
-            ->hideOnForm();
     }
 
     public function configureActions(Actions $actions): Actions
