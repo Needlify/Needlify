@@ -12,15 +12,15 @@ namespace App\Repository;
 use App\Entity\Tag;
 use App\Entity\Topic;
 use App\Entity\Classifier;
+use App\Service\Paginator;
 use App\Entity\Publication;
 use App\Enum\ClassifierType;
+use Symfony\Component\Uid\Uuid;
 use App\Exception\ExceptionCode;
 use App\Exception\ExceptionFactory;
-use App\Service\Paginator;
-use Symfony\Component\Uid\Uuid;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Publication>
@@ -90,5 +90,15 @@ class PublicationRepository extends ServiceEntityRepository
         $paginator = new Paginator($query->getQuery(), $page);
 
         return $paginator;
+    }
+
+    public function countByAuthor(Uuid $userId): int
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->where('p.id = :id')
+            ->setParameter('id', $userId->toBinary())
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

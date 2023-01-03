@@ -17,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
@@ -35,7 +36,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserCrudController extends AbstractCrudController
 {
     private UserPasswordHasherInterface $encoder;
-
     private TranslatorInterface $translator;
 
     public function __construct(TranslatorInterface $translator, UserPasswordHasherInterface $encoder)
@@ -89,6 +89,17 @@ class UserCrudController extends AbstractCrudController
         $formBuilder->addEventSubscriber(new UserCrudPreSubmitSubscriber($this->encoder));
 
         return $formBuilder;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('username')
+            ->add('email')
+            ->add('roles')
+            ->add('createdAt')
+            ->add('updatedAt')
+        ;
     }
 
     public function configureFields(string $pageName): iterable

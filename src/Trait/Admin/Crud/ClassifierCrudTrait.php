@@ -12,6 +12,7 @@ namespace App\Trait\Admin\Crud;
 use App\Entity\Topic;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -19,6 +20,16 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 trait ClassifierCrudTrait
 {
+    public function defaultFilterConfiguration(Filters $filters): Filters
+    {
+        return $filters
+            ->add('name')
+            ->add('createdAt')
+            ->add('lastUseAt')
+            ->add('updatedAt')
+        ;
+    }
+
     public function defaultClassifierFieldConfiguration(string $pageName, string $classifierFqcn): iterable
     {
         yield FormField::addPanel('admin.crud.section.essential');
@@ -37,10 +48,10 @@ trait ClassifierCrudTrait
             yield AssociationField::new('event', 'admin.crud.classifier.column.event')->hideOnForm();
         }
 
-        // yield AssociationField::new('publications', 'admin.crud.classifier.column.publications')
-        //     ->setTemplatePath('admin/components/publications.html.twig')
-        //     ->addWebpackEncoreEntries('admin:component:publications')
-        //     ->hideOnForm();
+        yield AssociationField::new('publications', 'admin.crud.classifier.column.publications')
+            ->setTemplatePath('admin/components/publications.html.twig')
+            ->addWebpackEncoreEntries('admin:component:publications')
+            ->hideOnForm();
     }
 
     public function defaultClassifierCrudConfiguration(Crud $crud): Crud

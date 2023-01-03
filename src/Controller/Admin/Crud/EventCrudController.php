@@ -16,6 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -46,6 +47,15 @@ class EventCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.event.new.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.event.edit.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.event.details.title', [], 'admin'));
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('content')
+            ->add('publishedAt')
+            ->add('updatedAt')
+        ;
     }
 
     public function configureFields(string $pageName): iterable

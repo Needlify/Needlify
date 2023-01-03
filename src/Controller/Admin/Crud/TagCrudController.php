@@ -15,6 +15,7 @@ use App\Trait\Admin\Crud\ClassifierCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -41,6 +42,11 @@ class TagCrudController extends AbstractCrudController
                     ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.tag.new.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.tag.edit.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.tag.details.title', [], 'admin'));
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $this->defaultFilterConfiguration($filters);
     }
 
     public function configureFields(string $pageName): iterable

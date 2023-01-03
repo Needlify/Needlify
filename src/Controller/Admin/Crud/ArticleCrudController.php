@@ -20,6 +20,7 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -63,6 +64,22 @@ class ArticleCrudController extends AbstractCrudController
                     ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.article.new.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.article.edit.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.article.details.title', [], 'admin'));
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('title')
+            ->add('description')
+            ->add('content')
+            ->add('author')
+            ->add('license')
+            ->add('views')
+            ->add('publishedAt')
+            ->add('updatedAt')
+            ->add('topic')
+            ->add('tags')
+        ;
     }
 
     public function configureFields(string $pageName): iterable
