@@ -49,3 +49,8 @@ services:
     App\Service\ImageResizerService:
         arguments:
             - "%app.image.key%"
+
+    # ? Optional
+    App\Resolver\QueryParamArgumentResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 150 }

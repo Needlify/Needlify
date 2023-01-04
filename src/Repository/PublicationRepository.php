@@ -91,14 +91,4 @@ class PublicationRepository extends ServiceEntityRepository
 
         return $paginator;
     }
-
-    public function countByAuthor(Uuid $userId): int
-    {
-        return $this->createQueryBuilder('p')
-            ->select('count(p.id)')
-            ->where('p.id = :id')
-            ->setParameter('id', $userId->toBinary())
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
 }

@@ -30,12 +30,15 @@ class PublicationController extends AbstractController
     }
 
     #[Route('/publications', 'api_get_publications', methods: ['GET'], options: ['expose' => true])]
-    // #[QueryParam('page', type: QueryParamType::INTEGER, requirements: [new Positive()], optional: true, default: 1)]
-    // #[QueryParam('id', type: QueryParamType::UUID)]
+    #[QueryParam('page', type: QueryParamType::INTEGER, requirements: [new Positive()], optional: true, default: 1)]
+    #[QueryParam('id', type: QueryParamType::UUID, requirements: [new Uuid()])]
     public function getPublications(ParamFetcher $fetcher): JsonResponse
     {
-        // $paginatedData = $this->publicationRepository->findAllWithPagination($fetcher->get('page'), $fetcher->get('id'));
+        $paginatedData = $this->publicationRepository->findAllWithPagination(
+            $fetcher->get('page'),
+            $fetcher->get('id')
+        );
 
-        // return $this->json($paginatedData, context: ['groups' => 'thread:extend']);
+        return $this->json($paginatedData, context: ['groups' => 'thread:extend']);
     }
 }

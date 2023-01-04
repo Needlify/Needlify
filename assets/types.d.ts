@@ -26,6 +26,7 @@ export type Thread = {
 export type Pagination = {
     total: number;
     count: number;
+    offset: number;
     items_per_page: number;
     total_pages: number;
     current_page: number;

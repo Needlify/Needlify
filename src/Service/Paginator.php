@@ -10,8 +10,8 @@
 namespace App\Service;
 
 use ArrayIterator;
-use DivisionByZeroError;
 use Doctrine\ORM\Query;
+use DivisionByZeroError;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 
@@ -38,7 +38,7 @@ class Paginator extends DoctrinePaginator
 
         try {
             $this->totalpages = ceil($this->total / self::ITEMS_PER_PAGE);
-        } catch(DivisionByZeroError $e) {
+        } catch (DivisionByZeroError $e) {
             $this->totalpages = 0;
         }
     }
@@ -63,48 +63,53 @@ class Paginator extends DoctrinePaginator
         return $this->totalpages;
     }
 
-    public function getItemsPerPage() {
+    public function getItemsPerPage()
+    {
         return $this->getQuery()->getMaxResults();
     }
 
-    public function getCurrentPage() {
+    public function getCurrentPage()
+    {
         return $this->page;
     }
 
-    public function hasNextPage() {
-        if($this->getCurrentPage() >= $this->getPages()) {
+    public function hasNextPage()
+    {
+        if ($this->getCurrentPage() >= $this->getPages()) {
             return false;
         }
 
         return true;
     }
 
-    public function hasPreviousPage() {
-        if($this->getCurrentPage() <= 1) {
+    public function hasPreviousPage()
+    {
+        if ($this->getCurrentPage() <= 1) {
             return false;
         }
 
         return true;
     }
 
-    public function getOffset() {
+    public function getOffset()
+    {
         return $this->getQuery()->getFirstResult();
     }
 
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator([
-            "data" => $this->getData(),
-            "pagination" => [
-                "total" => $this->getTotal(),
-                "count" => $this->getCount(),
-                "items_per_page" => $this->getItemsPerPage(),
-                "total_pages" => $this->getPages(),
-                "current_page" => $this->getCurrentPage(),
-                "has_next_page" => $this->hasNextPage(),
-                "has_previous_page" => $this->hasPreviousPage()
-            ]
+            'data' => $this->getData(),
+            'pagination' => [
+                'total' => $this->getTotal(),
+                'count' => $this->getCount(),
+                'offset' => $this->getOffset(),
+                'items_per_page' => $this->getItemsPerPage(),
+                'total_pages' => $this->getPages(),
+                'current_page' => $this->getCurrentPage(),
+                'has_next_page' => $this->hasNextPage(),
+                'has_previous_page' => $this->hasPreviousPage(),
+            ],
         ]);
     }
-
 }

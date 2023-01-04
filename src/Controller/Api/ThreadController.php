@@ -29,11 +29,11 @@ class ThreadController extends AbstractController
     }
 
     #[Route('/threads', 'api_get_threads', methods: ['GET'], options: ['expose' => true])]
-    // #[QueryParam('page', type: QueryParamType::INTEGER, requirements: [new Positive()], optional: true, default: 1)]
+    #[QueryParam('page', type: QueryParamType::INTEGER, requirements: [new Positive()], optional: true, default: 1)]
     public function getThreads(ParamFetcher $fetcher): JsonResponse
     {
-        // $paginatedData = $this->threadRepository->findAllWithPagination($fetcher->get('page'));
+        $paginatedData = $this->threadRepository->findAllWithPagination($fetcher->get('page'));
 
-        // return $this->json($paginatedData, context: ['groups' => ['thread:extend']]);
+        return $this->json($paginatedData, context: ['groups' => ['thread:extend']]);
     }
 }
