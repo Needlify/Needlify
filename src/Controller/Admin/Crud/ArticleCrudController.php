@@ -35,7 +35,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ArticleCrudController extends AbstractCrudController
 {
-    use ThreadCrudTrait, ContentCrudTrait;
+    use ThreadCrudTrait;
+    use ContentCrudTrait;
 
     private ImageResizerService $imageResizerService;
 

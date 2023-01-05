@@ -67,6 +67,7 @@ class QueryParamArgumentResolver implements ValueResolverInterface
     private function getQueryParamParameters(\ReflectionAttribute $attribut): QueryParam
     {
         $queryParamProperties = (new \ReflectionClass(QueryParam::class))->getProperties();
+        $values = [];
         foreach ($queryParamProperties as $key => $property) {
             $propertyName = $property->getName();
             if (array_key_exists($propertyName, $attribut->getArguments())) {

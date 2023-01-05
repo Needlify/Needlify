@@ -21,7 +21,7 @@ return (new Config())
         '@Symfony' => true,
         'concat_space' => ['spacing' => 'one'],
         'ordered_imports' => ['sort_algorithm' => 'length', 'imports_order' => ['const', 'class', 'function']],
-        'single_trait_insert_per_statement' => false,
+        'single_trait_insert_per_statement' => true,
         'header_comment' => [
             'header' => <<<EOF
 This file is part of the Needlify project.

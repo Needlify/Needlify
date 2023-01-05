@@ -21,7 +21,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class TopicCrudController extends AbstractCrudController
 {
-    use ClassifierCrudTrait, ContentCrudTrait;
+    use ClassifierCrudTrait;
+    use ContentCrudTrait;
 
     private TranslatorInterface $translator;
 
