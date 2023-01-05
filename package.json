@@ -13,7 +13,8 @@
         "watch": "encore dev --watch",
         "story:dev": "histoire dev",
         "story:build": "histoire build",
-        "story:preview": "histoire preview"
+        "story:preview": "histoire preview",
+        "prepare": "husky install"
     },
     "devDependencies": {
         "@babel/core": "^7.19.3",
@@ -45,6 +46,7 @@
         "feather-icons": "^4.29.0",
         "fos-router": "file:vendor/friendsofsymfony/jsrouting-bundle/Resources",
         "histoire": "^0.11.3",
+        "husky": "^8.0.3",
         "jsdom": "^20.0.1",
         "luxon": "^3.0.4",
         "normalize.css": "^8.0.1",
