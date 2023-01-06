@@ -13,6 +13,8 @@ use PhpCsFixer\Finder;
 $finder = (new Finder())
     ->in(__DIR__)
     ->exclude('var')
+    ->exclude('node_modules')
+    ->exclude('vendor')
 ;
 
 // Rules here : https://github.com/FriendsOfPHP/PHP-CS-Fixer/blob/master/doc/rules/index.rst
