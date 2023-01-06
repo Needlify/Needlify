@@ -11,7 +11,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class NewsletterController extends AbstractController {
+class NewsletterController extends AbstractController
+{
     public function __construct()
     {
     }

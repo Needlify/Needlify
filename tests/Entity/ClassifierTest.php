@@ -9,9 +9,7 @@
 
 namespace App\Tests\Entity;
 
-use DateTime;
 use App\Entity\Tag;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -52,7 +50,7 @@ class ClassifierTest extends KernelTestCase
         $tag = new Tag();
         $tag->setName('tagTest');
         $this->em->persist($tag);
-        $this->assertInstanceOf(DateTimeImmutable::class, $tag->getCreatedAt());
+        $this->assertInstanceOf(\DateTimeImmutable::class, $tag->getCreatedAt());
         $this->em->remove($tag);
     }
 
@@ -61,7 +59,7 @@ class ClassifierTest extends KernelTestCase
         $tag = new Tag();
         $tag->setName('tagTest');
         $this->em->persist($tag);
-        $this->assertInstanceOf(DateTime::class, $tag->getLastUseAt());
+        $this->assertInstanceOf(\DateTime::class, $tag->getLastUseAt());
         $this->em->remove($tag);
     }
 

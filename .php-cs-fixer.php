@@ -24,13 +24,19 @@ return (new Config())
         'concat_space' => ['spacing' => 'one'],
         'ordered_imports' => ['sort_algorithm' => 'length', 'imports_order' => ['const', 'class', 'function']],
         'single_trait_insert_per_statement' => true,
+        'fully_qualified_strict_types' => true,
+        'ordered_interfaces' => [
+            'order' => 'alpha',
+            'direction' => 'ascend',
+        ],
         'header_comment' => [
+            'location' => 'after_open',
             'header' => <<<EOF
 This file is part of the Needlify project.
 Copyright (c) Needlify <https://needlify.com/>
 For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
-EOF
+EOF,
         ],
     ])
     ->setFinder($finder)

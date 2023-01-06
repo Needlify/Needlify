@@ -9,9 +9,7 @@
 
 namespace App\Service;
 
-use ArrayIterator;
 use Doctrine\ORM\Query;
-use DivisionByZeroError;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator as DoctrinePaginator;
 
@@ -38,7 +36,7 @@ class Paginator extends DoctrinePaginator
 
         try {
             $this->totalpages = ceil($this->total / self::ITEMS_PER_PAGE);
-        } catch (DivisionByZeroError $e) {
+        } catch (\DivisionByZeroError $e) {
             $this->totalpages = 0;
         }
     }
@@ -96,9 +94,9 @@ class Paginator extends DoctrinePaginator
         return $this->getQuery()->getFirstResult();
     }
 
-    public function getIterator(): ArrayIterator
+    public function getIterator(): \ArrayIterator
     {
-        return new ArrayIterator([
+        return new \ArrayIterator([
             'data' => $this->getData(),
             'pagination' => [
                 'total' => $this->getTotal(),

@@ -10,7 +10,6 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Event;
-use DateTimeInterface;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -42,7 +41,7 @@ class ThreadTest extends KernelTestCase
         $event = new Event();
         $event->setContent('message');
         $this->em->persist($event);
-        $this->assertInstanceOf(DateTimeInterface::class, $event->getPublishedAt());
+        $this->assertInstanceOf(\DateTimeInterface::class, $event->getPublishedAt());
         $this->em->remove($event);
     }
 }
