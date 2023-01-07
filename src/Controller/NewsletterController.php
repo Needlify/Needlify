@@ -9,11 +9,18 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class NewsletterController extends AbstractController
 {
-    public function __construct()
+    #[Route('/newsletter/register', methods: ['GET', 'POST'], name: 'app_newsletter_register')]
+    public function register(Request $request)
     {
+        if ('GET' === $request->getMethod()) {
+            return $this->render('newsletter/register.html.twig');
+        } else {
+        }
     }
 }

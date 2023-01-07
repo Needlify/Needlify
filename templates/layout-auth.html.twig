@@ -42,6 +42,7 @@
 
 		{% block stylesheets %}{% endblock stylesheets %}
 
+		{{ encore_entry_script_tags("file:layout") }}
         {{ encore_entry_script_tags("component:vue") }}
         {{ encore_entry_script_tags("file:global") }}
 
@@ -51,7 +52,9 @@
 
         <main id="layout">
             <div id="container">
-                <img src="{{ asset('images/logo/logo.svg') }}" alt="Needlify logo">
+                <a href="{{url('app_home')}}">
+                    <img src="{% block image %}{{ asset('images/logo/logo.svg') }}{% endblock image %}" class="glitch" alt="Needlify logo">
+                </a>
                 <div id="form-container">
 
                     <h3 id="title">{% block form_title %}{% endblock form_title %}</h3>

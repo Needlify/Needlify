@@ -1,0 +1,9 @@
+newsletter.title: "Lithium Newsletter"
+
+register.text.explanation: "Lithium Newsletter is a <strong>weekly newsletter</strong> based on the TLDR monthly post on Needlify. Every wednesday, you will receive a collection of articles and Github projects that I find interesting and useful."
+register.text.subscription: "To subscribe, please fill in the email field below and click on the <strong>Subscribe</strong> button. You will then receive a confirmation email."
+register.text.unsubscribe: "Note that after registration, you can unsubscribe at any time."
+
+register.input.email.placeholder: "Enter your email"
+register.input.agree: "By submitting this form, I agree to the"
+register.input.agree.legal: "legal texts"

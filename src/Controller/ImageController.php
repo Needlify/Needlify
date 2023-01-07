@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class ImageController extends AbstractController
 {
-    #[Route('/image/{name}', name: 'app_image')]
+    #[Route('/image/{name}', name: 'app_image', methods: ['GET'])]
     public function index(string $name, Request $request): Response
     {
         $server = ServerFactory::create([
