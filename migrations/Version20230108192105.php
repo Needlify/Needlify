@@ -17,22 +17,22 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221105010653 extends AbstractMigration
+final class Version20230108192105 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Add thumbnail and updated_at fields to article';
+        return 'Create the newsletter account table';
     }
 
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE article ADD thumbnail VARCHAR(255) NOT NULL, ADD updated_at DATETIME NOT NULL');
+        $this->addSql('CREATE TABLE newsletter_account (id BINARY(16) NOT NULL COMMENT \'(DC2Type:uuid)\', email VARCHAR(180) NOT NULL, is_verified TINYINT(1) NOT NULL, verified_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', subscribed_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', is_enabled TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_728CF5CBE7927C74 (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE article DROP thumbnail, DROP updated_at');
+        $this->addSql('DROP TABLE newsletter_account');
     }
 }

@@ -21,7 +21,7 @@ final class Version20221108204537 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add license field to article';
     }
 
     public function up(Schema $schema): void

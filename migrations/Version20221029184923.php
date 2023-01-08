@@ -21,7 +21,7 @@ final class Version20221029184923 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Update field name from message to content';
     }
 
     public function up(Schema $schema): void

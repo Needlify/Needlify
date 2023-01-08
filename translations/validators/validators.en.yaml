@@ -38,4 +38,11 @@ user.raw_password.min_length: "The password can not contain less than {{ limit }
 user.raw_password.max_length: "The password can not exceed {{ limit }} characters"
 user.raw_password.upper_case: "The password must contain at least one upper case letter"
 user.raw_password.number: "The password must contain at least one number"
-user.raw_password.special_char: "The password must contain at least one special char"
+user.raw_password.special_char: "The password must contain at least one special character"
+
+newsletter_account.email.unique: "This email is already registered"
+newsletter_account.email.not_blank: "The email can not be blank"
+newsletter_account.email.email: "Invalid email"
+newsletter_account.email.length: "The email can not exceed {{ limit }} characters"
+newsletter_account.form.csrf: "Invalid CSRF token"
+newsletter_account.form.agree: "You must accept the terms of use to register"

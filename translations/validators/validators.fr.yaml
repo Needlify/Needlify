@@ -39,3 +39,10 @@ user.raw_password.max_length: "Le mot de passe ne peut pas dépasser {{ limit }}
 user.raw_password.upper_case: "Le mot de passe doit contenir au moins une majuscule"
 user.raw_password.number: "Le mot de passe doit contenir au moins un chiffre"
 user.raw_password.special_char: "Le mot de passe doit contenir au moins un caractère spécial"
+
+newsletter_account.email.unique: "Cet email est déjà enregistré"
+newsletter_account.email.not_blank: "L'email ne peut pas être vide"
+newsletter_account.email.email: "Email invalide"
+newsletter_account.email.length: "L'email ne peut pas dépasser {{ limit }} caractère"
+newsletter_account.form.csrf: "Token CSRF invalide"
+newsletter_account.form.agree: "Vous devez accepter les conditions d'utilisation pour vous enregistrer"

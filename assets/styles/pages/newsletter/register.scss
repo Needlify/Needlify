@@ -1,8 +1,15 @@
+@import "../../mixins";
+
 #text {
     text-align: center;
     color: var(--dark-soft);
     line-height: 24px;
     margin-bottom: 30px;
+
+    @include maxWidth(600px) {
+        line-height: 22px;
+        font-size: 14px;
+    }
 }
 
 #agree-checkbox {

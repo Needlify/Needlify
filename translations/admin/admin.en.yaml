@@ -9,6 +9,7 @@ admin.dashboard.cards.moodlines: "{0,1}Moodline|]1,Inf]Moodlines"
 admin.dashboard.cards.tags: "{0,1}Tag|]1,Inf]Tags"
 admin.dashboard.cards.topics: "{0,1}Topic|]1,Inf]Topics"
 admin.dashboard.cards.events: "{0,1}Event|]1,Inf]Events"
+admin.dashboard.cards.newsletter_account: "{0,1}Newsletter account|]1,Inf]Newsletter accounts"
 
 admin.sidebar.overview: "Overview"
 admin.sidebar.home: "Timeline"

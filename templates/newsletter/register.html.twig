@@ -34,14 +34,16 @@
     <form method="post">
         <div class="custom-input-container">
             <div class="custom-input">
-                <i data-feather="user" class="input-icon" width="16px" height="16px" color="#52616b"></i>
-                <input type="email" name="email" placeholder="{{ "register.input.email.placeholder"|trans }}" required />
+                <i data-feather="mail" class="input-icon" width="16px" height="16px" color="#52616b"></i>
+                <input type="email" name="email" placeholder="{{ "register.input.email.placeholder"|trans }}" autofocus required />
             </div>
             <div id="agree-checkbox">
                 <input type="checkbox" name="agree" id="agree" required />
                 <label for="agree">{{ "register.input.agree"|trans }} <a href="{{ url("app_legal") }}">{{ "register.input.agree.legal"|trans }}</a></label>
             </div>
         </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token("newsletter") }}" />
 
         <button type="submit">Je m'enregistre</button>
     </form>

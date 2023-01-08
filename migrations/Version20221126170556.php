@@ -21,7 +21,7 @@ final class Version20221126170556 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add updated_at field on all entities through inheritence';
     }
 
     public function up(Schema $schema): void

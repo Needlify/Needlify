@@ -21,7 +21,7 @@ final class Version20221204174235 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Add link between topic and event';
     }
 
     public function up(Schema $schema): void
