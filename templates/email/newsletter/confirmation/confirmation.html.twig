@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="viewport" content="width=device-width"/>
+		<title>
+			Account confirmation - Needlify
+		</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: #f2f3f9;
+				font-family: Helvetica, Arial, sans-serif;
+				width: 100%;
+				height: 100%;
+			}
+
+			#content {
+				width: 90%;
+				margin: 20px auto;
+				font-size: 14px;
+				padding-bottom: 20px;
+			}
+
+			#container {
+				width: 95%;
+				max-width: 500px;
+				margin: 30px auto;
+				border-radius: 10px;
+				background-color: #fff;
+				border-top: solid 8px #c69ced;
+				box-shadow: 0 0 10px rgba(92, 67, 114, 0.3);
+			}
+
+			#image-container,
+			#image-container img {
+				width: 100px;
+				height: 100px;
+			}
+
+			#image-container {
+				margin: 0 auto;
+			}
+
+			#button-link-container {
+				margin: 30px auto 0;
+				text-align: center;
+			}
+
+			#button-link {
+				font-size: 16px;
+				text-decoration: none;
+				display: inline-block;
+				width: 80%;
+				max-width: 250px;
+				border-radius: 6px;
+				padding: 8px 0;
+				background-color: #c69ced;
+				color: white;
+				text-align: center;
+			}
+
+			#title {
+				color: #2E2E2E;
+				margin: 0 auto;
+				text-align: center;
+			}
+
+			#verify-link,
+			#wrong-email,
+			#explanations {
+				color: #666;
+			}
+
+			#verify-link,
+			#wrong-email {
+				margin-top: 30px;
+			}
+
+			hr {
+				margin: 20px auto;
+				height: 1px;
+				background-color: #d2dbe0;
+				border: none;
+				width: 80%;
+			}
+
+			#footer {
+				color: #aaa;
+				margin-top: 20px auto;
+				font-size: 12px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div id="content">
+				<div id="image-container">
+					<img src="{{ email.image("@images/newsletter/logo-lithium-extra-small.png") }}" alt="Lithium Logo"/>
+				</div>
+
+				<div id="title">
+					<h2>
+						Lithium Newsletter
+					</h2>
+				</div>
+
+				<p id="explanations">
+					To complete your email verification and start receiving the newsletter, please press the button below.
+				</p>
+
+				<div id="button-link-container">
+					<a href="#" id="button-link">Verify my email</a>
+				</div>
+				<p id="verify-link">
+					Or verify your email using this link :
+					<a href="#">#</a>
+				</p>
+
+				<p id="wrong-email">
+					If you are not the author of this account verification, please ignore this email.
+				</p>
+
+				<hr/>
+
+				<div id="footer">
+					Sent with ❤️ from the friendly folks at Needlify
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

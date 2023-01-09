@@ -10,12 +10,18 @@
 namespace App\EventSubscriber\Admin;
 
 use App\Entity\NewsletterAccount;
+use App\Service\NewsletterService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 
 class NewsletterAccountCrudSubscriber implements EventSubscriberInterface
 {
+    public function __construct(
+        private NewsletterService $newsletterService
+    ) {
+    }
+
     public static function getSubscribedEvents(): array
     {
         return [
@@ -36,6 +42,7 @@ class NewsletterAccountCrudSubscriber implements EventSubscriberInterface
             $entity->setVerifiedAt();
         } else {
             $entity->resetVerifiedAt();
+            $this->newsletterService->sendVerificationMail($entity);
         }
     }
 }

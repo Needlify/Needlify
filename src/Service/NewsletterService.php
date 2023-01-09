@@ -10,7 +10,11 @@
 namespace App\Service;
 
 use App\Entity\NewsletterAccount;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -25,6 +29,7 @@ class NewsletterService
         private CsrfTokenManagerInterface $csrfTokenManager,
         private ValidatorInterface $validator,
         private TranslatorInterface $translator,
+        private MailerInterface $mailer,
     ) {
     }
 
@@ -64,5 +69,21 @@ class NewsletterService
         }
 
         return $hasError;
+    }
+
+    public function sendVerificationMail(NewsletterAccount $account)
+    {
+        $email = (new TemplatedEmail())
+            ->from(Address::create('Needlify Noreply <noreply@needlify.com>'))
+            ->to($account->getEmail())
+            ->priority(Email::PRIORITY_HIGH)
+            ->subject('Newsletter ccount confirmation')
+            ->textTemplate('email/newsletter/confirmation/confirmation.txt.twig')
+            ->htmlTemplate('email/newsletter/confirmation/confirmation.html.twig')
+            ->context([
+                'user' => $account,
+            ]);
+
+        $this->mailer->send($email);
     }
 }
