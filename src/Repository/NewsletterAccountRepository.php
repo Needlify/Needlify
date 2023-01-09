@@ -11,6 +11,7 @@ namespace App\Repository;
 
 use App\Entity\NewsletterAccount;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Interface\DashboardRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -21,7 +22,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  * @method NewsletterAccount[]    findAll()
  * @method NewsletterAccount[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class NewsletterAccountRepository extends ServiceEntityRepository
+class NewsletterAccountRepository extends ServiceEntityRepository implements DashboardRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -46,28 +47,11 @@ class NewsletterAccountRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return NewsletterAccount[] Returns an array of NewsletterAccount objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('n')
-//            ->andWhere('n.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('n.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?NewsletterAccount
-//    {
-//        return $this->createQueryBuilder('n')
-//            ->andWhere('n.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function countAll(): int
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

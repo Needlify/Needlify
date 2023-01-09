@@ -86,6 +86,13 @@ class NewsletterAccount
         return $this;
     }
 
+    public function resetVerifiedAt(): self
+    {
+        $this->verifiedAt = null;
+
+        return $this;
+    }
+
     public function getSubscribedAt(): ?\DateTimeImmutable
     {
         return $this->subscribedAt;
