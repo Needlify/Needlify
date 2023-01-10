@@ -9,18 +9,25 @@
 
 namespace App\Service;
 
+use DateTime;
+use Symfony\Component\Uid\Uuid;
+use App\Exception\ExceptionCode;
 use App\Entity\NewsletterAccount;
 use Symfony\Component\Mime\Email;
+use App\Exception\ExceptionFactory;
 use Symfony\Component\Mime\Address;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
+use App\Repository\NewsletterAccountRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class NewsletterService
 {
@@ -30,6 +37,8 @@ class NewsletterService
         private ValidatorInterface $validator,
         private TranslatorInterface $translator,
         private MailerInterface $mailer,
+        private EntityManagerInterface $em,
+        private NewsletterAccountRepository $newsletterAccountRepository
     ) {
     }
 
@@ -71,9 +80,26 @@ class NewsletterService
         return $hasError;
     }
 
+    public function canRetryConfirmation(NewsletterAccount $account): bool
+    {
+        if (null === $account->getLastRetryAt()) {
+            return true;
+        }
+
+        $now = (new DateTime('now', new \DateTimeZone('UTC')))->getTimestamp();
+        $lastRetryAt = $account->getLastRetryAt()->getTimestamp();
+
+        if ($now - $lastRetryAt >= 60 * 3) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function sendVerificationMail(NewsletterAccount $account)
     {
-        $email = (new TemplatedEmail())
+        if (!$account->getIsVerified()) {
+            $email = (new TemplatedEmail())
             ->from(Address::create('Needlify Noreply <noreply@needlify.com>'))
             ->to($account->getEmail())
             ->priority(Email::PRIORITY_HIGH)
@@ -81,9 +107,35 @@ class NewsletterService
             ->textTemplate('email/newsletter/confirmation/confirmation.txt.twig')
             ->htmlTemplate('email/newsletter/confirmation/confirmation.html.twig')
             ->context([
-                'user' => $account,
+                'token' => \base64_encode(\implode('::', [
+                    $account->getEmail(),
+                    $account->getId()->toRfc4122(),
+                ])),
             ]);
 
-        $this->mailer->send($email);
+            $this->mailer->send($email);
+
+            $account->updateLastRetryAt();
+            $this->em->persist($account);
+            $this->em->flush();
+        }
+    }
+
+    public function verifyTokenAndGetAccount(string $token): NewsletterAccount
+    {
+        if (null === $token) {
+            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::NEWSLETTER_REGISTRATION_TOKEN_MISSING, 'Missing token parameter');
+        }
+
+        $decodedToken = \base64_decode(\urldecode($token));
+        [$email, $id] = explode('::', $decodedToken);
+
+        $account = $this->newsletterAccountRepository->find(Uuid::fromRfc4122($id));
+
+        if (!$account || $account->getEmail() !== $email) {
+            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::NEWSLETTER_REGISTRATION_INVALID_TOKEN, 'Invalid registration token');
+        }
+
+        return $account;
     }
 }

@@ -10,6 +10,7 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\NewsletterAccount;
+use App\Service\NewsletterService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -18,17 +19,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\BatchActionDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class NewsletterAccountCrudController extends AbstractCrudController
 {
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
+    public function __construct(
+        private TranslatorInterface $translator,
+        private NewsletterService $newsletterService
+    ) {
     }
 
     public static function getEntityFqcn(): string
@@ -68,7 +70,9 @@ class NewsletterAccountCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.verification');
         yield BooleanField::new('isVerified', 'admin.crud.newsletter.column.is_verified');
-        yield BooleanField::new('isEnabled', 'admin.crud.newsletter.column.is_enabled')->hideWhenCreating();
+        yield BooleanField::new('isEnabled', 'admin.crud.newsletter.column.is_enabled')
+            ->setHelp('admin.crud.newsletter.column.is_enabled.help')
+            ->hideWhenCreating();
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('verifiedAt', 'admin.crud.newsletter.column.verified_at')->onlyOnDetail();
@@ -77,8 +81,42 @@ class NewsletterAccountCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        $sendMail = Action::new('sendEmail', 'admin.crud.newsletter.actions.send_mail')
+            ->linkToCrudAction('sendMail')
+            ->displayIf(fn (NewsletterAccount $account) => !$account->getIsVerified());
+
+        $sendMailBatch = Action::new('sendEmailBatch', 'admin.crud.newsletter.actions.send_mails')
+            ->linkToCrudAction('sendMailBatch')
+            ->createAsBatchAction();
+
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
-            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.newsletter.actions.create'));
+            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.newsletter.actions.create'))
+            ->add(Crud::PAGE_INDEX, $sendMail)
+            ->add(Crud::PAGE_INDEX, $sendMailBatch)
+            ->add(Crud::PAGE_DETAIL, $sendMail)
+        ;
+    }
+
+    public function sendMail(AdminContext $context)
+    {
+        /** @var NewsletterAccount $account */
+        $account = $context->getEntity()->getInstance();
+        $this->newsletterService->sendVerificationMail($account);
+
+        return $this->redirect($context->getReferrer());
+    }
+
+    public function sendMailBatch(BatchActionDto $batchActionDto)
+    {
+        $className = $batchActionDto->getEntityFqcn();
+        $entityManager = $this->container->get('doctrine')->getManagerForClass($className);
+        foreach ($batchActionDto->getEntityIds() as $id) {
+            /** @var NewsletterAccount $account */
+            $account = $entityManager->find($className, $id);
+            $this->newsletterService->sendVerificationMail($account);
+        }
+
+        return $this->redirect($batchActionDto->getReferrerUrl());
     }
 }

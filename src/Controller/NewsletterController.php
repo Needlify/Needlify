@@ -13,6 +13,7 @@ use App\Entity\NewsletterAccount;
 use App\Service\NewsletterService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\NewsletterAccountRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -42,7 +43,50 @@ class NewsletterController extends AbstractController
             $this->em->persist($account);
             $this->em->flush();
 
-            return $this->render('newsletter/register.html.twig');
+            return $this->redirectToRoute('app_newsletter_verification_pending', [
+                'token' => \base64_encode(\implode('::', [
+                    $account->getEmail(),
+                    $account->getId()->toRfc4122(),
+                ])),
+            ]);
+        }
+    }
+
+    #[Route('/newsletter/verification/pending', methods: ['GET'], name: 'app_newsletter_verification_pending')]
+    public function accountVerificationPending(Request $request, NewsletterAccountRepository $newsletterAccountRepository)
+    {
+        $token = $request->query->get('token');
+
+        $account = $this->newsletterService->verifyTokenAndGetAccount($token);
+
+        // Envoye du nouveau mail si possible
+        if ($this->newsletterService->canRetryConfirmation($account)) {
+            $this->newsletterService->sendVerificationMail($account);
+        } else {
+            $this->addFlash('error', 'Attendez 3 minutes avant de réessayer');
+        }
+
+        return $this->render('newsletter/pending.html.twig', [
+            'account' => $account,
+        ]);
+    }
+
+    #[Route('newsletter/verification/completed', methods: ['GET'], name: 'app_newsletter_verification_completed')]
+    public function accountVerificationCompleted(Request $request)
+    {
+        $token = $request->query->get('token');
+        $account = $this->newsletterService->verifyTokenAndGetAccount($token);
+
+        if (!$account->getIsVerified()) {
+            $account->setIsVerified(true)
+                ->setVerifiedAt();
+
+            $this->em->persist($account);
+            $this->em->flush();
+
+            return $this->render('newsletter/completed.html.twig');
+        } else {
+            return $this->redirectToRoute('app_home');
         }
     }
 }

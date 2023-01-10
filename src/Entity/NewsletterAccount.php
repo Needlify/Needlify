@@ -45,6 +45,9 @@ class NewsletterAccount
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isEnabled = true;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $lastRetryAt = null;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -112,6 +115,18 @@ class NewsletterAccount
     public function setIsEnabled(bool $isEnabled): self
     {
         $this->isEnabled = $isEnabled;
+
+        return $this;
+    }
+
+    public function getLastRetryAt(): ?\DateTimeInterface
+    {
+        return $this->lastRetryAt;
+    }
+
+    public function updateLastRetryAt(): self
+    {
+        $this->lastRetryAt = new \DateTime('now', new \DateTimeZone('UTC'));
 
         return $this;
     }

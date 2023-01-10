@@ -1,0 +1,30 @@
+{% extends "layout-auth.html.twig" %}
+{% trans_default_domain "newsletter" %}
+
+{% block title %}
+	{{ "newsletter.title"|trans }}
+	-
+	{{ parent() }}
+{% endblock title %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags("page:newsletter:completed") }}
+{% endblock stylesheets %}
+
+{% block image %}
+	{{ asset("images/newsletter/logo-lithium.svg") }}
+{% endblock image %}
+
+{% block form_title %}
+	{{"completed.title" | trans}}
+{% endblock form_title %}
+
+
+{% block body %}
+	<p class="message">{{"completed.text.main" | trans}}</p>
+	<p class="message">{{"completed.text.leave" | trans}}</p>
+{% endblock body %}
+
+{% block additional_info %}
+	<p id="greet">{{"completed.text.greet" | trans}}</p>
+{% endblock additional_info %}

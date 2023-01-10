@@ -7,3 +7,13 @@ register.text.unsubscribe: "Notez que une fois abonné, vous pourrez vous désin
 register.input.email.placeholder: "Entrer votre email"
 register.input.agree: "En soumettant ce formulaire, j'accepte les conditions des"
 register.input.agree.legal: "textes légaux"
+
+pending.title: "Confirmation de l'email"
+pending.text: "Veuillez suivre les instructions que nous avons envoyées à l'adresse <strong>%email%</strong> de manière à finaliser votre inscription."
+pending.text.resend: "Si vous n'avez pas reçu l'email, cliquez"
+pending.text.resend.link.text: "ici"
+
+completed.title: "Email confirmé"
+completed.text.main: "Merci de vous être inscrit à la newsletter de Lithium. Si vous aimez ce projet, n'oubliez pas d'en parler autour de vous."
+completed.text.leave: "Vous pouvez à présent quitter cette page."
+completed.text.greet: "Merci de vous êtes inscrit à la newsletter Lithium ❤"

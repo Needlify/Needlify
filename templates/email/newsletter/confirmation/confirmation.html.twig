@@ -67,6 +67,11 @@
 				text-align: center;
 			}
 
+			#verify-link {
+				word-break: break-word;
+				word-wrap: break-word;
+			}
+
 			#verify-link,
 			#wrong-email,
 			#explanations {
@@ -95,6 +100,9 @@
 		</style>
 	</head>
 	<body>
+
+		{% set verifyUrl = url('app_newsletter_verification_completed', {token: token}) %}
+
 		<div id="container">
 			<div id="content">
 				<div id="image-container">
@@ -112,11 +120,13 @@
 				</p>
 
 				<div id="button-link-container">
-					<a href="#" id="button-link">Verify my email</a>
+					<a href="{{verifyUrl}}" id="button-link">Verify my email</a>
+
+
 				</div>
 				<p id="verify-link">
 					Or verify your email using this link :
-					<a href="#">#</a>
+					<a href="{{verifyUrl}}">{{verifyUrl}}</a>
 				</p>
 
 				<p id="wrong-email">

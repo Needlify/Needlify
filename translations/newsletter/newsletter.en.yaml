@@ -7,3 +7,13 @@ register.text.unsubscribe: "Note that after registration, you can unsubscribe at
 register.input.email.placeholder: "Enter your email"
 register.input.agree: "By submitting this form, I agree to the"
 register.input.agree.legal: "legal texts"
+
+pending.title: "Email confirmation"
+pending.text: "Please follow the instructions we sent to <strong>%email%</strong> in order to finalize your registration."
+pending.text.resend: "If you haven't received the email, click"
+pending.text.resend.link.text: "here"
+
+completed.title: "Email verified"
+completed.text.main: "Thank you for subscribing to the Lithium newsletter. If you like this project, don't forget to talk about it around you."
+completed.text.leave: "You can now leave this page."
+completed.text.greet: "Thanks for joining the Lithium Newsletter ❤"
