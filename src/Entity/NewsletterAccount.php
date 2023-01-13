@@ -146,4 +146,16 @@ class NewsletterAccount
 
         return false;
     }
+
+    public function getToken()
+    {
+        if ($this->getEmail() && $this->getId()) {
+            return \base64_encode(\implode('::', [
+                $this->getEmail(),
+                $this->getId()->toRfc4122(),
+            ]));
+        }
+
+        return null;
+    }
 }

@@ -9,14 +9,22 @@
 
 namespace App\Controller;
 
+use App\Exception\ExceptionCode;
 use App\Entity\NewsletterAccount;
 use App\Service\NewsletterService;
+use App\Exception\ExceptionFactory;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use App\Repository\NewsletterAccountRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
+#[Route('/newsletter')]
 class NewsletterController extends AbstractController
 {
     public function __construct(
@@ -25,7 +33,7 @@ class NewsletterController extends AbstractController
     ) {
     }
 
-    #[Route('/newsletter/register', methods: ['GET', 'POST'], name: 'app_newsletter_register')]
+    #[Route('/register', methods: ['GET', 'POST'], name: 'app_newsletter_register')]
     public function register(Request $request)
     {
         if ('GET' === $request->getMethod()) {
@@ -44,22 +52,24 @@ class NewsletterController extends AbstractController
             $this->em->flush();
 
             return $this->redirectToRoute('app_newsletter_verification_pending', [
-                'token' => \base64_encode(\implode('::', [
-                    $account->getEmail(),
-                    $account->getId()->toRfc4122(),
-                ])),
+                'token' => $account->getToken(),
             ]);
         }
     }
 
-    #[Route('/newsletter/verification/pending', methods: ['GET'], name: 'app_newsletter_verification_pending')]
+    #[Route('/verification/pending', methods: ['GET'], name: 'app_newsletter_verification_pending')]
     public function accountVerificationPending(Request $request)
     {
         $token = $request->query->get('token');
-
         $account = $this->newsletterService->verifyTokenAndGetAccount($token);
 
-        // Envoye du nouveau mail si possible
+        if ($account->getIsVerified()) {
+            return $this->redirectToRoute('app_newsletter_verification_completed', [
+                'token' => $token,
+            ]);
+        }
+
+        // Envoye du nouvel mail si possible
         if ($account->canRetryConfirmation()) {
             $this->newsletterService->sendVerificationMail($account);
         } else {
@@ -71,8 +81,8 @@ class NewsletterController extends AbstractController
         ]);
     }
 
-    #[Route('newsletter/verification/completed', methods: ['GET'], name: 'app_newsletter_verification_completed')]
-    public function accountVerificationCompleted(Request $request)
+    #[Route('/verification/confirm', methods: ['GET'], name: 'app_newsletter_verification_confirm')]
+    public function accountVerificationConfirmation(Request $request)
     {
         $token = $request->query->get('token');
         $account = $this->newsletterService->verifyTokenAndGetAccount($token);
@@ -83,14 +93,29 @@ class NewsletterController extends AbstractController
 
             $this->em->persist($account);
             $this->em->flush();
-
-            return $this->render('newsletter/completed.html.twig');
-        } else {
-            return $this->redirectToRoute('app_home');
         }
+
+        return $this->redirectToRoute('app_newsletter_verification_completed', [
+            'token' => $token,
+        ]);
     }
 
-    #[Route('newsletter/unsubscribe', methods: ['GET'], name: 'app_newsletter_unsubscribe')]
+    #[Route('/verification/completed', methods: ['GET'], name: 'app_newsletter_verification_completed')]
+    public function accountVerificationCompleted(Request $request)
+    {
+        $token = $request->query->get('token');
+        $account = $this->newsletterService->verifyTokenAndGetAccount($token);
+
+        if (!$account->getIsVerified()) {
+            return $this->redirectToRoute('app_newsletter_verification_pending', [
+                'token' => $token,
+            ]);
+        }
+
+        return $this->render('newsletter/completed.html.twig');
+    }
+
+    #[Route('/unsubscribe', methods: ['GET'], name: 'app_newsletter_unsubscribe')]
     public function unsubscribe(Request $request, NewsletterAccountRepository $newsletterAccountRepository)
     {
         $token = $request->query->get('token');
@@ -99,5 +124,43 @@ class NewsletterController extends AbstractController
         $newsletterAccountRepository->remove($account, true);
 
         return $this->render('newsletter/unsubscribed.html.twig');
+    }
+
+    #[Route('/publish', methods: ['GET'], name: 'app_newsletter_publish')]
+    public function publish(Request $request, MailerInterface $mailer, NewsletterAccountRepository $newsletterAccountRepository)
+    {
+        if (!$this->newsletterService->isPublishRequestValid($request)) {
+            throw ExceptionFactory::throw(AccessDeniedHttpException::class, ExceptionCode::INVALID_NEWSLETTER_CREDENTIALS, 'Invalid newsletter credentials');
+        }
+
+        $pageInfo = $this->newsletterService->getTodaysNewsletterInfos();
+
+        if ($pageInfo->getCanBePublished()) {
+            $newsletterContent = $this->newsletterService->getTodaysNewsletterContent($pageInfo);
+
+            $accounts = $newsletterAccountRepository->findBy([
+                'isVerified' => true,
+                'isEnabled' => true,
+            ]);
+
+            foreach ($accounts as $account) {
+                $email = (new TemplatedEmail())
+                   ->from(Address::create('Lithium Newsletter <noreply@needlify.com>'))
+                   ->to($account->getEmail())
+                   ->subject("{$newsletterContent->getEmoji()} {$newsletterContent->getTitle()}")
+                   ->textTemplate('email/newsletter/content/content.txt.twig')
+                   ->htmlTemplate('email/newsletter/content/content.html.twig')
+                   ->context([
+                      'content' => $newsletterContent,
+                      'token' => $account->getToken(),
+                   ]);
+
+                $mailer->send($email);
+            }
+
+            $this->newsletterService->updateNotionPageStatus($pageInfo);
+        }
+
+        return new Response();
     }
 }
