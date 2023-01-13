@@ -42,7 +42,7 @@ class NewsletterAccountCrudSubscriber implements EventSubscriberInterface
             return;
         }
 
-        $previousVersion = null;
+        $wasVerified = false;
         if (null !== $entity->getId()) {
             $wasVerified = $this->newsletterAccountRepository->getIsVerifiedById($entity->getId());
         } else {
@@ -50,7 +50,7 @@ class NewsletterAccountCrudSubscriber implements EventSubscriberInterface
             $this->em->persist($entity);
         }
 
-        if (!$entity->getIsVerified() && $entity->getIsVerified() !== $wasVerified) {
+        if ($entity->getIsVerified() !== $wasVerified && !$entity->getIsVerified() && true === $wasVerified) {
             $entity->resetVerifiedAt();
             $this->newsletterService->sendVerificationMail($entity);
         } else {

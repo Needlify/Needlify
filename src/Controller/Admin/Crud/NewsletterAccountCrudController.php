@@ -17,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\BatchActionDto;
@@ -75,14 +76,15 @@ class NewsletterAccountCrudController extends AbstractCrudController
             ->hideWhenCreating();
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
-        yield DateTimeField::new('verifiedAt', 'admin.crud.newsletter.column.verified_at')->onlyOnDetail();
         yield DateTimeField::new('subscribedAt', 'admin.crud.newsletter.column.subscribed_at')->hideOnForm();
+        yield DateTimeField::new('verifiedAt', 'admin.crud.newsletter.column.verified_at')->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.security')->onlyOnDetail();
         yield BooleanField::new('canRetryConfirmation', 'admin.crud.newsletter.column.can_retry_confirmation')
             ->renderAsSwitch(false)
             ->onlyOnDetail();
         yield DateTimeField::new('lastRetryAt', 'admin.crud.newsletter.column.last_retry_at')->onlyOnDetail();
+        yield TextField::new('token', 'admin.crud.newsletter.column.token')->onlyOnDetail();
     }
 
     public function configureActions(Actions $actions): Actions
