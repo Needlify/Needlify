@@ -11,6 +11,8 @@ namespace App\EventSubscriber\Admin;
 
 use App\Entity\NewsletterAccount;
 use App\Service\NewsletterService;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\NewsletterAccountRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
@@ -18,19 +20,21 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 class NewsletterAccountCrudSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private NewsletterService $newsletterService
+        private NewsletterService $newsletterService,
+        private NewsletterAccountRepository $newsletterAccountRepository,
+        private EntityManagerInterface $em,
     ) {
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            BeforeEntityUpdatedEvent::class => ['setVerifiedAt'],
-            BeforeEntityPersistedEvent::class => ['setVerifiedAt'],
+            BeforeEntityUpdatedEvent::class => ['setVerifiedAtAndSendMail'],
+            BeforeEntityPersistedEvent::class => ['setVerifiedAtAndSendMail'],
         ];
     }
 
-    public function setVerifiedAt(BeforeEntityUpdatedEvent|BeforeEntityPersistedEvent $event)
+    public function setVerifiedAtAndSendMail(BeforeEntityUpdatedEvent|BeforeEntityPersistedEvent $event)
     {
         $entity = $event->getEntityInstance();
 
@@ -38,11 +42,19 @@ class NewsletterAccountCrudSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if ($entity->getIsVerified()) {
-            $entity->setVerifiedAt();
+        $previousVersion = null;
+        if (null !== $entity->getId()) {
+            $wasVerified = $this->newsletterAccountRepository->getIsVerifiedById($entity->getId());
         } else {
+            // To generate the Uuid if the account hasn't been fully created yet
+            $this->em->persist($entity);
+        }
+
+        if (!$entity->getIsVerified() && $entity->getIsVerified() !== $wasVerified) {
             $entity->resetVerifiedAt();
             $this->newsletterService->sendVerificationMail($entity);
+        } else {
+            $entity->setVerifiedAt();
         }
     }
 }

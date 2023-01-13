@@ -130,4 +130,20 @@ class NewsletterAccount
 
         return $this;
     }
+
+    public function canRetryConfirmation()
+    {
+        if (null === $this->getLastRetryAt()) {
+            return true;
+        }
+
+        $now = (new \DateTime('now', new \DateTimeZone('UTC')))->getTimestamp();
+        $lastRetryAt = $this->getLastRetryAt()->getTimestamp();
+
+        if ($now - $lastRetryAt >= 60 * 3) {
+            return true;
+        }
+
+        return false;
+    }
 }

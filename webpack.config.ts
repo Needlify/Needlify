@@ -45,6 +45,7 @@ Encore.setOutputPath("public/build/")
         "page:newsletter:register": "./assets/styles/pages/newsletter/register.scss",
         "page:newsletter:pending": "./assets/styles/pages/newsletter/pending.scss",
         "page:newsletter:completed": "./assets/styles/pages/newsletter/completed.scss",
+        "page:newsletter:unsubscribed": "./assets/styles/pages/newsletter/unsubscribed.scss",
 
         /* Typescript files */
         "file:layout": "./assets/files/layout.ts",

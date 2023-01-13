@@ -17,3 +17,8 @@ completed.title: "Email verified"
 completed.text.main: "Thank you for subscribing to the Lithium newsletter. If you like this project, don't forget to talk about it around you."
 completed.text.leave: "You can now leave this page."
 completed.text.greet: "Thanks for joining the Lithium Newsletter ❤"
+
+unsubscribed.title: "Unsubscribe"
+unsubscribed.text: "We are sorry to see you go. We hope you enjoyed the experience. You will not be receiving future editions."
+unsubscribed.additional: "Go back to the"
+unsubscribed.additional.link: "home page"

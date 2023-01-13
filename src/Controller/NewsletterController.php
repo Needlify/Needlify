@@ -53,14 +53,14 @@ class NewsletterController extends AbstractController
     }
 
     #[Route('/newsletter/verification/pending', methods: ['GET'], name: 'app_newsletter_verification_pending')]
-    public function accountVerificationPending(Request $request, NewsletterAccountRepository $newsletterAccountRepository)
+    public function accountVerificationPending(Request $request)
     {
         $token = $request->query->get('token');
 
         $account = $this->newsletterService->verifyTokenAndGetAccount($token);
 
         // Envoye du nouveau mail si possible
-        if ($this->newsletterService->canRetryConfirmation($account)) {
+        if ($account->canRetryConfirmation()) {
             $this->newsletterService->sendVerificationMail($account);
         } else {
             $this->addFlash('error', 'Attendez 3 minutes avant de réessayer');
@@ -88,5 +88,16 @@ class NewsletterController extends AbstractController
         } else {
             return $this->redirectToRoute('app_home');
         }
+    }
+
+    #[Route('newsletter/unsubscribe', methods: ['GET'], name: 'app_newsletter_unsubscribe')]
+    public function unsubscribe(Request $request, NewsletterAccountRepository $newsletterAccountRepository)
+    {
+        $token = $request->query->get('token');
+        $account = $this->newsletterService->verifyTokenAndGetAccount($token);
+
+        $newsletterAccountRepository->remove($account, true);
+
+        return $this->render('newsletter/unsubscribed.html.twig');
     }
 }

@@ -9,6 +9,7 @@
 
 namespace App\Repository;
 
+use Symfony\Component\Uid\Uuid;
 use App\Entity\NewsletterAccount;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\Interface\DashboardRepositoryInterface;
@@ -53,5 +54,15 @@ class NewsletterAccountRepository extends ServiceEntityRepository implements Das
             ->select('count(a.id)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function getIsVerifiedById(Uuid $uuid)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.isVerified')
+            ->where('a.id = :id')
+            ->setParameter('id', $uuid->toBinary())
+            ->getQuery()
+            ->getSingleResult()['isVerified'];
     }
 }

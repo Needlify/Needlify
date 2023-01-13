@@ -17,3 +17,8 @@ completed.title: "Email confirmé"
 completed.text.main: "Merci de vous être inscrit à la newsletter de Lithium. Si vous aimez ce projet, n'oubliez pas d'en parler autour de vous."
 completed.text.leave: "Vous pouvez à présent quitter cette page."
 completed.text.greet: "Merci de vous êtes inscrit à la newsletter Lithium ❤"
+
+unsubscribed.title: "Désinscription"
+unsubscribed.text: "Nous sommes désolés de vous voir partir. Nous espérons que vous avez apprécié l'expérience. Vous ne recevrez plus les prochaines éditions."
+unsubscribed.additional: "Retourner à la"
+unsubscribed.additional.link: "page d'accueil"

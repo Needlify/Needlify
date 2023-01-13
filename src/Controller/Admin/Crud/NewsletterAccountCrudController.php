@@ -77,6 +77,12 @@ class NewsletterAccountCrudController extends AbstractCrudController
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('verifiedAt', 'admin.crud.newsletter.column.verified_at')->onlyOnDetail();
         yield DateTimeField::new('subscribedAt', 'admin.crud.newsletter.column.subscribed_at')->hideOnForm();
+
+        yield FormField::addPanel('admin.crud.section.security')->onlyOnDetail();
+        yield BooleanField::new('canRetryConfirmation', 'admin.crud.newsletter.column.can_retry_confirmation')
+            ->renderAsSwitch(false)
+            ->onlyOnDetail();
+        yield DateTimeField::new('lastRetryAt', 'admin.crud.newsletter.column.last_retry_at')->onlyOnDetail();
     }
 
     public function configureActions(Actions $actions): Actions

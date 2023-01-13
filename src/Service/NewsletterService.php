@@ -9,7 +9,6 @@
 
 namespace App\Service;
 
-use DateTime;
 use Symfony\Component\Uid\Uuid;
 use App\Exception\ExceptionCode;
 use App\Entity\NewsletterAccount;
@@ -78,22 +77,6 @@ class NewsletterService
         }
 
         return $hasError;
-    }
-
-    public function canRetryConfirmation(NewsletterAccount $account): bool
-    {
-        if (null === $account->getLastRetryAt()) {
-            return true;
-        }
-
-        $now = (new DateTime('now', new \DateTimeZone('UTC')))->getTimestamp();
-        $lastRetryAt = $account->getLastRetryAt()->getTimestamp();
-
-        if ($now - $lastRetryAt >= 60 * 3) {
-            return true;
-        }
-
-        return false;
     }
 
     public function sendVerificationMail(NewsletterAccount $account)
