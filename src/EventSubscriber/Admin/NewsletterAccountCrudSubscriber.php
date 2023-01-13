@@ -10,8 +10,8 @@
 namespace App\EventSubscriber\Admin;
 
 use App\Entity\NewsletterAccount;
-use App\Service\NewsletterService;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Service\Newsletter\NewsletterService;
 use App\Repository\NewsletterAccountRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityUpdatedEvent;

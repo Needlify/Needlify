@@ -7,9 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Model;
-
-use DateTime;
+namespace App\Model\Newsletter;
 
 class NewsletterPage
 {
@@ -17,7 +15,7 @@ class NewsletterPage
     private ?string $emoji = null;
     private ?string $pageId = null;
     private ?string $newsletterUrl = null;
-    private ?DateTime $date = null;
+    private ?\DateTime $date = null;
     private bool $canBePublished = false;
 
     public function getTitle(): ?string
@@ -68,12 +66,12 @@ class NewsletterPage
         return $this;
     }
 
-    public function getDate(): ?DateTime
+    public function getDate(): ?\DateTime
     {
         return $this->date;
     }
 
-    public function setDate(?DateTime $date): self
+    public function setDate(?\DateTime $date): self
     {
         $this->date = $date;
 

@@ -10,7 +10,7 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\NewsletterAccount;
-use App\Service\NewsletterService;
+use App\Service\Newsletter\NewsletterService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;

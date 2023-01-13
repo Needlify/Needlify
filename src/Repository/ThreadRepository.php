@@ -10,7 +10,7 @@
 namespace App\Repository;
 
 use App\Entity\Thread;
-use App\Service\Paginator;
+use App\Model\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 

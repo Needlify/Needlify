@@ -11,16 +11,17 @@ namespace App\Controller;
 
 use App\Exception\ExceptionCode;
 use App\Entity\NewsletterAccount;
-use App\Service\NewsletterService;
 use App\Exception\ExceptionFactory;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use App\Service\Newsletter\NewsletterService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\NewsletterAccountRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\Newsletter\NewsletterRequestService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -29,6 +30,7 @@ class NewsletterController extends AbstractController
 {
     public function __construct(
         private NewsletterService $newsletterService,
+        private NewsletterRequestService $newsletterRequestService,
         private EntityManagerInterface $em,
     ) {
     }
@@ -129,14 +131,14 @@ class NewsletterController extends AbstractController
     #[Route('/publish', methods: ['GET'], name: 'app_newsletter_publish')]
     public function publish(Request $request, MailerInterface $mailer, NewsletterAccountRepository $newsletterAccountRepository)
     {
-        if (!$this->newsletterService->isPublishRequestValid($request)) {
+        if (!$this->newsletterRequestService->isPublishRequestValid($request)) {
             throw ExceptionFactory::throw(AccessDeniedHttpException::class, ExceptionCode::INVALID_NEWSLETTER_CREDENTIALS, 'Invalid newsletter credentials');
         }
 
-        $pageInfo = $this->newsletterService->getTodaysNewsletterInfos();
+        $pageInfo = $this->newsletterRequestService->getTodaysNewsletterInfos();
 
         if ($pageInfo->getCanBePublished()) {
-            $newsletterContent = $this->newsletterService->getTodaysNewsletterContent($pageInfo);
+            $newsletterContent = $this->newsletterRequestService->getTodaysNewsletterContent($pageInfo);
 
             $accounts = $newsletterAccountRepository->findBy([
                 'isVerified' => true,
@@ -158,7 +160,7 @@ class NewsletterController extends AbstractController
                 $mailer->send($email);
             }
 
-            $this->newsletterService->updateNotionPageStatus($pageInfo);
+            $this->newsletterRequestService->updateNotionPageStatus($pageInfo);
         }
 
         return new Response();

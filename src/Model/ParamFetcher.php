@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Service;
+namespace App\Model;
 
 class ParamFetcher
 {

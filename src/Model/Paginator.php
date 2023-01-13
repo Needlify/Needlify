@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Service;
+namespace App\Model;
 
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;

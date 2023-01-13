@@ -9,9 +9,9 @@
 
 namespace App\Resolver;
 
+use App\Model\ParamFetcher;
 use App\Attribut\QueryParam;
 use App\Enum\QueryParamType;
-use App\Service\ParamFetcher;
 use Symfony\Component\Uid\Uuid;
 use App\Exception\ExceptionCode;
 use App\Exception\ExceptionFactory;

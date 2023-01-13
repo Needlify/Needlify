@@ -9,9 +9,9 @@
 
 namespace App\Controller\Api;
 
+use App\Model\ParamFetcher;
 use App\Attribut\QueryParam;
 use App\Enum\QueryParamType;
-use App\Service\ParamFetcher;
 use App\Repository\ThreadRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Model;
+namespace App\Model\Newsletter;
 
 class NewsletterContent extends NewsletterPage
 {

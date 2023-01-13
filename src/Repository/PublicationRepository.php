@@ -11,8 +11,8 @@ namespace App\Repository;
 
 use App\Entity\Tag;
 use App\Entity\Topic;
+use App\Model\Paginator;
 use App\Entity\Classifier;
-use App\Service\Paginator;
 use App\Entity\Publication;
 use App\Enum\ClassifierType;
 use Symfony\Component\Uid\Uuid;
