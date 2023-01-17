@@ -14,16 +14,14 @@ namespace App\Controller;
 use App\Exception\ExceptionCode;
 use App\Entity\NewsletterAccount;
 use App\Exception\ExceptionFactory;
-use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use App\Service\Newsletter\NewsletterService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\NewsletterAccountRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Newsletter\NewsletterRequestService;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -34,6 +32,7 @@ class NewsletterController extends AbstractController
         private NewsletterService $newsletterService,
         private NewsletterRequestService $newsletterRequestService,
         private EntityManagerInterface $em,
+        private TranslatorInterface $translator
     ) {
     }
 
@@ -77,7 +76,7 @@ class NewsletterController extends AbstractController
         if ($account->canRetryConfirmation()) {
             $this->newsletterService->sendVerificationMail($account);
         } else {
-            $this->addFlash('error', 'Attendez 3 minutes avant de réessayer');
+            $this->addFlash('error', $this->translator->trans('pending.error', [], 'newsletter'));
         }
 
         return $this->render('newsletter/pending.html.twig', [
@@ -131,9 +130,9 @@ class NewsletterController extends AbstractController
     }
 
     #[Route('/publish', methods: ['GET'], name: 'app_newsletter_publish')]
-    public function publish(Request $request, MailerInterface $mailer, NewsletterAccountRepository $newsletterAccountRepository)
+    public function publish(Request $request)
     {
-        if (!$this->newsletterRequestService->isPublishRequestValid($request)) {
+        if (!$this->newsletterService->isPublishRequestValid($request)) {
             throw ExceptionFactory::throw(AccessDeniedHttpException::class, ExceptionCode::INVALID_NEWSLETTER_CREDENTIALS, 'Invalid newsletter credentials');
         }
 
@@ -142,27 +141,7 @@ class NewsletterController extends AbstractController
         if ($pageInfo->getCanBePublished()) {
             $newsletterContent = $this->newsletterRequestService->getTodaysNewsletterContent($pageInfo);
 
-            $accounts = $newsletterAccountRepository->findBy([
-                'isVerified' => true,
-                'isEnabled' => true,
-            ]);
-
-            foreach ($accounts as $account) {
-                $email = (new TemplatedEmail())
-                   ->from(Address::create('Lithium Newsletter <noreply@needlify.com>'))
-                   ->to($account->getEmail())
-                   ->subject("{$newsletterContent->getEmoji()} {$newsletterContent->getTitle()}")
-                   ->textTemplate('email/newsletter/content/content.txt.twig')
-                   ->htmlTemplate('email/newsletter/content/content.html.twig')
-                   ->context([
-                      'content' => $newsletterContent,
-                      'token' => $account->getToken(),
-                   ]);
-
-                $mailer->send($email);
-            }
-
-            $this->newsletterRequestService->updateNotionPageStatus($pageInfo);
+            $this->newsletterService->publishNewsletter($newsletterContent);
         }
 
         return new Response();

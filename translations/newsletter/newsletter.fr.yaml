@@ -10,6 +10,7 @@ register.input.agree.legal: "textes légaux"
 
 pending.title: "Confirmation de l'email"
 pending.text: "Veuillez suivre les instructions que nous avons envoyées à l'adresse <strong>%email%</strong> de manière à finaliser votre inscription."
+pending.error: "Attendez 3 minutes avant de réessayer"
 pending.text.resend: "Si vous n'avez pas reçu l'email, cliquez"
 pending.text.resend.link.text: "ici"
 

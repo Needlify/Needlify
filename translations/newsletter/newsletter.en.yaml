@@ -10,6 +10,7 @@ register.input.agree.legal: "legal texts"
 
 pending.title: "Email confirmation"
 pending.text: "Please follow the instructions we sent to <strong>%email%</strong> in order to finalize your registration."
+pending.error: "Wait 3 minutes before trying again"
 pending.text.resend: "If you haven't received the email, click"
 pending.text.resend.link.text: "here"
 

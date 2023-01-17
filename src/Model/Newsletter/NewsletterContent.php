@@ -11,18 +11,19 @@
 
 namespace App\Model\Newsletter;
 
-class NewsletterContent extends NewsletterPage
+class NewsletterContent
 {
+    private NewsletterPage $newsletterPage;
     private ?array $content = null;
 
-    public function createFromNewsletterPage(NewsletterPage $newsletterPage): self
+    public function getNewsletterPage(): NewsletterPage
     {
-        $this->setTitle($newsletterPage->getTitle());
-        $this->setEmoji($newsletterPage->getEmoji());
-        $this->setPageId($newsletterPage->getPageId());
-        $this->setNewsletterUrl($newsletterPage->getNewsletterUrl());
-        $this->setDate($newsletterPage->getDate());
-        $this->setCanBePublished($newsletterPage->getCanBePublished());
+        return $this->newsletterPage;
+    }
+
+    public function setNewsletterPage(NewsletterPage $newsletterPage): self
+    {
+        $this->newsletterPage = $newsletterPage;
 
         return $this;
     }

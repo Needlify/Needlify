@@ -18,6 +18,7 @@ use Symfony\Component\Mime\Email;
 use App\Exception\ExceptionFactory;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Model\Newsletter\NewsletterContent;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -39,7 +40,8 @@ class NewsletterService
         private TranslatorInterface $translator,
         private MailerInterface $mailer,
         private EntityManagerInterface $em,
-        private NewsletterAccountRepository $newsletterAccountRepository
+        private NewsletterAccountRepository $newsletterAccountRepository,
+        private NewsletterRequestService $newsletterRequestService
     ) {
     }
 
@@ -119,5 +121,49 @@ class NewsletterService
         }
 
         return $account;
+    }
+
+    public function isPublishRequestValid(Request $request): bool
+    {
+        $result = true;
+
+        $authorizationRaw = $request->headers->get('authorization');
+        $authorization = str_replace('Basic ', '', $authorizationRaw);
+        $user = $request->headers->get('php-auth-user');
+        $password = $request->headers->get('php-auth-pw');
+
+        if (!$authorization || !$user || !$password ||
+           base64_decode($authorization) !== "{$user}:{$password}" ||
+           $user !== $_ENV['NEWSLETTER_AUTH_USER'] || $password !== $_ENV['NEWSLETTER_AUTH_PASS']
+        ) {
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    public function publishNewsletter(NewsletterContent $newsletterContent)
+    {
+        $accounts = $this->newsletterAccountRepository->findBy([
+            'isVerified' => true,
+            'isEnabled' => true,
+        ]);
+
+        foreach ($accounts as $account) {
+            $email = (new TemplatedEmail())
+               ->from(Address::create('Lithium Newsletter <noreply@needlify.com>'))
+               ->to($account->getEmail())
+               ->subject("{$newsletterContent->getNewsletterPage()->getEmoji()} {$newsletterContent->getNewsletterPage()->getTitle()}")
+               ->textTemplate('email/newsletter/content/content.txt.twig')
+               ->htmlTemplate('email/newsletter/content/content.html.twig')
+               ->context([
+                  'content' => $newsletterContent,
+                  'token' => $account->getToken(),
+               ]);
+
+            $this->mailer->send($email);
+        }
+
+        $this->newsletterRequestService->updateNotionPageStatus($newsletterContent->getNewsletterPage());
     }
 }

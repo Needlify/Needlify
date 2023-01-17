@@ -52,7 +52,10 @@ class NewsletterAccountCrudSubscriber implements EventSubscriberInterface
             $this->em->persist($entity);
         }
 
-        if ($entity->getIsVerified() !== $wasVerified && !$entity->getIsVerified() && true === $wasVerified) {
+        if (
+            ($entity->getIsVerified() !== $wasVerified && !$entity->getIsVerified() && true === $wasVerified) ||
+            $event instanceof BeforeEntityPersistedEvent && !$entity->getIsVerified()
+        ) {
             $entity->resetVerifiedAt();
             $this->newsletterService->sendVerificationMail($entity);
         } else {

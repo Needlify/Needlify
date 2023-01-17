@@ -14,29 +14,9 @@ namespace App\Service\Newsletter;
 use App\Model\Newsletter\NewsletterPage;
 use App\Model\Newsletter\NewsletterContent;
 use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Component\HttpFoundation\Request;
 
 class NewsletterRequestService
 {
-    public function isPublishRequestValid(Request $request): bool
-    {
-        $result = true;
-
-        $authorizationRaw = $request->headers->get('authorization');
-        $authorization = str_replace('Basic ', '', $authorizationRaw);
-        $user = $request->headers->get('php-auth-user');
-        $password = $request->headers->get('php-auth-pw');
-
-        if (!$authorization || !$user || !$password ||
-           base64_decode($authorization) !== "{$user}:{$password}" ||
-           $user !== $_ENV['NEWSLETTER_AUTH_USER'] || $password !== $_ENV['NEWSLETTER_AUTH_PASS']
-        ) {
-            $result = false;
-        }
-
-        return $result;
-    }
-
     public function getTodaysNewsletterInfos(): NewsletterPage
     {
         $date = (new \DateTime('now', new \DateTimeZone('UTC')));
@@ -101,7 +81,7 @@ class NewsletterRequestService
 
        $pageContent = new NewsletterContent();
        $pageContent
-            ->createFromNewsletterPage($pageInfo)
+            ->setNewsletterPage($pageInfo)
             ->setContent($content);
 
        return $pageContent;

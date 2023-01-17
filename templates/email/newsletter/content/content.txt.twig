@@ -1,4 +1,4 @@
-Lithium Newsletter {{ content.date|date("Y-m-d") }}{% for element in content.content %}{% if "heading" in element.type %}
+Lithium Newsletter {{ content.newsletterPage.date|date("Y-m-d") }}{% for element in content.content %}{% if "heading" in element.type %}
 
 
 
@@ -14,7 +14,7 @@ Link : {{item.href}}
 Sent with love from the friendly folks at Needlify
 
 Unsubscribe : {{ url("app_newsletter_unsubscribe", {'token': token}) }}
-Web version : {{ content.newsletterUrl }}
+Web version : {{ content.newsletterPage.newsletterUrl }}
 
 Social :
    - Twitter : https://twitter.com/NeedlifyCom

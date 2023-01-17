@@ -3,8 +3,8 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width">
-		<title>{{ content.emoji }}
-			{{ content.title }}</title>
+		<title>{{ content.newsletterPage.emoji }}
+			{{ content.newsletterPage.title }}</title>
 		<style>
 			body {
 				margin: 0;
@@ -109,7 +109,7 @@
 
 				<div id="title">
 					<h5>Lithium Newsletter
-						{{ content.date|date("Y-m-d") }}</h5>
+						{{ content.newsletterPage.date|date("Y-m-d") }}</h5>
 				</div>
 
 				<div id="posts">
@@ -172,7 +172,7 @@
 
 				<div id="unsubscribe">
 					<a href="{{ url("app_newsletter_unsubscribe", {'token': token}) }}">Unsubscribe</a>
-					<a href="{{ content.newsletterUrl }}" target="_blank">Web version</a>
+					<a href="{{ content.newsletterPage.newsletterUrl }}" target="_blank">Web version</a>
 				</div>
 
 				<div id="social">
@@ -182,11 +182,8 @@
 						<a href="https://www.instagram.com/needlify"><img src="{{ email.image('@images/newsletter/social/instagram.png') }}" alt="Instagram logo"></a>
 						<a href="https://github.com/Needlify"><img src="{{ email.image('@images/newsletter/social/github.png') }}" alt="Github logo"></a>
 						<a href="mailto:support@needlify.com"><img src="{{ email.image('@images/newsletter/social/mail.png') }}" alt="Mail logo"></a>
-
-
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</body>
