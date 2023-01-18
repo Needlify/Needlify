@@ -12,26 +12,16 @@
 namespace App\DataFixtures;
 
 use Zenstruck\Foundry\Factory;
-use App\Factory\ArticleFactory;
 use Doctrine\Persistence\ObjectManager;
+use App\Factory\NewsletterAccountFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ArticleFixture extends Fixture implements DependentFixtureInterface
+class NewsletterAccountFixture extends Fixture
 {
-    public function getDependencies()
-    {
-        return [
-            UserFixture::class,
-            TagFixture::class,
-            TopicFixture::class,
-        ];
-    }
-
     public function load(ObjectManager $manager): void
     {
         Factory::delayFlush(function () {
-            ArticleFactory::createMany(20);
+            NewsletterAccountFactory::createMany(20);
         });
     }
 }
