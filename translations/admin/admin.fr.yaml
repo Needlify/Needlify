@@ -112,7 +112,7 @@ admin.crud.classifier.column.slug: "Slug"
 admin.crud.classifier.column.created_at: "Date de création"
 admin.crud.classifier.column.last_use_at: "Dernière utilisation"
 admin.crud.classifier.column.updated_at: "Dernière modification"
-admin.crud.classifier.column.event: "Évènement"
+admin.crud.classifier.column.event: "Évènement associé"
 admin.crud.classifier.column.publications: "Publications"
 
 admin.crud.newsletter.index.title: "Liste des comptes newsletter"

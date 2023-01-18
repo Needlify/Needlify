@@ -59,7 +59,6 @@ Encore.setOutputPath("public/build/")
         "admin:trix:default": "./assets/admin/editor/trix/default.scss",
         "admin:trix:onlyText": "./assets/admin/editor/trix/onlyText.scss",
         "admin:component:tags": "./assets/admin/component/tags.scss",
-        "admin:component:publications": "./assets/admin/component/publications.scss",
 
         /* Custom Elements */
         "component:vue": "./assets/plugins/vue.ts",

@@ -110,10 +110,15 @@ class ArticleCrudController extends AbstractCrudController
         yield DateTimeField::new('updatedAt', 'admin.crud.article.column.updated_at')->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations');
-        yield AssociationField::new('topic', 'admin.crud.article.column.topic')->setRequired(true);
+        yield AssociationField::new('topic', 'admin.crud.article.column.topic')
+            ->setRequired(true)
+            // ->autocomplete() // Pour le moment, cette feature est buggy
+        ;
         yield AssociationField::new('tags', 'admin.crud.article.column.tags')
             ->setTemplatePath('admin/components/tags.html.twig')
-            ->addWebpackEncoreEntries('admin:component:tags', 'component:vue');
+            ->addWebpackEncoreEntries('admin:component:tags', 'component:vue')
+            // ->autocomplete() // Pour le moment, cette feature est buggy
+        ;
 
         yield FormField::addPanel('admin.crud.section.content');
         yield CodeEditorField::new('content', 'admin.crud.article.column.content')
