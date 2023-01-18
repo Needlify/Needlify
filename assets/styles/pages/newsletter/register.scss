@@ -1,0 +1,27 @@
+@import "../../mixins";
+
+#text {
+    text-align: center;
+    color: var(--dark-soft);
+    line-height: 24px;
+    margin-bottom: 30px;
+
+    @include maxWidth(600px) {
+        line-height: 22px;
+        font-size: 14px;
+    }
+}
+
+#agree-checkbox {
+    margin-top: 15px;
+    color: var(--dark-soft);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
+#unsubscribe-message {
+    color: var(--dark-soft);
+    font-size: 12px;
+}

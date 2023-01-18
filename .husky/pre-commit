@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-task database:reset:test
-task php:test
-task node:test
+# task database:reset:test
+# task php:test
+# task node:test

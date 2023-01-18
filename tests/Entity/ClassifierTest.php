@@ -2,16 +2,16 @@
 
 /*
  * This file is part of the Needlify project.
+ *
  * Copyright (c) Needlify <https://needlify.com/>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace App\Tests\Entity;
 
-use DateTime;
 use App\Entity\Tag;
-use DateTimeImmutable;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -52,7 +52,7 @@ class ClassifierTest extends KernelTestCase
         $tag = new Tag();
         $tag->setName('tagTest');
         $this->em->persist($tag);
-        $this->assertInstanceOf(DateTimeImmutable::class, $tag->getCreatedAt());
+        $this->assertInstanceOf(\DateTimeImmutable::class, $tag->getCreatedAt());
         $this->em->remove($tag);
     }
 
@@ -61,7 +61,7 @@ class ClassifierTest extends KernelTestCase
         $tag = new Tag();
         $tag->setName('tagTest');
         $this->em->persist($tag);
-        $this->assertInstanceOf(DateTime::class, $tag->getLastUseAt());
+        $this->assertInstanceOf(\DateTime::class, $tag->getLastUseAt());
         $this->em->remove($tag);
     }
 

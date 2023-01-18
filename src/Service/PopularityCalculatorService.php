@@ -2,25 +2,23 @@
 
 /*
  * This file is part of the Needlify project.
+ *
  * Copyright (c) Needlify <https://needlify.com/>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
 namespace App\Service;
 
-use DateTime;
-use DateTimeZone;
-use DateTimeInterface;
-
 class PopularityCalculatorService
 {
     public const ALPHA = 2;
     public const BETA = 0.85;
 
-    public static function calculatePopularity(int $views, DateTimeInterface $publishedAt, int $round = 2): float
+    public static function calculatePopularity(int $views, \DateTimeInterface $publishedAt, int $round = 2): float
     {
-        $now = (new DateTime('now', new DateTimeZone('UTC')))->getTimestamp();
+        $now = (new \DateTime('now', new \DateTimeZone('UTC')))->getTimestamp();
         $date = $publishedAt->getTimestamp();
 
         $computedViews = $views + 1;

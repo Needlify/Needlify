@@ -42,6 +42,7 @@
 
 		{% block stylesheets %}{% endblock stylesheets %}
 
+		{{ encore_entry_script_tags("file:layout") }}
         {{ encore_entry_script_tags("component:vue") }}
         {{ encore_entry_script_tags("file:global") }}
 
@@ -51,13 +52,17 @@
 
         <main id="layout">
             <div id="container">
-                <img src="{{ asset('images/logo/logo.svg') }}" alt="Needlify logo">
+                <div id="logo-link">
+                    <a href="{{url('app_home')}}">
+                        <img src="{% block image %}{{ asset('images/logo/logo.svg') }}{% endblock image %}" class="glitch" alt="Needlify logo">
+                    </a>
+                </div>
                 <div id="form-container">
 
                     <h3 id="title">{% block form_title %}{% endblock form_title %}</h3>
                     <h5 id="subtitle">{% block form_subtitle %}{% endblock form_subtitle %}</h5>
 
-                    {% for index, flash_error in app.flashes('info') %}
+                    {% for index, flash_error in app.flashes('error') %}
                         {% if index == 0 %}
                             <div {{vue_component('CustomAlert', {type: "error", message: "auth.error.message"|trans, description: flash_error})}}></div>
                         {% endif %}

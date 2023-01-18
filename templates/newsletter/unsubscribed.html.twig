@@ -1,0 +1,37 @@
+{% extends "layout-auth.html.twig" %}
+{% trans_default_domain "newsletter" %}
+
+{% block title %}
+	{{ "newsletter.title"|trans }}
+	-
+	{{ parent() }}
+{% endblock title %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags("page:newsletter:unsubscribed") }}
+{% endblock stylesheets %}
+
+{% block image %}
+	{{ asset("images/newsletter/logo-lithium.svg") }}
+{% endblock image %}
+
+{% block form_title %}
+	{{"unsubscribed.title" | trans}}
+{% endblock form_title %}
+
+
+{% block body %}
+	<p id="unsubscribed-message">
+		{{"unsubscribed.text" | trans}}
+	</p>
+{% endblock body %}
+
+{% block additional_info %}
+	<p id="back-home">
+		{{"unsubscribed.additional" | trans}}
+
+		<a href="{{url('app_home')}}">
+			{{"unsubscribed.additional.link" | trans}}
+		</a>.
+	</p>
+{% endblock additional_info %}

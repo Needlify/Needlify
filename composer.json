@@ -65,7 +65,6 @@
         "pestphp/pest-plugin-parallel": "^1.2",
         "phpstan/phpstan": "^1.8",
         "phpunit/phpunit": "^9.5",
-        "squizlabs/php_codesniffer": "^3.7",
         "symfony/browser-kit": "6.2.*",
         "symfony/css-selector": "6.2.*",
         "symfony/debug-bundle": "6.2.*",
@@ -118,8 +117,8 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "cs:check": "./vendor/bin/phpcs -n",
-        "cs:fix": "./vendor/bin/phpcbf",
+        "cs:fix": "./vendor/bin/php-cs-fixer fix --allow-risky=yes",
+        "cs:check": "@cs:fix --dry-run",
         "fos:routing": "php bin/console fos:js-routing:dump --format=json --target=assets/js/routes.json",
         "stan": "@stan:default --ansi --error-format=table",
         "stan:default": "vendor/bin/phpstan analyse -c phpstan.neon --memory-limit 500M",

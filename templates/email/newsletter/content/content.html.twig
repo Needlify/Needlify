@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>{{ content.newsletterPage.emoji }}
+			{{ content.newsletterPage.title }}</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: #f2f3f9;
+				font-family: Helvetica, Arial, sans-serif;
+				width: 100%;
+				height: 100%;
+			}
+
+			#content {
+				width: 90%;
+				margin: 20px auto;
+				font-size: 14px;
+				padding-bottom: 20px;
+			}
+
+			#container {
+				width: 95%;
+				max-width: 600px;
+				margin: 30px auto;
+				border-radius: 10px;
+				background-color: #fff;
+				border-top: solid 8px #c69ced;
+				box-shadow: 0 0 10px rgba(92, 67, 114, 0.3);
+			}
+
+			#image-container,
+			#image-container img {
+				width: 100px;
+				height: 100px;
+			}
+
+			#image-container {
+				margin: 0 auto;
+			}
+
+			#title {
+				color: #2E2E2E;
+				margin: 0 auto;
+				text-align: center;
+			}
+
+			#posts > h4 {
+				margin-top: 30px;
+			}
+
+			#posts p {
+				margin-top: 10px;
+			}
+
+			hr {
+				margin: 20px auto;
+				height: 1px;
+				background-color: #d2dbe0;
+				border: none;
+				width: 80%;
+			}
+
+			#footer,
+			#unsubscribe {
+				color: #aaa;
+				margin-top: 20px auto;
+				font-size: 12px;
+				text-align: center;
+			}
+
+			#unsubscribe {
+				margin-top: 18px;
+			}
+
+			#unsubscribe a {
+				padding: 5px;
+				border-radius: 3px;
+				color: #aaa;
+				background-color: #eee;
+				margin: 0 3px;
+				text-decoration: none;
+			}
+
+			#social > div {
+				margin: 20px auto 0;
+				text-align: center;
+			}
+
+			#social div a img {
+				width: 14px;
+				height: 14px;
+			}
+
+			#social div a {
+				margin: 0 3px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div id="content">
+				<div id="image-container">
+					<img src="{{ email.image('@images/newsletter/logo-lithium-extra-small.png') }}" alt="Lithium Logo">
+				</div>
+
+				<div id="title">
+					<h5>Lithium Newsletter
+						{{ content.newsletterPage.date|date("Y-m-d") }}</h5>
+				</div>
+
+				<div id="posts">
+					{% for element in content.content %}
+
+						{% if "heading" in element.type %}
+							<h4>
+							{% else %}
+								<p>
+								{% endif %}
+
+								{% for item in element[element.type].text %}
+									{% if item.href is not null %}
+										<a href="{{item.href}}" target="_blank">
+										{% endif %}
+										{% if item.annotations.bold %}
+											<b>
+											{% endif %}
+											{% if item.annotations.italic %}
+												<em>
+												{% endif %}
+												{% if item.annotations.underline %}
+													<u>
+													{% endif %}
+													{% if item.annotations.strikethrough %}
+														<s>
+														{% endif %}
+														{{ item.text.content }}
+														{% if item.annotations.strikethrough %}
+														</s>
+													{% endif %}
+													{% if item.annotations.underline %}
+													</u>
+												{% endif %}
+												{% if item.annotations.italic %}
+												</em>
+											{% endif %}
+											{% if item.annotations.bold %}
+											</b>
+										{% endif %}
+										{% if item.href is not null %}
+										</a>
+									{% endif %}
+								{% endfor %}
+
+								{% if "heading" in element.type %}
+								</h4>
+						{% else %}
+							</p>
+						{% endif %}
+
+					{% endfor %}
+				</div>
+
+				<hr>
+
+				<div id="footer">
+					Sent with ❤️ from the friendly folks at Needlify
+				</div>
+
+				<div id="unsubscribe">
+					<a href="{{ url("app_newsletter_unsubscribe", {'token': token}) }}">Unsubscribe</a>
+					<a href="{{ content.newsletterPage.newsletterUrl }}" target="_blank">Web version</a>
+				</div>
+
+				<div id="social">
+					<div>
+						<a href="https://twitter.com/NeedlifyCom"><img src="{{ email.image('@images/newsletter/social/twitter.png') }}" alt="Twitter logo"></a>
+						<a href="https://discord.gg/aVYBcexpEE"><img src="{{ email.image('@images/newsletter/social/discord.png') }}" alt="Discord logo"></a>
+						<a href="https://www.instagram.com/needlify"><img src="{{ email.image('@images/newsletter/social/instagram.png') }}" alt="Instagram logo"></a>
+						<a href="https://github.com/Needlify"><img src="{{ email.image('@images/newsletter/social/github.png') }}" alt="Github logo"></a>
+						<a href="mailto:support@needlify.com"><img src="{{ email.image('@images/newsletter/social/mail.png') }}" alt="Mail logo"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

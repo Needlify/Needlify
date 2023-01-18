@@ -1,0 +1,56 @@
+{% extends "layout-auth.html.twig" %}
+{% trans_default_domain "newsletter" %}
+
+{% block title %}
+    {{ "newsletter.title"|trans }} - {{ parent() }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags("page:newsletter:register") }}
+{% endblock stylesheets %}
+
+{% block image %}
+    {{ asset("images/newsletter/logo-lithium.svg") }}
+{% endblock image %}
+
+{% block form_title %}
+    {{ "newsletter.title"|trans }}
+{% endblock form_title %}
+
+{# {% block form_subtitle %}
+    {{ "auth.login.form.subtitle"|trans }}
+{% endblock form_subtitle %} #}
+
+{% block body %}
+    <div id="text">
+        <p>
+            {{ "register.text.explanation"|trans|raw }}
+        </p>
+        <p>
+            {{ "register.text.subscription"|trans|raw }}
+        </p>
+    </div>
+
+    <form method="post">
+        <div class="custom-input-container">
+            <div class="custom-input">
+                <i data-feather="mail" class="input-icon" width="16px" height="16px" color="#52616b"></i>
+                <input type="email" name="email" placeholder="{{ "register.input.email.placeholder"|trans }}" autofocus required />
+            </div>
+            <div id="agree-checkbox">
+                <input type="checkbox" name="agree" id="agree" required />
+                <label for="agree">{{ "register.input.agree"|trans }} <a href="{{ url("app_legal") }}">{{ "register.input.agree.legal"|trans }}</a></label>
+            </div>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token("newsletter") }}" />
+
+        <button type="submit">Je m'enregistre</button>
+    </form>
+{% endblock body %}
+
+{% block additional_info %}
+    <p id="unsubscribe-message">
+        {{ "register.text.unsubscribe"|trans }}
+    </p>
+{% endblock additional_info %}

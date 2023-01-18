@@ -2,7 +2,9 @@
 
 /*
  * This file is part of the Needlify project.
+ *
  * Copyright (c) Needlify <https://needlify.com/>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -26,7 +28,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['email'], message: 'user.email.unique')]
 #[UniqueEntity(fields: ['username'], message: 'user.username.unique')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]

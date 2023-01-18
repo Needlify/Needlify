@@ -2,7 +2,9 @@
 
 /*
  * This file is part of the Needlify project.
+ *
  * Copyright (c) Needlify <https://needlify.com/>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -25,7 +27,20 @@ class AppExtension extends AbstractExtension
             new TwigFilter('cases', [$this, 'enumCases']),
             new TwigFilter('time_to_read', [$this, 'timeToRead']),
             new TwigFilter('markdown', [$this, 'markdown']),
+            new TwigFilter('hideEmail', [$this, 'hideEmail']),
         ];
+    }
+
+    public function hideEmail(string $email)
+    {
+        $emailList = explode('@', $email);
+        $lengthMailFirstPart = strlen($emailList[0]);
+
+        if ($lengthMailFirstPart > 2) {
+            return substr($emailList[0], 0, 2) . str_repeat('•', $lengthMailFirstPart - 2) . "@{$emailList[1]}";
+        } else {
+            return str_repeat('•', $lengthMailFirstPart) . "@{$emailList[1]}";
+        }
     }
 
     public function markdown($content): string

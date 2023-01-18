@@ -2,7 +2,9 @@
 
 /*
  * This file is part of the Needlify project.
+ *
  * Copyright (c) Needlify <https://needlify.com/>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -14,6 +16,7 @@ use App\Entity\Event;
 use App\Entity\Topic;
 use App\Entity\Article;
 use App\Entity\Moodline;
+use App\Entity\NewsletterAccount;
 use Doctrine\ORM\EntityManagerInterface;
 
 class OverviewService
@@ -52,6 +55,11 @@ class OverviewService
                 'icon' => 'fas fa-bell',
                 'value' => $this->em->getRepository(Event::class)->countAll(),
                 'translation' => 'admin.dashboard.cards.events',
+            ],
+            'newsletter' => [
+                'icon' => 'fas fa-newspaper',
+                'value' => $this->em->getRepository(NewsletterAccount::class)->countAll(),
+                'translation' => 'admin.dashboard.cards.newsletter_account',
             ],
         ];
     }

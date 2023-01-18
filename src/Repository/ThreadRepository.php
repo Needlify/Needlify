@@ -2,7 +2,9 @@
 
 /*
  * This file is part of the Needlify project.
+ *
  * Copyright (c) Needlify <https://needlify.com/>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -10,7 +12,7 @@
 namespace App\Repository;
 
 use App\Entity\Thread;
-use App\Service\Paginator;
+use App\Model\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 

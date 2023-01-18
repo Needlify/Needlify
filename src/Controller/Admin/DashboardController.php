@@ -2,7 +2,9 @@
 
 /*
  * This file is part of the Needlify project.
+ *
  * Copyright (c) Needlify <https://needlify.com/>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -15,6 +17,7 @@ use App\Entity\Event;
 use App\Entity\Topic;
 use App\Entity\Article;
 use App\Entity\Moodline;
+use App\Entity\NewsletterAccount;
 use App\Service\Admin\OverviewService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -73,6 +76,7 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('admin.sidebar.section.account');
         yield MenuItem::linkToCrud('admin.sidebar.section.account.users', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('admin.sidebar.section.account.newsletter', 'fas fa-newspaper', NewsletterAccount::class);
     }
 
     /**

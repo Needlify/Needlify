@@ -2,7 +2,9 @@
 
 /*
  * This file is part of the Needlify project.
+ *
  * Copyright (c) Needlify <https://needlify.com/>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -10,7 +12,6 @@
 namespace App\Tests\Entity;
 
 use App\Entity\User;
-use DateTimeImmutable;
 use App\Entity\Article;
 use App\Entity\Publication;
 use Doctrine\ORM\EntityManager;
@@ -83,7 +84,7 @@ class UserTest extends KernelTestCase
     {
         $user = new User();
         $this->em->persist($user);
-        $this->assertInstanceOf(DateTimeImmutable::class, $user->getCreatedAt());
+        $this->assertInstanceOf(\DateTimeImmutable::class, $user->getCreatedAt());
         $this->em->remove($user);
     }
 

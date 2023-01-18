@@ -2,7 +2,9 @@
 
 /*
  * This file is part of the Needlify project.
+ *
  * Copyright (c) Needlify <https://needlify.com/>
+ *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -45,7 +47,7 @@ class AuthenticationController extends AbstractController
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         if ($error) {
-            $this->addFlash('info', $this->translator->trans('auth.error.invalid_credentials', domain: 'auth'));
+            $this->addFlash('error', $this->translator->trans('auth.error.invalid_credentials', domain: 'auth'));
         }
 
         return $this->render('auth/login.html.twig');
@@ -86,7 +88,7 @@ class AuthenticationController extends AbstractController
 
             if ($password !== $passwordConfirm) {
                 $error = true;
-                $this->addFlash('info', $this->translator->trans('auth.error.passwords_match', domain: 'auth'));
+                $this->addFlash('error', $this->translator->trans('auth.error.passwords_match', domain: 'auth'));
             }
 
             $user = new User();
@@ -108,7 +110,7 @@ class AuthenticationController extends AbstractController
 
                 /** @var ConstraintViolation $validationError */
                 foreach ($errors as $validationError) {
-                    $this->addFlash('info', $validationError->getMessage());
+                    $this->addFlash('error', $validationError->getMessage());
                 }
             }
 
