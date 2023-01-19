@@ -59,54 +59,86 @@ class NewsletterRequestService
         return $pageInfo;
     }
 
-   public function getTodaysNewsletterContent(NewsletterPage $pageInfo): NewsletterContent
-   {
-       $client = HttpClient::create();
-       $request = $client->request('GET', "https://api.notion.com/v1/blocks/{$pageInfo->getPageId()}/children", [
-          'headers' => [
-              'Authorization' => "Bearer {$_ENV['NOTION_API_SECRET']}",
-              'Notion-Version' => '2021-08-16',
-              'Content-Type' => 'application/json',
-          ],
-       ]);
+    public function getTodaysNewsletterContent(NewsletterPage $pageInfo): NewsletterContent
+    {
+        $client = HttpClient::create();
+        $request = $client->request('GET', "https://api.notion.com/v1/blocks/{$pageInfo->getPageId()}/children", [
+            'headers' => [
+                'Authorization' => "Bearer {$_ENV['NOTION_API_SECRET']}",
+                'Notion-Version' => '2021-08-16',
+                'Content-Type' => 'application/json',
+            ],
+        ]);
 
-       $pageContentArray = $request->toArray();
+        $pageContentArray = $request->toArray();
 
-       $content = $pageContentArray['results'];
+        $content = $pageContentArray['results'];
 
-       $allowedKeys = ['type', 'paragraph', 'heading_1', 'heading_2', 'heading_3'];
-       foreach ($content as $key => $block) {
-           $content[$key] = array_intersect_key($block, array_flip($allowedKeys));
-       }
+        $allowedKeys = ['type', 'paragraph', 'heading_1', 'heading_2', 'heading_3', 'text', 'content', 'link', 'url', 'annotations', 'bold', 'italic', 'strikethrough', 'underline'];
 
-       $pageContent = new NewsletterContent();
-       $pageContent
+        $content = $this->array_filter_recursive($content, $allowedKeys);
+        $content = $this->remove_empty_block($content);
+
+        $pageContent = new NewsletterContent();
+        $pageContent
             ->setNewsletterPage($pageInfo)
             ->setContent($content);
 
-       return $pageContent;
-   }
+        return $pageContent;
+    }
 
-   public function updateNotionPageStatus(NewsletterPage $newsletterInfos)
-   {
-       $pageId = $newsletterInfos->getPageId();
+    public function updateNotionPageStatus(NewsletterPage $newsletterInfos)
+    {
+        $pageId = $newsletterInfos->getPageId();
 
-       $client = HttpClient::create();
-       $request = $client->request('PATCH', "https://api.notion.com/v1/pages/{$pageId}", [
-          'headers' => [
-              'Authorization' => "Bearer {$_ENV['NOTION_API_SECRET']}",
-              'Notion-Version' => '2021-08-16',
-              'Content-Type' => 'application/json',
-          ],
-          'json' => [
-             'properties' => [
-                'Status' => [
-                   'select' => [
-                      'name' => 'Published',
-                   ],
+        $client = HttpClient::create();
+        $request = $client->request('PATCH', "https://api.notion.com/v1/pages/{$pageId}", [
+            'headers' => [
+                'Authorization' => "Bearer {$_ENV['NOTION_API_SECRET']}",
+                'Notion-Version' => '2021-08-16',
+                'Content-Type' => 'application/json',
+            ],
+            'json' => [
+                'properties' => [
+                    'Status' => [
+                    'select' => [
+                        'name' => 'Published',
+                    ],
+                    ],
                 ],
-             ],
-          ],
-       ]);
-   }
+            ],
+        ]);
+    }
+
+    private function array_filter_recursive($array, array $allowedKeys)
+    {
+        // On filtre les clés au niveau n
+        $array = array_filter($array, function ($key) use ($allowedKeys) {
+            return in_array($key, $allowedKeys) || is_int($key);
+        }, ARRAY_FILTER_USE_KEY);
+
+        // Pour chaque clé restantes
+        foreach ($array as $key => $value) {
+            // On check si la valeur est une liste
+            // Si oui on appel array_filter_recursive eton assigne la valeur à $array[$key]
+            if (is_array($value)) {
+                $array[$key] = $this->array_filter_recursive($value, $allowedKeys);
+            }
+            // Si non, on passe
+        }
+
+        return $array;
+    }
+
+    private function remove_empty_block($content)
+    {
+        foreach ($content as $key => $block) {
+            $type = $block['type'];
+            if ([] === $block[$type]['text']) {
+                unset($content[$key]);
+            }
+        }
+
+        return $content;
+    }
 }

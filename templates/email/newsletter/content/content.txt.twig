@@ -2,9 +2,9 @@ Lithium Newsletter {{ content.newsletterPage.date|date("Y-m-d") }}{% for element
 
 
 
-{% endif %}{% for item in element[element.type].text %}{{ item.text.content }}{% if "heading" in element.type and item.href is not null %}
+{% endif %}{% for item in element[element.type].text %}{{ item.text.content }}{% if "heading" in element.type and item.text.link is not null %}
 
-Link : {{item.href}}
+Link : {{item.text.link.url}}
 
 {% endif %}{% endfor %}{% endfor %}
 

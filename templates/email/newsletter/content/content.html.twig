@@ -122,8 +122,8 @@
 								{% endif %}
 
 								{% for item in element[element.type].text %}
-									{% if item.href is not null %}
-										<a href="{{item.href}}" target="_blank">
+									{% if item.text.link is not null %}
+										<a href="{{item.text.link.url}}" target="_blank">
 										{% endif %}
 										{% if item.annotations.bold %}
 											<b>
@@ -150,7 +150,7 @@
 											{% if item.annotations.bold %}
 											</b>
 										{% endif %}
-										{% if item.href is not null %}
+										{% if item.text.link is not null %}
 										</a>
 									{% endif %}
 								{% endfor %}
