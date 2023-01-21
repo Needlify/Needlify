@@ -13,7 +13,7 @@ namespace App\Exception;
 
 class ExceptionFactory
 {
-    public static function throw($exception, ExceptionCode $code, string $message = 'An error occured', array $messageParams = [])
+    public static function throw(string $exception, ExceptionCode $code, string $message = 'An error occured', array $messageParams = [])
     {
         return new $exception(message: vsprintf($message, $messageParams), code: $code->value);
     }

@@ -91,4 +91,5 @@ tasks:
             - npm install --silent
             - npm run dev
             - chmod -R 0777 public/uploads
+            - chmod -R 0777 var
             - task: database:reset
