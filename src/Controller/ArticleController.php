@@ -26,7 +26,7 @@ class ArticleController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/article/{slug}', name: 'app_article', methods: ['GET'], options: ['expose' => true])]
+    #[Route('/post/{slug}', name: 'app_article', methods: ['GET'], options: ['expose' => true])]
     public function article(Article $article): Response
     {
         $article->incrementViews();
