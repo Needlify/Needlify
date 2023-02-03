@@ -1,9 +1,3 @@
 {
-    "recommendations": [
-        "junstyle.php-cs-fixer",
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode",
-        "EditorConfig.EditorConfig",
-        "ikappas.phpcs"
-    ]
+    "recommendations": ["junstyle.php-cs-fixer", "dbaeumer.vscode-eslint", "esbenp.prettier-vscode", "EditorConfig.EditorConfig"]
 }

@@ -21,6 +21,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -56,6 +57,7 @@ class MoodlineCrudController extends AbstractCrudController
     {
         return $filters
             ->add('content')
+            ->add('visible')
             ->add('author')
             ->add('publishedAt')
             ->add('updatedAt')
@@ -68,7 +70,7 @@ class MoodlineCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id', 'admin.crud.moodline.column.id')->onlyOnDetail();
-
+        yield BooleanField::new('visible', 'admin.crud.article.column.visible')->setHelp('admin.crud.article.column.visible.help');
         yield TextEditorField::new('content', 'admin.crud.moodline.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setNumOfRows(3)

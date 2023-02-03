@@ -58,6 +58,7 @@ class ThreadRepository extends ServiceEntityRepository
     public function findAllWithPagination(int $page)
     {
         $query = $this->createQueryBuilder('t')
+            ->where('t.visible = 1')
             ->orderBy('t.publishedAt', 'DESC');
 
         $paginator = new Paginator($query->getQuery(), $page);

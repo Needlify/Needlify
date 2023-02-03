@@ -73,6 +73,7 @@ class PublicationRepository extends ServiceEntityRepository
         }
 
         $query = $this->createQueryBuilder('p')
+            ->where('p.visible = 1')
             ->orderBy('p.publishedAt', 'DESC');
 
         switch ($classifier->getType()) {

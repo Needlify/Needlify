@@ -42,6 +42,9 @@ abstract class Thread
     #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
     private ?\DateTime $updatedAt = null;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => true])]
+    private ?bool $visible = true;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -78,5 +81,17 @@ abstract class Thread
     public function refreshUpdatedAt()
     {
         $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
+    }
+
+    public function isVisible(): bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): self
+    {
+        $this->visible = $visible;
+
+        return $this;
     }
 }

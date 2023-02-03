@@ -12,10 +12,13 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Exception\ExceptionCode;
+use App\Exception\ExceptionFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ArticleController extends AbstractController
 {
@@ -29,6 +32,10 @@ class ArticleController extends AbstractController
     #[Route('/post/{slug}', name: 'app_article', methods: ['GET'], options: ['expose' => true])]
     public function article(Article $article): Response
     {
+        if (!$article->isVisible()) {
+            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_ACCESSIBLE, 'This ressource is not accessible');
+        }
+
         $article->incrementViews();
 
         $this->em->persist($article);

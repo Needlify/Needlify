@@ -47,6 +47,7 @@ final class EventFactory extends ModelFactory
     {
         return [
             'content' => self::faker()->text(80),
+            'visible' => true,
         ];
     }
 

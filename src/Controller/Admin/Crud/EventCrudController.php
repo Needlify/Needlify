@@ -21,6 +21,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -55,6 +56,7 @@ class EventCrudController extends AbstractCrudController
     {
         return $filters
             ->add('content')
+            ->add('visible')
             ->add('publishedAt')
             ->add('updatedAt')
         ;
@@ -64,6 +66,7 @@ class EventCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id', 'admin.crud.event.column.id')->onlyOnDetail();
+        yield BooleanField::new('visible', 'admin.crud.article.column.visible')->setHelp('admin.crud.article.column.visible.help');
         yield TextEditorField::new('content', 'admin.crud.event.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setNumOfRows(1)
