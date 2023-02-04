@@ -32,7 +32,7 @@ class ArticleController extends AbstractController
     #[Route('/post/{slug}', name: 'app_article', methods: ['GET'], options: ['expose' => true])]
     public function article(Article $article): Response
     {
-        if (!$article->isVisible()) {
+        if ($article->isPrivate()) {
             throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_ACCESSIBLE, 'This ressource is not accessible');
         }
 

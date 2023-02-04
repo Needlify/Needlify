@@ -23,7 +23,7 @@ final class Version20230110222434 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Added last_retry field on newsletter account table';
     }
 
     public function up(Schema $schema): void

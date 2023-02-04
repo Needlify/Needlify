@@ -59,7 +59,7 @@ class MoodlineRepository extends ServiceEntityRepository implements DashboardRep
     {
         return $this->createQueryBuilder('a')
             ->select('count(a.id)')
-            ->where('a.visible = 1')
+            ->where('a.private = 0')
             ->getQuery()
             ->getSingleScalarResult();
     }

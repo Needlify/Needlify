@@ -77,7 +77,7 @@ class ArticleCrudController extends AbstractCrudController
             ->add('content')
             ->add('author')
             ->add('license')
-            ->add('visible')
+            ->add('private')
             ->add('views')
             ->add('publishedAt')
             ->add('updatedAt')
@@ -93,7 +93,7 @@ class ArticleCrudController extends AbstractCrudController
         yield TextField::new('title', 'admin.crud.article.column.title');
         yield TextField::new('slug', 'admin.crud.article.column.slug')->onlyOnDetail();
         yield BooleanField::new('license', 'admin.crud.article.column.license')->setHelp('admin.crud.article.column.license.help');
-        yield BooleanField::new('visible', 'admin.crud.article.column.visible')->setHelp('admin.crud.article.column.visible.help');
+        yield BooleanField::new('private', 'admin.crud.article.column.private')->setHelp('admin.crud.article.column.private.help');
         yield IntegerField::new('views', 'admin.crud.article.column.views')->onlyOnDetail();
         yield IntegerField::new('popularity', 'admin.crud.article.column.popularity')->hideOnForm();
         yield TextField::new('thumbnailFile', 'admin.crud.article.column.thumbnail')

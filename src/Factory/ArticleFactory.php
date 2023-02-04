@@ -54,7 +54,7 @@ final class ArticleFactory extends ModelFactory
             'topic' => TopicFactory::random(),
             'tags' => TagFactory::randomSet(5),
             'author' => UserFactory::random(),
-            'visible' => true,
+            'private' => true,
         ];
     }
 

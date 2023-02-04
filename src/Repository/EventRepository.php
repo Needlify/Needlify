@@ -59,7 +59,7 @@ class EventRepository extends ServiceEntityRepository implements DashboardReposi
     {
         return $this->createQueryBuilder('a')
             ->select('count(a.id)')
-            ->where('a.visible = 1')
+            ->where('a.private = 0')
             ->getQuery()
             ->getSingleScalarResult();
     }

@@ -56,7 +56,7 @@ class EventCrudController extends AbstractCrudController
     {
         return $filters
             ->add('content')
-            ->add('visible')
+            ->add('private')
             ->add('publishedAt')
             ->add('updatedAt')
         ;
@@ -66,7 +66,7 @@ class EventCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id', 'admin.crud.event.column.id')->onlyOnDetail();
-        yield BooleanField::new('visible', 'admin.crud.article.column.visible')->setHelp('admin.crud.article.column.visible.help');
+        yield BooleanField::new('private', 'admin.crud.event.column.private')->setHelp('admin.crud.event.column.private.help');
         yield TextEditorField::new('content', 'admin.crud.event.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setNumOfRows(1)

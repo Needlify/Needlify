@@ -37,6 +37,7 @@ class NewsletterController extends AbstractController
     }
 
     #[Route('/register', methods: ['GET', 'POST'], name: 'app_newsletter_register')]
+    #[Route('/registration', methods: ['GET', 'POST'], name: 'app_newsletter_registration')]
     public function register(Request $request)
     {
         if ('GET' === $request->getMethod()) {
