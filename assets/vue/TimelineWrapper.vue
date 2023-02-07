@@ -22,7 +22,7 @@
     <div v-else-if="total === 0" id="empty-container">
         <img src="/images/empty-timeline.svg" alt="empty timeline image" />
 
-        <p>Aucun contenu n'a été publié pour le moment</p>
+        <p>Empty timeline</p>
     </div>
 
     <div id="spinner-container" v-show="isLoading">
