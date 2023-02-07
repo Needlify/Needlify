@@ -16,15 +16,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 
 RUN apt install -yqq nano nodejs
 
-# RUN useradd -s /bin/bash -g root app-user
-# RUN chmod -R 0755 /var/www/
-# RUN mkdir /var/www/var/
-# RUN chmod -R 0777 /var/www/var/
-# RUN chown -R app-user:app-user /var/www/
-
 COPY ./apache/vhosts.conf /etc/apache2/sites-available/000-default.conf
 
 CMD apachectl -D FOREGROUND
-
-# USER app-user
-
