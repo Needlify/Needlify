@@ -23,6 +23,8 @@ Encore.setOutputPath("public/build/")
     .addEntries({
         /* Styles */
         "style:global": "./assets/styles/global.scss",
+        "style:fonts": "./assets/styles/fonts.scss",
+        "style:variables": "./assets/styles/variables.scss",
         "style:layout": "./assets/styles/layout/layout.scss",
         "style:layout-auth": "./assets/styles/layout/layout-auth.scss",
         "style:header": "./assets/styles/layout/header.scss",

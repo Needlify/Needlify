@@ -12,7 +12,7 @@
 namespace App\Enum;
 
 use App\Trait\EnumUtilityTrait;
-use App\Service\ParsedownFactory;
+use App\Service\Parsedown\ParsedownFactory;
 
 enum EventMessage: string
 {

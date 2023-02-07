@@ -47,7 +47,7 @@ final class EventFactory extends ModelFactory
     {
         return [
             'content' => self::faker()->text(80),
-            'private' => true,
+            'private' => false,
         ];
     }
 

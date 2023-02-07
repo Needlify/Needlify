@@ -50,7 +50,7 @@ final class MoodlineFactory extends ModelFactory
             'topic' => TopicFactory::random(),
             'tags' => TagFactory::randomSet(5),
             'author' => UserFactory::random(),
-            'private' => true,
+            'private' => false,
         ];
     }
 

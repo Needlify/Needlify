@@ -12,8 +12,8 @@
 namespace App\Twig;
 
 use Twig\TwigFilter;
-use App\Service\ParsedownFactory;
 use Twig\Extension\AbstractExtension;
+use App\Service\Parsedown\ParsedownFactory;
 
 class AppExtension extends AbstractExtension
 {

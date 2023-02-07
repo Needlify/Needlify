@@ -9,14 +9,17 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Service;
+namespace App\Service\Parsedown;
 
 class ParsedownFactory
 {
-    public static function create(): \Parsedown
+    public static function create(): FluidTagParsedown
     {
-        $Parsedown = new \Parsedown();
-        $Parsedown->setSafeMode(true);
+        $Parsedown = new FluidTagParsedown();
+        $Parsedown
+            ->setSafeMode(true)
+            ->setBreaksEnabled(true)
+            ->setUrlsLinked(false);
 
         return $Parsedown;
     }

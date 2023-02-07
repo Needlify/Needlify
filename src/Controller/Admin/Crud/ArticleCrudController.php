@@ -12,11 +12,11 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Article;
-use App\Service\ParsedownFactory;
 use App\Field\Admin\MarkdownField;
 use App\Service\ImageResizerService;
 use App\Trait\Admin\Crud\ThreadCrudTrait;
 use App\Trait\Admin\Crud\ContentCrudTrait;
+use App\Service\Parsedown\ParsedownFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -118,14 +118,13 @@ class ArticleCrudController extends AbstractCrudController
         ;
         yield AssociationField::new('tags', 'admin.crud.article.column.tags')
             ->setTemplatePath('admin/components/tags.html.twig')
-            ->addWebpackEncoreEntries('admin:component:tags', 'component:vue')
             // ->autocomplete() // Pour le moment, cette feature est buggy
         ;
 
         yield FormField::addPanel('admin.crud.section.content');
         yield CodeEditorField::new('content', 'admin.crud.article.column.content')
             ->setTemplatePath('admin/components/markdown.html.twig')
-            ->addWebpackEncoreEntries('style:markdown')
+            ->addWebpackEncoreEntries('style:markdown', 'style:fonts', 'style:variables')
             ->addCssClass('markdown-style')
             ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
             ->onlyOnDetail();
