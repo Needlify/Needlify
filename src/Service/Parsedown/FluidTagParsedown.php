@@ -16,15 +16,19 @@ class FluidTagParsedown extends \Parsedown
     public function __construct()
     {
         $this->InlineTypes['{'][] = 'YoutubeEmbed';
+        $this->InlineTypes['{'][] = 'ColoredText';
+
         $this->inlineMarkerList .= '{';
     }
 
     /**
      * Youtube Video Embed.
+     *
+     * Example: {youtube:video_id}
      */
-    protected function inlineYoutubeEmbed($excerpt)
+    protected function inlineYoutubeEmbed($excerpt): array
     {
-        if (preg_match('/^{youtube:(.{11})}/', $excerpt['text'], $matches)) {
+        if (preg_match('/^\{youtube\:(.{11})\}/', $excerpt['text'], $matches)) {
             return [
                 'extent' => strlen($matches[0]),
                 'element' => [
@@ -33,6 +37,31 @@ class FluidTagParsedown extends \Parsedown
                     'allowRawHtmlInSafeMode' => true,
                     'attributes' => [
                         'class' => 'iframe-container',
+                    ],
+                ],
+            ];
+        }
+    }
+
+    /**
+     * Colored text.
+     *
+     * Example: {c:color}text{/c}
+     * color can be a css color like red or blue or a hexadecimal color like #ebeb00
+     */
+    protected function inlineColoredText($excerpt): array
+    {
+        if (preg_match('/^{c:([#\w]\w+)}(.*?){\/c}/', $excerpt['text'], $matches)) {
+            return [
+                // How many characters to advance the Parsedown's
+                // cursor after being done processing this tag.
+                'extent' => strlen($matches[0]),
+                'element' => [
+                    'name' => 'span',
+                    'text' => $matches[2],
+                    'handler' => 'line',
+                    'attributes' => [
+                        'style' => 'color: ' . $matches[1],
                     ],
                 ],
             ];
