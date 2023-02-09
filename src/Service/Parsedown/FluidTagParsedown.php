@@ -26,7 +26,7 @@ class FluidTagParsedown extends \Parsedown
      *
      * Example: {youtube:video_id}
      */
-    protected function inlineYoutubeEmbed($excerpt): array
+    protected function inlineYoutubeEmbed($excerpt)
     {
         if (preg_match('/^\{youtube\:(.{11})\}/', $excerpt['text'], $matches)) {
             return [
@@ -49,7 +49,7 @@ class FluidTagParsedown extends \Parsedown
      * Example: {c:color}text{/c}
      * color can be a css color like red or blue or a hexadecimal color like #ebeb00
      */
-    protected function inlineColoredText($excerpt): array
+    protected function inlineColoredText($excerpt)
     {
         if (preg_match('/^{c:([#\w]\w+)}(.*?){\/c}/', $excerpt['text'], $matches)) {
             return [
