@@ -21,8 +21,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  *
  * @method Moodline|null find($id, $lockMode = null, $lockVersion = null)
  * @method Moodline|null findOneBy(array $criteria, array $orderBy = null)
- * @method Moodline[]    findAll()
- * @method Moodline[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Moodline[] findAll()
+ * @method Moodline[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class MoodlineRepository extends ServiceEntityRepository implements DashboardRepositoryInterface
 {

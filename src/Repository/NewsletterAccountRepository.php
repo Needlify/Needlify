@@ -22,8 +22,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  *
  * @method NewsletterAccount|null find($id, $lockMode = null, $lockVersion = null)
  * @method NewsletterAccount|null findOneBy(array $criteria, array $orderBy = null)
- * @method NewsletterAccount[]    findAll()
- * @method NewsletterAccount[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method NewsletterAccount[] findAll()
+ * @method NewsletterAccount[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class NewsletterAccountRepository extends ServiceEntityRepository implements DashboardRepositoryInterface
 {

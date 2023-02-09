@@ -21,8 +21,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  *
  * @method Thread|null find($id, $lockMode = null, $lockVersion = null)
  * @method Thread|null findOneBy(array $criteria, array $orderBy = null)
- * @method Thread[]    findAll()
- * @method Thread[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Thread[] findAll()
+ * @method Thread[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ThreadRepository extends ServiceEntityRepository
 {

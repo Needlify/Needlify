@@ -20,8 +20,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  *
  * @method Classifier|null find($id, $lockMode = null, $lockVersion = null)
  * @method Classifier|null findOneBy(array $criteria, array $orderBy = null)
- * @method Classifier[]    findAll()
- * @method Classifier[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Classifier[] findAll()
+ * @method Classifier[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ClassifierRepository extends ServiceEntityRepository
 {
