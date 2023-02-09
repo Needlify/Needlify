@@ -40,3 +40,31 @@ export type Paginate<T> = {
 };
 
 export type AlertType = "success" | "warning" | "error";
+
+// https://github.com/Ionaru/easy-markdown-editor/blob/abead2a06809a9003ab8500cb3d1f1bb19fe16ea/types/easymde.d.ts#L30-L55
+export type ToolbarButton =
+    | "bold"
+    | "italic"
+    | "quote"
+    | "unordered-list"
+    | "ordered-list"
+    | "link"
+    | "image"
+    | "upload-image"
+    | "strikethrough"
+    | "code"
+    | "table"
+    | "redo"
+    | "heading"
+    | "undo"
+    | "heading-bigger"
+    | "heading-smaller"
+    | "heading-1"
+    | "heading-2"
+    | "heading-3"
+    | "clean-block"
+    | "horizontal-rule"
+    | "preview"
+    | "side-by-side"
+    | "fullscreen"
+    | "guide";

@@ -9,6 +9,9 @@ parameters:
     app.thumbnails.upload_dir: "%app.upload_dir%/thumbnails"
     app.thumbnails.base_dir: "/public%app.thumbnails.upload_dir%"
 
+    app.image.embedded: "%app.upload_dir%/embedded"
+    app.image.embedded.upload: "%kernel.project_dir%/public%app.image.embedded%"
+
     app.image.key: "%env(string:GLIDE_KEY)%"
 
 services:
@@ -48,7 +51,12 @@ services:
 
     App\Service\ImageResizerService:
         arguments:
-            - "%app.image.key%"
+            $key: "%app.image.key%"
+
+    App\Service\FileUploaderService:
+        arguments:
+            $embedDirectory: "%app.image.embedded.upload%"
+            $embedPath: "%app.image.embedded%"
 
     # ? Optional
     App\Resolver\QueryParamArgumentResolver:

@@ -2,9 +2,13 @@
 /* eslint-disable no-unused-vars */
 import EasyMDE from "easymde";
 import "easymde/dist/easymde.min.css";
+import { ToolbarButton } from "../../../types";
 import "./default.scss";
 
-console.log("Markdown");
+// Because the EasyMDE did a partial release so the 'upload-image' key doesn't exist on the ToolbarButton type
+type EasyMDEConfig = EasyMDE.Options & {
+    toolbar?: boolean | ReadonlyArray<"|" | ToolbarButton | EasyMDE.ToolbarIcon | EasyMDE.ToolbarDropdownIcon>;
+};
 
 const easyMDE = new EasyMDE({
     element: document.querySelector("textarea.field-markdown-editor-textarea") as HTMLElement,
@@ -32,24 +36,34 @@ const easyMDE = new EasyMDE({
         "|",
         "unordered-list",
         "ordered-list",
-        {
-            name: "checkbox",
-            action: editor => {
-                const cm = editor.codemirror;
-                const text = cm.getSelection() || "";
-                const output = `- [ ] ${text}`;
-                cm.replaceSelection(output);
-            },
-            className: "far fa-square-check",
-            title: "Checkbox",
-        },
+        // {
+        //     name: "checkbox",
+        //     action: editor => {
+        //         const cm = editor.codemirror;
+        //         const text = cm.getSelection() || "";
+        //         const output = `- [ ] ${text}`;
+        //         cm.replaceSelection(output);
+        //     },
+        //     className: "far fa-square-check",
+        //     title: "Checkbox",
+        // },
         "|",
         "link",
         "image",
+        {
+            name: "upload-image",
+            action: EasyMDE.drawUploadedImage,
+            className: "fas fa-upload",
+            title: "Upload image",
+        },
         "table",
         "|",
         "fullscreen",
         "preview",
     ],
     toolbarButtonClassPrefix: "mde",
-});
+    uploadImage: true,
+    imageMaxSize: 1024 * 1024, // 1Mb
+    imageAccept: "image/png, image/jpeg, image/gif, image/webp",
+    imageUploadEndpoint: "/api/rest/article/image/upload",
+} as EasyMDEConfig);

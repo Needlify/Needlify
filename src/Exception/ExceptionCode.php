@@ -32,6 +32,13 @@ enum ExceptionCode: int
 
     case RESSOURCE_NOT_ACCESSIBLE = 400_8;
 
+    case MISSING_FILE_PARAM = 400_9;
+    case INVALID_MIME_TYPE = 400_10;
+    case UPLOADED_FILE_ERROR = 400_11;
+    case UNREADABLE_UPLOADED_FILE = 400_12;
+    case UPLOADED_FILE_TOO_BIG = 400_13;
+
     /* 403 Access Forbidden */
     case INVALID_NEWSLETTER_CREDENTIALS = 403_0;
+    case JSON_LOGIN_REDIRECT_UNAVAILABLE = 403_1;
 }
