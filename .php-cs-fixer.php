@@ -27,6 +27,9 @@ return (new Config())
         'ordered_imports' => ['sort_algorithm' => 'length', 'imports_order' => ['const', 'class', 'function']],
         'single_trait_insert_per_statement' => true,
         'fully_qualified_strict_types' => true,
+        'phpdoc_align' => [
+            'align' => 'left',
+        ],
         'ordered_interfaces' => [
             'order' => 'alpha',
             'direction' => 'ascend',
