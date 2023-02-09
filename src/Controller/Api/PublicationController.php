@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/api/rest')]
+#[Route('/api/rest', format: 'json')]
 class PublicationController extends AbstractController
 {
     private PublicationRepository $publicationRepository;
