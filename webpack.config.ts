@@ -34,6 +34,7 @@ Encore.setOutputPath("public/build/")
         "style:error": "./assets/styles/error.scss",
 
         /* Twig Component Style */
+        "style:component:banner": "./assets/styles/components/twig/banner.scss",
         "style:component:breadcrumb": "./assets/styles/components/twig/breadcrumb.scss",
         "style:component:spinner": "./assets/styles/components/twig/spinner.scss",
         "style:component:tag": "./assets/styles/components/twig/tag.scss",

@@ -62,3 +62,7 @@ services:
     App\Resolver\QueryParamArgumentResolver:
         tags:
             - { name: controller.argument_value_resolver, priority: 150 }
+
+    App\Doctrine\EventListener\BannerEnumTypeMigrationListener:
+        tags:
+            - { name: doctrine.event_listener, event: postGenerateSchema }

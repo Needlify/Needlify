@@ -40,6 +40,7 @@
 		{{ encore_entry_link_tags("style:header") }}
 		{{ encore_entry_link_tags("style:footer") }}
 		{{ encore_entry_link_tags("file:swup") }}
+		{{ encore_entry_link_tags("style:component:banner") }}
 
 		{% block stylesheets %}{% endblock stylesheets %}
 
@@ -76,34 +77,39 @@
 		</header>
 
 		<main id="app">
-			<div id="main-container" class="transition-fade"> {% block body %}{% endblock body %}
-				</div>
-			</main>
+			<div id="main-container" class="transition-fade">
 
-			<footer id="footer">
-				<div id="links">
-					<a href="{{url('app_about')}}">{{"layout.footer.about" | trans}}</a>
-					<a href="{{url('app_contact')}}">{{"layout.footer.contact" | trans}}</a>
-					<a href="{{url('app_legal')}}">{{"layout.footer.legal_texts" | trans}}</a>
-					<a href="{{url('app_newsletter_register')}}">{{"layout.footer.newsletter" | trans}}</a>
-				</div>
-				<div id="social">
-					<a href="https://www.instagram.com/rob.bch/" target="_blank">
-						<i data-feather="instagram"></i>
-					</a>
-					<a href="https://twitter.com/MrAnyx" target="_blank">
-						<i data-feather="twitter"></i>
-					</a>
-					<a href="https://github.com/Needlify" target="_blank">
-						<i data-feather="github"></i>
-					</a>
-					<a href="https://www.linkedin.com/in/rob-bch/" target="_blank">
-						<i data-feather="linkedin"></i>
-					</a>
-				</div>
-				<div id="credit">
-					© 2020 - Needlify. {{"layout.footer.rights" | trans}}.
-				</div>
-			</footer>
-		</body>
-	</html>
+				{{ component("banner", { banner: banner.lastBanner }) }}
+
+				{% block body %}{% endblock body %}
+			</div>
+		</main>
+
+		<footer id="footer">
+			<div id="links">
+				<a href="{{url('app_about')}}">{{"layout.footer.about" | trans}}</a>
+				<a href="{{url('app_contact')}}">{{"layout.footer.contact" | trans}}</a>
+				<a href="{{url('app_legal')}}">{{"layout.footer.legal_texts" | trans}}</a>
+				<a href="{{url('app_newsletter_register')}}">{{"layout.footer.newsletter" | trans}}</a>
+			</div>
+			<div id="social">
+				<a href="https://www.instagram.com/rob.bch/" target="_blank">
+					<i data-feather="instagram"></i>
+				</a>
+				<a href="https://twitter.com/MrAnyx" target="_blank">
+					<i data-feather="twitter"></i>
+				</a>
+				<a href="https://github.com/Needlify" target="_blank">
+					<i data-feather="github"></i>
+				</a>
+				<a href="https://www.linkedin.com/in/rob-bch/" target="_blank">
+					<i data-feather="linkedin"></i>
+				</a>
+			</div>
+			<div id="credit">
+				© 2020 - Needlify.
+				{{"layout.footer.rights" | trans}}.
+			</div>
+		</footer>
+	</body>
+</html>

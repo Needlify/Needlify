@@ -1,0 +1,21 @@
+{% trans_default_domain "components" %}
+
+<div id="banner-container">
+	<div id="icon-container" class="icon-{{ banner.type.value }}">
+		<i data-feather="{{ icon }}" stroke-width="3px" width="16px" height="16px"></i>
+	</div>
+	<div id="banner-content">
+		{% if banner.title %}
+			<h3>{{ banner.title }}</h3>
+		{% endif %}
+
+		<p>{{ banner.content }}</p>
+
+		{% if banner.link %}
+			<a href="{{ banner.link }}">
+				<i data-feather="link" class="icon"></i>
+				{{"banner.link" | trans}}
+			</a>
+		{% endif %}
+	</div>
+</div>

@@ -5,6 +5,7 @@ twig:
 
     globals:
         uploadDir: "%app.thumbnails.upload_dir%"
+        banner: '@App\Provider\BannerProvider'
 
 when@test:
     twig:

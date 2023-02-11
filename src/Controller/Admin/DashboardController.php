@@ -15,6 +15,7 @@ use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\Event;
 use App\Entity\Topic;
+use App\Entity\Banner;
 use App\Entity\Article;
 use App\Entity\Moodline;
 use App\Entity\NewsletterAccount;
@@ -77,6 +78,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('admin.sidebar.section.account');
         yield MenuItem::linkToCrud('admin.sidebar.section.account.users', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('admin.sidebar.section.account.newsletter', 'fas fa-newspaper', NewsletterAccount::class);
+
+        yield MenuItem::section('admin.sidebar.section.other');
+        yield MenuItem::linkToCrud('admin.sidebar.section.other.banners', 'fa fa-bullhorn', Banner::class);
     }
 
     /**

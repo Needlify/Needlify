@@ -1,0 +1,91 @@
+@import "../../mixins";
+#banner-container {
+    border-radius: 10px;
+    padding: 22px;
+    background-color: var(--white);
+    border: 2px solid var(--light-soft);
+    margin-top: 12px;
+    margin-bottom: 36px;
+    display: flex;
+    column-gap: 14px;
+
+    @include maxWidth(600px) {
+        padding: 16px;
+        border-radius: 6px;
+    }
+
+    #icon-container {
+        &.icon-info {
+            color: #5c81fc;
+        }
+
+        &.icon-event {
+            color: #5c81fc;
+        }
+    }
+
+    #banner-content {
+        display: flex;
+        flex-direction: column;
+        row-gap: 14px;
+
+        @include maxWidth(600px) {
+            row-gap: 10px;
+        }
+
+        h3 {
+            color: var(--dark-light);
+            margin-top: -2px;
+
+            @include maxWidth(600px) {
+                font-size: 16px;
+            }
+        }
+        p {
+            margin: 0;
+            margin-top: -4px;
+            color: var(--dark-very-soft);
+            line-height: 24px;
+            font-size: 16px;
+            font-weight: 450;
+
+            @include maxWidth(600px) {
+                font-size: 12px;
+                line-height: 18px;
+            }
+        }
+        a {
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            column-gap: 6px;
+            font-size: 14px;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-weight: 500;
+            transition: background-color 200ms ease-in-out;
+            background-color: var(--primary);
+            color: var(--light);
+
+            &:hover {
+                background-color: var(--primary-hover);
+            }
+
+            @include maxWidth(600px) {
+                column-gap: 4px;
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .icon {
+                width: 16px;
+                height: 16px;
+
+                @include maxWidth(600px) {
+                    width: 14px;
+                    height: 14px;
+                }
+            }
+        }
+    }
+}
