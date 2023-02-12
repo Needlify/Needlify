@@ -69,14 +69,14 @@ class EventCrudController extends AbstractCrudController
         yield BooleanField::new('private', 'admin.crud.event.column.private')->setHelp('admin.crud.event.column.private.help');
         yield TextEditorField::new('content', 'admin.crud.event.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
-            ->setNumOfRows(1)
+            ->setColumns(12)
             ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
             ->formatValue(fn (string $value) => $value) // To render content as html rather than just text
         ;
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
-        yield DateTimeField::new('publishedAt', 'admin.crud.event.column.published_at')->hideOnForm();
-        yield DateTimeField::new('updatedAt', 'admin.crud.event.column.updated_at')->onlyOnDetail();
+        yield DateTimeField::new('publishedAt', 'admin.crud.event.column.published_at')->setTimezone('UTC')->hideOnForm();
+        yield DateTimeField::new('updatedAt', 'admin.crud.event.column.updated_at')->setTimezone('UTC')->onlyOnDetail();
     }
 
     public function configureActions(Actions $actions): Actions

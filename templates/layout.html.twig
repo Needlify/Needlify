@@ -79,7 +79,9 @@
 		<main id="app">
 			<div id="main-container" class="transition-fade">
 
-				{{ component("banner", { banner: banner.lastBanner }) }}
+				{% if banner.lastBanner %}
+					{{ component("banner", { banner: banner.lastBanner }) }}
+				{% endif %}
 
 				{% block body %}{% endblock body %}
 			</div>

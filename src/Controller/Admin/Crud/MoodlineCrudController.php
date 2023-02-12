@@ -73,13 +73,13 @@ class MoodlineCrudController extends AbstractCrudController
         yield BooleanField::new('private', 'admin.crud.moodline.column.private')->setHelp('admin.crud.moodline.column.private.help');
         yield TextEditorField::new('content', 'admin.crud.moodline.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
-            ->setNumOfRows(3)
+            ->setColumns(12)
             ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
             ->formatValue(fn (string $value) => $value);
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
-        yield DateTimeField::new('publishedAt', 'admin.crud.moodline.column.published_at')->hideOnForm();
-        yield DateTimeField::new('updatedAt', 'admin.crud.moodline.column.updated_at')->onlyOnDetail();
+        yield DateTimeField::new('publishedAt', 'admin.crud.moodline.column.published_at')->setTimezone('UTC')->hideOnForm();
+        yield DateTimeField::new('updatedAt', 'admin.crud.moodline.column.updated_at')->setTimezone('UTC')->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('topic', 'admin.crud.moodline.column.topic')->setRequired(true);

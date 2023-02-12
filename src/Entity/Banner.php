@@ -16,7 +16,6 @@ use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\BannerRepository;
-use App\Doctrine\Type\BannerEnumType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BannerRepository::class)]
@@ -31,39 +30,39 @@ class Banner
     // TODO Modifier les messages d'erreur
 
     #[ORM\Column(length: 1600, type: Types::STRING)] // 1600 = 1000 * 0.6
-    #[Assert\NotBlank(message: 'article.title.not_blank')]
-    #[Assert\Length(max: 1600, maxMessage: 'article.title.length')]
+    #[Assert\Length(max: 1600, maxMessage: 'banner.content.length')]
     private ?string $content = null;
 
-    #[Assert\Length(max: 1000, maxMessage: 'event.raw_content.length')]
-    #[Assert\NotBlank(message: 'event.raw_content.not_blank')]
+    #[Assert\Length(max: 1000, maxMessage: 'banner.raw_content.length')]
+    #[Assert\NotBlank(message: 'banner.raw_content.not_blank')]
     private ?string $rawContent = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
+    #[Assert\Expression('this.getStartedAt() < this.getEndedAt()', message: 'banner.started_at.expression')]
     private ?\DateTimeImmutable $startedAt = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
+    #[Assert\Expression('this.getStartedAt() < this.getEndedAt()', message: 'banner.ended_at.expression')]
     private ?\DateTimeImmutable $endedAt = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
     #[Assert\Range(
         min: -32768,
-        minMessage: 'event.raw_content.length',
         max: 32768,
-        maxMessage: 'event.raw_content.length'
+        notInRangeMessage: 'banner.priority.range'
     )]
     private ?int $priority = 0;
 
-    #[ORM\Column(type: BannerEnumType::NAME, length: 20)]
-    #[Assert\Type(BannerType::class)]
+    #[ORM\Column(type: Types::STRING, length: 20, enumType: BannerType::class)]
+    #[Assert\Type(BannerType::class, message: 'banner.type.type')]
     private ?BannerType $type = null;
 
     #[ORM\Column(length: 255, type: Types::STRING, nullable: true)]
-    #[Assert\Length(max: 255, maxMessage: 'event.raw_content.length')]
+    #[Assert\Length(max: 255, maxMessage: 'banner.title.length')]
     private ?string $title = null;
 
     #[ORM\Column(length: 1000, type: Types::STRING, nullable: true)]
-    #[Assert\Length(max: 1000, maxMessage: 'event.raw_content.length')]
+    #[Assert\Length(max: 1000, maxMessage: 'banner.link.length')]
     private ?string $link = null;
 
     public function getId(): ?Uuid
@@ -79,6 +78,7 @@ class Banner
     public function setContent(string $content): self
     {
         $this->content = $content;
+        $this->setRawContent($content);
 
         return $this;
     }
@@ -138,7 +138,7 @@ class Banner
         return $this->type;
     }
 
-    public function setType(BannerType $type): self
+    public function setType(?BannerType $type): self
     {
         $this->type = $type;
 

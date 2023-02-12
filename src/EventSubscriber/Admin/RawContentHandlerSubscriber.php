@@ -12,6 +12,7 @@
 namespace App\EventSubscriber\Admin;
 
 use App\Entity\Event;
+use App\Entity\Banner;
 use App\Entity\Moodline;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -19,8 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeCrudActionEvent;
 
 class RawContentHandlerSubscriber implements EventSubscriberInterface
 {
-    private const ALLOWED_ENTITY = [Event::class, Moodline::class];
-
+    private const ALLOWED_ENTITY = [Event::class, Moodline::class, Banner::class];
     private const ALLOWED_ACTION = [Action::EDIT];
 
     public static function getSubscribedEvents(): array

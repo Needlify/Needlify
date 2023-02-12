@@ -9,7 +9,7 @@
 			<h3>{{ banner.title }}</h3>
 		{% endif %}
 
-		<p>{{ banner.content }}</p>
+		{{ banner.content|raw }}
 
 		{% if banner.link %}
 			<a href="{{ banner.link }}">

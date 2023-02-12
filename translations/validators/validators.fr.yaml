@@ -19,7 +19,7 @@ event.raw_content.length: "Le contenu brut d'un évènement ne peut pas dépasse
 event.raw_content.not_blank: "Le contenu brut d'un évènement ne pas être vide"
 
 moodline.content.length: "Le contenu d'une moodline ne peut pas dépasser {{ limit }} caractères"
-moodline.raw_content.length: "Le contenu brut d'une moddline ne peut pas dépasser {{ limit }} caractères"
+moodline.raw_content.length: "Le contenu brut d'une moodline ne peut pas dépasser {{ limit }} caractères"
 moodline.raw_content.not_blank: "Le contenu brut d'une moodline ne pas être vide"
 
 publication.topic.not_null: "Le topic d'une publication doit être renseigné"
@@ -46,3 +46,13 @@ newsletter_account.email.email: "Email invalide"
 newsletter_account.email.length: "L'email ne peut pas dépasser {{ limit }} caractère"
 newsletter_account.form.csrf: "Token CSRF invalide"
 newsletter_account.form.agree: "Vous devez accepter les conditions d'utilisation pour vous enregistrer"
+
+banner.content.length: "Le contenu d'une bannière ne peut pas dépasser {{ limit }} caractères"
+banner.raw_content.length: "Le contenu brut d'une bannière ne peut pas dépasser {{ limit }} caractères"
+banner.raw_content.not_blank: "Le contenu brut d'une bannière ne pas être vide"
+banner.started_at.expression: "Date invalide"
+banner.ended_at.expression: "Date invalide"
+banner.priority.range: "La priorité doit être entre {{ min }} et {{ max }}"
+banner.type.type: "Le type est invalide"
+banner.title.length: "Le titre d'une bannière ne peut pas dépasser {{ limit }} caractères"
+banner.link.length: "Le lien d'une bannière ne peut pas dépasser {{ limit }} caractères"
