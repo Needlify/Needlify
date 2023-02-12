@@ -23,7 +23,7 @@ final class Version20230211223628 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Added the banner table';
     }
 
     public function up(Schema $schema): void

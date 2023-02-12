@@ -23,7 +23,7 @@ final class Version20230212181935 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Updated datetime columns (mutable to immutable)';
     }
 
     public function up(Schema $schema): void
