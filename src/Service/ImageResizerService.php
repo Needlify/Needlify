@@ -15,11 +15,9 @@ use League\Glide\Urls\UrlBuilderFactory;
 
 class ImageResizerService
 {
-    private string $key;
-
-    public function __construct(string $key)
-    {
-        $this->key = $key;
+    public function __construct(
+        private string $key
+    ) {
     }
 
     public function resize(string $name, int $width, int $height, array $options = []): string

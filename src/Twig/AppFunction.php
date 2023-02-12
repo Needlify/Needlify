@@ -17,11 +17,9 @@ use Twig\Extension\AbstractExtension;
 
 class AppFunction extends AbstractExtension
 {
-    private ImageResizerService $imageResizerService;
-
-    public function __construct(ImageResizerService $imageResizerService)
-    {
-        $this->imageResizerService = $imageResizerService;
+    public function __construct(
+        private ImageResizerService $imageResizerService
+    ) {
     }
 
     /**

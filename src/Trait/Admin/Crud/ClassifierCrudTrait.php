@@ -17,7 +17,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 
 trait ClassifierCrudTrait
@@ -25,10 +27,10 @@ trait ClassifierCrudTrait
     public function defaultFilterConfiguration(Filters $filters): Filters
     {
         return $filters
-            ->add('name')
-            ->add('createdAt')
-            ->add('lastUseAt')
-            ->add('updatedAt')
+            ->add(TextFilter::new('name'))
+            ->add(DateTimeFilter::new('createdAt'))
+            ->add(DateTimeFilter::new('lastUseAt'))
+            ->add(DateTimeFilter::new('updatedAt'))
         ;
     }
 

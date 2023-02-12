@@ -21,17 +21,20 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\BatchActionDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+
+use function Symfony\Component\Translation\t;
 
 class NewsletterAccountCrudController extends AbstractCrudController
 {
     public function __construct(
-        private TranslatorInterface $translator,
         private NewsletterService $newsletterService
     ) {
     }
@@ -44,11 +47,11 @@ class NewsletterAccountCrudController extends AbstractCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add('email')
-            ->add('isVerified')
-            ->add('isEnabled')
-            ->add('verifiedAt')
-            ->add('subscribedAt')
+            ->add(TextFilter::new('email'))
+            ->add(BooleanFilter::new('isVerified'))
+            ->add(BooleanFilter::new('isEnabled'))
+            ->add(DateTimeFilter::new('verifiedAt'))
+            ->add(DateTimeFilter::new('subscribedAt'))
         ;
     }
 
@@ -58,10 +61,10 @@ class NewsletterAccountCrudController extends AbstractCrudController
             ->setSearchFields(['email'])
             ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
             ->setDefaultSort(['subscribedAt' => 'DESC'])
-            ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.newsletter.index.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.newsletter.new.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.newsletter.edit.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.newsletter.details.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_INDEX, t('admin.crud.newsletter.index.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_NEW, t('admin.crud.newsletter.new.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_EDIT, t('admin.crud.newsletter.edit.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_DETAIL, t('admin.crud.newsletter.details.title', [], 'admin'))
         ;
     }
 

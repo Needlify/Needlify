@@ -25,13 +25,10 @@ class FileUploaderService
     private const MEGA_SIZE_FACTOR = 1024 * 1024; // 1Mb
     private const MAX_FILE_SIZE = 1 * self::MEGA_SIZE_FACTOR; // 1Mb
 
-    private string $embedDirectory;
-    private string $embedPath;
-
-    public function __construct(string $embedDirectory, string $embedPath)
-    {
-        $this->embedDirectory = $embedDirectory;
-        $this->embedPath = $embedPath;
+    public function __construct(
+        private string $embedDirectory,
+        private string $embedPath,
+    ) {
     }
 
     /**

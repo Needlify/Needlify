@@ -48,11 +48,11 @@ abstract class Classifier
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     protected ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
-    protected ?\DateTimeInterface $lastUseAt = null;
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
+    protected ?\DateTimeImmutable $lastUseAt = null;
 
-    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
-    protected ?\DateTimeInterface $updatedAt = null;
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
+    protected ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(type: Types::STRING, length: 64, unique: true)]
     #[Assert\Length(max: 64, maxMessage: 'classifier.slug.length')]
@@ -87,7 +87,7 @@ abstract class Classifier
         $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
-    public function getLastUseAt(): ?\DateTimeInterface
+    public function getLastUseAt(): ?\DateTimeImmutable
     {
         return $this->lastUseAt;
     }
@@ -95,7 +95,7 @@ abstract class Classifier
     #[ORM\PrePersist]
     public function refreshLastUseAt(): void
     {
-        $this->lastUseAt = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->lastUseAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     public function getUpdatedAt()
@@ -112,7 +112,7 @@ abstract class Classifier
 
     public function refreshUpdatedAt()
     {
-        $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     public function getSlug(): ?string

@@ -22,11 +22,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class EventFixture extends Fixture
 {
-    private UrlGeneratorInterface $router;
-
-    public function __construct(UrlGeneratorInterface $router)
-    {
-        $this->router = $router;
+    public function __construct(
+        private UrlGeneratorInterface $router
+    ) {
     }
 
     public function getDependencies()

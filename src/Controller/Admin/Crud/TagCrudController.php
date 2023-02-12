@@ -18,20 +18,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+
+use function Symfony\Component\Translation\t;
 
 class TagCrudController extends AbstractCrudController
 {
     use ClassifierCrudTrait;
     use ContentCrudTrait;
-
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
 
     public static function getEntityFqcn(): string
     {
@@ -41,10 +35,10 @@ class TagCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $this->defaultClassifierCrudConfiguration($crud)
-                    ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.tag.index.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.tag.new.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.tag.edit.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.tag.details.title', [], 'admin'));
+                    ->setPageTitle(Crud::PAGE_INDEX, t('admin.crud.tag.index.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_NEW, t('admin.crud.tag.new.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_EDIT, t('admin.crud.tag.edit.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_DETAIL, t('admin.crud.tag.details.title', [], 'admin'));
     }
 
     public function configureFilters(Filters $filters): Filters

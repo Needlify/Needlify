@@ -22,11 +22,9 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ArticleController extends AbstractController
 {
-    private EntityManagerInterface $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
+    public function __construct(
+        private EntityManagerInterface $em
+    ) {
     }
 
     #[Route('/post/{slug}', name: 'app_article', methods: ['GET'], options: ['expose' => true])]

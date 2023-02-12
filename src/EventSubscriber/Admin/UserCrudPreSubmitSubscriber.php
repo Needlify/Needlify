@@ -24,11 +24,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class UserCrudPreSubmitSubscriber implements EventSubscriberInterface
 {
-    private UserPasswordHasherInterface $encoder;
-
-    public function __construct(UserPasswordHasherInterface $encoder)
-    {
-        $this->encoder = $encoder;
+    public function __construct(
+        private UserPasswordHasherInterface $encoder
+    ) {
     }
 
     public static function getSubscribedEvents(): array

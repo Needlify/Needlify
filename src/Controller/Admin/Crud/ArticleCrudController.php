@@ -26,28 +26,29 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\NumericFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+
+use function Symfony\Component\Translation\t;
 
 class ArticleCrudController extends AbstractCrudController
 {
     use ThreadCrudTrait;
     use ContentCrudTrait;
 
-    private ImageResizerService $imageResizerService;
-
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator, ImageResizerService $imageResizerService)
-    {
-        $this->translator = $translator;
-        $this->imageResizerService = $imageResizerService;
+    public function __construct(
+        private ImageResizerService $imageResizerService
+    ) {
     }
 
     public static function getEntityFqcn(): string
@@ -63,26 +64,26 @@ class ArticleCrudController extends AbstractCrudController
                         editFormOptions: ['validation_groups' => ['Default', 'admin:form:edit']]
                     )
                     ->setSearchFields(['title', 'description', 'topic.name', 'tags.name', 'content', 'author.username', 'author.email'])
-                    ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.article.index.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.article.new.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.article.edit.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.article.details.title', [], 'admin'));
+                    ->setPageTitle(Crud::PAGE_INDEX, t('admin.crud.article.index.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_NEW, t('admin.crud.article.new.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_EDIT, t('admin.crud.article.edit.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_DETAIL, t('admin.crud.article.details.title', [], 'admin'));
     }
 
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add('title')
-            ->add('description')
-            ->add('content')
-            ->add('author')
-            ->add('license')
-            ->add('private')
-            ->add('views')
-            ->add('publishedAt')
-            ->add('updatedAt')
-            ->add('topic')
-            ->add('tags')
+            ->add(TextFilter::new('title'))
+            ->add(TextFilter::new('description'))
+            ->add(TextFilter::new('content'))
+            ->add(EntityFilter::new('author'))
+            ->add(BooleanFilter::new('license'))
+            ->add(BooleanFilter::new('private'))
+            ->add(NumericFilter::new('views'))
+            ->add(DateTimeFilter::new('publishedAt'))
+            ->add(DateTimeFilter::new('updatedAt'))
+            ->add(EntityFilter::new('topic'))
+            ->add(EntityFilter::new('tags'))
         ;
     }
 

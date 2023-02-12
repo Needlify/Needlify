@@ -61,7 +61,7 @@ class ClassifierTest extends KernelTestCase
         $tag = new Tag();
         $tag->setName('tagTest');
         $this->em->persist($tag);
-        $this->assertInstanceOf(\DateTime::class, $tag->getLastUseAt());
+        $this->assertInstanceOf(\DateTimeImmutable::class, $tag->getLastUseAt());
         $this->em->remove($tag);
     }
 

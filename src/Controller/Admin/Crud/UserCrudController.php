@@ -25,25 +25,25 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\ArrayFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use App\EventSubscriber\Admin\UserCrudPreSubmitSubscriber;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+use function Symfony\Component\Translation\t;
+
 class UserCrudController extends AbstractCrudController
 {
-    private UserPasswordHasherInterface $encoder;
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator, UserPasswordHasherInterface $encoder)
-    {
-        $this->translator = $translator;
-        $this->encoder = $encoder;
+    public function __construct(
+        private UserPasswordHasherInterface $encoder
+    ) {
     }
 
     public static function getEntityFqcn(): string
@@ -70,10 +70,10 @@ class UserCrudController extends AbstractCrudController
             ->setSearchFields(['email', 'username'])
             ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
             ->setDefaultSort(['createdAt' => 'DESC'])
-            ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.user.index.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.user.new.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.user.edit.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.user.details.title', [], 'admin'));
+            ->setPageTitle(Crud::PAGE_INDEX, t('admin.crud.user.index.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_NEW, t('admin.crud.user.new.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_EDIT, t('admin.crud.user.edit.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_DETAIL, t('admin.crud.user.details.title', [], 'admin'));
     }
 
     public function createEditFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
@@ -95,12 +95,23 @@ class UserCrudController extends AbstractCrudController
 
     public function configureFilters(Filters $filters): Filters
     {
+        /**
+         * [
+         *    "ROLE_USER" => "ROLE_USER",
+         *    "ROLE_ADMIN" => "ROLE_ADMIN",
+         * ].
+         */
+        $roleList = array_combine(
+            array_keys($this->getParameter('security.role_hierarchy.roles')),
+            array_keys($this->getParameter('security.role_hierarchy.roles'))
+        );
+
         return $filters
-            ->add('username')
-            ->add('email')
-            ->add('roles')
-            ->add('createdAt')
-            ->add('updatedAt')
+            ->add(TextFilter::new('username'))
+            ->add(TextFilter::new('email'))
+            ->add(ArrayFilter::new('roles')->setChoices($roleList))
+            ->add(DateTimeFilter::new('createdAt'))
+            ->add(DateTimeFilter::new('updatedAt'))
         ;
     }
 

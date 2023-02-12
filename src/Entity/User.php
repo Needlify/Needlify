@@ -73,12 +73,12 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[Assert\Regex(pattern: '/^.*?[!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|].*?$/', message: 'user.raw_password.special_char', groups: ['auth:check:full'])]
     private ?string $rawPassword = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     #[Groups(['user:basic', 'user:extend'])]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
-    private ?\DateTime $updatedAt = null;
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Publication::class, cascade: ['remove'])]
     private Collection $publications;
@@ -206,7 +206,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
     public function refreshUpdatedAt()
     {
-        $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     /**

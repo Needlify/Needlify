@@ -26,10 +26,11 @@ use Symfony\Component\Security\Csrf\CsrfToken;
 use App\Repository\NewsletterAccountRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+
+use function Symfony\Component\Translation\t;
 
 class NewsletterService
 {
@@ -37,7 +38,6 @@ class NewsletterService
         private RequestStack $requestStack,
         private CsrfTokenManagerInterface $csrfTokenManager,
         private ValidatorInterface $validator,
-        private TranslatorInterface $translator,
         private MailerInterface $mailer,
         private EntityManagerInterface $em,
         private NewsletterAccountRepository $newsletterAccountRepository,
@@ -58,12 +58,12 @@ class NewsletterService
         $token = new CsrfToken('newsletter', $csrf);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             $hasError = true;
-            $session->getFlashBag()->add('error', $this->translator->trans('newsletter_account.form.csrf', domain: 'validators'));
+            $session->getFlashBag()->add('error', t('newsletter_account.form.csrf', domain: 'validators'));
         }
 
         if (null === $agree || 'on' !== $agree) {
             $hasError = true;
-            $session->getFlashBag()->add('error', $this->translator->trans('newsletter_account.form.agree', domain: 'validators'));
+            $session->getFlashBag()->add('error', t('newsletter_account.form.agree', domain: 'validators'));
         }
 
         $account = new NewsletterAccount();

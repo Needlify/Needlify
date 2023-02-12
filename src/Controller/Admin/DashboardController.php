@@ -30,11 +30,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 class DashboardController extends AbstractDashboardController
 {
-    private OverviewService $overviewService;
-
-    public function __construct(OverviewService $overviewService)
-    {
-        $this->overviewService = $overviewService;
+    public function __construct(
+        private OverviewService $overviewService
+    ) {
     }
 
     #[Route('/admin', name: 'admin_global')]

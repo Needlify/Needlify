@@ -18,13 +18,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class ExtraLogProcessor
 {
-    private Security $security;
-    private RequestStack $requestStack;
-
-    public function __construct(Security $security, RequestStack $requestStack)
-    {
-        $this->security = $security;
-        $this->requestStack = $requestStack;
+    public function __construct(
+        private Security $security,
+        private RequestStack $requestStack
+    ) {
     }
 
     public function __invoke(LogRecord $record)

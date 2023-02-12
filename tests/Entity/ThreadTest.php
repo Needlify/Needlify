@@ -43,7 +43,7 @@ class ThreadTest extends KernelTestCase
         $event = new Event();
         $event->setContent('message');
         $this->em->persist($event);
-        $this->assertInstanceOf(\DateTimeInterface::class, $event->getPublishedAt());
+        $this->assertInstanceOf(\DateTimeImmutable::class, $event->getPublishedAt());
         $this->em->remove($event);
     }
 }

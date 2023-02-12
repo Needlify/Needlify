@@ -39,8 +39,8 @@ abstract class Thread
     #[Groups(['thread:extend'])]
     protected ?\DateTimeImmutable $publishedAt = null; // publishedAt is in UTC/GMT
 
-    #[ORM\Column(type: Types::DATETIMETZ_MUTABLE)]
-    private ?\DateTime $updatedAt = null;
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private ?bool $private = false;
@@ -57,7 +57,7 @@ abstract class Thread
 
     public function getPublishedAtToISO8601(): string
     {
-        return $this->publishedAt->format(\DateTime::ATOM);
+        return $this->publishedAt->format(\DateTimeImmutable::ATOM);
     }
 
     #[ORM\PrePersist]
@@ -80,7 +80,7 @@ abstract class Thread
 
     public function refreshUpdatedAt()
     {
-        $this->updatedAt = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     public function isPrivate(): bool

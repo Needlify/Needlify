@@ -24,11 +24,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/rest', format: 'json')]
 class PublicationController extends AbstractController
 {
-    private PublicationRepository $publicationRepository;
-
-    public function __construct(PublicationRepository $publicationRepository)
-    {
-        $this->publicationRepository = $publicationRepository;
+    public function __construct(
+        private PublicationRepository $publicationRepository
+    ) {
     }
 
     #[Route('/publications', 'api_get_publications', methods: ['GET'], options: ['expose' => true])]

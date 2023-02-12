@@ -23,11 +23,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/rest', format: 'json')]
 class ThreadController extends AbstractController
 {
-    private ThreadRepository $threadRepository;
-
-    public function __construct(ThreadRepository $threadRepository)
-    {
-        $this->threadRepository = $threadRepository;
+    public function __construct(
+        private ThreadRepository $threadRepository
+    ) {
     }
 
     #[Route('/threads', 'api_get_threads', methods: ['GET'], options: ['expose' => true])]

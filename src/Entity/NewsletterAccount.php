@@ -38,17 +38,17 @@ class NewsletterAccount
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isVerified = false;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $verifiedAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     private ?\DateTimeImmutable $subscribedAt = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $isEnabled = true;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $lastRetryAt = null;
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $lastRetryAt = null;
 
     public function getId(): ?Uuid
     {
@@ -121,14 +121,14 @@ class NewsletterAccount
         return $this;
     }
 
-    public function getLastRetryAt(): ?\DateTimeInterface
+    public function getLastRetryAt(): ?\DateTimeImmutable
     {
         return $this->lastRetryAt;
     }
 
     public function updateLastRetryAt(): self
     {
-        $this->lastRetryAt = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->lastRetryAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
 
         return $this;
     }
@@ -139,7 +139,7 @@ class NewsletterAccount
             return true;
         }
 
-        $now = (new \DateTime('now', new \DateTimeZone('UTC')))->getTimestamp();
+        $now = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->getTimestamp();
         $lastRetryAt = $this->getLastRetryAt()->getTimestamp();
 
         if ($now - $lastRetryAt >= 60 * 3) {

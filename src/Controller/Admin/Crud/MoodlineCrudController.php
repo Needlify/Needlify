@@ -20,23 +20,21 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+
+use function Symfony\Component\Translation\t;
 
 class MoodlineCrudController extends AbstractCrudController
 {
     use ThreadCrudTrait;
-
-    private TranslatorInterface $translator;
-
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
 
     public static function getEntityFqcn(): string
     {
@@ -47,22 +45,22 @@ class MoodlineCrudController extends AbstractCrudController
     {
         return $this->defaultThreadCrudConfiguration($crud)
             ->setSearchFields(['content', 'topic.name', 'tags.name', 'author.username', 'author.email'])
-            ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.moodline.index.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.moodline.new.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.moodline.edit.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.moodline.details.title', [], 'admin'));
+            ->setPageTitle(Crud::PAGE_INDEX, t('admin.crud.moodline.index.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_NEW, t('admin.crud.moodline.new.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_EDIT, t('admin.crud.moodline.edit.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_DETAIL, t('admin.crud.moodline.details.title', [], 'admin'));
     }
 
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add('content')
-            ->add('private')
-            ->add('author')
-            ->add('publishedAt')
-            ->add('updatedAt')
-            ->add('topic')
-            ->add('tags')
+            ->add(TextFilter::new('content'))
+            ->add(BooleanFilter::new('private'))
+            ->add(EntityFilter::new('author'))
+            ->add(DateTimeFilter::new('publishedAt'))
+            ->add(DateTimeFilter::new('updatedAt'))
+            ->add(EntityFilter::new('topic'))
+            ->add(EntityFilter::new('tags'))
         ;
     }
 

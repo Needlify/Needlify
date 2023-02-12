@@ -15,11 +15,9 @@ use App\Repository\BannerRepository;
 
 class BannerProvider
 {
-    private BannerRepository $bannerRepository;
-
-    public function __construct(BannerRepository $bannerRepository)
-    {
-        $this->bannerRepository = $bannerRepository;
+    public function __construct(
+        private BannerRepository $bannerRepository
+    ) {
     }
 
     public function lastBanner()
