@@ -1,0 +1,4 @@
+Contact: security@needlify.com
+Expires: Wed, 20 Apr 2024 22:02 +0200
+Preferred-Languages: en, fr
+Policy: https://needlify.com/privacy
