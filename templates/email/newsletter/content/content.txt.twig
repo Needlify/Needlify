@@ -1,0 +1,24 @@
+Lithium Newsletter {{ content.newsletterPage.date|date("Y-m-d") }}{% for element in content.content %}{% if "heading" in element.type %}
+
+
+
+{% endif %}{% for item in element[element.type].text %}{{ item.text.content }}{% if "heading" in element.type and item.text.link is not null %}
+
+Link : {{item.text.link.url}}
+
+{% endif %}{% endfor %}{% endfor %}
+
+
+--------
+
+Sent with love from the friendly folks at Needlify
+
+Unsubscribe : {{ url("app_newsletter_unsubscribe", {'token': token}) }}
+Web version : {{ content.newsletterPage.newsletterUrl }}
+
+Social :
+   - Twitter : https://twitter.com/NeedlifyCom
+   - Discord : https://discord.gg/aVYBcexpEE
+   - Instagram : https://www.instagram.com/needlify
+   - Github : https://github.com/Needlify
+   - Mail : mailto:support@needlify.com

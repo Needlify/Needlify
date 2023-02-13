@@ -1,12 +1,15 @@
+@import "../mixins";
+
 #header {
     width: 100%;
-    height: calc(var(--header-height) - 2px);
+    height: var(--header-height);
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--light);
+    background-color: var(--white);
     border-bottom: 2px solid var(--light-medium);
-    padding: 0 var(--mobile-padding);
+    position: fixed;
+    z-index: 10;
 
     #header-container {
         width: 100%;
@@ -14,13 +17,68 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 0 var(--mobile-border-margin);
+
+        #header-links {
+            display: flex;
+            align-items: center;
+            column-gap: 15px;
+
+            @include maxWidth(600px) {
+                column-gap: 12px;
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                column-gap: 6px;
+                font-size: 14px;
+                border-radius: 6px;
+                padding: 8px 14px;
+                font-weight: 500;
+                transition: background-color 200ms ease-in-out, color 200ms ease-in-out, border 200ms ease-in-out;
+
+                @include maxWidth(600px) {
+                    column-gap: 4px;
+                    font-size: 12px;
+                    padding: 6px 12px;
+                }
+
+                &.primary {
+                    background-color: var(--primary);
+                    color: var(--light);
+
+                    &:hover {
+                        background-color: var(--primary-hover);
+                    }
+                }
+
+                &.secondary {
+                    color: var(--text);
+                    border: 1.5px solid var(--light-soft);
+
+                    &:hover {
+                        background-color: var(--light-soft);
+                        border-color: var(--light-light);
+                    }
+                }
+
+                .icon {
+                    width: 16px;
+                    height: 16px;
+
+                    @include maxWidth(600px) {
+                        width: 14px;
+                        height: 14px;
+                    }
+                }
+            }
+        }
     }
 
     img {
         width: 36px;
         aspect-ratio: 1;
-    }
-
-    #header-search-bar {
+        cursor: pointer;
     }
 }

@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ "legal.about.title"|trans }} - {{ parent() }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags("style_markdown") }}
+{% endblock stylesheets %}
+
+{% block body %}
+    <section class="markdown-style">
+        <h1>
+            {{ "legal.about.title"|trans }}
+        </h1>
+
+        {{ "legal.about.text"|trans|raw }}
+    </section>
+{% endblock body %}

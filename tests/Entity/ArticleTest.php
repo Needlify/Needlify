@@ -1,16 +1,20 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ *
+ * Copyright (c) Needlify <https://needlify.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Tests\Entity;
 
 use App\Entity\Article;
-use App\Entity\Tag;
-use App\Entity\Topic;
-use App\Entity\User;
-use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Enum\ThreadType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Uid\Uuid;
 
 class ArticleTest extends KernelTestCase
 {
@@ -23,16 +27,6 @@ class ArticleTest extends KernelTestCase
         $this->em = $kernel->getContainer()
             ->get('doctrine')
             ->resetManager();
-    }
-
-    public function testId(): void
-    {
-        $article = new Article();
-        $title = 'Test';
-        $article->setTitle($title);
-        $this->em->persist($article);
-        $this->assertInstanceOf(Uuid::class, $article->getId());
-        $this->em->remove($article);
     }
 
     public function testTitle(): void
@@ -78,57 +72,29 @@ class ArticleTest extends KernelTestCase
         $article = new Article();
 
         $title = 'Hello World';
-        $hash = hash('adler32', $title);
 
         $article->setTitle($title);
         $this->em->persist($article);
-        $this->assertEquals('Hello-World-' . $hash, $article->getSlug());
+
+        $this->assertMatchesRegularExpression('/hello-world-[a-z0-9]{13}/', $article->getSlug());
         $this->em->remove($article);
     }
 
-    public function testAuthor(): void
+    public function testType()
     {
-        $user = $this->em->getRepository(User::class)->findOneBy([]);
-        $article = new Article();
-
-        $article->setAuthor($user);
-        $this->assertInstanceOf(User::class, $article->getAuthor());
-        $this->assertEquals($user, $article->getAuthor());
-        $this->em->remove($article);
-    }
-
-    public function testPublishedAt(): void
-    {
-        $article = new Article();
         $title = 'Test';
+        $article = new Article();
         $article->setTitle($title);
-        $this->em->persist($article);
-        $this->assertInstanceOf(DateTimeImmutable::class, $article->getPublishedAt());
-        $this->em->remove($article);
+        $this->assertEquals($article->getType()->value, 'article');
+        $this->assertEquals($article->getType(), ThreadType::ARTICLE);
     }
 
-    public function testTopic(): void
+    public function testPreview(): void
     {
-        $topic = $this->em->getRepository(Topic::class)->findOneBy([]);
+        $description = 'Test';
         $article = new Article();
-        $article->setTopic($topic);
-        $this->assertInstanceOf(Topic::class, $article->getTopic());
-        $this->assertEquals($topic, $article->getTopic());
-    }
-
-    public function testTags(): void
-    {
-        $allTags = $this->em->getRepository(Tag::class)->findBy([], ['name' => 'ASC'], 2, 0);
-        $first = $this->em->getRepository(Tag::class)->findBy([], ['name' => 'ASC'], 1, 0);
-        $last = $this->em->getRepository(Tag::class)->findBy([], ['name' => 'ASC'], 1, 1);
-
-        $article = new Article();
-        $article->setTags($first);
-
-        $this->assertInstanceOf(ArrayCollection::class, $article->getTags());
-        $this->assertEquals(new ArrayCollection($first), $article->getTags());
-
-        $article->addTag($last[0]);
-        $this->assertEquals(new ArrayCollection($allTags), $article->getTags());
+        $article->setDescription($description);
+        $this->assertEquals($description, $article->getPreview());
+        $this->assertEquals($article->getDescription(), $article->getPreview());
     }
 }

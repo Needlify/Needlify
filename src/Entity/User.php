@@ -1,38 +1,52 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ *
+ * Copyright (c) Needlify <https://needlify.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\Ignore;
-use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+#[UniqueEntity(fields: ['email'], message: 'user.email.unique')]
+#[UniqueEntity(fields: ['username'], message: 'user.username.unique')]
+class User implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
-    #[Groups(['user:extend'])]
     private ?Uuid $id = null;
 
+    #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
+    #[Assert\NotBlank(message: 'user.username.not_blank')]
+    #[Assert\Length(max: 50, maxMessage: 'user.username.length')]
+    #[Assert\Regex(pattern: '/^[\w\-\.]*$/', message: 'user.username.regex')]
+    #[Groups(['user:basic', 'user:extend'])]
+    private ?string $username = null;
+
     #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
-    #[Assert\NotBlank(message: "L'email ne peut pas être vide")]
-    #[Assert\Email(message: "{{ value }} n'est pas un email valide")]
-    #[Assert\Length(
-        max: 180,
-        maxMessage: "L'email ne peut pas dépasser {{ limite }} caractères",
-    )]
+    #[Assert\NotBlank(message: 'user.email.not_blank')]
+    #[Assert\Email(message: 'user.email.email')]
+    #[Assert\Length(max: 180, maxMessage: 'user.email.length')]
     #[Groups(['user:extend'])]
     private ?string $email = null;
 
@@ -41,21 +55,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = ['ROLE_USER'];
 
     #[ORM\Column(type: Types::STRING)]
-    #[Assert\NotBlank(message: 'Le mot de passe ne peut pas être vide')]
+    #[Assert\NotBlank(message: 'user.password.not_blank', groups: ['auth:check:full'])]
     #[Ignore]
     private ?string $password = null;
 
-    #[ORM\Column(type: Types::STRING, length: 50)]
-    #[Assert\NotBlank(message: "Le nom d'utilisateur ne peut pas être vide")]
-    #[Assert\Length(max: 50, maxMessage: "Le nom d'utilisateur ne peut pas dépasser {{ limite }} caractères")]
-    #[Groups(['user:basic', 'user:extend'])]
-    private ?string $username = null;
+    #[Assert\NotBlank(message: 'user.password.not_blank', groups: ['auth:check:full'])]
+    #[Assert\NotCompromisedPassword(message: 'user.raw_password.not_compromised_password', groups: ['auth:check:full'])]
+    #[Assert\Length(
+        min: 8,
+        minMessage: 'user.raw_password.min_length',
+        max: 50,
+        maxMessage: 'user.raw_password.max_length',
+        groups: ['auth:check:full']
+    )]
+    #[Assert\Regex(pattern: '/^.*?[A-Z].*?$/', message: 'user.raw_password.upper_case', groups: ['auth:check:full'])]
+    #[Assert\Regex(pattern: '/^.*?[0-9].*?$/', message: 'user.raw_password.number', groups: ['auth:check:full'])]
+    #[Assert\Regex(pattern: '/^.*?[!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|].*?$/', message: 'user.raw_password.special_char', groups: ['auth:check:full'])]
+    private ?string $rawPassword = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     #[Groups(['user:basic', 'user:extend'])]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Publication::class)]
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Publication::class, cascade: ['remove'])]
     private Collection $publications;
 
     public function __construct()
@@ -66,6 +91,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?Uuid
     {
         return $this->id;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -110,14 +147,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
-        $this->password = $password;
+        if (null !== $password) {
+            $this->password = $password;
+        }
+
+        return $this;
+    }
+
+    public function getRawPassword(): ?string
+    {
+        return $this->rawPassword;
+    }
+
+    public function setRawPassword(?string $rawPassword): self
+    {
+        if (null !== $rawPassword) {
+            $this->rawPassword = $rawPassword;
+        }
 
         return $this;
     }
@@ -128,19 +181,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -148,11 +189,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\PrePersist]
     public function setCreatedAt(): void
     {
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function autoUpdatedAt()
+    {
+        $this->refreshUpdatedAt();
+    }
+
+    public function refreshUpdatedAt()
+    {
+        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     /**
-     * @return Collection<int, Publication>
+     * @return Collection<int, Thread>
      */
     public function getPublications(): Collection
     {
@@ -179,5 +237,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 }

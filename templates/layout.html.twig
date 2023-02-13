@@ -1,0 +1,117 @@
+{% set lang = app.request.locale|split('_')[0] %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="author" href="{{ asset("humans.txt") }}"/>
+		<meta name="language" content="{{ lang }}"/>
+		<meta http-equiv="content-language" content="{{ lang }}"/>
+		<meta name="copyright" content="https://needlify.com"/>
+		<meta name="theme-color" content="#ff6e03"/>
+		<meta name="twitter:widgets:new-embed-design" content="on"/>
+		<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+		<meta property="og:description" content="{% block description %}{{"layout.meta.description" | trans}}{% endblock description %}"/>
+
+		<meta property="og:type" content="website"/>
+		<meta property="og:url" content="{{ app.request.uri }}"/>
+		<meta property="og:title" content="Needlify"/>
+		<meta property="og:site_name" content="Needlify"/>
+		<meta property="og:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
+		<meta name="twitter:card" content="summary_large_image"/>
+		<meta name="twitter:title" content="Needlify"/>
+		<meta name="twitter:image:src" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
+		<meta property="og:description" content="{% block og_description %}{{"layout.meta.description" | trans}}{% endblock og_description %}"/>
+		<meta name="twitter:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
+
+		<link rel="shortcut icon" href="{{ asset("images/logo/favicon.ico") }}" type="image/x-icon"/>
+
+		<title>
+			{% block title %}Needlify
+			{% endblock title %}
+		</title>
+
+		<meta charset="UTF-8"/>
+
+		{{ encore_entry_link_tags("style_reset") }}
+		{{ encore_entry_link_tags("style_global") }}
+		{{ encore_entry_link_tags("style_layout") }}
+		{{ encore_entry_link_tags("style_header") }}
+		{{ encore_entry_link_tags("style_footer") }}
+		{{ encore_entry_link_tags("file_swup") }}
+		{{ encore_entry_link_tags("style_component_banner") }}
+
+		{% block stylesheets %}{% endblock stylesheets %}
+
+		{{ encore_entry_script_tags("file_layout") }}
+		{{ encore_entry_script_tags("file_swup") }}
+		{{ encore_entry_script_tags("file_global") }}
+
+		{% block javascripts %}{% endblock javascripts %}
+
+	</head>
+	<body>
+		<header id="header">
+			<div id="header-container">
+				<a href="{{ url("app_home") }}"><img src="{{ asset("images/logo/icon-64.png") }}" class="glitch" alt="Notice logo"/></a>
+				<div id="header-links">
+					{% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+						<a href="{{ url('admin_global') }}" class="primary">
+							<i data-feather="grid" class="icon"></i>
+							{{"layout.header.dashboard" | trans}}
+						</a>
+						<a href="{{ url('auth_logout') }}" class="secondary">
+							<i data-feather="log-out" class="icon"></i>
+							{{'layout.header.logout' | trans}}
+						</a>
+
+					{% else %}
+						<a href="{{ url('auth_login') }}" class="secondary">
+							<i data-feather="log-in" class="icon"></i>
+							{{"layout.header.login" | trans}}
+						</a>
+					{% endif %}
+				</div>
+			</div>
+		</header>
+
+		<main id="app">
+			<div id="main-container" class="transition-fade">
+
+				{% if banner.lastBanner %}
+					{{ component("banner", { banner: banner.lastBanner }) }}
+				{% endif %}
+
+				{% block body %}{% endblock body %}
+			</div>
+		</main>
+
+		<footer id="footer">
+			<div id="links">
+				<a href="{{url('app_about')}}">{{"layout.footer.about" | trans}}</a>
+				<a href="{{url('app_contact')}}">{{"layout.footer.contact" | trans}}</a>
+				<a href="{{url('app_legal')}}">{{"layout.footer.legal_texts" | trans}}</a>
+				<a href="{{url('app_newsletter_register')}}">{{"layout.footer.newsletter" | trans}}</a>
+			</div>
+			<div id="social">
+				<a href="https://www.instagram.com/rob.bch/" target="_blank">
+					<i data-feather="instagram"></i>
+				</a>
+				<a href="https://twitter.com/MrAnyx" target="_blank">
+					<i data-feather="twitter"></i>
+				</a>
+				<a href="https://github.com/Needlify" target="_blank">
+					<i data-feather="github"></i>
+				</a>
+				<a href="https://www.linkedin.com/in/rob-bch/" target="_blank">
+					<i data-feather="linkedin"></i>
+				</a>
+			</div>
+			<div id="credit">
+				© 2020 - Needlify.
+				{{"layout.footer.rights" | trans}}.
+			</div>
+		</footer>
+	</body>
+</html>

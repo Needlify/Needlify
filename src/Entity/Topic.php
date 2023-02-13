@@ -1,17 +1,32 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ *
+ * Copyright (c) Needlify <https://needlify.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
-use App\Repository\TopicRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Enum\ClassifierType;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TopicRepository;
+use Doctrine\Common\Collections\Collection;
+use App\Entity\Interface\EntityTypeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: TopicRepository::class)]
-class Topic extends Classifier
+class Topic extends Classifier implements EntityTypeInterface
 {
-    #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Publication::class)]
+    #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Publication::class, cascade: ['remove'])]
     private Collection $publications;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?Event $event = null;
 
     public function __construct()
     {
@@ -44,6 +59,23 @@ class Topic extends Classifier
                 $publication->setTopic(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ClassifierType
+    {
+        return ClassifierType::TOPIC;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }

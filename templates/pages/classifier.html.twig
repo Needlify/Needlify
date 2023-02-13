@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+    {{ classifier.name }} - {{ parent() }}
+{% endblock title %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags("page_classifier") }}
+    {{ encore_entry_link_tags("component_vue") }}
+    {{ encore_entry_link_tags("style_component_breadcrumb") }}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags("component_vue") }}
+{% endblock javascripts %}
+
+{% block body %}
+    {{ component("breadcrumb", { name: classifier.name, type: classifier.type }) }}
+
+    <div {{ vue_component("TimelineWrapper", { id: classifier.id }) }}></div>
+{% endblock body %}

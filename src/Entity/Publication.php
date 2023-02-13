@@ -1,14 +1,21 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ *
+ * Copyright (c) Needlify <https://needlify.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
-use App\Repository\PublicationRepository;
-use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
+use App\Repository\PublicationRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
@@ -19,59 +26,23 @@ use Symfony\Component\Validator\Constraints as Assert;
     Article::class => Article::class,
 ])]
 #[ORM\HasLifecycleCallbacks]
-abstract class Publication
+abstract class Publication extends Thread
 {
-    #[ORM\Id]
-    #[ORM\Column(type: 'uuid', unique: true)]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
-    protected ?Uuid $id = null;
-
-    #[ORM\ManyToOne(inversedBy: 'publications')]
-    #[Assert\NotNull(message: "L'auteur d'une publication doit être renseigné")]
-    protected ?User $author = null;
-
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    protected ?\DateTimeImmutable $publishedAt = null;
-
-    #[ORM\ManyToOne(inversedBy: 'publications')]
-    #[Assert\NotNull(message: "Le topic d'une publication doit être renseigné")]
+    #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'publications')]
+    #[Assert\NotNull(message: 'publication.topic.not_null')]
+    #[Groups(['thread:extend'])]
     protected ?Topic $topic = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'publications')]
+    #[Groups(['thread:extend'])]
     protected Collection $tags;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'publications')]
+    protected ?User $author = null;
 
     public function __construct()
     {
         $this->tags = new ArrayCollection();
-    }
-
-    public function getId(): ?Uuid
-    {
-        return $this->id;
-    }
-
-    public function getAuthor(): ?User
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(?User $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    public function getPublishedAt(): ?DateTimeImmutable
-    {
-        return $this->publishedAt;
-    }
-
-    #[ORM\PrePersist]
-    public function setPublishedAt(): void
-    {
-        $this->publishedAt = new DateTimeImmutable();
     }
 
     public function getTopic(): ?Topic
@@ -113,6 +84,18 @@ abstract class Publication
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

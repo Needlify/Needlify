@@ -1,14 +1,22 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ *
+ * Copyright (c) Needlify <https://needlify.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Tests\Entity;
 
 use App\Entity\Topic;
-use DateTime;
-use DateTimeImmutable;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use App\Entity\Article;
+use App\Entity\Publication;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Uid\Uuid;
 
 class TopicTest extends KernelTestCase
 {
@@ -23,52 +31,35 @@ class TopicTest extends KernelTestCase
             ->resetManager();
     }
 
-    public function testId(): void
+    public function testGetPublication()
     {
-        $topic = new Topic();
-        $this->em->persist($topic);
-        $this->assertInstanceOf(Uuid::class, $topic->getId());
-        $this->em->remove($topic);
+        /** @var Article $post */
+        $post = $this->em->getRepository(Article::class)->findOneBy([]);
+        $topic = $post->getTopic();
+        $this->assertInstanceOf(Collection::class, $topic->getPublications());
+        $this->assertInstanceOf(Publication::class, $topic->getPublications()[0]);
     }
 
-    public function testName(): void
+    public function testAddPublication()
     {
-        $name = Uuid::v4()->toRfc4122();
+        $title = 'Test';
+        $post = new Article();
+        $post->setTitle($title);
 
         $topic = new Topic();
-        $topic->setName($name);
-        $this->assertEquals($name, $topic->getName());
-        $this->em->persist($topic);
+        $topic->setName('test_tag');
 
-        $topicCopy = new Topic();
-        $topicCopy->setName($name);
-        $this->em->persist($topicCopy);
-
-        try {
-            $this->em->flush($topic);
-            $this->em->flush($topicCopy);
-        } catch (UniqueConstraintViolationException $e) {
-            $this->assertTrue(true);
-
-            return;
-        }
-
-        $this->fail();
+        $topic->addPublication($post);
+        $this->assertInstanceOf(Article::class, $topic->getPublications()[0]);
     }
 
-    public function testCreatedAt(): void
+    public function testRemovePublication()
     {
-        $topic = new Topic();
-        $this->em->persist($topic);
-        $this->assertInstanceOf(DateTimeImmutable::class, $topic->getCreatedAt());
-        $this->em->remove($topic);
-    }
+        /** @var Article $post */
+        $post = $this->em->getRepository(Article::class)->findOneBy([]);
+        $topic = $post->getTopic();
 
-    public function testLastUseAt(): void
-    {
-        $topic = new Topic();
-        $this->em->persist($topic);
-        $this->assertInstanceOf(DateTime::class, $topic->getLastUseAt());
-        $this->em->remove($topic);
+        $topic->removePublication($post);
+        $this->assertNotEquals($topic, $post->getTopic());
     }
 }

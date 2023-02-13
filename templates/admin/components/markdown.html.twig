@@ -1,0 +1,21 @@
+{% if ea.crud.currentAction == "detail" %}
+    {{ field.getFormattedValue|raw }}
+{% else %}
+    {% set modalId = random(1, 5000) %}
+    <a href="#" data-bs-toggle="modal" data-bs-target="#ea-text-editor-{{ modalId }}"><i class="far fa-file-alt"></i> {{ "admin.component.markdown.modal.link"|trans }}</a>
+    <div class="modal fade" id="ea-text-editor-{{ modalId }}" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{ "admin.component.markdown.modal.header"|trans }}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ field.getFormattedValue|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

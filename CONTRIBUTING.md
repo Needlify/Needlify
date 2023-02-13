@@ -5,6 +5,44 @@ email, or any other method with the owners of this repository before making a ch
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
+# Local configuration
+
+In order to work on this project locally, you'll need to configure few things. Fortunatly, I created a Dockerfile and a Docker Compose file so that everything is pre-configured. The only prerequisite is that you have Docker (and Docker Compose) installed on your computer.
+
+Once installed, you'll have to follow the few steps that are described right after.
+
+> 💡 Note that the installation and the configuration processes are simpler if your use the devcontainer for VSCode. If it's the case, juste open the project on a devcontainer and everything will be automatically done for you.
+
+1. Build the image
+
+```bash
+docker-compose build --up -d
+```
+
+This command will download the required docker images such as the database, the management interface for the database (adminer) and the mail catcher.
+
+Then, it will build the Dockerfile. It may take few minutes to complete this step depending on your internet connection.
+
+2. Configure the project
+
+The Docker image previously built contains everything to make the project work. It also integrates a tool called `Task` which is a Makefile alternative.
+
+There is a command to configure the project.
+
+```bash
+task a:d:c
+```
+
+or
+
+```bash
+task app:default:config
+```
+
+3. Enjoy the project
+
+Now that everything in installed and configured, feel free to use and explore the project.
+
 # Contributing to Needlify
 
 Please take a moment to review this document in order to make the contribution

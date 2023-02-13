@@ -1,0 +1,183 @@
+layout.meta.description: "Partagez et trouvez des informations tech sur Needlify !"
+
+layout.header.dashboard: "Tableau de bord"
+layout.header.logout: "Déconnexion"
+layout.header.login: "Se connecter"
+
+layout.footer.about: "À propos"
+layout.footer.contact: "Contact"
+layout.footer.legal_texts: "Textes légaux"
+layout.footer.terms: "Conditions d'utilisation"
+layout.footer.conduct: "Code d'éthique"
+layout.footer.newsletter: "Newsletter"
+layout.footer.rights: "Tous droits réservé"
+
+feed.title: "Fil d'actualités"
+
+article.info.time_to_read: "min de lecture"
+article.content.table_of_content: "Table des matières"
+article.content.license: "Cette œuvre est mise à disposition selon les termes de la licence"
+
+legal.legal.title: "Textes légaux"
+
+legal.privacy.title: "Politique de vie privée"
+legal.privacy.text: |
+    <p>Pour le bien de nos utilisateurs, nous nous engageons à respecter la vie privée et la confidentialité de chacun.</p>
+
+    <h2>Collecte d'informations</h2>
+    <p>Pour le bon fonctionnement de la plateforme mais aussi pour éviter certains abus, nous devons collecter les informations suivantes :</p>
+    <ul>
+        <li>Adresse email</li>
+        <li>Nom d'utilisateur</li>
+    </ul>
+    <D>Ces informations seront stockées dès la création de votre compte. D'autres informations sont recueillies par le biais de fichiers journaux :</p>
+    <ul>
+        <li>Adresse IP</li>
+        <li>Date de connexion</li>
+        <li>Pages visitées</li>
+    </ul>
+    <p>Ces informations seront utilisées par l'administrateur en cas d'abus.</p>
+
+    <h2>Cookies</h2>
+    <p>Plusieurs cookies seront créés lorsque vous naviguerez sur la plateforme.</p>
+    <ul>
+        <li>Un cookie de connexion lorsque vous êtes connecté</li>
+        <li>Un cookie de rétention lorsque vous cochez l'option <code>remember me</code> lors de la connexion</li>
+    </ul>
+    <p>Les deux cookies mentionnés ci-dessus sont les seuls qui sont générés et utilisés.</p>
+
+    <h2>Publication de contenu</h2>
+    <p>Les informations relatives au contenu que vous publiez seront collectées et stockées. Le texte et les images seront stockés pour un affichage ultérieur.</p>
+    <p>Seuls l'auteur d'un article et l'administrateur peuvent apporter des modifications à un article.</p>
+    <p>Vous avez également la possibilité de changer la <code>visibilité</code> d'un article lors de l'édition. Les articles <code>publics</code> seront visibles par tous, tandis que les articles <code>privés</code> ne seront visibles que par l'auteur.</p>
+
+    <h2>Temps de stockage des données</h2>
+    <p>Dès que votre compte est créé, les données que vous saisissez sont conservées indéfiniment jusqu'à ce que votre compte soit supprimé en raison d'un abus ou d'une demande de votre part. De même, le contenu que vous publiez sera stocké indéfiniment jusqu'à ce qu'il soit supprimé.</p>
+
+    <h2>Protection des données</h2>
+    <p>Nous avons mis en place des mesures strictes pour protéger vos données.</p>
+
+    <h3>Sécurité</h3>
+    <p>Pour la sécurité des utilisateurs, nous avons implémenté des tokens CSRF pour protéger les différents formulaires. Un certificat SSL a également été mis en place pour protéger les échanges entre l'utilisateur et le serveur. Enfin, des algorithmes d'anonymisation des chaînes de caractères (<i>hash</i>) sont générés pour anonymiser les données mais aussi pour empêcher le décryptage de ces informations.</p>
+    <p>Quant au serveur, nous avons mis en place un système d'authentification pour en restreindre l'accès. D'autres logiciels comme un pare-feu ont également été mis en place.</p>
+
+    <h3>Procédures en place</h3>
+    <p>Conformément au règlement général sur la protection des données, en cas de fuite de données personnelles, nous vous informerons de la nature des données dans un délai maximum de 72 heures après que la fuite de données aura été identifiée.</p>
+
+legal.conduct.title: "Code d'éthique"
+legal.conduct.text: |
+    <p>Toutes les personnes inscrites ou non sur la plateforme <b>Needlify</b> sont tenues de respecter les règles de bonne conduite. Ces règles s'appliquent à toute personne physique ou morale utilisant cette plateforme d'échange et de partage.</p>
+    <p>De par l'identité même de cette plateforme, vous lirez inévitablement des articles avec lesquels vous n'êtes pas d'accord. Si tel est le cas, ne vous laissez pas emporter. Restez calme, prenez le temps d'y réfléchir et revenez quelques minutes plus tard.</p>
+    <p>Needlify est avant tout une plateforme d'échange et de partage. Vous devez donc suivre quelques règles pour garder cette plateforme cool et agréable. Voici une liste non exhaustive de comportements que vous <b>NE DEVEZ PAS</b> adopter.</p>
+
+    <h3>Partager du contenu violent</h3>
+    <p>Le contenu que vous partagez sera vu par tout le monde. Tout le monde signifie que les adultes comme les jeunes peuvent lire les articles sur cette plateforme. Pensez à toutes les personnes qui pourront voir votre message et demandez si le contenu est offensant et approprié.</p>
+
+    <h3>Le sujet des articles</h3>
+    <p>Évidemment, les articles que vous écrivez doivent être en rapport avec le thème de la plateforme. En d'autres termes, un article sur les licornes féeriques dans le monde des étoiles magiques ne sera bien sûr pas accepté. D'autre part, vous pourrez traiter des sujets concernant les nouvelles technologies, le développement, la programmation, le design, l'entrepreneuriat, l'organisation, le management, ...</p>
+
+    <h3>Insultes/haine</h3>
+    <p>Tout d'abord, sachez que dans de nombreux pays, des lois existent pour punir les discours de haine et la diffamation sur Internet. Nous nous réservons le droit de traiter le contenu haineux et de supprimer ce contenu le cas échéant.</p>
+
+    <h3>Harcèlement</h3>
+    <p>Le harcèlement sous quelque forme que ce soit n'est pas toléré.</p>
+    <ul>
+        <li>La publication de textes ou d'images humiliants</li>
+        <li>Intimidation</li>
+        <li>La publication de messages privés</li>
+        <li>Insultes</li>
+        <li>Toutes les autres formes de harcèlement</li>
+    </ul>
+    <p>Toutes ces formes de harcèlement ne seront pas tolérées sur cette plateforme.</p>
+
+    <h3>Contenu inapproprié pour les mineurs</h3>
+    <p>Les contenus inappropriés ou inadaptés aux mineurs ne seront pas autorisés. Les contenus violents ou à caractère sexuel dirigés vers ou mettant en scène des mineurs ne sont pas autorisés.</p>
+
+    <h3>Discrimination</h3>
+    <p>La discrimination, ainsi que le harcèlement, ne seront pas autorisés.</p>
+
+    <h3>Pourriel</h3>
+    <p>La publication et le partage répétés de contenus similaires ne sont pas autorisés. De même, la création massive de compte sera sanctionnée.</p>
+
+    <h3>Utilisation du bot et de l'automatisation</h3>
+    <p>L'utilisation de programmes permettant l'automatisation d'actions telles que :</p>
+    <ul>
+        <li>La création d'un compte</li>
+        <li>La publication de contenu</li>
+    </ul>
+    <p>n'est pas autorisé.</p>
+
+    <h3>Droit d'auteur</h3>
+    <p>Le respect des droits d'auteur est primordial. Vous ne devez pas utiliser de contenu pour lequel vous n'avez pas l'autorisation du créateur.</p>
+
+    <h3>Usurpation d'identité</h3>
+    <p>L'usurpation d'identité ou le fait de prétendre être quelqu'un d'autre n'est pas autorisé.</p>
+
+    <h3>Pornographie</h3>
+    <p>Cette plateforme n'est pas destinée à partager du contenu pornographique. D'autres plates-formes sont conçues pour cela.</p>
+
+    <h3>Violation de la vie privée</h3>
+    <p>Le contenu qui partage des informations privées ou personnellement identifiables sans consentement n'est pas autorisé. Cela inclut le partage d'informations d'identification, de numéros de carte de crédit, de numéros de sécurité sociale ou de toute autre information personnellement identifiable.</p>
+
+    <h3>Hameçonnage et contenu malveillant</h3>
+    <p>Le partage de contenu malveillant et frauduleux n'est pas autorisé. De même, le partage de code malveillant ne sera pas autorisé.</p>
+
+    <h2>Si vous enfreignez l'une de ces règles</h2>
+    <p>En fonction de la gravité de la situation, nous vous enverrons d'abord un e-mail vous demandant d'expliquer vos actions. En même temps, votre compte recevra un avertissement. Après deux avertissements, votre compte sera temporairement suspendu. Si vous recevez un autre avertissement après la réactivation de votre compte, votre compte sera supprimé.</p>
+    <p>Nous nous réservons le droit de supprimer le contenu jugé inapproprié. Nous espérons que nous n'en arriverons pas là.</p>
+    <p>Si vous avez des questions, veuillez nous contacter à : <a href="mailto:support@needlify.com">support@needlify.com</a></p>
+
+legal.about.title: "À propos"
+legal.about.text: |
+    <p>Needlify est une plateforme de partage de contenu et de connaissances autour de l'informatique et des nouvelles technologies.</p>
+    <p>Au départ, ce projet était une <code>preuve de concept</code>, mais au fur et à mesure du développement, l'idée s'est concrétisée et il serait dommage d'abandonner le projet.</p>
+    <p>Notre objectif est de pouvoir offrir une plateforme de partage des connaissances à travers le monde.</p>
+
+legal.contact.title: "Contact"
+legal.contact.text: |
+    <p>N'hésitez pas à nous contacter, nous serons ravis de vous entendre.</p>
+    <ul>
+        <li><b>Email</b> : <a href="mailto:support@needlify.com">support@needlify.com</a></li>
+        <li><b>Discord</b> : <a href="https://discord.gg/aVYBcexpEE" target="_blank">https://discord.gg/aVYBcexpEE</a></li>
+        <li><b>Twitter</b> : <a href="https://twitter.com/NeedlifyCom" target="_blank">https://twitter.com/NeedlifyCom</a></li>
+        <li><b>Instagram</b> : <a href="https://www.instagram.com/needlify/" target="_blank">https://www.instagram.com/needlify/</a></li>
+    </ul>
+    <p>En rejoignant le discord, vous aurez une description des nouvelles fonctionnalités et des annonces spéciales.</p>
+    <p>
+        Vous pouvez également signaler les problèmes par courrier à l'adresse suivante
+        <a href="mailto:security@needlify.com">security@needlify.com</a>
+        ou via le repository github
+        <a href="https://github.com/Needlify/Needlify/issues/new/choose" target="_blank">Needlify/Needlify</a>.
+    </p>
+
+legal.terms.title: "Conditions d'utilisation"
+legal.terms.text: |
+    <p>En utilisant cette plateforme, vous certifiez avoir lu et approuvé les différents textes relatifs à la sécurité et à l'utilisation des informations que vous nous avez transmises. Vous pouvez trouver ces textes ici :</p>
+    <ul>
+        <li><a href="%privacy_url%">Politique de vie privée</a></li>
+        <li><a href="%conduct_url%">Code d'éthique</a></li>
+        <li><a href="%contact_url%">Contact</a></li>
+    </ul>
+
+    <h2>Politique en matière de protection de la vie privée</h2>
+    <p>Cette plateforme utilise des cookies pour stocker des informations lorsque vous naviguez sur le site. Ces cookies ne sont en aucun cas nuisibles. Ils ne sont pas non plus destinés à être utilisés pour voler des informations personnelles. Pour plus d'informations, consultez la section sur la confidentialité.</p>
+    <p> Nous n'avons aucun contrôle sur le contenu ou les politiques de confidentialité des sites web externes et nous ne revendiquons aucune responsabilité à cet égard.</p>
+
+    <h2>Comptes utilisateurs</h2>
+    <p>En tant qu'utilisateur, il vous sera demandé de vous enregistrer en saisissant des informations privées (email, mot de passe). Vous êtes responsable de l'exactitude de ces informations. De même, vous êtes responsable de la confidentialité de ces informations. Vous êtes également responsable de vos activités et actions sur cette plateforme.</p>
+    <p>Nous nous réservons le droit de modifier, suspendre ou supprimer toute information ou contenu que vous pourriez écrire.</p>
+    <p>
+        Si vous pensez qu'il y a un problème quelconque, nous vous conseillons de nous en informer par email à l'adresse suivante :
+        <a href="mailto:security@needlify.com">security@needlify.com</a>.
+    </p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>Les informations disponibles et publiées sur le site web sont la propriété sous licence de cette plateforme. Cela inclut la conception du site web, les images, les graphiques et les représentations d'images sur le site web. Toute reproduction est strictement interdite.</p>
+    <p>
+        Certaines des informations disponibles sur le site sont collectées auprès d'autres sources et chaque source externe est citée conformément aux lois sur les droits de propriété intellectuelle disponibles
+        <a href="%privacy_url%">ici</a>.
+    </p>
+
+    <h2>Limitation de la responsabilité</h2>
+    <p>Cette plateforme ne sera pas tenue responsable de tout dommage causé par une mauvaise utilisation de cette plateforme.</p>
+    <p>Cette plateforme se réserve le droit de modifier ce texte à tout moment. Vous en serez informé au moment opportun.</p>

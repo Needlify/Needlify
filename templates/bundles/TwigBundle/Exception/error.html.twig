@@ -1,0 +1,19 @@
+{% extends "layout-error.html.twig" %}
+
+{% block image %}
+    <img src="{{ asset("images/errors/general.svg") }}" alt="Error image" />
+{% endblock image %}
+
+{% block title %}
+    {% if status_code == 500 %}
+        Something went wrong !
+    {% else %}
+        {{ status_text }} - {{ status_code }}
+    {% endif %}
+{% endblock title %}
+
+{% block description %}
+    {% if status_code == 500 %}
+        An error occurred on the server, please try again later.
+    {% endif %}
+{% endblock description %}

@@ -1,0 +1,25 @@
+newsletter.title: "Lithium Newsletter"
+
+register.text.explanation: "Lithium Newsletter is a <strong>weekly newsletter</strong> based on the TLDR monthly post on Needlify. Every wednesday, you will receive a collection of articles and Github projects that I find interesting and useful."
+register.text.subscription: "To subscribe, please fill in the email field below and click on the <strong>Subscribe</strong> button. You will then receive a confirmation email."
+register.text.unsubscribe: "Note that after registration, you can unsubscribe at any time."
+
+register.input.email.placeholder: "Enter your email"
+register.input.agree: "By submitting this form, I agree to the"
+register.input.agree.legal: "legal texts"
+
+pending.title: "Email confirmation"
+pending.text: "Please follow the instructions we sent to <strong>%email%</strong> in order to finalize your registration."
+pending.error: "Wait 3 minutes before trying again"
+pending.text.resend: "If you haven't received the email, click"
+pending.text.resend.link.text: "here"
+
+completed.title: "Email verified"
+completed.text.main: "Thank you for subscribing to the Lithium newsletter. If you like this project, don't forget to talk about it around you."
+completed.text.leave: "You can now leave this page."
+completed.text.greet: "Thanks for joining the Lithium Newsletter ❤"
+
+unsubscribed.title: "Unsubscribe"
+unsubscribed.text: "We are sorry to see you go. We hope you enjoyed the experience. You will not be receiving future editions."
+unsubscribed.additional: "Go back to the"
+unsubscribed.additional.link: "home page"

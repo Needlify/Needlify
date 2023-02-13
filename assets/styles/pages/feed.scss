@@ -1,0 +1,29 @@
+@import "../mixins";
+
+h1#title {
+    font-weight: 600;
+    font-size: 30px;
+    margin: 22px 0 40px 0;
+    position: relative;
+    font-family: Jakarta;
+    color: var(--dark-medium);
+
+    &::before {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 2px;
+        background-color: var(--light-light);
+        bottom: -6px;
+        left: 0;
+    }
+
+    @include maxWidth(600px) {
+        font-size: 24px;
+        margin-bottom: 30px;
+
+        &::before {
+            width: 65px;
+        }
+    }
+}

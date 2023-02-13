@@ -1,0 +1,27 @@
+{
+    "name": "Needlify",
+    "forwardPorts": [8080, 8081, 8082],
+    "portsAttributes": {
+        "8080": {
+            "label": "Web"
+        },
+        "8081": {
+            "label": "Mailer"
+        },
+        "8082": {
+            "label": "Adminer"
+        }
+    },
+    "dockerComposeFile": "../docker-compose.yaml",
+    "service": "web",
+    "postCreateCommand": "task app:default:config",
+    "workspaceFolder": "/var/www",
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/sshd:1": {
+            "version": "latest"
+        }
+    }
+}

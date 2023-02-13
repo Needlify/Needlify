@@ -1,14 +1,22 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ *
+ * Copyright (c) Needlify <https://needlify.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Tests\Entity;
 
 use App\Entity\Tag;
-use DateTime;
-use DateTimeImmutable;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use App\Entity\Article;
+use App\Entity\Publication;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Uid\Uuid;
 
 class TagTest extends KernelTestCase
 {
@@ -23,52 +31,32 @@ class TagTest extends KernelTestCase
             ->resetManager();
     }
 
-    public function testId(): void
+    public function testGetPublication()
     {
-        $tag = new Tag();
-        $this->em->persist($tag);
-        $this->assertInstanceOf(Uuid::class, $tag->getId());
-        $this->em->remove($tag);
+        /** @var Article $post */
+        $post = $this->em->getRepository(Article::class)->findOneBy([]);
+        $tag = $post->getTags()[0];
+        $this->assertInstanceOf(Collection::class, $tag->getPublications());
+        $this->assertInstanceOf(Publication::class, $tag->getPublications()[0]);
     }
 
-    public function testName(): void
+    public function testAddPublication()
     {
-        $name = Uuid::v4()->toRfc4122();
-
         $tag = new Tag();
-        $tag->setName($name);
-        $this->assertEquals($name, $tag->getName());
-        $this->em->persist($tag);
+        $tag->setName('test_tag');
+        $post = $this->em->getRepository(Article::class)->findOneBy([]);
 
-        $tagCopy = new Tag();
-        $tagCopy->setName($name);
-        $this->em->persist($tagCopy);
-
-        try {
-            $this->em->flush($tag);
-            $this->em->flush($tagCopy);
-        } catch (UniqueConstraintViolationException $e) {
-            $this->assertTrue(true);
-
-            return;
-        }
-
-        $this->fail();
+        $tag->addPublication($post);
+        $this->assertInstanceOf(Article::class, $tag->getPublications()[0]);
     }
 
-    public function testCreatedAt(): void
+    public function testRemovePublication()
     {
-        $tag = new Tag();
-        $this->em->persist($tag);
-        $this->assertInstanceOf(DateTimeImmutable::class, $tag->getCreatedAt());
-        $this->em->remove($tag);
-    }
+        /** @var Article $post */
+        $post = $this->em->getRepository(Article::class)->findOneBy([]);
+        $tag = $post->getTags()[0];
 
-    public function testLastUseAt(): void
-    {
-        $tag = new Tag();
-        $this->em->persist($tag);
-        $this->assertInstanceOf(DateTime::class, $tag->getLastUseAt());
-        $this->em->remove($tag);
+        $tag->removePublication($post);
+        $this->assertNotContains($tag, $post->getTags());
     }
 }

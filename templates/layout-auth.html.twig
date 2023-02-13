@@ -1,0 +1,80 @@
+{% set lang = app.request.locale|split('_')[0] %}
+
+{% trans_default_domain "auth" %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="author" href="{{ asset("humans.txt") }}"/>
+		<meta name="language" content="{{ lang }}"/>
+		<meta http-equiv="content-language" content="{{ lang }}"/>
+		<meta name="copyright" content="https://needlify.com"/>
+		<meta name="theme-color" content="#ff6e03"/>
+		<meta name="twitter:widgets:new-embed-design" content="on"/>
+		<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+		<meta property="og:description" content="{% block description %}{{"layout.meta.description" | trans}}{% endblock description %}"/>
+
+		<meta property="og:type" content="website"/>
+		<meta property="og:url" content="{{ app.request.uri }}"/>
+		<meta property="og:title" content="Needlify"/>
+		<meta property="og:site_name" content="Needlify"/>
+		<meta property="og:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
+		<meta name="twitter:card" content="summary_large_image"/>
+		<meta name="twitter:title" content="Needlify"/>
+		<meta name="twitter:image:src" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
+		<meta property="og:description" content="{% block og_description %}{{"layout.meta.description" | trans}}{% endblock og_description %}"/>
+		<meta name="twitter:image" content="{{ app.request.schemeAndHttpHost ~ asset("/images/logo/og_image.png") }}"/>
+
+		<link rel="shortcut icon" href="{{ asset("images/logo/favicon.ico") }}" type="image/x-icon"/>
+
+		<title>
+			{% block title %}Needlify{% endblock title %}
+		</title>
+
+		<meta charset="UTF-8"/>
+
+		{{ encore_entry_link_tags("style_reset") }}
+		{{ encore_entry_link_tags("style_global") }}
+		{{ encore_entry_link_tags("style_layout-auth") }}
+        {{ encore_entry_link_tags("component_vue") }}
+
+		{% block stylesheets %}{% endblock stylesheets %}
+
+		{{ encore_entry_script_tags("file_layout") }}
+        {{ encore_entry_script_tags("component_vue") }}
+        {{ encore_entry_script_tags("file_global") }}
+
+		{% block javascripts %}{% endblock javascripts %}
+	</head>
+	<body>
+
+        <main id="layout">
+            <div id="container">
+                <div id="logo-link">
+                    <a href="{{url('app_home')}}">
+                        <img src="{% block image %}{{ asset('images/logo/logo.svg') }}{% endblock image %}" class="glitch" alt="Needlify logo">
+                    </a>
+                </div>
+                <div id="form-container">
+
+                    <h3 id="title">{% block form_title %}{% endblock form_title %}</h3>
+                    <h5 id="subtitle">{% block form_subtitle %}{% endblock form_subtitle %}</h5>
+
+                    {% for index, flash_error in app.flashes('error') %}
+                        {% if index == 0 %}
+                            <div {{vue_component('CustomAlert', {type: "error", message: "auth.error.message"|trans, description: flash_error})}}></div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% block body %}{% endblock body %}
+                </div>
+                <div id="additional">
+                    {% block additional_info %}{% endblock additional_info %}
+                </div>
+            </div>
+        </main>
+
+    </body>
+</html>

@@ -1,15 +1,26 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ *
+ * Copyright (c) Needlify <https://needlify.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
-use App\Repository\ClassifierRepository;
-use DateTime;
-use DateTimeImmutable;
-use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ClassifierRepository;
+use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use function Symfony\Component\String\u;
 
 #[ORM\Entity(repositoryClass: ClassifierRepository::class)]
 #[ORM\InheritanceType('JOINED')]
@@ -19,24 +30,34 @@ use Symfony\Component\Validator\Constraints as Assert;
     Topic::class => Topic::class,
 ])]
 #[ORM\HasLifecycleCallbacks]
+#[UniqueEntity(['slug'], 'classifier.slug.unique')]
 abstract class Classifier
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
-    private ?Uuid $id = null;
+    protected ?Uuid $id = null;
 
-    #[ORM\Column(type: Types::STRING, length: 50, unique: true)]
-    #[Assert\NotBlank(message: "Le nom d'un classificateur ne peut pas être vide")]
-    #[Assert\Length(max: 50, maxMessage: "Le nom d'un classificateur ne peut pas dépasser {{ limite }} caractères")]
-    private ?string $name = null;
+    #[ORM\Column(type: Types::STRING, length: 50)]
+    #[Assert\NotBlank(message: 'classifier.name.not_blank')]
+    #[Assert\Length(max: 50, maxMessage: 'classifier.name.length')]
+    #[Groups(['thread:extend'])]
+    protected ?string $name = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
+    protected ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $lastUseAt = null;
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
+    protected ?\DateTimeImmutable $lastUseAt = null;
+
+    #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
+    protected ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\Column(type: Types::STRING, length: 64, unique: true)]
+    #[Assert\Length(max: 64, maxMessage: 'classifier.slug.length')]
+    #[Groups(['thread:extend'])]
+    protected ?string $slug = null;
 
     public function getId(): ?Uuid
     {
@@ -55,7 +76,7 @@ abstract class Classifier
         return $this;
     }
 
-    public function getCreatedAt(): ?DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -63,17 +84,53 @@ abstract class Classifier
     #[ORM\PrePersist]
     public function setCreatedAt(): void
     {
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
-    public function getLastUseAt(): ?DateTimeInterface
+    public function getLastUseAt(): ?\DateTimeImmutable
     {
         return $this->lastUseAt;
     }
 
     #[ORM\PrePersist]
-    public function updateLastUseAt(): void
+    public function refreshLastUseAt(): void
     {
-        $this->lastUseAt = new DateTime();
+        $this->lastUseAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function autoUpdatedAt()
+    {
+        $this->refreshUpdatedAt();
+    }
+
+    public function refreshUpdatedAt()
+    {
+        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    #[ORM\PrePersist]
+    public function setSlug(): void
+    {
+        $slugger = new AsciiSlugger();
+        $this->slug = $slugger->slug(
+            u($this->name)->lower() . ' ' . uniqid()
+        );
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

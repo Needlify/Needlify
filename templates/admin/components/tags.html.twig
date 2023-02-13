@@ -1,0 +1,17 @@
+{% trans_default_domain "admin" %}
+
+{% if ea.crud.currentAction == "detail" %}
+	{% if (field.value|length) > 0 %}
+		<div id="custom-tags-container">
+			{% for tag in field.value %}
+				<a class="badge badge-secondary px-2 py-1" href="{{ ea_url().setController("App\\Controller\\Admin\\Crud\\TagCrudController").setAction( constant("EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::DETAIL") ).setEntityId( tag.id ).set( "menuIndex", 6 ) }}" title="{{ tag.name }}">
+					{{tag.name}}
+				</a>
+			{% endfor %}
+		</div>
+	{% else %}
+		<span class="badge badge-secondary">{{ "admin.component.tags.empty"|trans }}</span>
+	{% endif %}
+{% else %}
+	<span class="badge badge-secondary">{{ field.value|length }}</span>
+{% endif %}

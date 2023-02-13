@@ -1,12 +1,23 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ *
+ * Copyright (c) Needlify <https://needlify.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Tests\Entity;
 
 use App\Entity\User;
-use DateTimeImmutable;
+use App\Entity\Article;
+use App\Entity\Publication;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Uid\Uuid;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserTest extends KernelTestCase
 {
@@ -73,7 +84,40 @@ class UserTest extends KernelTestCase
     {
         $user = new User();
         $this->em->persist($user);
-        $this->assertInstanceOf(DateTimeImmutable::class, $user->getCreatedAt());
+        $this->assertInstanceOf(\DateTimeImmutable::class, $user->getCreatedAt());
         $this->em->remove($user);
+    }
+
+    public function testGetPublications()
+    {
+        /** @var Article $post */
+        $post = $this->em->getRepository(Article::class)->findOneBy([]);
+        $author = $post->getAuthor();
+
+        $this->assertInstanceOf(Collection::class, $author->getPublications());
+        $this->assertInstanceOf(Publication::class, $author->getPublications()[0]);
+        $this->assertContains($post, $author->getPublications());
+    }
+
+    public function testAddPublication()
+    {
+        $article = new Article();
+        $article->setTitle('test');
+        $user = $this->em->getRepository(User::class)->findOneBy([]);
+
+        $user->addPublication($article);
+        $this->assertInstanceOf(Collection::class, $user->getPublications());
+        $this->assertInstanceOf(Publication::class, $user->getPublications()[0]);
+        $this->assertContains($article, $user->getPublications());
+    }
+
+    public function testRemovePublication()
+    {
+        /** @var Publication $publication */
+        $publication = $this->em->getRepository(Publication::class)->findOneBy([]);
+        $author = $publication->getAuthor();
+
+        $author->removePublication($publication);
+        $this->assertNotContains($publication, $author->getPublications());
     }
 }

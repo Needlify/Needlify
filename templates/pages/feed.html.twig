@@ -1,9 +1,22 @@
-{% extends "base.html.twig" %}
+{% extends "layout.html.twig" %}
 
 {% block title %}
-    Hello HomeController!
+    {{ "feed.title"|trans }} - {{ parent() }}
 {% endblock title %}
 
+{% block stylesheets %}
+    {{ encore_entry_link_tags("page_feed") }}
+    {{ encore_entry_link_tags("component_vue") }}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags("component_vue") }}
+{% endblock javascripts %}
+
 {% block body %}
-    test
+    <h1 id="title">
+        {{ "feed.title"|trans }}
+    </h1>
+
+    <div {{ vue_component("TimelineWrapper") }}></div>
 {% endblock body %}

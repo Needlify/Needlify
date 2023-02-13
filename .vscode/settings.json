@@ -1,27 +1,4 @@
 {
-    "[javascript][typescript][vue]": {
-        "editor.formatOnSave": false
-    },
-    "[css][scss][sass][less][json][jsonc][yaml][markdown]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[twig]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.formatOnSave": true
-    },
-    "[php]": {
-        "editor.defaultFormatter": "junstyle.php-cs-fixer",
-        "editor.formatOnSave": true
-    },
-    "editor.codeActionsOnSave": {
-        "source.fixAll": true
-    },
-    "php-cs-fixer.onsave": true,
-    "php-cs-fixer.config": ".php-cs-fixer.php",
-    "php-cs-fixer.allowRisky": false,
-    "files.associations": {
-        "*.twig": "twig"
-    },
-    "testing.automaticallyOpenPeekView": "never"
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "php-cs-fixer.allowRisky": true,
 }

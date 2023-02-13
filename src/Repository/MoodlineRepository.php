@@ -1,20 +1,30 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ *
+ * Copyright (c) Needlify <https://needlify.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Moodline;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Interface\DashboardRepositoryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Moodline>
  *
  * @method Moodline|null find($id, $lockMode = null, $lockVersion = null)
  * @method Moodline|null findOneBy(array $criteria, array $orderBy = null)
- * @method Moodline[]    findAll()
- * @method Moodline[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Moodline[] findAll()
+ * @method Moodline[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MoodlineRepository extends ServiceEntityRepository
+class MoodlineRepository extends ServiceEntityRepository implements DashboardRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -45,28 +55,12 @@ class MoodlineRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Moodline[] Returns an array of Moodline objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Moodline
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function countAll(): int
+    {
+        return $this->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->where('a.private = 0')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

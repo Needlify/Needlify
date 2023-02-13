@@ -4,6 +4,15 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.upload_dir: "/uploads"
+
+    app.thumbnails.upload_dir: "%app.upload_dir%/thumbnails"
+    app.thumbnails.base_dir: "/public%app.thumbnails.upload_dir%"
+
+    app.image.embedded: "%app.upload_dir%/embedded"
+    app.image.embedded.upload: "%kernel.project_dir%/public%app.image.embedded%"
+
+    app.image.key: "%env(string:GLIDE_KEY)%"
 
 services:
     # default configuration for services in *this* file
@@ -30,3 +39,26 @@ services:
     App\ParamConverter\CustomParamConverter:
         tags:
             - { name: "request.param_converter", converter: 'App\ParamConverter\CustomParamConverter' }
+
+    monolog.formatter.extra_log:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+            - "[%%datetime%%] %%channel%%.%%level_name%% [%%extra.ip%% %%extra.user%% %%extra.protocol%% %%extra.method%% %%extra.url%%] %%message%% %%context%% %%extra%%\n"
+
+    App\Logger\ExtraLogProcessor:
+        tags:
+            - { name: monolog.processor }
+
+    App\Service\ImageResizerService:
+        arguments:
+            $key: "%app.image.key%"
+
+    App\Service\FileUploaderService:
+        arguments:
+            $embedDirectory: "%app.image.embedded.upload%"
+            $embedPath: "%app.image.embedded%"
+
+    # ? Optional
+    App\Resolver\QueryParamArgumentResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 150 }

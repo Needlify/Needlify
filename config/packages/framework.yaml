@@ -4,10 +4,15 @@ framework:
     #csrf_protection: true
     http_method_override: false
 
+    set_locale_from_accept_language: true
+    set_content_language_from_locale: true
+    enabled_locales: ["fr", "en"]
+
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
     session:
         handler_id: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+        # handler_id: null
         cookie_secure: auto
         cookie_samesite: lax
         storage_factory_id: session.storage.factory.native
@@ -17,8 +22,21 @@ framework:
     php_errors:
         log: true
 
+    serializer:
+        enabled: true
+
 when@test:
     framework:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
+
+        validation:
+            not_compromised_password:
+                enabled: false
+
+when@dev:
+    framework:
+        validation:
+            not_compromised_password:
+                enabled: false

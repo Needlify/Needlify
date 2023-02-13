@@ -57,6 +57,12 @@ jobs:
             - name: Install dependencies
               run: composer install --ansi --prefer-dist --no-interaction --no-progress
 
+            - name: Run PHP static tests
+              run: composer run stan:github
+
+            - name: Run PHP CS tests
+              run: composer run cs:check
+
             - name: Check the Symfony console
               run: php bin/console about
 
@@ -84,12 +90,6 @@ jobs:
             - name: Load fixtures
               run: php bin/console doctrine:fixtures:load --env=test --no-interaction
 
-            - name: Run PHP static tests
-              run: composer run stan-github
-
-            - name: Run PHP CS tests
-              run: composer run cs-check
-
             - name: Run PHP unit tests
               run: composer run test
 
@@ -103,6 +103,31 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: 16
+
+            # - name: Setup PHP
+            #   uses: shivammathur/setup-php@v2
+            #   with:
+            #       php-version: "8.1"
+            #       extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, opcache, zip, pcov
+            #   env:
+            #       update: true
+
+            - name: Copy test files
+              run: |
+                  cp .ci/.env.test .env
+                  cp .ci/.env.test .env.test
+
+            - name: Cache Composer packages
+              id: composer-cache
+              uses: actions/cache@v2
+              with:
+                  path: vendor
+                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-php-
+
+            - name: Install dependencies
+              run: composer install --ansi --prefer-dist --no-interaction --no-progress
 
             - name: Install node dependencies
               run: npm install --silent

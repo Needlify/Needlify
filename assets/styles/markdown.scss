@@ -1,0 +1,234 @@
+@import "mixins";
+
+.markdown-style {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: Jakarta;
+        margin-top: 2.2em;
+        margin-bottom: 1em;
+    }
+
+    hr {
+        background-color: var(--light-light);
+        height: 1px;
+        border: 0;
+        margin: 40px 10%;
+    }
+
+    :not(pre) > code {
+        // inline code
+        font-family: JetBrains Mono;
+        font-size: 0.86em;
+        background-color: var(--primary-transparent);
+        padding: 1px 6px;
+        border-radius: 6px;
+        color: var(--primary);
+        word-wrap: break-word;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.7;
+
+        @include maxWidth(600px) {
+            font-size: 14.5px;
+            line-height: 1.6;
+        }
+
+        & * {
+            word-break: break-word;
+        }
+
+        a {
+            font-weight: 600;
+        }
+    }
+
+    pre {
+        // code block
+        display: block;
+        border-radius: 12px;
+        overflow: hidden;
+        line-height: 28px;
+        position: relative;
+
+        @include maxWidth(600px) {
+            line-height: 24px;
+            border-radius: 8px;
+        }
+
+        a.clipboard {
+            position: absolute;
+            top: 8px;
+            right: -20px;
+            font-size: 12px;
+            line-height: 12px;
+            color: var(--primary);
+            opacity: 0;
+            cursor: copy;
+            transition: opacity 200ms ease-in-out, right 200ms ease-in-out, color 200ms ease-in-out;
+
+            &:hover {
+                color: var(--light-light);
+            }
+        }
+
+        &::before {
+            content: attr(data-language);
+            text-transform: uppercase;
+            font-size: 12px;
+            line-height: 12px;
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            color: var(--light-dark);
+            transition: right 200ms ease-in-out;
+        }
+
+        &:hover {
+            a.clipboard {
+                opacity: 1;
+                right: 12px;
+            }
+
+            &::before {
+                right: 55px;
+            }
+        }
+
+        * {
+            font-family: JetBrains Mono, monospace;
+            font-variant-ligatures: common-ligatures;
+            font-feature-settings: "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "zero", "onum";
+            font-size: 14px;
+
+            @include maxWidth(600px) {
+                font-size: 12px;
+            }
+        }
+
+        code {
+            padding: 24px;
+        }
+    }
+
+    img {
+        max-width: 80%;
+        height: auto;
+        margin: 35px auto;
+        display: block;
+    }
+
+    ul,
+    ol {
+        padding-left: 24px;
+
+        li {
+            line-height: 1.7;
+
+            &:not(:last-child) {
+                margin-bottom: 12px;
+            }
+
+            @include maxWidth(600px) {
+                font-size: 14.5px;
+            }
+        }
+    }
+
+    blockquote {
+        margin: 0;
+        padding: 16px 16px 16px 60px;
+        border-radius: 12px;
+        background-color: var(--primary-transparent);
+        position: relative;
+
+        @include maxWidth(600px) {
+            padding: 12px 12px 12px 40px;
+            border-radius: 8px;
+        }
+
+        &::after {
+            content: "💡";
+            position: absolute;
+            top: 18px;
+            left: 22px;
+            font-size: 20px;
+            filter: opacity(0.85);
+
+            @include maxWidth(600px) {
+                font-size: 16px;
+                top: 13px;
+                left: 14px;
+            }
+        }
+
+        & > *:first-child {
+            margin: 0;
+        }
+    }
+
+    .table-container {
+        display: block;
+        overflow-x: auto;
+
+        table {
+            border-spacing: 0;
+            width: 100%;
+
+            @include maxWidth(600px) {
+                font-size: 14.5px;
+            }
+
+            thead {
+                background-color: var(--light-light);
+
+                th {
+                    border-bottom: 1px solid #ddd;
+                }
+            }
+
+            th,
+            td {
+                text-align: left;
+                padding: 12px;
+                min-width: 150px;
+            }
+
+            tbody {
+                tr {
+                    transition: background-color 200ms ease-in-out;
+
+                    &:hover {
+                        background-color: var(--light-soft);
+                    }
+                }
+
+                td {
+                    border-bottom: 1px solid #ebebeb;
+                }
+            }
+        }
+    }
+
+    .iframe-container {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+        margin-bottom: 30px;
+        margin-top: 30px;
+
+        iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+        }
+    }
+}

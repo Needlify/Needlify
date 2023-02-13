@@ -1,14 +1,25 @@
 <?php
 
+/*
+ * This file is part of the Needlify project.
+ *
+ * Copyright (c) Needlify <https://needlify.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
-use App\Repository\TagRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Enum\ClassifierType;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TagRepository;
+use Doctrine\Common\Collections\Collection;
+use App\Entity\Interface\EntityTypeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
-class Tag extends Classifier
+class Tag extends Classifier implements EntityTypeInterface
 {
     #[ORM\ManyToMany(targetEntity: Publication::class, mappedBy: 'tags')]
     private Collection $publications;
@@ -43,5 +54,10 @@ class Tag extends Classifier
         }
 
         return $this;
+    }
+
+    public function getType(): ClassifierType
+    {
+        return ClassifierType::TAG;
     }
 }
