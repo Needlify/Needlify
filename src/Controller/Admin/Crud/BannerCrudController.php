@@ -100,7 +100,7 @@ class BannerCrudController extends AbstractCrudController
         yield TextEditorField::new('content', 'admin.crud.banner.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setColumns(12)
-            ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
+            ->addWebpackEncoreEntries('admin_trix_default', 'admin_trix_onlyText')
             ->formatValue(fn (string $value) => $value) // To render content as html rather than just text
         ;
         yield UrlField::new('link', 'admin.crud.banner.column.link')

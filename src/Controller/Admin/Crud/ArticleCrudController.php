@@ -99,7 +99,7 @@ class ArticleCrudController extends AbstractCrudController
         yield IntegerField::new('popularity', 'admin.crud.article.column.popularity')->hideOnForm();
         yield TextField::new('thumbnailFile', 'admin.crud.article.column.thumbnail')
             ->setFormType(VichImageType::class)
-            ->addWebpackEncoreEntries('admin:thumbnail')
+            ->addWebpackEncoreEntries('admin_thumbnail')
             ->onlyOnForms();
         yield ImageField::new('thumbnail', 'admin.crud.article.column.thumbnail')
             ->formatValue(fn (string $value) => $this->imageResizerService->resize($value, 500, 200))
@@ -125,7 +125,7 @@ class ArticleCrudController extends AbstractCrudController
         yield FormField::addPanel('admin.crud.section.content');
         yield CodeEditorField::new('content', 'admin.crud.article.column.content')
             ->setTemplatePath('admin/components/markdown.html.twig')
-            ->addWebpackEncoreEntries('style:markdown', 'style:fonts', 'style:variables')
+            ->addWebpackEncoreEntries('style_markdown', 'style_fonts', 'style_variables')
             ->addCssClass('markdown-style')
             ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
             ->onlyOnDetail();

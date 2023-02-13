@@ -76,7 +76,7 @@ class MoodlineCrudController extends AbstractCrudController
         yield TextEditorField::new('content', 'admin.crud.moodline.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setColumns(12)
-            ->addWebpackEncoreEntries('admin:trix:default', 'admin:trix:onlyText')
+            ->addWebpackEncoreEntries('admin_trix_default', 'admin_trix_onlyText')
             ->formatValue(fn (string $value) => $value);
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
