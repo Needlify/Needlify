@@ -147,7 +147,7 @@ legal.contact.text: |
         Vous pouvez également signaler les problèmes par courrier à l'adresse suivante
         <a href="mailto:security@needlify.com">security@needlify.com</a>
         ou via le repository github
-        <a href="https://github.com/Needlify/Community/issues" target="_blank">Needlify/Needlify</a>.
+        <a href="https://github.com/Needlify/Needlify/issues/new/choose" target="_blank">Needlify/Needlify</a>.
     </p>
 
 legal.terms.title: "Conditions d'utilisation"

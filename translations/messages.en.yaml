@@ -147,7 +147,7 @@ legal.contact.text: |
         You can also report issues by mail at
         <a href="mailto:security@needlify.com">security@needlify.com</a>
         or via the github repository
-        <a href="https://github.com/Needlify/Community/issues" target="_blank">Needlify/Needlify</a>.
+        <a href="https://github.com/Needlify/Needlify/issues/new/choose" target="_blank">Needlify/Needlify</a>.
     </p>
 
 legal.terms.title: "Terms of use"
