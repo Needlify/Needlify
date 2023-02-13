@@ -1,0 +1,16 @@
+name: CD
+
+on:
+    push:
+        branches: [master]
+    workflow_run:
+        workflows: ["CI"]
+        types:
+            - completed
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download project from git
+              uses: actions/checkout@v2
