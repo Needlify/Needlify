@@ -1,4 +1,4 @@
-name: CS, Unit and Static Tests
+name: CI
 
 on:
     push:
