@@ -1,0 +1,24 @@
+name: CD
+
+on:
+    push:
+        branches: [master]
+    workflow_dispatch:
+
+jobs:
+    tests:
+        uses: Needlify/Needlify/.github/workflows/ci.yml@master
+
+    deploy:
+        name: "Deploy to staging"
+        needs: tests
+        runs-on: ubuntu-latest
+        steps:
+            - name: executing remote ssh commands using password
+              uses: appleboy/ssh-action@v0.1.7
+              with:
+                  host: ${{ secrets.REMOTE_HOST }}
+                  username: ${{ secrets.REMOTE_USER }}
+                  password: ${{ secrets.REMOTE_PASSWORD }}
+                  script: |
+                      whoami
