@@ -10,15 +10,71 @@ jobs:
         uses: Needlify/Needlify/.github/workflows/ci.yml@master
 
     deploy:
-        name: "Deploy to staging"
-        needs: tests
+        # ssh-action (composer install, migrations, c:c)
+
         runs-on: ubuntu-latest
+        strategy:
+            fail-fast: true
+
         steps:
-            - name: executing remote ssh commands using password
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+
+            # - name: Setup PHP
+            #   uses: shivammathur/setup-php@v2
+            #   with:
+            #       php-version: "8.1"
+            #       extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, opcache, zip, pcov
+            #   env:
+            #       update: true
+
+            # - name: Validate composer.json and composer.lock
+            #   run: composer validate --strict
+
+            # - name: Cache Composer packages
+            #   id: composer-cache
+            #   uses: actions/cache@v2
+            #   with:
+            #       path: vendor
+            #       key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+            #       restore-keys: |
+            #           ${{ runner.os }}-php-
+
+            # - name: Install dependencies
+            #   run: composer install --ansi --prefer-dist --no-interaction --no-progress
+
+            - name: Install node dependencies
+              run: npm install --silent
+
+            - name: Build components
+              run: npm run build
+
+            - name: 📂 Sync files
+              uses: SamKirkland/FTP-Deploy-Action@4.3.3
+              with:
+                  server: ${{ secrets.REMOTE_HOST }}
+                  username: ${{ secrets.REMOTE_USER }}
+                  password: ${{ secrets.REMOTE_PASSWORD }}
+                  server-dir: web/
+                  exclude: |
+                      node_modules
+                      vendor
+                      var
+                      .git
+                      .env.*
+                      .env
+                      coverage
+
+            - name: Post upload
               uses: appleboy/ssh-action@v0.1.7
               with:
                   host: ${{ secrets.REMOTE_HOST }}
                   username: ${{ secrets.REMOTE_USER }}
                   password: ${{ secrets.REMOTE_PASSWORD }}
                   script: |
-                      whoami
+                      cd web
+                      php composer.phar install
+                      php bin/console doctrine:migrations:migrate --no-interaction
+                      php bin/console cache:clear
