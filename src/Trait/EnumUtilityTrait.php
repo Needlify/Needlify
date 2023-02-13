@@ -25,11 +25,6 @@ trait EnumUtilityTrait
 
     public static function array(): array
     {
-        return array_combine(self::values(), self::names());
-    }
-
-    public static function arrayInverted(): array
-    {
         return array_combine(self::names(), self::values());
     }
 

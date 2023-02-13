@@ -21,10 +21,9 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Repository\NewsletterAccountRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\Newsletter\NewsletterRequestService;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-
-use function Symfony\Component\Translation\t;
 
 #[Route('/newsletter')]
 class NewsletterController extends AbstractController
@@ -33,6 +32,7 @@ class NewsletterController extends AbstractController
         private NewsletterService $newsletterService,
         private NewsletterRequestService $newsletterRequestService,
         private EntityManagerInterface $em,
+        private TranslatorInterface $translator
     ) {
     }
 
@@ -77,7 +77,7 @@ class NewsletterController extends AbstractController
         if ($account->canRetryConfirmation()) {
             $this->newsletterService->sendVerificationMail($account);
         } else {
-            $this->addFlash('error', t('pending.error', [], 'newsletter'));
+            $this->addFlash('error', $this->translator->trans('pending.error', [], 'newsletter'));
         }
 
         return $this->render('newsletter/pending.html.twig', [

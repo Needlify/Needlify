@@ -13,6 +13,7 @@ namespace App\Repository;
 
 use App\Entity\Banner;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\Interface\DashboardRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -23,7 +24,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  * @method Banner[] findAll()
  * @method Banner[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class BannerRepository extends ServiceEntityRepository
+class BannerRepository extends ServiceEntityRepository implements DashboardRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -84,5 +85,13 @@ class BannerRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function countAll(): int
+    {
+        return $this->createQueryBuilder('b')
+            ->select('count(b.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

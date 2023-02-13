@@ -14,6 +14,7 @@ namespace App\Service\Admin;
 use App\Entity\Tag;
 use App\Entity\Event;
 use App\Entity\Topic;
+use App\Entity\Banner;
 use App\Entity\Article;
 use App\Entity\Moodline;
 use App\Entity\NewsletterAccount;
@@ -57,7 +58,12 @@ class OverviewService
             'newsletter' => [
                 'icon' => 'fas fa-newspaper',
                 'value' => $this->em->getRepository(NewsletterAccount::class)->countAll(),
-                'translation' => 'admin.dashboard.cards.newsletter_account',
+                'translation' => 'admin.dashboard.cards.newsletter_accounts',
+            ],
+            'banner' => [
+                'icon' => 'fa fa-bullhorn',
+                'value' => $this->em->getRepository(Banner::class)->countAll(),
+                'translation' => 'admin.dashboard.cards.banners',
             ],
         ];
     }

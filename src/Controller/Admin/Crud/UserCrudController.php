@@ -26,6 +26,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\HiddenField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ArrayFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
@@ -37,12 +38,11 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-use function Symfony\Component\Translation\t;
-
 class UserCrudController extends AbstractCrudController
 {
     public function __construct(
-        private UserPasswordHasherInterface $encoder
+        private UserPasswordHasherInterface $encoder,
+        private TranslatorInterface $translator
     ) {
     }
 
@@ -70,10 +70,10 @@ class UserCrudController extends AbstractCrudController
             ->setSearchFields(['email', 'username'])
             ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
             ->setDefaultSort(['createdAt' => 'DESC'])
-            ->setPageTitle(Crud::PAGE_INDEX, t('admin.crud.user.index.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_NEW, t('admin.crud.user.new.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_EDIT, t('admin.crud.user.edit.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_DETAIL, t('admin.crud.user.details.title', [], 'admin'));
+            ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.user.index.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.user.new.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.user.edit.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.user.details.title', [], 'admin'));
     }
 
     public function createEditFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface

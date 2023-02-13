@@ -27,6 +27,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
@@ -39,15 +40,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-use function Symfony\Component\Translation\t;
-
 class ArticleCrudController extends AbstractCrudController
 {
     use ThreadCrudTrait;
     use ContentCrudTrait;
 
     public function __construct(
-        private ImageResizerService $imageResizerService
+        private ImageResizerService $imageResizerService,
+        private TranslatorInterface $translator
     ) {
     }
 
@@ -64,10 +64,10 @@ class ArticleCrudController extends AbstractCrudController
                         editFormOptions: ['validation_groups' => ['Default', 'admin:form:edit']]
                     )
                     ->setSearchFields(['title', 'description', 'topic.name', 'tags.name', 'content', 'author.username', 'author.email'])
-                    ->setPageTitle(Crud::PAGE_INDEX, t('admin.crud.article.index.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_NEW, t('admin.crud.article.new.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_EDIT, t('admin.crud.article.edit.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_DETAIL, t('admin.crud.article.details.title', [], 'admin'));
+                    ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.article.index.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.article.new.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.article.edit.title', [], 'admin'))
+                    ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.article.details.title', [], 'admin'));
     }
 
     public function configureFilters(Filters $filters): Filters

@@ -24,6 +24,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\ChoiceFilter;
@@ -33,10 +34,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-use function Symfony\Component\Translation\t;
-
 class BannerCrudController extends AbstractCrudController
 {
+    public function __construct(
+        private TranslatorInterface $translator
+    ) {
+    }
+
     public static function getEntityFqcn(): string
     {
         return Banner::class;
@@ -48,10 +52,10 @@ class BannerCrudController extends AbstractCrudController
             ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
             ->setDefaultSort(['endedAt' => 'DESC'])
             ->setSearchFields(['title', 'content', 'type', 'link'])
-            ->setPageTitle(Crud::PAGE_INDEX, t('admin.crud.banner.index.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_NEW, t('admin.crud.banner.new.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_EDIT, t('admin.crud.banner.edit.title', [], 'admin'))
-            ->setPageTitle(Crud::PAGE_DETAIL, t('admin.crud.banner.details.title', [], 'admin'));
+            ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.banner.index.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.banner.new.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.banner.edit.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.banner.details.title', [], 'admin'));
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -63,7 +67,7 @@ class BannerCrudController extends AbstractCrudController
             ->add(DatetimeFilter::new('endedAt'))
             ->add(NumericFilter::new('priority'))
             ->add(ChoiceFilter::new('type')
-                ->setChoices(BannerType::arrayInverted())
+                ->setChoices(BannerType::array())
             )
             ->add(TextFilter::new('link'))
         ;
@@ -80,11 +84,12 @@ class BannerCrudController extends AbstractCrudController
             ->setFormType(EnumType::class)
             ->setFormTypeOptions([
                 'class' => BannerType::class,
+                'data' => BannerType::INFO,
             ])
             ->onlyOnForms()
         ;
         yield ChoiceField::new('type', 'admin.crud.banner.column.type')
-            ->setChoices(BannerType::arrayInverted())
+            ->setChoices(BannerType::array())
             ->setFormType(EnumType::class)
             ->setFormTypeOptions([
                 'class' => BannerType::class,

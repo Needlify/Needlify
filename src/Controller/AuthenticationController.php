@@ -20,6 +20,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -27,10 +28,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
-use function Symfony\Component\Translation\t;
-
 class AuthenticationController extends AbstractController
 {
+    public function __construct(
+        private TranslatorInterface $translator
+    ) {
+    }
+
     #[Route(path: '/login', name: 'auth_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -41,7 +45,7 @@ class AuthenticationController extends AbstractController
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         if ($error) {
-            $this->addFlash('error', t('auth.error.invalid_credentials', domain: 'auth'));
+            $this->addFlash('error', $this->translator->trans('auth.error.invalid_credentials', domain: 'auth'));
         }
 
         return $this->render('auth/login.html.twig');
@@ -82,7 +86,7 @@ class AuthenticationController extends AbstractController
 
             if ($password !== $passwordConfirm) {
                 $error = true;
-                $this->addFlash('error', t('auth.error.passwords_match', domain: 'auth'));
+                $this->addFlash('error', $this->translator->trans('auth.error.passwords_match', domain: 'auth'));
             }
 
             $user = new User();
