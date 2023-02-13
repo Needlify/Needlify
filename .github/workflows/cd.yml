@@ -10,8 +10,7 @@ jobs:
         uses: Needlify/Needlify/.github/workflows/ci.yml@master
 
     deploy:
-        # ssh-action (composer install, migrations, c:c)
-
+        needs: tests
         runs-on: ubuntu-latest
         strategy:
             fail-fast: true
@@ -22,28 +21,28 @@ jobs:
               with:
                   node-version: 16
 
-            # - name: Setup PHP
-            #   uses: shivammathur/setup-php@v2
-            #   with:
-            #       php-version: "8.1"
-            #       extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, opcache, zip, pcov
-            #   env:
-            #       update: true
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: "8.1"
+                  extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql, dom, filter, gd, json, opcache, zip, pcov
+              env:
+                  update: true
 
-            # - name: Validate composer.json and composer.lock
-            #   run: composer validate --strict
+            - name: Validate composer.json and composer.lock
+              run: composer validate --strict
 
-            # - name: Cache Composer packages
-            #   id: composer-cache
-            #   uses: actions/cache@v2
-            #   with:
-            #       path: vendor
-            #       key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-            #       restore-keys: |
-            #           ${{ runner.os }}-php-
+            - name: Cache Composer packages
+              id: composer-cache
+              uses: actions/cache@v2
+              with:
+                  path: vendor
+                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-php-
 
-            # - name: Install dependencies
-            #   run: composer install --ansi --prefer-dist --no-interaction --no-progress
+            - name: Install dependencies
+              run: composer install --ansi --prefer-dist --no-interaction --no-progress
 
             - name: Install node dependencies
               run: npm install --silent
@@ -52,7 +51,7 @@ jobs:
               run: npm run build
 
             - name: 📂 Sync files
-              uses: SamKirkland/FTP-Deploy-Action@4.3.3
+              uses: SamKirkland/FTP-Deploy-Action@4.3.3 # https://github.com/marketplace/actions/ftp-deploy
               with:
                   server: ${{ secrets.REMOTE_HOST }}
                   username: ${{ secrets.REMOTE_USER }}
@@ -68,7 +67,7 @@ jobs:
                       coverage
 
             - name: Post upload
-              uses: appleboy/ssh-action@v0.1.7
+              uses: appleboy/ssh-action@v0.1.7 # https://github.com/appleboy/ssh-action
               with:
                   host: ${{ secrets.REMOTE_HOST }}
                   username: ${{ secrets.REMOTE_USER }}
