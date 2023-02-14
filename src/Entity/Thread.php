@@ -63,7 +63,8 @@ abstract class Thread
     #[ORM\PrePersist]
     public function setPublishedAt(): void
     {
-        $this->publishedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        // $this->publishedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->publishedAt = new \DateTimeImmutable('now');
     }
 
     public function getUpdatedAt()

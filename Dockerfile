@@ -1,5 +1,7 @@
 FROM php:8.1.9-apache
 
+ENV TZ="Europe/Paris"
+
 WORKDIR /var/www
 
 RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b  /usr/local/bin
