@@ -63,13 +63,14 @@ jobs:
                   password: ${{ secrets.REMOTE_PASSWORD }}
                   server-dir: web/
                   exclude: |
-                      node_modules
-                      vendor
-                      var
+                      **/node_modules/**
+                      **/vendor/**
+                      **/var/**
+                      **/.git/**
                       .git
                       .env.*
                       .env
-                      coverage
+                      **/coverage/**
 
             - name: Post upload
               uses: appleboy/ssh-action@v0.1.7 # https://github.com/appleboy/ssh-action
