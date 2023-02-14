@@ -71,6 +71,7 @@ jobs:
                       .env.*
                       .env
                       **/coverage/**
+                      **/public/bundles/**
 
             - name: Post upload
               uses: appleboy/ssh-action@v0.1.7 # https://github.com/appleboy/ssh-action
@@ -82,4 +83,5 @@ jobs:
                       cd web
                       php composer.phar install
                       php bin/console doctrine:migrations:migrate --no-interaction
+                      php bin/console assets:install
                       php bin/console cache:clear
