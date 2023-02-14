@@ -140,8 +140,12 @@ class UserCrudController extends AbstractCrudController
             ->onlyOnForms();
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
-        yield DateTimeField::new('createdAt', 'admin.crud.user.column.created_at')->setTimezone('UTC')->hideOnForm();
-        yield DateTimeField::new('updatedAt', 'admin.crud.user.column.updated_at')->setTimezone('UTC')->onlyOnDetail();
+        yield DateTimeField::new('createdAt', 'admin.crud.user.column.created_at')
+            // ->setTimezone('UTC')
+            ->hideOnForm();
+        yield DateTimeField::new('updatedAt', 'admin.crud.user.column.updated_at')
+            // ->setTimezone('UTC')
+            ->onlyOnDetail();
     }
 
     public function configureActions(Actions $actions): Actions

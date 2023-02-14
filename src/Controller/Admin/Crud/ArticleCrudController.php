@@ -109,8 +109,12 @@ class ArticleCrudController extends AbstractCrudController
             ->hideOnIndex();
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
-        yield DateTimeField::new('publishedAt', 'admin.crud.article.column.published_at')->setTimezone('UTC')->hideOnForm();
-        yield DateTimeField::new('updatedAt', 'admin.crud.article.column.updated_at')->setTimezone('UTC')->onlyOnDetail();
+        yield DateTimeField::new('publishedAt', 'admin.crud.article.column.published_at')
+            // ->setTimezone('UTC')
+            ->hideOnForm();
+        yield DateTimeField::new('updatedAt', 'admin.crud.article.column.updated_at')
+            // ->setTimezone('UTC')
+            ->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('topic', 'admin.crud.article.column.topic')

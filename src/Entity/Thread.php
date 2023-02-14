@@ -37,7 +37,7 @@ abstract class Thread
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     #[Groups(['thread:extend'])]
-    protected ?\DateTimeImmutable $publishedAt = null; // publishedAt is in UTC/GMT
+    protected ?\DateTimeImmutable $publishedAt = null; // publishedAt is in Server local timezone
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     private ?\DateTimeImmutable $updatedAt = null;
@@ -80,7 +80,8 @@ abstract class Thread
 
     public function refreshUpdatedAt()
     {
-        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        // $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->updatedAt = new \DateTimeImmutable('now');
     }
 
     public function isPrivate(): bool

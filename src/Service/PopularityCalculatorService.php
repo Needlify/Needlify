@@ -18,7 +18,8 @@ class PopularityCalculatorService
 
     public static function calculatePopularity(int $views, \DateTimeImmutable $publishedAt, int $round = 2): float
     {
-        $now = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->getTimestamp();
+        // $now = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->getTimestamp();
+        $now = (new \DateTimeImmutable('now'))->getTimestamp();
         $date = $publishedAt->getTimestamp();
 
         $computedViews = $views + 1;

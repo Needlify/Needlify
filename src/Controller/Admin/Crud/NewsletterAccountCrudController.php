@@ -81,14 +81,20 @@ class NewsletterAccountCrudController extends AbstractCrudController
             ->hideWhenCreating();
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
-        yield DateTimeField::new('subscribedAt', 'admin.crud.newsletter.column.subscribed_at')->setTimezone('UTC')->hideOnForm();
-        yield DateTimeField::new('verifiedAt', 'admin.crud.newsletter.column.verified_at')->setTimezone('UTC')->onlyOnDetail();
+        yield DateTimeField::new('subscribedAt', 'admin.crud.newsletter.column.subscribed_at')
+            // ->setTimezone('UTC')
+            ->hideOnForm();
+        yield DateTimeField::new('verifiedAt', 'admin.crud.newsletter.column.verified_at')
+            // ->setTimezone('UTC')
+            ->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.security')->onlyOnDetail();
         yield BooleanField::new('canRetryConfirmation', 'admin.crud.newsletter.column.can_retry_confirmation')
             ->renderAsSwitch(false)
             ->onlyOnDetail();
-        yield DateTimeField::new('lastRetryAt', 'admin.crud.newsletter.column.last_retry_at')->setTimezone('UTC')->onlyOnDetail();
+        yield DateTimeField::new('lastRetryAt', 'admin.crud.newsletter.column.last_retry_at')
+            // ->setTimezone('UTC')
+            ->onlyOnDetail();
         yield TextField::new('token', 'admin.crud.newsletter.column.token')->onlyOnDetail();
     }
 

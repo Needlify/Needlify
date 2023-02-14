@@ -76,7 +76,8 @@ class BannerRepository extends ServiceEntityRepository implements DashboardRepos
 
     public function getLatestBanner()
     {
-        $now = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->format('Y-m-d H:i:s');
+        // $now = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->format('Y-m-d H:i:s');
+        $now = (new \DateTimeImmutable('now'))->format('Y-m-d H:i:s');
 
         return $this->createQueryBuilder('b')
             ->andWhere(':now BETWEEN b.startedAt AND b.endedAt')

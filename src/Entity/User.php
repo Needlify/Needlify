@@ -189,7 +189,8 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\PrePersist]
     public function setCreatedAt(): void
     {
-        $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        // $this->createdAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->createdAt = new \DateTimeImmutable('now');
     }
 
     public function getUpdatedAt()
@@ -206,7 +207,8 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
 
     public function refreshUpdatedAt()
     {
-        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        // $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->updatedAt = new \DateTimeImmutable('now');
     }
 
     /**

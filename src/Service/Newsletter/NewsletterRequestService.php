@@ -19,7 +19,8 @@ class NewsletterRequestService
 {
     public function getTodaysNewsletterInfos(): NewsletterPage
     {
-        $date = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')));
+        // $date = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')));
+        $date = (new \DateTimeImmutable('now'));
         $client = HttpClient::create();
         $request = $client->request('POST', "https://api.notion.com/v1/databases/{$_ENV['NOTION_NEWSLETTER_DATABASE_ID']}/query", [
            'headers' => [

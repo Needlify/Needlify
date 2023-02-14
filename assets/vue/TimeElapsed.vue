@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import { DateTime, Interval } from "luxon";
 
 const props = defineProps({
@@ -11,11 +11,6 @@ const props = defineProps({
         type: String,
         default: DateTime.now().toISO(),
     },
-});
-
-onMounted(() => {
-    const now = DateTime.fromISO(props.date).toLocal().toLocaleString(DateTime.DATETIME_MED);
-    console.log(props.date, now);
 });
 
 const getDateDiff = computed<string | null>(() => {

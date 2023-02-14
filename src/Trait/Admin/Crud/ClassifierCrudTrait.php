@@ -42,9 +42,15 @@ trait ClassifierCrudTrait
         yield TextField::new('slug', 'admin.crud.classifier.column.slug')->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
-        yield DateTimeField::new('createdAt', 'admin.crud.classifier.column.created_at')->setTimezone('UTC')->hideOnForm();
-        yield DateTimeField::new('lastUseAt', 'admin.crud.classifier.column.last_use_at')->setTimezone('UTC')->hideOnForm();
-        yield DateTimeField::new('updatedAt', 'admin.crud.classifier.column.updated_at')->setTimezone('UTC')->onlyOnDetail();
+        yield DateTimeField::new('createdAt', 'admin.crud.classifier.column.created_at')
+            // ->setTimezone('UTC')
+            ->hideOnForm();
+        yield DateTimeField::new('lastUseAt', 'admin.crud.classifier.column.last_use_at')
+            // ->setTimezone('UTC')
+            ->hideOnForm();
+        yield DateTimeField::new('updatedAt', 'admin.crud.classifier.column.updated_at')
+            // ->setTimezone('UTC')
+            ->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations')->hideOnForm();
 

@@ -86,7 +86,8 @@ class NewsletterAccount
 
     public function setVerifiedAt(): self
     {
-        $this->verifiedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        // $this->verifiedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->verifiedAt = new \DateTimeImmutable('now');
 
         return $this;
     }
@@ -106,7 +107,8 @@ class NewsletterAccount
     #[ORM\PrePersist]
     public function setSubscribedAt()
     {
-        $this->subscribedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        // $this->subscribedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->subscribedAt = new \DateTimeImmutable('now');
     }
 
     public function getIsEnabled(): bool
@@ -128,7 +130,8 @@ class NewsletterAccount
 
     public function updateLastRetryAt(): self
     {
-        $this->lastRetryAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        // $this->lastRetryAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->lastRetryAt = new \DateTimeImmutable('now');
 
         return $this;
     }
@@ -139,7 +142,8 @@ class NewsletterAccount
             return true;
         }
 
-        $now = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->getTimestamp();
+        // $now = (new \DateTimeImmutable('now', new \DateTimeZone('UTC')))->getTimestamp();
+        $now = (new \DateTimeImmutable('now'))->getTimestamp();
         $lastRetryAt = $this->getLastRetryAt()->getTimestamp();
 
         if ($now - $lastRetryAt >= 60 * 3) {
