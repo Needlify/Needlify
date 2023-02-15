@@ -36,18 +36,18 @@ const easyMDE = new EasyMDE({
         "|",
         "unordered-list",
         "ordered-list",
-        // {
-        //     name: "checkbox",
-        //     action: editor => {
-        //         const cm = editor.codemirror;
-        //         const text = cm.getSelection() || "";
-        //         const output = `- [ ] ${text}`;
-        //         cm.replaceSelection(output);
-        //     },
-        //     className: "far fa-square-check",
-        //     title: "Checkbox",
-        // },
         "|",
+        {
+            name: "youtube",
+            action: editor => {
+                const cm = editor.codemirror;
+                const text = cm.getSelection() || "";
+                const output = `{youtube:${text}}`;
+                cm.replaceSelection(output);
+            },
+            className: "fas fa-video",
+            title: "Embed Youtube video",
+        },
         "link",
         "image",
         {
