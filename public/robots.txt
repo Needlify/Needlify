@@ -1,2 +1,7 @@
 User-agent: *
 Disallow: /admin
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://needlify.com/sitemap.xml
+
