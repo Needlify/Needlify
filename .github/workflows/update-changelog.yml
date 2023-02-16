@@ -39,3 +39,30 @@ jobs:
                   branch: release/${{ github.event.release.tag_name }}
                   commit_message: Update CHANGELOG.md
                   file_pattern: CHANGELOG.md
+                  
+            - name: Create pull request into master
+              uses: thomaseizinger/create-pull-request@1.0.0
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  head: release/${{ github.event.release.tag_name }}
+                  base: master
+                  title: ${{ github.event.release.tag_name }} into master
+                  reviewers: ${{ github.event.issue.user.login }}
+                  body: |
+                      Hi!
+                      This PR was created in response workflow running.
+                      I've updated the version name
+                      
+            - name: Create pull request to dev
+              uses: thomaseizinger/create-pull-request@1.0.0
+              with:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  head: release/${{ github.event.release.tag_name }}
+                  base: dev
+                  title: ${{ github.event.release.tag_name }} into dev
+                  reviewers: ${{ github.event.issue.user.login }}
+                  body: |
+                      Hi!
+                      This PR was created in response workflow running.
+                      I've updated the version name
+
