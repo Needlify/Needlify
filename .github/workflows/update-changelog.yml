@@ -7,19 +7,25 @@ on:
 jobs:
     update:
         runs-on: ubuntu-latest
+
         strategy:
             fail-fast: true
+
         permissions:
-            # Give the default GITHUB_TOKEN write permission to commit and push the
-            # updated CHANGELOG back to the repository.
-            # https://github.blog/changelog/2023-02-02-github-actions-updating-the-default-github_token-permissions-to-read-only/
             contents: write
+            pull-requests: write
 
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
-              with:
-                  ref: ${{ github.event.release.target_commitish }}
+
+            - name: Create release branch
+              run: git checkout -b release/${{ github.event.release.tag_name }}
+
+            - name: Initialize mandatory git config
+              run: |
+                  git config user.name "GitHub Actions"
+                  git config user.email noreply@github.com
 
             - name: Update Changelog
               uses: stefanzweifel/changelog-updater-action@v1
@@ -30,6 +36,34 @@ jobs:
             - name: Commit updated CHANGELOG
               uses: stefanzweifel/git-auto-commit-action@v4
               with:
-                  branch: ${{ github.event.release.target_commitish }}
+                  branch: release/${{ github.event.release.tag_name }}
                   commit_message: Update CHANGELOG.md
                   file_pattern: CHANGELOG.md
+
+            - name: Create pull request into master
+              uses: thomaseizinger/create-pull-request@1.0.0
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  head: release/${{ github.event.release.tag_name }}
+                  base: master
+                  title: ${{ github.event.release.tag_name }} into master
+                  reviewers: ${{ github.event.issue.user.login }}
+                  body: |
+                      Hi!
+                      This PR was created in response workflow running.
+                      I've updated the version name
+
+            - name: Create pull request to dev
+              uses: thomaseizinger/create-pull-request@1.0.0
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  head: release/${{ github.event.release.tag_name }}
+                  base: dev
+                  title: ${{ github.event.release.tag_name }} into dev
+                  reviewers: ${{ github.event.issue.user.login }}
+                  body: |
+                      Hi!
+                      This PR was created in response workflow running.
+                      I've updated the version name
