@@ -43,7 +43,7 @@ jobs:
             - name: Create pull request into master
               uses: thomaseizinger/create-pull-request@1.0.0
               with:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
                   head: release/${{ github.event.release.tag_name }}
                   base: master
                   title: ${{ github.event.release.tag_name }} into master
@@ -56,7 +56,7 @@ jobs:
             - name: Create pull request to dev
               uses: thomaseizinger/create-pull-request@1.0.0
               with:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
                   head: release/${{ github.event.release.tag_name }}
                   base: dev
                   title: ${{ github.event.release.tag_name }} into dev
