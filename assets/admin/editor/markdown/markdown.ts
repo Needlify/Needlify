@@ -38,6 +38,50 @@ const easyMDE = new EasyMDE({
         "ordered-list",
         "|",
         {
+            name: "callout-info",
+            action: editor => {
+                const cm = editor.codemirror;
+                const text = cm.getSelection() || "";
+                const output = `> [!info]\n`;
+                cm.replaceSelection(output);
+            },
+            className: "fas fa-circle-info",
+            title: "Info callout",
+        },
+        {
+            name: "callout-success",
+            action: editor => {
+                const cm = editor.codemirror;
+                const output = `> [!success]\n`;
+                cm.replaceSelection(output);
+            },
+            className: "fas fa-circle-check",
+            title: "Success callout",
+        },
+        {
+            name: "callout-warning",
+            action: editor => {
+                const cm = editor.codemirror;
+                const text = cm.getSelection() || "";
+                const output = `> [!warning]\n`;
+                cm.replaceSelection(output);
+            },
+            className: "fas fa-circle-exclamation",
+            title: "Alert callout",
+        },
+        {
+            name: "callout-alert",
+            action: editor => {
+                const cm = editor.codemirror;
+                const text = cm.getSelection() || "";
+                const output = `> [!alert]\n`;
+                cm.replaceSelection(output);
+            },
+            className: "fas fa-circle-xmark",
+            title: "Alert callout",
+        },
+        "|",
+        {
             name: "youtube",
             action: editor => {
                 const cm = editor.codemirror;
