@@ -19,7 +19,7 @@ jobs:
               run: composer validate --strict
 
             - uses: actions/checkout@v2
-            - uses: actions/cache@v2
+            - uses: actions/cache@v3
               id: cache-db
               with:
                   path: ~/.symfony/cache
