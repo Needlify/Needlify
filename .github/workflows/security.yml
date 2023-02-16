@@ -25,7 +25,7 @@ jobs:
                   path: ~/.symfony/cache
                   key: db
 
-            - uses: symfonycorp/security-checker-action@v3
+            - uses: symfonycorp/security-checker-action@v5
 
             - name: Display the vulnerabilities as JSON
               run: echo ${{ steps.security-check.outputs.vulns }}
