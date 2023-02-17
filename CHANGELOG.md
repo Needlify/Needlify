@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.1.0 - 2023-02-17
+
+### What's Changed
+
+- 2.0.0 into dev by @github-actions in https://github.com/Needlify/Needlify/pull/115
+
+**Full Changelog**: https://github.com/Needlify/Needlify/compare/2.0.0...2.1.0
+
 ## 2.0.0 - 2023-02-17
 
 ### What's Changed
