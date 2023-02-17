@@ -5,6 +5,7 @@ import hljs from "highlight.js";
 import "highlight.js/scss/atom-one-dark.scss";
 import GLightbox from "glightbox";
 import "glightbox/dist/css/glightbox.min.css";
+import * as feather from "feather-icons";
 
 import "./markdown.scss";
 
@@ -66,3 +67,29 @@ Array.from(code).forEach(element => {
     });
     element.parentElement?.appendChild(copy);
 });
+
+/* Add callout icons */
+
+const callout = document.querySelectorAll<HTMLQuoteElement>("blockquote.callout");
+
+Array.from(callout).forEach(element => {
+    const iconElement = document.createElement("i");
+
+    let icon = "";
+    if (element.classList.contains("info")) {
+        icon = "info";
+    } else if (element.classList.contains("success")) {
+        icon = "check-circle";
+    } else if (element.classList.contains("warning")) {
+        icon = "alert-circle";
+    } else if (element.classList.contains("alert")) {
+        icon = "x-circle";
+    }
+
+    iconElement.setAttribute("data-feather", icon);
+    iconElement.classList.add("icon");
+
+    element.appendChild(iconElement);
+});
+
+feather.replace();
