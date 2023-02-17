@@ -7,8 +7,8 @@
     <a href="https://github.com/Needlify/Needlify/actions/workflows/security.yml" target="_blank">
         <img src="https://github.com/Needlify/Needlify/actions/workflows/security.yml/badge.svg?branch=dev" />
     </a>
-    <a href="https://github.com/Needlify/Needlify/actions/workflows/tests.yml" target="_blank">
-        <img src="https://github.com/Needlify/Needlify/actions/workflows/tests.yml/badge.svg" />
+    <a href="https://github.com/Needlify/Needlify/actions/workflows/ci.yml" target="_blank">
+        <img src="https://github.com/Needlify/Needlify/actions/workflows/ci.yml/badge.svg" />
     </a>
 </span>
 
