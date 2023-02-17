@@ -14,7 +14,7 @@
 
 ## About Needlify
 
-test
+test 2
 
 Needlify is a platform for sharing content and knowledge around IT and new technologies. Initially, this project was a proof of concept, however, as the development progressed, the idea materialized and it would be a shame to abandon the project. My goal is to be able to offer a platform for sharing knowledge.
 
