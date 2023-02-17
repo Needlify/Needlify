@@ -37,30 +37,3 @@ template: |
     ## Thanks to
 
     $CONTRIBUTORS
-
-autolabeler:
-    - label: "Type - Chore"
-      branch:
-          - '/chore\/.+/'
-
-    - label: "Type - Bug"
-      branch:
-          - '/fix\/.+/'
-          - '/bugfix\/.+/'
-
-    - label: "Type - Feature"
-      branch:
-          - '/feature\/.+/'
-          - '/feat\/.+/'
-
-    - label: "Type - Refactoring"
-      branch:
-          - '/refacto\/.+/'
-          - '/refactoring\/.+/'
-
-    - label: "Type - Dependencies"
-      branch:
-          - '/deps\/.+/'
-          - '/dep\/.+/'
-          - '/dependencies\/.+/'
-          - '/dependency\/.+/'

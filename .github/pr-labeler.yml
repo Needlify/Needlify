@@ -1,0 +1,5 @@
+Type - Chore: "chore/*"
+Type - Bug: ["fix/*", "bugfix/*"]
+Type - Feature: ["feature/*", "feat/*"]
+Type - Refactoring: ["refacto/*", "refactoring/*"]
+Type - Dependencies: ["deps/*", "dep/*", "dependencies/*", "dependency/*"]
