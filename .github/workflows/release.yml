@@ -22,6 +22,6 @@ jobs:
                   config-name: release-drafter.yml
                   disable-autolabeler: true
                   publish: true
-                  commitish: dev
+                  commitish: dev # Pour ne prendre que les commits de dev
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
