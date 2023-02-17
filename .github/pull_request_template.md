@@ -4,7 +4,7 @@
 
 ## Checklist
 
-Check that each item in the following list is respected before performing a merge
+Check that each item in the following list is respected before performing a merge.
 
 - [ ] The description of the change is correctly filled in
 - [ ] The merge request is created from the right branch and targets the right branch
