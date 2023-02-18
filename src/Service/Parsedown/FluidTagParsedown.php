@@ -13,6 +13,8 @@ namespace App\Service\Parsedown;
 
 class FluidTagParsedown extends \Parsedown
 {
+    private const CALLOUT_AVAILABLE_TYPES = ['info', 'success', 'warning', 'alert'];
+
     public function __construct()
     {
         $this->InlineTypes['{'][] = 'YoutubeEmbed';
@@ -65,6 +67,32 @@ class FluidTagParsedown extends \Parsedown
                     ],
                 ],
             ];
+        }
+    }
+
+    protected function blockQuote($Line)
+    {
+        // Custom callout
+        if (preg_match('/^>\s?\[\!(\w+?)\](.*?)$/m', $Line['text'], $matches)) {
+            $type = strtolower($matches[1]);
+
+            if (!in_array($type, self::CALLOUT_AVAILABLE_TYPES)) {
+                return parent::blockQuote($Line);
+            }
+
+            return [
+                'element' => [
+                    'name' => 'blockquote',
+                    'attributes' => [
+                        'class' => "$type callout",
+                    ],
+                    'handler' => 'lines',
+                ],
+            ];
+
+        // Default blockquote
+        } elseif (preg_match('/^>[ ]?(.*)/', $Line['text'], $matches)) {
+            return parent::blockQuote($Line);
         }
     }
 }
