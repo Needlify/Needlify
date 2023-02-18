@@ -181,13 +181,12 @@
                 height: 18px;
                 top: 20px;
                 left: 22px;
-                font-size: 20px;
                 stroke-width: 2.5px;
 
                 @include maxWidth(600px) {
                     width: 14px;
                     height: 14px;
-                    top: 13px;
+                    top: 16px;
                     left: 14px;
                 }
             }
