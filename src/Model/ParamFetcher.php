@@ -15,6 +15,11 @@ class ParamFetcher
 {
     private array $parameters = [];
 
+    public function __construct(array $params = [])
+    {
+        $this->parameters = $params;
+    }
+
     public function all(): array
     {
         return $this->parameters;

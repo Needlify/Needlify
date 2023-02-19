@@ -55,99 +55,124 @@ class QueryParamArgumentResolver implements ValueResolverInterface
         // Get attributs of type QueryParam
         $rAttributs = $rMethod->getAttributes(QueryParam::class);
 
+        // If the method doesn't have any QueryParam attributs
         if (empty($rAttributs)) {
             return self::IGNORE;
         }
 
-        $fetcher = new ParamFetcher();
-
         foreach ($rAttributs as $attribut) {
             $queryParam = $this->getQueryParamParameters($attribut);
             $this->addOptionsResolverEntry($queryParam);
-
-            // $queryParamName = $queryParamParameters->getName();
-
-            // $this->validateQueryParamParameters($queryParamParameters);
-
-            // $queryParamValue = $this->getQueryParamValue($request, $queryParamName, $queryParamParameters);
-            // $formattedValue = $this->validateParamFetcher($queryParamValue, $queryParamParameters);
-
-            // $fetcher->set($queryParamName, $formattedValue);
         }
 
-        dd($this->optionsResolver->resolve($request->query->all()));
+        try {
+            $validatedParams = $this->optionsResolver->resolve($request->query->all());
+        } catch (\Exception $e) {
+            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM, $e->getMessage());
+        }
 
-        return [$fetcher];
+        return [new ParamFetcher($validatedParams)];
     }
 
     public function addOptionsResolverEntry(QueryParam $queryParam)
     {
         $name = $queryParam->getName();
 
+        // On annonce que ce champ existe
         $this->optionsResolver->setDefined($name);
 
+        // On le rend obligatoire ou pas
         if (!$queryParam->getOptional()) {
             $this->optionsResolver->setRequired($name);
-        } else {
+        }
+
+        // On ajoute la valeur par défaut
+        if (null !== $queryParam->getDefault()) {
             $this->optionsResolver->setDefault($name, $queryParam->getDefault());
         }
 
-        if (!empty($queryParam->getRequirements())) {
-            $this->optionsResolver->setAllowedValues($name, Validation::createIsValidCallable(
-                ...$queryParam->getRequirements()
-            ));
-        }
-
-        $this->optionsResolver->setNormalizer($name, function (Options $options, $value) use ($queryParam) {
-            switch ($queryParam->getType()) {
-                case QueryParamType::STRING:
-                    if (!is_string($value)) {
-                        throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM, '$%s parameter must be a string', [$queryParam->getName()]);
-                    }
-
-                    return $value;
-
-                case QueryParamType::INTEGER:
+        // Set allowed type
+        // For each type, we specify the `string` type because every query param from the request is a string, it is not natively converted
+        switch ($queryParam->getType()) {
+            case QueryParamType::INTEGER:
+                $this->optionsResolver->setAllowedTypes($name, 'string');
+                $this->optionsResolver->addAllowedValues($name, function ($value) {
                     $validatedValue = filter_var($value, FILTER_VALIDATE_INT, [
                         // 'options' => ['min_range' => 100, 'max_range' => 500],
                         'flags' => FILTER_NULL_ON_FAILURE,
                     ]);
 
-                    if (null === $validatedValue) {
-                        throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM, '$%s parameter must be an integer', [$queryParam->getName()]);
-                    }
+                    return null !== $validatedValue;
+                });
 
-                    return (int) $validatedValue;
+                break;
 
-                case QueryParamType::FLOAT:
+            case QueryParamType::FLOAT:
+                $this->optionsResolver->setAllowedTypes($name, 'string');
+                $this->optionsResolver->addAllowedValues($name, function ($value) {
                     $validatedValue = filter_var($value, FILTER_VALIDATE_FLOAT, [
                         // 'options' => ['min_range' => 100, 'max_range' => 500],
                         'flags' => FILTER_NULL_ON_FAILURE,
                     ]);
 
-                    if (null === $validatedValue) {
-                        throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM, '$%s parameter must be a float', [$queryParam->getName()]);
-                    }
+                    return null !== $validatedValue;
+                });
 
-                    return (float) $validatedValue;
+                break;
+
+            case QueryParamType::UUID:
+                $this->optionsResolver->setAllowedTypes($name, 'string');
+                $this->optionsResolver->addAllowedValues($name, function ($value) {
+                    return Uuid::isValid($value);
+                });
+
+                break;
+
+            case QueryParamType::STRING:
+            default:
+                $this->optionsResolver->setAllowedTypes($name, 'string');
+                break;
+        }
+
+        // Normalize value
+        $this->optionsResolver->addNormalizer($name, function (Options $options, $value) use ($queryParam) {
+            switch ($queryParam->getType()) {
+                case QueryParamType::STRING:
+                    return $value;
+
+                case QueryParamType::INTEGER:
+                    return (int) $value;
+
+                case QueryParamType::FLOAT:
+                    return (float) $value;
 
                 case QueryParamType::UUID:
-                    if (!is_string($value)) {
-                        throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM, '$%s parameter must be a uuid', [$queryParam->getName()]);
-                    }
-
-                    if (!Uuid::isValid($value)) {
-                        throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM, '$%s parameter must be a uuid', [$queryParam->getName()]);
-                    }
-
                     return Uuid::fromString($value);
 
                 default:
                     throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM, '$%s parameter must be of type integer, float, string or uuid', [$queryParam->getName()]);
             }
         });
+
+        // Validate constraints
+        // ! This section must be after the type normalizer one because the code below is based on the value returned by the previous normalizer
+        if (!empty($queryParam->getRequirements())) {
+            $this->optionsResolver->addNormalizer($name, function (Options $options, $value) use ($queryParam) {
+                $validator = Validation::createValidator();
+                $violations = $validator->validate($value, $queryParam->getRequirements());
+
+                if (0 === count($violations)) {
+                    return $value;
+                } else {
+                    throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM_REQUIREMENT, 'Invalid $%s parameter', [$queryParam->getName()]);
+                }
+            });
+        }
     }
 
+    /**
+     * Create a QueryParam from route attribut.
+     */
     private function getQueryParamParameters(\ReflectionAttribute $attribut): QueryParam
     {
         $queryParamProperties = (new \ReflectionClass(QueryParam::class))->getProperties();
@@ -165,13 +190,4 @@ class QueryParamArgumentResolver implements ValueResolverInterface
 
         return new QueryParam(...$values);
     }
-
-    // private function getQueryParamValue(Request $request, string $name, QueryParam $queryParam): ?string
-    // {
-    //     if ($request->query->has($name)) {
-    //         return $request->query->get($name);
-    //     } else {
-    //         return $queryParam->getDefault();
-    //     }
-    // }
 }
