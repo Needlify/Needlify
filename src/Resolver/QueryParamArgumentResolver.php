@@ -13,14 +13,10 @@ namespace App\Resolver;
 
 use App\Model\ParamFetcher;
 use App\Attribut\QueryParam;
-use App\Enum\QueryParamType;
-use Symfony\Component\Uid\Uuid;
 use App\Exception\ExceptionCode;
 use App\Exception\ExceptionFactory;
-use Symfony\Component\Validator\Validation;
+use App\OptionsResolver\ApiOptionsResolver;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -29,11 +25,9 @@ class QueryParamArgumentResolver implements ValueResolverInterface
 {
     private const IGNORE = [];
 
-    private OptionsResolver $optionsResolver;
-
-    public function __construct()
-    {
-        $this->optionsResolver = new OptionsResolver();
+    public function __construct(
+        private ApiOptionsResolver $apiOptionsResolver
+    ) {
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
@@ -62,11 +56,11 @@ class QueryParamArgumentResolver implements ValueResolverInterface
 
         foreach ($rAttributs as $attribut) {
             $queryParam = $this->getQueryParamParameters($attribut);
-            $this->addOptionsResolverEntry($queryParam);
+            $this->apiOptionsResolver->addOption($queryParam);
         }
 
         try {
-            $validatedParams = $this->optionsResolver->resolve($request->query->all());
+            $validatedParams = $this->apiOptionsResolver->resolve($request->query->all());
         } catch (\Exception $e) {
             throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM, $e->getMessage());
         }
@@ -74,104 +68,8 @@ class QueryParamArgumentResolver implements ValueResolverInterface
         return [new ParamFetcher($validatedParams)];
     }
 
-    public function addOptionsResolverEntry(QueryParam $queryParam)
-    {
-        $name = $queryParam->getName();
-
-        // On annonce que ce champ existe
-        $this->optionsResolver->setDefined($name);
-
-        // On le rend obligatoire ou pas
-        if (!$queryParam->getOptional()) {
-            $this->optionsResolver->setRequired($name);
-        }
-
-        // On ajoute la valeur par défaut
-        if (null !== $queryParam->getDefault()) {
-            $this->optionsResolver->setDefault($name, $queryParam->getDefault());
-        }
-
-        // Set allowed type
-        // For each type, we specify the `string` type because every query param from the request is a string, it is not natively converted
-        switch ($queryParam->getType()) {
-            case QueryParamType::INTEGER:
-                $this->optionsResolver->setAllowedTypes($name, 'string');
-                $this->optionsResolver->addAllowedValues($name, function ($value) {
-                    $validatedValue = filter_var($value, FILTER_VALIDATE_INT, [
-                        // 'options' => ['min_range' => 100, 'max_range' => 500],
-                        'flags' => FILTER_NULL_ON_FAILURE,
-                    ]);
-
-                    return null !== $validatedValue;
-                });
-
-                break;
-
-            case QueryParamType::FLOAT:
-                $this->optionsResolver->setAllowedTypes($name, 'string');
-                $this->optionsResolver->addAllowedValues($name, function ($value) {
-                    $validatedValue = filter_var($value, FILTER_VALIDATE_FLOAT, [
-                        // 'options' => ['min_range' => 100, 'max_range' => 500],
-                        'flags' => FILTER_NULL_ON_FAILURE,
-                    ]);
-
-                    return null !== $validatedValue;
-                });
-
-                break;
-
-            case QueryParamType::UUID:
-                $this->optionsResolver->setAllowedTypes($name, 'string');
-                $this->optionsResolver->addAllowedValues($name, function ($value) {
-                    return Uuid::isValid($value);
-                });
-
-                break;
-
-            case QueryParamType::STRING:
-            default:
-                $this->optionsResolver->setAllowedTypes($name, 'string');
-                break;
-        }
-
-        // Normalize value
-        $this->optionsResolver->addNormalizer($name, function (Options $options, $value) use ($queryParam) {
-            switch ($queryParam->getType()) {
-                case QueryParamType::STRING:
-                    return $value;
-
-                case QueryParamType::INTEGER:
-                    return (int) $value;
-
-                case QueryParamType::FLOAT:
-                    return (float) $value;
-
-                case QueryParamType::UUID:
-                    return Uuid::fromString($value);
-
-                default:
-                    throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM, '$%s parameter must be of type integer, float, string or uuid', [$queryParam->getName()]);
-            }
-        });
-
-        // Validate constraints
-        // ! This section must be after the type normalizer one because the code below is based on the value returned by the previous normalizer
-        if (!empty($queryParam->getRequirements())) {
-            $this->optionsResolver->addNormalizer($name, function (Options $options, $value) use ($queryParam) {
-                $validator = Validation::createValidator();
-                $violations = $validator->validate($value, $queryParam->getRequirements());
-
-                if (0 === count($violations)) {
-                    return $value;
-                } else {
-                    throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_QUERY_PARAM_REQUIREMENT, 'Invalid $%s parameter', [$queryParam->getName()]);
-                }
-            });
-        }
-    }
-
     /**
-     * Create a QueryParam from route attribut.
+     * Create a QueryParam object from route attribut.
      */
     private function getQueryParamParameters(\ReflectionAttribute $attribut): QueryParam
     {
