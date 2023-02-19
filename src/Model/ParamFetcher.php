@@ -22,7 +22,11 @@ class ParamFetcher
 
     public function get(string $key): mixed
     {
-        return $this->parameters[$key];
+        if (array_key_exists($key, $this->parameters)) {
+            return $this->parameters[$key];
+        }
+
+        return null;
     }
 
     public function set(string $key, mixed $value): self
