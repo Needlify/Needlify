@@ -15,6 +15,11 @@ class ParamFetcher
 {
     private array $parameters = [];
 
+    public function __construct(array $params = [])
+    {
+        $this->parameters = $params;
+    }
+
     public function all(): array
     {
         return $this->parameters;
@@ -22,7 +27,11 @@ class ParamFetcher
 
     public function get(string $key): mixed
     {
-        return $this->parameters[$key];
+        if (array_key_exists($key, $this->parameters)) {
+            return $this->parameters[$key];
+        }
+
+        return null;
     }
 
     public function set(string $key, mixed $value): self

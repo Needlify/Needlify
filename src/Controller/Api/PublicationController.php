@@ -39,6 +39,6 @@ class PublicationController extends AbstractController
             $fetcher->get('id')
         );
 
-        return $this->json($paginatedData, context: ['groups' => 'thread:extend']);
+        return $this->json($paginatedData, context: ['groups' => 'thread:basic']);
     }
 }

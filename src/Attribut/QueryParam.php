@@ -12,30 +12,33 @@
 namespace App\Attribut;
 
 use App\Enum\QueryParamType;
+use Symfony\Component\Validator\Constraint;
 
 #[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 class QueryParam
 {
     private string $name;
+
     private QueryParamType $type = QueryParamType::STRING;
-    private string|array|null $requirements = null;
-    private string|int|float|bool|null $default = null;
-    private ?string $description = null;
+
+    /** @var Constraint[] */
+    private array $requirements = [];
+
+    private mixed $default = null;
+
     private bool $optional = false;
 
     public function __construct(
         string $name,
         QueryParamType $type = QueryParamType::STRING,
-        string|array|null $requirements = null,
-        string|int|float|bool|null $default = null,
-        ?string $description = null,
+        array $requirements = [],
+        mixed $default = null,
         bool $optional = false
     ) {
         $this->name = $name;
         $this->type = $type;
         $this->requirements = $requirements;
         $this->default = $default;
-        $this->description = $description;
         $this->optional = $optional;
     }
 
@@ -63,38 +66,29 @@ class QueryParam
         return $this;
     }
 
-    public function getRequirements(): string|array|null
+    public function getRequirements(): array
     {
         return $this->requirements;
     }
 
-    public function setRequirements(string|array|null $requirements): self
+    /**
+     * @param Constraint[] $requirements
+     */
+    public function setRequirements(array $requirements): self
     {
         $this->requirements = $requirements;
 
         return $this;
     }
 
-    public function getDefault(): string|int|float|null|bool
+    public function getDefault(): mixed
     {
         return $this->default;
     }
 
-    public function setDefault(string|int|float|null|bool $default): self
+    public function setDefault(mixed $default): self
     {
         $this->default = $default;
-
-        return $this;
-    }
-
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }
