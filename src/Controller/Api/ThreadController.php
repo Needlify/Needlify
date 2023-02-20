@@ -34,6 +34,6 @@ class ThreadController extends AbstractController
     {
         $paginatedData = $this->threadRepository->findAllWithPagination($fetcher->get('page'));
 
-        return $this->json($paginatedData, context: ['groups' => ['thread:extend']]);
+        return $this->json($paginatedData, context: ['groups' => ['thread:basic']]);
     }
 }

@@ -17,7 +17,6 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -40,14 +39,12 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[Assert\NotBlank(message: 'user.username.not_blank')]
     #[Assert\Length(max: 50, maxMessage: 'user.username.length')]
     #[Assert\Regex(pattern: '/^[\w\-\.]*$/', message: 'user.username.regex')]
-    #[Groups(['user:basic', 'user:extend'])]
     private ?string $username = null;
 
     #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     #[Assert\NotBlank(message: 'user.email.not_blank')]
     #[Assert\Email(message: 'user.email.email')]
     #[Assert\Length(max: 180, maxMessage: 'user.email.length')]
-    #[Groups(['user:extend'])]
     private ?string $email = null;
 
     #[ORM\Column(type: Types::JSON)]
@@ -74,7 +71,6 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     private ?string $rawPassword = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
-    #[Groups(['user:basic', 'user:extend'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]

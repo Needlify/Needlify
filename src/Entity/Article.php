@@ -34,7 +34,7 @@ class Article extends Publication implements ThreadInterface
     #[ORM\Column(type: Types::STRING, length: 120)]
     #[Assert\NotBlank(message: 'article.title.not_blank')]
     #[Assert\Length(max: 120, maxMessage: 'article.title.length')]
-    #[Groups(['thread:extend'])]
+    #[Groups(['thread:basic'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::STRING, length: 500)]
@@ -44,7 +44,6 @@ class Article extends Publication implements ThreadInterface
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'article.content.not_blank')]
-    #[Groups(['thread:extend'])]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::INTEGER)]
@@ -53,7 +52,7 @@ class Article extends Publication implements ThreadInterface
 
     #[ORM\Column(type: Types::STRING, length: 134)]
     #[Assert\Length(max: 134, maxMessage: 'article.slug.length')]
-    #[Groups(['thread:extend'])]
+    #[Groups(['thread:basic'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
@@ -167,14 +166,14 @@ class Article extends Publication implements ThreadInterface
     }
 
     #[SerializedName('type')]
-    #[Groups(['thread:extend'])]
+    #[Groups(['thread:basic'])]
     public function getType(): ThreadType
     {
         return ThreadType::ARTICLE;
     }
 
     #[SerializedName('preview')]
-    #[Groups(['thread:extend'])]
+    #[Groups(['thread:basic'])]
     public function getPreview(): string
     {
         return $this->getDescription();
