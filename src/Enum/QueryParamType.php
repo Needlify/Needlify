@@ -11,8 +11,12 @@
 
 namespace App\Enum;
 
+use App\Trait\EnumUtilityTrait;
+
 enum QueryParamType: string
 {
+    use EnumUtilityTrait;
+
     case INTEGER = 'integer';
     case FLOAT = 'float';
     case STRING = 'string';
