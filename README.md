@@ -10,6 +10,9 @@
     <a href="https://github.com/Needlify/Needlify/actions/workflows/ci.yml" target="_blank">
         <img src="https://github.com/Needlify/Needlify/actions/workflows/ci.yml/badge.svg" />
     </a>
+    <a href="https://github.com/Needlify/Needlify/actions/workflows/cd.yml" target="_blank">
+        <img src="https://github.com/Needlify/Needlify/actions/workflows/cd.yml/badge.svg" />
+    </a>
 </span>
 
 ## About Needlify
