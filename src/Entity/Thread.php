@@ -36,7 +36,7 @@ abstract class Thread
     protected ?Uuid $id = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
-    #[Groups(['thread:extend'])]
+    #[Groups(['thread:basic'])]
     protected ?\DateTimeImmutable $publishedAt = null; // publishedAt is in Server local timezone
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]

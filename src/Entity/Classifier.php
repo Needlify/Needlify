@@ -42,7 +42,7 @@ abstract class Classifier
     #[ORM\Column(type: Types::STRING, length: 50)]
     #[Assert\NotBlank(message: 'classifier.name.not_blank')]
     #[Assert\Length(max: 50, maxMessage: 'classifier.name.length')]
-    #[Groups(['thread:extend'])]
+    #[Groups(['thread:basic'])]
     protected ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
@@ -56,7 +56,7 @@ abstract class Classifier
 
     #[ORM\Column(type: Types::STRING, length: 64, unique: true)]
     #[Assert\Length(max: 64, maxMessage: 'classifier.slug.length')]
-    #[Groups(['thread:extend'])]
+    #[Groups(['thread:basic'])]
     protected ?string $slug = null;
 
     public function getId(): ?Uuid
