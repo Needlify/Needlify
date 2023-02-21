@@ -59,6 +59,7 @@ Encore.setOutputPath("public/build/")
         "admin_thumbnail": "./assets/admin/thumbnail.scss",
         "admin_markdown_default": "./assets/admin/editor/markdown/markdown.ts",
         "admin_markdown_onlyText": "./assets/admin/editor/markdown/onlyText.scss",
+        "admin_select_dropdown": "./assets/admin/selectDropdown.scss",
         "admin_trix_default": "./assets/admin/editor/trix/default.scss",
         "admin_trix_onlyText": "./assets/admin/editor/trix/onlyText.scss",
         "admin_component_tags": "./assets/admin/component/tags.scss",

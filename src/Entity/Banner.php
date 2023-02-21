@@ -27,8 +27,6 @@ class Banner
     #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?Uuid $id = null;
 
-    // TODO Modifier les messages d'erreur
-
     #[ORM\Column(length: 1600, type: Types::STRING)] // 1600 = 1000 * 0.6
     #[Assert\Length(max: 1600, maxMessage: 'banner.content.length')]
     private ?string $content = null;

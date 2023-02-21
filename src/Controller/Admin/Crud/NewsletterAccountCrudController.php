@@ -72,7 +72,9 @@ class NewsletterAccountCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id', 'admin.crud.newsletter.column.id')->onlyOnDetail();
-        yield EmailField::new('email', 'admin.crud.newsletter.column.email');
+        yield EmailField::new('email', 'admin.crud.newsletter.column.email')
+            ->setFormTypeOptions(['attr.maxLength' => 180])
+            ->setColumns(12);
 
         yield FormField::addPanel('admin.crud.section.verification');
         yield BooleanField::new('isVerified', 'admin.crud.newsletter.column.is_verified');
