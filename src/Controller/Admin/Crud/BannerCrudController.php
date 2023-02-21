@@ -77,8 +77,9 @@ class BannerCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id', 'admin.crud.banner.column.id')->onlyOnDetail();
-        yield TextField::new('title', 'admin.crud.banner.column.title');
-        yield IntegerField::new('priority', 'admin.crud.banner.column.priority')->hideOnIndex();
+        yield TextField::new('title', 'admin.crud.banner.column.title')
+            ->setColumns(12)
+            ->setFormTypeOptions(['attr.maxLength' => 255]);
         yield ChoiceField::new('type', 'admin.crud.banner.column.type')
             ->setChoices(BannerType::cases())
             ->setFormType(EnumType::class)
@@ -86,6 +87,7 @@ class BannerCrudController extends AbstractCrudController
                 'class' => BannerType::class,
                 'data' => BannerType::INFO,
             ])
+            ->setColumns('col-md-6')
             ->onlyOnForms()
         ;
         yield ChoiceField::new('type', 'admin.crud.banner.column.type')
@@ -97,6 +99,14 @@ class BannerCrudController extends AbstractCrudController
             ->renderAsBadges()
             ->hideOnForm()
         ;
+        yield IntegerField::new('priority', 'admin.crud.banner.column.priority')
+            ->setColumns('col-md-6')
+            ->setFormTypeOptions([
+                'attr.max' => 32768,
+                'attr.min' => -32768,
+                'attr.step' => 1,
+            ])
+            ->hideOnIndex();
         yield TextEditorField::new('content', 'admin.crud.banner.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setColumns(12)
@@ -104,18 +114,24 @@ class BannerCrudController extends AbstractCrudController
             ->formatValue(fn (string $value) => $value) // To render content as html rather than just text
         ;
         yield UrlField::new('link', 'admin.crud.banner.column.link')
+            ->setColumns(12)
+            ->setFormTypeOptions(['attr.maxLength' => 1000])
             ->formatValue(fn (string $link) => $link); // Pour afficher le badge quand c'est null
 
         yield FormField::addPanel('admin.crud.section.dates');
         yield DateTimeField::new('startedAt', 'admin.crud.banner.column.started_at')
             // ->setTimezone('UTC')
+            ->setColumns('col-md-6')
             ->setFormTypeOptions([
                 'with_seconds' => false,
+                'attr.class' => 'w-100',
             ]);
         yield DateTimeField::new('endedAt', 'admin.crud.banner.column.ended_at')
             // ->setTimezone('UTC')
+            ->setColumns('col-md-6')
             ->setFormTypeOptions([
                 'with_seconds' => false,
+                'attr.class' => 'w-100',
             ]);
     }
 

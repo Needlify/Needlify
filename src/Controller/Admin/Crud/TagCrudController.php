@@ -39,10 +39,10 @@ class TagCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $this->defaultClassifierCrudConfiguration($crud)
-                    ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.tag.index.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.tag.new.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.tag.edit.title', [], 'admin'))
-                    ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.tag.details.title', [], 'admin'));
+            ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.tag.index.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.tag.new.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.tag.edit.title', [], 'admin'))
+            ->setPageTitle(Crud::PAGE_DETAIL, $this->translator->trans('admin.crud.tag.details.title', [], 'admin'));
     }
 
     public function configureFilters(Filters $filters): Filters
