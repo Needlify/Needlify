@@ -1,19 +1,22 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    {{ "legal.privacy.title"|trans }} - {{ parent() }}
+	{{ "legal.privacy.title"|trans }}
+	-
+	{{ parent() }}
 {% endblock title %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags("style_markdown") }}
+	{{ encore_entry_link_tags("style_markdown") }}
+	{{ encore_entry_link_tags("page_legal") }}
 {% endblock stylesheets %}
 
 {% block body %}
-    <section class="markdown-style">
-        <h1>
-            {{ "legal.privacy.title"|trans }}
-        </h1>
+	<section class="markdown-style">
+		<h1>
+			{{ "legal.privacy.title"|trans }}
+		</h1>
 
-        {{ "legal.privacy.text"|trans|raw }}
-    </section>
+		{{ "legal.privacy.text"|trans|raw }}
+	</section>
 {% endblock body %}
