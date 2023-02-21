@@ -48,9 +48,10 @@ class NewsletterService
     public function validateRegistrationRequestParam(Request $request): bool
     {
         $hasError = false;
-        $email = $request->request->get('email');
-        $agree = $request->request->get('agree');
-        $csrf = $request->request->get('_csrf_token');
+
+        $email = $request->request->get('email', '');
+        $agree = $request->request->get('agree', '');
+        $csrf = $request->request->get('_csrf_token', '');
 
         /** @var Session $session */
         $session = $this->requestStack->getSession();
@@ -61,7 +62,7 @@ class NewsletterService
             $session->getFlashBag()->add('error', $this->translator->trans('newsletter_account.form.csrf', domain: 'validators'));
         }
 
-        if (null === $agree || 'on' !== $agree) {
+        if ('on' !== $agree) {
             $hasError = true;
             $session->getFlashBag()->add('error', $this->translator->trans('newsletter_account.form.agree', domain: 'validators'));
         }
