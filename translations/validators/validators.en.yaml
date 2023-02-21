@@ -45,6 +45,7 @@ newsletter_account.email.not_blank: "The email can not be blank"
 newsletter_account.email.email: "Invalid email"
 newsletter_account.email.length: "The email can not exceed {{ limit }} characters"
 newsletter_account.form.csrf: "Invalid CSRF token"
+newsletter_account.form.email: "Invalid email"
 newsletter_account.form.agree: "You must accept the terms of use to register"
 
 banner.content.length: "The content of a banner can not exceed {{ limit }} characters"

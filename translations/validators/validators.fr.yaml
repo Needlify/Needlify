@@ -45,6 +45,7 @@ newsletter_account.email.not_blank: "L'email ne peut pas être vide"
 newsletter_account.email.email: "Email invalide"
 newsletter_account.email.length: "L'email ne peut pas dépasser {{ limit }} caractère"
 newsletter_account.form.csrf: "Token CSRF invalide"
+newsletter_account.form.email: "Email invalide"
 newsletter_account.form.agree: "Vous devez accepter les conditions d'utilisation pour vous enregistrer"
 
 banner.content.length: "Le contenu d'une bannière ne peut pas dépasser {{ limit }} caractères"
