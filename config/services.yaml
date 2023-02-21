@@ -43,7 +43,7 @@ services:
     monolog.formatter.extra_log:
         class: Monolog\Formatter\LineFormatter
         arguments:
-            - "[%%datetime%%] %%channel%%.%%level_name%% [%%extra.ip%% %%extra.user%% %%extra.protocol%% %%extra.method%% %%extra.url%%] %%message%% %%context%% %%extra%%\n"
+            - "[%%datetime%%] %%channel%%.%%level_name%% [%%extra.ip%% %%extra.method%% %%extra.url%%] %%message%% %%context%% %%extra%%\n"
 
     App\Logger\ExtraLogProcessor:
         tags:
