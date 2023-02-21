@@ -1,23 +1,26 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    {{ "legal.legal.title"|trans }} - {{ parent() }}
+	{{ "legal.legal.title"|trans }}
+	-
+	{{ parent() }}
 {% endblock title %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags("style_markdown") }}
+	{{ encore_entry_link_tags("style_markdown") }}
+	{{ encore_entry_link_tags("page_legal") }}
 {% endblock stylesheets %}
 
 {% block body %}
-    <section class="markdown-style">
-        <h1>
-            {{ "legal.legal.title"|trans }}
-        </h1>
+	<section class="markdown-style">
+		<h1>
+			{{ "legal.legal.title"|trans }}
+		</h1>
 
-        <ul>
-            <li><a href="{{ url("app_privacy") }}">{{ "legal.privacy.title"|trans }}</a></li>
-            <li><a href="{{ url("app_conduct") }}">{{ "legal.conduct.title"|trans }}</a></li>
-            <li><a href="{{ url("app_terms") }}">{{ "legal.terms.title"|trans }}</a></li>
-        </ul>
-    </section>
+		<ul>
+			<li><a href="{{ url("app_privacy") }}">{{ "legal.privacy.title"|trans }}</a></li>
+			<li><a href="{{ url("app_conduct") }}">{{ "legal.conduct.title"|trans }}</a></li>
+			<li><a href="{{ url("app_terms") }}">{{ "legal.terms.title"|trans }}</a></li>
+		</ul>
+	</section>
 {% endblock body %}

@@ -1,0 +1,19 @@
+@import "../variables";
+
+.markdown-style {
+    color: var(--text);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    font-family: Jakarta;
+}
+
+h1 {
+    margin: 22px 0 40px 0 !important;
+}
