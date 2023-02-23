@@ -12,9 +12,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
-use App\Enum\EventMessage;
 use App\Factory\EventFactory;
 use App\Factory\TopicFactory;
+use App\Enum\EventMessageType;
 use Zenstruck\Foundry\Factory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -38,7 +38,7 @@ class EventFixture extends Fixture
     {
         Factory::delayFlush(function () {
             foreach (TopicFactory::all() as $topic) {
-                $eventProxy = EventFactory::createOne(['content' => EventMessage::NEW_TOPIC->format([
+                $eventProxy = EventFactory::createOne(['content' => EventMessageType::NEW_TOPIC->format([
                     $topic->object()->getName(),
                     $this->router->generate('app_topic', ['slug' => $topic->object()->getSlug()]),
                 ])]);
