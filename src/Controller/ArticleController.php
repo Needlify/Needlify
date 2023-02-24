@@ -18,7 +18,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ArticleController extends AbstractController
 {
@@ -31,7 +31,7 @@ class ArticleController extends AbstractController
     public function article(Article $article): Response
     {
         if ($article->isPrivate()) {
-            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_ACCESSIBLE, 'This ressource is not accessible');
+            throw ExceptionFactory::throw(NotFoundHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'This ressource is not accessible');
         }
 
         $article->incrementViews();

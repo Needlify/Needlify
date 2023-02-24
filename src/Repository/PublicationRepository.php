@@ -21,7 +21,7 @@ use Symfony\Component\Uid\Uuid;
 use App\Exception\ExceptionCode;
 use App\Exception\ExceptionFactory;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -69,7 +69,7 @@ class PublicationRepository extends ServiceEntityRepository
         $classifier = $this->getEntityManager()->find(Classifier::class, $id);
 
         if (!$classifier) {
-            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, "Classifier with id '%s' not found", [$id->toRfc4122()]);
+            throw ExceptionFactory::throw(NotFoundHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, "Classifier with id '%s' not found", [$id->toRfc4122()]);
         }
 
         $query = $this->createQueryBuilder('p')
