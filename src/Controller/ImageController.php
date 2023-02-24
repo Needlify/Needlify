@@ -19,8 +19,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use League\Glide\Signatures\SignatureException;
 use Symfony\Component\Routing\Annotation\Route;
+use League\Glide\Filesystem\FileNotFoundException;
 use League\Glide\Responses\SymfonyResponseFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class ImageController extends AbstractController
@@ -47,8 +49,10 @@ class ImageController extends AbstractController
             SignatureFactory::create($this->getParameter('app.image.key'))->validateRequest($request->getPathInfo(), $request->query->all());
 
             return $server->getImageResponse($name, $request->query->all());
-        } catch (SignatureException $exception) {
+        } catch (SignatureException $e) {
             throw ExceptionFactory::throw(AccessDeniedHttpException::class, ExceptionCode::INVALID_IMAGE_SIGNATURE, 'Invalid image signature');
+        } catch (FileNotFoundException $e) {
+            throw ExceptionFactory::throw(NotFoundHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'Invalid not found');
         }
     }
 }
