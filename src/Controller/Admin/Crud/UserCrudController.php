@@ -120,8 +120,12 @@ class UserCrudController extends AbstractCrudController
         yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id', 'admin.crud.user.column.id')
             ->onlyOnDetail();
-        yield TextField::new('username', 'admin.crud.user.column.username');
-        yield EmailField::new('email', 'admin.crud.user.column.email');
+        yield TextField::new('username', 'admin.crud.user.column.username')
+            ->setFormTypeOptions(['attr.maxLength' => 50])
+            ->setColumns('col-md-6');
+        yield EmailField::new('email', 'admin.crud.user.column.email')
+            ->setFormTypeOptions(['attr.maxLength' => 180])
+            ->setColumns('col-md-6');
         yield ArrayField::new('roles', 'admin.crud.user.column.roles')
             ->setTemplatePath('admin/components/roles.html.twig')
             ->hideOnForm();
@@ -152,7 +156,15 @@ class UserCrudController extends AbstractCrudController
     {
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
-            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.user.actions.create'));
-        // ->remove(Crud::PAGE_INDEX, Action::NEW);
+            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.user.actions.create'))
+            ->update(Crud::PAGE_INDEX, Action::DELETE, fn (Action $action) => $action->displayIf(
+                fn (User $user) => $user !== $this->getUser()
+            ))
+            ->update(Crud::PAGE_DETAIL, Action::DELETE, fn (Action $action) => $action->displayIf(
+                fn (User $user) => $user !== $this->getUser()
+            ))
+            ->remove(Crud::PAGE_INDEX, Action::BATCH_DELETE)
+            ->remove(Crud::PAGE_INDEX, Action::NEW)
+        ;
     }
 }

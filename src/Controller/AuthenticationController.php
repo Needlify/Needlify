@@ -72,17 +72,17 @@ class AuthenticationController extends AbstractController
         }
 
         if ('POST' === $request->getMethod()) {
-            $token = $request->request->get('_csrf_token');
+            $token = $request->request->get('_csrf_token', '');
 
             if (!$this->isCsrfTokenValid('register', $token)) {
                 throw ExceptionFactory::throw(InvalidCsrfTokenException::class, ExceptionCode::INVALID_CSRF_TOKEN, 'Invalid CSRF token');
             }
 
             $error = false;
-            $email = $request->request->get('email');
-            $username = $request->request->get('username');
-            $password = $request->request->get('password');
-            $passwordConfirm = $request->request->get('passwordConf');
+            $email = $request->request->get('email', '');
+            $username = $request->request->get('username', '');
+            $password = $request->request->get('password', '');
+            $passwordConfirm = $request->request->get('passwordConf', '');
 
             if ($password !== $passwordConfirm) {
                 $error = true;

@@ -65,6 +65,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         maxMessage: 'user.raw_password.max_length',
         groups: ['auth:check:full']
     )]
+    #[Assert\NotEqualTo(propertyPath: 'username', message: 'user.raw_password.not_equal_to')]
     #[Assert\Regex(pattern: '/^.*?[A-Z].*?$/', message: 'user.raw_password.upper_case', groups: ['auth:check:full'])]
     #[Assert\Regex(pattern: '/^.*?[0-9].*?$/', message: 'user.raw_password.number', groups: ['auth:check:full'])]
     #[Assert\Regex(pattern: '/^.*?[!"`\'#%&,:;<>=@{}~\$\(\)\*\+\/\\\?\[\]\^\|].*?$/', message: 'user.raw_password.special_char', groups: ['auth:check:full'])]

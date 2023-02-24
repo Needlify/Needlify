@@ -13,7 +13,7 @@ namespace App\EventSubscriber\Admin;
 
 use App\Entity\Event;
 use App\Entity\Topic;
-use App\Enum\EventMessage;
+use App\Enum\EventMessageType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -40,7 +40,7 @@ class EventCreationSubscriber implements EventSubscriberInterface
 
         if ($entity instanceof Topic) {
             $event = new Event();
-            $event->setContent(EventMessage::NEW_TOPIC->format([
+            $event->setContent(EventMessageType::NEW_TOPIC->format([
                 $entity->getName(),
                 $this->router->generate('app_topic', ['slug' => $entity->getSlug()]),
             ]));

@@ -88,9 +88,14 @@ class MoodlineCrudController extends AbstractCrudController
             ->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations');
-        yield AssociationField::new('topic', 'admin.crud.moodline.column.topic')->setRequired(true);
+        yield AssociationField::new('topic', 'admin.crud.moodline.column.topic')
+            ->setRequired(true)
+            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->setColumns('col-md-6');
         yield AssociationField::new('tags', 'admin.crud.moodline.column.tags')
-            ->setTemplatePath('admin/components/tags.html.twig');
+            ->setTemplatePath('admin/components/tags.html.twig')
+            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->setColumns('col-md-6');
     }
 
     public function configureActions(Actions $actions): Actions

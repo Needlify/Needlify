@@ -91,7 +91,9 @@ class ArticleCrudController extends AbstractCrudController
     {
         yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id', 'admin.crud.article.column.id')->onlyOnDetail();
-        yield TextField::new('title', 'admin.crud.article.column.title');
+        yield TextField::new('title', 'admin.crud.article.column.title')
+            ->setColumns(12)
+            ->setFormTypeOptions(['attr.maxLength' => 120]);
         yield TextField::new('slug', 'admin.crud.article.column.slug')->onlyOnDetail();
         yield BooleanField::new('license', 'admin.crud.article.column.license')->setHelp('admin.crud.article.column.license.help');
         yield BooleanField::new('private', 'admin.crud.article.column.private')->setHelp('admin.crud.article.column.private.help');
@@ -104,8 +106,11 @@ class ArticleCrudController extends AbstractCrudController
         yield ImageField::new('thumbnail', 'admin.crud.article.column.thumbnail')
             ->formatValue(fn (string $value) => $this->imageResizerService->resize($value, 500, 200))
             ->hideOnForm();
-        yield AssociationField::new('author', 'admin.crud.article.column.author')->hideOnForm();
+        yield AssociationField::new('author', 'admin.crud.article.column.author')
+            ->hideOnForm();
         yield TextareaField::new('description', 'admin.crud.article.column.description')
+            ->setColumns(12)
+            ->setFormTypeOptions(['attr.maxLength' => 500])
             ->hideOnIndex();
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
@@ -119,10 +124,14 @@ class ArticleCrudController extends AbstractCrudController
         yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('topic', 'admin.crud.article.column.topic')
             ->setRequired(true)
+            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->setColumns('col-md-6')
             // ->autocomplete() // Pour le moment, cette feature est buggy
         ;
         yield AssociationField::new('tags', 'admin.crud.article.column.tags')
             ->setTemplatePath('admin/components/tags.html.twig')
+            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->setColumns('col-md-6')
             // ->autocomplete() // Pour le moment, cette feature est buggy
         ;
 

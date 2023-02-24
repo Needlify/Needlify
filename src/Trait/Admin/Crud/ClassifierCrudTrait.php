@@ -38,7 +38,9 @@ trait ClassifierCrudTrait
     {
         yield FormField::addPanel('admin.crud.section.essential');
         yield IdField::new('id', 'admin.crud.classifier.column.id')->onlyOnDetail();
-        yield TextField::new('name', 'admin.crud.classifier.column.name');
+        yield TextField::new('name', 'admin.crud.classifier.column.name')
+            ->setFormTypeOptions(['attr.maxLength' => 50])
+            ->setColumns(12);
         yield TextField::new('slug', 'admin.crud.classifier.column.slug')->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
@@ -55,7 +57,8 @@ trait ClassifierCrudTrait
         yield FormField::addPanel('admin.crud.section.associations')->hideOnForm();
 
         if (Topic::class === $classifierFqcn) {
-            yield AssociationField::new('event', 'admin.crud.classifier.column.event')->hideOnForm();
+            yield AssociationField::new('event', 'admin.crud.classifier.column.event')
+                ->hideOnForm();
         }
 
         yield AssociationField::new('publications', 'admin.crud.classifier.column.publications')->hideOnForm();
