@@ -8,7 +8,7 @@ when@dev:
             main:
                 type: rotating_file
                 level: debug
-                max_files: 10
+                max_files: 2
                 path: "%kernel.logs_dir%/%kernel.environment%/%kernel.environment%.log"
                 formatter: monolog.formatter.extra_log
                 channels: ["!event"]
@@ -19,7 +19,7 @@ when@test:
             main:
                 type: rotating_file
                 level: debug
-                max_files: 10
+                max_files: 2
                 path: "%kernel.logs_dir%/%kernel.environment%/%kernel.environment%.log"
                 formatter: monolog.formatter.extra_log
                 channels: ["!event"]
@@ -30,14 +30,14 @@ when@prod:
             main:
                 type: rotating_file
                 level: notice
-                max_files: 10
+                max_files: 7
                 path: "%kernel.logs_dir%/%kernel.environment%/%kernel.environment%.log"
                 formatter: monolog.formatter.extra_log
 
             error:
                 type: fingers_crossed
                 action_level: error
-                excluded_http_codes: [404, 405]
+                excluded_http_codes: [400, 404, 405]
                 buffer_size: 50
                 handler: deduplicated
 
