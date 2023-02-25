@@ -12,10 +12,10 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Psr\Log\LoggerInterface;
 use App\Exception\ExceptionCode;
 use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
-use App\Exception\ExceptionFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +36,7 @@ class AuthenticationController extends AbstractController
     }
 
     #[Route(path: '/login', name: 'auth_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils, LoggerInterface $logger): Response
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('app_home');
@@ -44,8 +44,14 @@ class AuthenticationController extends AbstractController
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
+
         if ($error) {
-            $this->addFlash('error', $this->translator->trans('auth.error.invalid_credentials', domain: 'auth'));
+            if ($error instanceof InvalidCsrfTokenException) {
+                $logger->info('Invalid CSRF token', ['code' => ExceptionCode::INVALID_CSRF_TOKEN]);
+                $this->addFlash('error', $this->translator->trans('auth.error.csrf', domain: 'auth'));
+            } else {
+                $this->addFlash('error', $this->translator->trans('auth.error.invalid_credentials', domain: 'auth'));
+            }
         }
 
         return $this->render('auth/login.html.twig');
@@ -66,19 +72,22 @@ class AuthenticationController extends AbstractController
         UserAuthenticatorInterface $userAuthenticator,
         AppAuthenticator $authenticator,
         UserRepository $userRepository,
+        LoggerInterface $logger,
     ): Response {
         if ($this->getUser() || $userRepository->atLeastOneUserExist()) {
             return $this->redirectToRoute('app_home');
         }
 
         if ('POST' === $request->getMethod()) {
-            $token = $request->request->get('_csrf_token', '');
+            $error = false;
 
+            $token = $request->request->get('_csrf_token', '');
             if (!$this->isCsrfTokenValid('register', $token)) {
-                throw ExceptionFactory::throw(InvalidCsrfTokenException::class, ExceptionCode::INVALID_CSRF_TOKEN, 'Invalid CSRF token');
+                $error = true;
+                $logger->info('Invalid CSRF token', ['code' => ExceptionCode::INVALID_CSRF_TOKEN]);
+                $this->addFlash('error', $this->translator->trans('auth.error.csrf', domain: 'auth'));
             }
 
-            $error = false;
             $email = $request->request->get('email', '');
             $username = $request->request->get('username', '');
             $password = $request->request->get('password', '');
