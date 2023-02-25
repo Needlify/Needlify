@@ -11,7 +11,6 @@
 
 namespace App\Service\Newsletter;
 
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Uid\Uuid;
 use App\Exception\ExceptionCode;
 use App\Entity\NewsletterAccount;
@@ -43,7 +42,6 @@ class NewsletterService
         private NewsletterAccountRepository $newsletterAccountRepository,
         private NewsletterRequestService $newsletterRequestService,
         private TranslatorInterface $translator,
-        private LoggerInterface $logger
     ) {
     }
 
@@ -61,7 +59,6 @@ class NewsletterService
         $token = new CsrfToken('newsletter', $csrf);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             $hasError = true;
-            $this->logger->info('Invalid CSRF token', ['code' => ExceptionCode::INVALID_CSRF_TOKEN]);
             $session->getFlashBag()->add('error', $this->translator->trans('newsletter_account.form.csrf', domain: 'validators'));
         }
 
