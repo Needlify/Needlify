@@ -1,6 +1,7 @@
 auth.error.message: "Une erreur est survenue"
 auth.error.invalid_credentials: "Identifiants invalides"
 auth.error.passwords_match: "Les mots de passe doivent être identiques"
+auth.error.csrf: "Token CSRF invalide"
 
 auth.login.title: "Connexion"
 auth.login.form.title: "Content de vous revoir"

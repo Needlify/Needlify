@@ -12,10 +12,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Exception\ExceptionCode;
 use App\Repository\UserRepository;
 use App\Security\AppAuthenticator;
-use App\Exception\ExceptionFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,8 +42,13 @@ class AuthenticationController extends AbstractController
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
+
         if ($error) {
-            $this->addFlash('error', $this->translator->trans('auth.error.invalid_credentials', domain: 'auth'));
+            if ($error instanceof InvalidCsrfTokenException) {
+                $this->addFlash('error', $this->translator->trans('auth.error.csrf', domain: 'auth'));
+            } else {
+                $this->addFlash('error', $this->translator->trans('auth.error.invalid_credentials', domain: 'auth'));
+            }
         }
 
         return $this->render('auth/login.html.twig');
@@ -72,13 +75,14 @@ class AuthenticationController extends AbstractController
         }
 
         if ('POST' === $request->getMethod()) {
-            $token = $request->request->get('_csrf_token', '');
+            $error = false;
 
+            $token = $request->request->get('_csrf_token', '');
             if (!$this->isCsrfTokenValid('register', $token)) {
-                throw ExceptionFactory::throw(InvalidCsrfTokenException::class, ExceptionCode::INVALID_CSRF_TOKEN, 'Invalid CSRF token');
+                $error = true;
+                $this->addFlash('error', $this->translator->trans('auth.error.csrf', domain: 'auth'));
             }
 
-            $error = false;
             $email = $request->request->get('email', '');
             $username = $request->request->get('username', '');
             $password = $request->request->get('password', '');

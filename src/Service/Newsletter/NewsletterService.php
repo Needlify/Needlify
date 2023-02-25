@@ -41,7 +41,7 @@ class NewsletterService
         private EntityManagerInterface $em,
         private NewsletterAccountRepository $newsletterAccountRepository,
         private NewsletterRequestService $newsletterRequestService,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
     ) {
     }
 
