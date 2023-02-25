@@ -23,7 +23,7 @@ use League\Glide\Filesystem\FileNotFoundException;
 use League\Glide\Responses\SymfonyResponseFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ImageController extends AbstractController
 {
@@ -50,7 +50,7 @@ class ImageController extends AbstractController
 
             return $server->getImageResponse($name, $request->query->all());
         } catch (SignatureException $e) {
-            throw ExceptionFactory::throw(AccessDeniedHttpException::class, ExceptionCode::INVALID_IMAGE_SIGNATURE, 'Invalid image signature');
+            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::INVALID_IMAGE_SIGNATURE, 'Invalid image signature');
         } catch (FileNotFoundException $e) {
             throw ExceptionFactory::throw(NotFoundHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'Invalid not found');
         }
