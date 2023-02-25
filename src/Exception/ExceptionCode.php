@@ -19,21 +19,14 @@ enum ExceptionCode: int
 
     /* 400 Bad Requests */
     case INVALID_CSRF_TOKEN = 400_0;
-
     case INVALID_IMAGE_SIGNATURE = 400_1;
-
     case INVALID_QUERY_PARAM = 400_2;
     case MISSING_QUERY_PARAM_PARAMETER = 400_3;
     case INVALID_QUERY_PARAM_REQUIREMENT = 400_4;
-
     case NEWSLETTER_REGISTRATION_TOKEN_MISSING = 400_5;
     case NEWSLETTER_REGISTRATION_INVALID_TOKEN = 400_6;
-
     case MISSING_FILE_PARAM = 400_7;
-    case INVALID_MIME_TYPE = 400_8;
-    case UPLOADED_FILE_ERROR = 400_9;
-    case UNREADABLE_UPLOADED_FILE = 400_10;
-    case UPLOADED_FILE_TOO_BIG = 400_11;
+    case UPLOADED_FILE_ERROR = 400_8;
 
     /* 403 Access Forbidden */
     case INVALID_NEWSLETTER_CREDENTIALS = 403_0;
@@ -41,4 +34,9 @@ enum ExceptionCode: int
 
     /* 404 Not Found */
     case RESSOURCE_NOT_FOUND = 404_0;
+
+    /* 415 Unsupported media type */
+    case UPLOADED_FILE_TOO_BIG = 415_0;
+    case INVALID_MIME_TYPE = 415_1;
+    case UNREADABLE_UPLOADED_FILE = 415_2;
 }
