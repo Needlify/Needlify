@@ -14,7 +14,7 @@ function wrap(el, wrapper) {
 
 /* Table of content */
 
-const headings = document.querySelectorAll<HTMLHeadingElement>("#content-container :is(h1, h2, h3, h4, h5, h6)");
+const headings = document.querySelectorAll<HTMLHeadingElement>("#content-container :is(h1, h2, h3)");
 
 if (headings.length > 0) {
     const ul = document.createElement("ul");
