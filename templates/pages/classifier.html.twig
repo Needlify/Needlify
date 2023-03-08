@@ -1,21 +1,28 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-    {{ classifier.name }} - {{ parent() }}
+	{{ classifier.name }}
+	-
+	{{ parent() }}
 {% endblock title %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags("page_classifier") }}
-    {{ encore_entry_link_tags("component_vue") }}
-    {{ encore_entry_link_tags("style_component_breadcrumb") }}
+	{{ encore_entry_link_tags("page_classifier") }}
+	{{ encore_entry_link_tags("component_vue") }}
+	{{ encore_entry_link_tags("style_component_breadcrumb") }}
+	{{ encore_entry_link_tags("style_component_callout") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags("component_vue") }}
+	{{ encore_entry_script_tags("component_vue") }}
 {% endblock javascripts %}
 
 {% block body %}
-    {{ component("breadcrumb", { name: classifier.name, type: classifier.type }) }}
+	{{ component("breadcrumb", { name: classifier.name, type: classifier.type }) }}
 
-    <div {{ vue_component("TimelineWrapper", { id: classifier.id }) }}></div>
+	{% if classifier.description %}
+		{{ component("callout", { content: classifier.description, type: constant('App\\Enum\\CalloutType::INFO') }) }}
+	{% endif %}
+
+	<div id="timeline-container" {{ vue_component("TimelineWrapper", { id: classifier.id } ) }}></div>
 {% endblock body %}
