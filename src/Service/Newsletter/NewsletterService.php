@@ -106,19 +106,28 @@ class NewsletterService
         }
     }
 
-    public function verifyTokenAndGetAccount(string $token): NewsletterAccount
+    public function verifyTokenAndGetAccount(?string $token): NewsletterAccount
     {
         if (null === $token) {
             throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::NEWSLETTER_REGISTRATION_TOKEN_MISSING, 'Missing token parameter');
         }
 
         $decodedToken = \base64_decode(\urldecode($token));
-        [$email, $id] = explode('::', $decodedToken);
+
+        if (!\str_contains($decodedToken, '::')) {
+            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::NEWSLETTER_REGISTRATION_INVALID_TOKEN, 'Invalid registration token. Can not extract token info');
+        }
+
+        [$email, $id] = \explode('::', $decodedToken);
+
+        if (!Uuid::isValid($id)) {
+            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::NEWSLETTER_REGISTRATION_INVALID_TOKEN, 'Invalid registration token. The uuid in malformed');
+        }
 
         $account = $this->newsletterAccountRepository->find(Uuid::fromRfc4122($id));
 
         if (!$account || $account->getEmail() !== $email) {
-            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::NEWSLETTER_REGISTRATION_INVALID_TOKEN, 'Invalid registration token');
+            throw ExceptionFactory::throw(BadRequestHttpException::class, ExceptionCode::NEWSLETTER_REGISTRATION_INVALID_TOKEN, 'Invalid registration token. Can not retrieve the corresponding account from the token');
         }
 
         return $account;
