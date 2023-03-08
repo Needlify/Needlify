@@ -26,8 +26,8 @@ trait ClassifierCrudTrait
 {
     public function defaultFilterConfiguration(Filters $filters): Filters
     {
-        return $filters
-            ->add(TextFilter::new('name'))
+        return $filters->add(TextFilter::new('name'))
+            ->add(TextFilter::new('description'))
             ->add(DateTimeFilter::new('createdAt'))
             ->add(DateTimeFilter::new('lastUseAt'))
             ->add(DateTimeFilter::new('updatedAt'))
@@ -42,6 +42,9 @@ trait ClassifierCrudTrait
             ->setFormTypeOptions(['attr.maxLength' => 50])
             ->setColumns(12);
         yield TextField::new('slug', 'admin.crud.classifier.column.slug')->onlyOnDetail();
+        yield TextField::new('description', 'admin.crud.classifier.column.description')
+            ->setFormTypeOptions(['attr.maxLength' => 255])
+            ->setColumns(12);
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('createdAt', 'admin.crud.classifier.column.created_at')
@@ -57,7 +60,7 @@ trait ClassifierCrudTrait
         yield FormField::addPanel('admin.crud.section.associations')->hideOnForm();
 
         if (Topic::class === $classifierFqcn) {
-            yield AssociationField::new('event', 'admin.crud.classifier.column.event')
+            yield AssociationField::new('event', 'admin.crud.topic.column.event')
                 ->hideOnForm();
         }
 
