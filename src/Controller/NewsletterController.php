@@ -64,7 +64,7 @@ class NewsletterController extends AbstractController
     #[Route('/verification/pending', methods: ['GET'], name: 'app_newsletter_verification_pending')]
     public function accountVerificationPending(Request $request)
     {
-        $token = $request->query->get('token', '');
+        $token = $request->query->get('token');
         $account = $this->newsletterService->verifyTokenAndGetAccount($token);
 
         if ($account->getIsVerified()) {
@@ -88,7 +88,7 @@ class NewsletterController extends AbstractController
     #[Route('/verification/confirm', methods: ['GET'], name: 'app_newsletter_verification_confirm')]
     public function accountVerificationConfirmation(Request $request)
     {
-        $token = $request->query->get('token', '');
+        $token = $request->query->get('token');
         $account = $this->newsletterService->verifyTokenAndGetAccount($token);
 
         if (!$account->getIsVerified()) {
@@ -107,7 +107,7 @@ class NewsletterController extends AbstractController
     #[Route('/verification/completed', methods: ['GET'], name: 'app_newsletter_verification_completed')]
     public function accountVerificationCompleted(Request $request)
     {
-        $token = $request->query->get('token', '');
+        $token = $request->query->get('token');
         $account = $this->newsletterService->verifyTokenAndGetAccount($token);
 
         if (!$account->getIsVerified()) {
@@ -122,7 +122,7 @@ class NewsletterController extends AbstractController
     #[Route('/unsubscribe', methods: ['GET'], name: 'app_newsletter_unsubscribe')]
     public function unsubscribe(Request $request, NewsletterAccountRepository $newsletterAccountRepository)
     {
-        $token = $request->query->get('token', '');
+        $token = $request->query->get('token');
         $account = $this->newsletterService->verifyTokenAndGetAccount($token);
 
         $newsletterAccountRepository->remove($account, true);

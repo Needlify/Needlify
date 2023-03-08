@@ -13,6 +13,7 @@ classifier.slug.unique: "The slug {{ value }} is already used"
 classifier.name.not_blank: "The name of a classifier can not be blank"
 classifier.name.length: "The name of a classifiercan not exceed {{ limit }} characters"
 classifier.slug.length: "The slug of a classifier can not exceed {{ limit }} characters"
+classifier.description.length: "The description of a classifier can not exceed {{ limit }} characters"
 
 event.content.length: "The content of an event can not exceed {{ limit }} characters"
 event.raw_content.length: "The raw content of an event can not exceed {{ limit }} characters"

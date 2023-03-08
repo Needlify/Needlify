@@ -1,4 +1,5 @@
 @import "mixins";
+@import "./components/callout.scss";
 
 .markdown-style {
     h1,
@@ -10,6 +11,43 @@
         font-family: Jakarta;
         margin-top: 2.2em;
         margin-bottom: 1em;
+    }
+
+    h1 {
+        font-size: 38px;
+        @include maxWidth(600px) {
+            font-size: 32px;
+        }
+    }
+    h2 {
+        font-size: 32px;
+        @include maxWidth(600px) {
+            font-size: 28px;
+        }
+    }
+    h3 {
+        font-size: 28px;
+        @include maxWidth(600px) {
+            font-size: 24px;
+        }
+    }
+    h4 {
+        font-size: 24px;
+        @include maxWidth(600px) {
+            font-size: 20px;
+        }
+    }
+    h5 {
+        font-size: 20px;
+        @include maxWidth(600px) {
+            font-size: 18px;
+        }
+    }
+    h6 {
+        font-size: 16px;
+        @include maxWidth(600px) {
+            font-size: 16px;
+        }
     }
 
     hr {
@@ -136,91 +174,6 @@
 
             @include maxWidth(600px) {
                 font-size: 14.5px;
-            }
-        }
-    }
-
-    blockquote {
-        margin: 0;
-        padding: 16px 20px 16px 20px;
-        border-radius: 12px;
-        border: 1.5px solid var(--primary-semi-transparent);
-        background-color: var(--primary-transparent);
-        position: relative;
-
-        & > *:first-child {
-            margin-top: 0;
-        }
-
-        & > :last-child {
-            margin-bottom: 0 !important;
-        }
-
-        &.callout {
-            padding: 16px 20px 16px 60px;
-
-            // Pour retirer la marge du dernier élément (hors icône)
-            & > :nth-last-child(2) {
-                margin-bottom: 0 !important;
-            }
-        }
-
-        @include maxWidth(600px) {
-            padding: 12px 16px 12px 16px;
-            border-radius: 8px;
-
-            &.callout {
-                padding: 12px 16px 12px 40px;
-            }
-        }
-
-        &.callout {
-            .icon {
-                position: absolute;
-                width: 18px;
-                height: 18px;
-                top: 20px;
-                left: 22px;
-                stroke-width: 2.5px;
-
-                @include maxWidth(600px) {
-                    width: 14px;
-                    height: 14px;
-                    top: 16px;
-                    left: 14px;
-                }
-            }
-
-            &.info {
-                background-color: var(--primary-transparent);
-                border: 1.5px solid var(--primary-semi-transparent);
-                .icon {
-                    color: var(--primary);
-                }
-            }
-
-            &.success {
-                background-color: var(--success-transparent);
-                border: 1.5px solid var(--success-semi-transparent);
-                .icon {
-                    color: var(--success);
-                }
-            }
-
-            &.warning {
-                background-color: var(--warning-transparent);
-                border: 1.5px solid var(--warning-semi-transparent);
-                .icon {
-                    color: var(--warning);
-                }
-            }
-
-            &.alert {
-                background-color: var(--danger-transparent);
-                border: 1.5px solid var(--danger-semi-transparent);
-                .icon {
-                    color: var(--danger);
-                }
             }
         }
     }

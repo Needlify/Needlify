@@ -121,8 +121,10 @@ admin.crud.classifier.column.slug: "Slug"
 admin.crud.classifier.column.created_at: "Created at"
 admin.crud.classifier.column.last_use_at: "Last use at"
 admin.crud.classifier.column.updated_at: "Last update"
-admin.crud.classifier.column.event: "Associated event"
+admin.crud.classifier.column.description: "Description"
 admin.crud.classifier.column.publications: "Publications"
+
+admin.crud.topic.column.event: "Associated event"
 
 admin.crud.newsletter.index.title: "List of newsletter accounts"
 admin.crud.newsletter.details.title: "Details of a newsletter account"
