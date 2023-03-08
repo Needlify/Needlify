@@ -64,7 +64,7 @@ const iconComposition = computed(() => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "../styles/mixins";
 
 .v-enter-active,
