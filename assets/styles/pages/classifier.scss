@@ -1,3 +1,20 @@
+@import "../mixins";
+
 #breadcrumb-container {
-    margin: 22px 0 40px 0;
+    margin: 22px 0 26px 0;
+}
+
+.classifier-description {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+
+    @include maxWidth(600px) {
+        font-size: 14.5px;
+        line-height: 1.6;
+    }
+}
+
+#timeline-container {
+    margin-top: 46px;
 }

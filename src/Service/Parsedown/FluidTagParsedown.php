@@ -11,10 +11,10 @@
 
 namespace App\Service\Parsedown;
 
+use App\Enum\CalloutType;
+
 class FluidTagParsedown extends \Parsedown
 {
-    private const CALLOUT_AVAILABLE_TYPES = ['info', 'success', 'warning', 'alert'];
-
     public function __construct()
     {
         $this->InlineTypes['{'][] = 'YoutubeEmbed';
@@ -76,7 +76,7 @@ class FluidTagParsedown extends \Parsedown
         if (preg_match('/^>\s?\[\!(\w+?)\](.*?)$/m', $Line['text'], $matches)) {
             $type = strtolower($matches[1]);
 
-            if (!in_array($type, self::CALLOUT_AVAILABLE_TYPES)) {
+            if (!in_array($type, CalloutType::values())) {
                 return parent::blockQuote($Line);
             }
 

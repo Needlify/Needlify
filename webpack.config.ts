@@ -38,6 +38,7 @@ Encore.setOutputPath("public/build/")
         "style_component_breadcrumb": "./assets/styles/components/twig/breadcrumb.scss",
         "style_component_spinner": "./assets/styles/components/twig/spinner.scss",
         "style_component_tag": "./assets/styles/components/twig/tag.scss",
+        "style_component_callout": "./assets/styles/components/callout.scss",
 
         /* Page Style */
         "page_feed": "./assets/styles/pages/feed.scss",

@@ -1,0 +1,8 @@
+{% trans_default_domain "components" %}
+
+<blockquote class="classifier-description-container {% if icon is not null %}callout{% endif %} {% if typeClass is not null %}{{typeClass}}{% endif %}">
+	<p class="classifier-description">{{content}}</p>
+	{% if icon is not null %}
+		<i data-feather="{{ icon }}" class="icon"></i>
+	{% endif %}
+</blockquote>
