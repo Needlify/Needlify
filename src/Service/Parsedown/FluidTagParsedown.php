@@ -24,6 +24,23 @@ class FluidTagParsedown extends \Parsedown
     }
 
     /**
+     * Image tag
+     * This allows to update the image tag and add the loading="lazy" attribut.
+     */
+    protected function inlineImage($excerpt)
+    {
+        $image = parent::inlineImage($excerpt);
+
+        if (!isset($image)) {
+            return null;
+        }
+
+        $image['element']['attributes']['loading'] = 'lazy';
+
+        return $image;
+    }
+
+    /**
      * Youtube Video Embed.
      *
      * Example: {youtube:video_id}
