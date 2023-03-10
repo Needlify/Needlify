@@ -1,5 +1,7 @@
 newsletter.title: "Newsletter Lithium"
 
+newsletter.header.description: "Tous les mercredis, vous recevrez une liste d'articles et de projets Github que je trouve intéressants et utiles."
+
 register.text.explanation: "Le newsletter Lithium est une <strong>newsletter hebdomadaire</strong> basée sur le articles mensuels TLDR sur Needlify. Tous les mercredis, vous recevrez une liste d'articles et de projets Github que je trouve intéressants et utiles."
 register.text.subscription: "Pour vous abonner, veuillez remplir le champ email ci-dessous et cliquer sur le bouton <strong>Je m'enregistre</strong>. Vous recevrez ensuite un email de confirmation."
 register.text.unsubscribe: "Notez que une fois abonné, vous pourrez vous désinscrire à n'importe quel moment."

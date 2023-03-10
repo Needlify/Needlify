@@ -7,6 +7,10 @@
 	{{ parent() }}
 {% endblock title %}
 
+{% block og_description %}
+	{{ "newsletter.header.description" | trans }}
+{% endblock og_description %}
+
 {% block stylesheets %}
 	{{ encore_entry_link_tags("page_newsletter_pending") }}
 {% endblock stylesheets %}
@@ -19,10 +23,9 @@
 	{{"pending.title" | trans}}
 {% endblock form_title %}
 
-
 {% block body %}
 	<p id="confirmation-message">
-		{{"pending.text" | trans({"%email%": account.email|hideEmail}) | raw}}
+		{{"pending.text" | trans({"%email%": account.email|hide_email}) | raw}}
 	</p>
 {% endblock body %}
 
