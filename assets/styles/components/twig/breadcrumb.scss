@@ -17,6 +17,7 @@
         width: 12px;
         height: 12px;
         stroke-width: 3px;
+        flex-shrink: 0;
 
         @include maxWidth(600px) {
             stroke-width: 2px;
@@ -30,11 +31,10 @@
     .primary {
         color: var(--dark-light);
         font-weight: 700;
-        flex-grow: 1;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        width: 0; /* Pour éviter qu'en format mobile, la margin de la timeline s'enlève */
+        flex-grow: 0;
     }
 
     @include maxWidth(600px) {
