@@ -17,11 +17,15 @@
 	{{ encore_entry_script_tags("component_vue") }}
 {% endblock javascripts %}
 
+{% block og_description %}
+	{{ classifier.description }}
+{% endblock og_description %}
+
 {% block body %}
 	{{ component("breadcrumb", { name: classifier.name, type: classifier.type }) }}
 
 	{% if classifier.description %}
-		{{ component("callout", { content: classifier.description, type: constant('App\\Enum\\CalloutType::INFO') }) }}
+		{{ component("callout", { content: classifier.description, type: constant("App\\Enum\\CalloutType::INFO") }) }}
 	{% endif %}
 
 	<div id="timeline-container" {{ vue_component("TimelineWrapper", { id: classifier.id } ) }}></div>
