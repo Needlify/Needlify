@@ -27,7 +27,8 @@ class AppExtension extends AbstractExtension
             new TwigFilter('cases', [$this, 'enumCases']),
             new TwigFilter('time_to_read', [$this, 'timeToRead']),
             new TwigFilter('markdown', [$this, 'markdown']),
-            new TwigFilter('hideEmail', [$this, 'hideEmail']),
+            new TwigFilter('hide_email', [$this, 'hideEmail']),
+            new TwigFilter('meta_format', [$this, 'metaFormat']),
         ];
     }
 
@@ -75,5 +76,10 @@ class AppExtension extends AbstractExtension
     public function timeToRead(string $content): int
     {
         return (int) ceil(str_word_count($content) / 225);
+    }
+
+    public function metaFormat(string $content): string
+    {
+        return html_entity_decode(trim(preg_replace('/\s+/S', ' ', $content)));
     }
 }

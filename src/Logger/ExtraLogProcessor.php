@@ -12,6 +12,7 @@
 namespace App\Logger;
 
 use Monolog\LogRecord;
+use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class ExtraLogProcessor
@@ -29,7 +30,7 @@ class ExtraLogProcessor
         $record['extra']['method'] = $serverParams?->has('REQUEST_METHOD') ? $serverParams?->get('REQUEST_METHOD') : '-';
         $record['extra']['agent'] = $serverParams?->has('HTTP_USER_AGENT') ? $serverParams?->get('HTTP_USER_AGENT') : '-';
         $record['extra']['url'] = $serverParams?->has('REQUEST_URI') ? $serverParams?->get('REQUEST_URI') : '-';
-        $record['extra']['ip'] = $serverParams?->has('REMOTE_ADDR') ? $serverParams?->get('REMOTE_ADDR') : '-';
+        $record['extra']['ip'] = $serverParams?->has('REMOTE_ADDR') ? IpUtils::anonymize($serverParams?->get('REMOTE_ADDR')) : '-';
 
         return $record;
     }

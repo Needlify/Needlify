@@ -7,6 +7,10 @@
 	{{ parent() }}
 {% endblock title %}
 
+{% block og_description %}
+	{{ "newsletter.header.description" | trans }}
+{% endblock og_description %}
+
 {% block stylesheets %}
 	{{ encore_entry_link_tags("page_newsletter_completed") }}
 {% endblock stylesheets %}
@@ -18,7 +22,6 @@
 {% block form_title %}
 	{{"completed.title" | trans}}
 {% endblock form_title %}
-
 
 {% block body %}
 	<p class="message">{{"completed.text.main" | trans}}</p>
