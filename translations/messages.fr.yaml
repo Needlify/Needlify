@@ -21,6 +21,10 @@ article.content.license: "Cette œuvre est mise à disposition selon les termes 
 legal.legal.title: "Textes légaux"
 
 legal.privacy.title: "Politique de vie privée"
+legal.privacy.optout.title: "Désengagement"
+legal.privacy.optOut.text: "Vous pouvez choisir d'empêcher ce site web d'agréger et d'analyser les actions que vous effectuez ici. Cela protégera votre vie privée, mais empêchera également le propriétaire de tirer des enseignements de vos actions et de créer une meilleure expérience pour vous et les autres utilisateurs."
+legal.privacy.optOut.label.optedOut: "Votre profil est désinscrit de la liste de suivi. Cliquez ici pour être suivi."
+legal.privacy.optOut.label.optedIn: "Votre profil est inscrit à la liste de suivi. Cliquez ici pour ne plus être suivi."
 legal.privacy.text: |
     <p>Pour le bien de nos utilisateurs, nous nous engageons à respecter la vie privée et la confidentialité de chacun.</p>
 

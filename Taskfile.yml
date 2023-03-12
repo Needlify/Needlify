@@ -86,10 +86,10 @@ tasks:
         desc: "Run required commands in order to make the project functional"
         aliases: ["a:d:c"]
         cmds:
+            - chmod -R 0777 public/uploads
+            - chmod -R 0777 var
             - cp .env.example .env.local
             - composer install --ansi --prefer-dist --no-interaction --no-progress
             - npm install --silent
             - npm run dev
-            - chmod -R 0777 public/uploads
-            - chmod -R 0777 var
             - task: database:reset

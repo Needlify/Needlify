@@ -1,6 +1,6 @@
 {
     "name": "Needlify",
-    "forwardPorts": [8080, 8081, 8082],
+    "forwardPorts": [8080, 8081, 8082, 8083],
     "portsAttributes": {
         "8080": {
             "label": "Web"
@@ -10,6 +10,9 @@
         },
         "8082": {
             "label": "Adminer"
+        },
+        "8083": {
+            "label": "Matomo"
         }
     },
     "dockerComposeFile": "../docker-compose.yaml",

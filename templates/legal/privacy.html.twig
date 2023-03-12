@@ -11,6 +11,10 @@
 	{{ encore_entry_link_tags("page_legal") }}
 {% endblock stylesheets %}
 
+{% block javascripts %}
+	{{ encore_entry_script_tags("page_privacy") }}
+{% endblock javascripts %}
+
 {% block body %}
 	<section class="markdown-style">
 		<h1>
@@ -18,5 +22,18 @@
 		</h1>
 
 		{{ "legal.privacy.text"|trans|raw }}
+
+		<h2>{{"legal.privacy.optout.title" | trans}}</h2>
+		<p>{{"legal.privacy.optOut.text" | trans}}</p>
+		<p>
+			<input type="checkbox" id="optout"/>
+			<label for="optout" id="label-optedOut">
+				<strong>{{"legal.privacy.optOut.label.optedOut" | trans}}</strong>
+			</label>
+			<label for="optout" id="label-optedIn">
+				<strong>{{"legal.privacy.optOut.label.optedIn" | trans}}</strong>
+			</label>
+		</p>
+
 	</section>
 {% endblock body %}
