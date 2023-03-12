@@ -21,6 +21,10 @@ article.content.license: "This work is made available under the terms of the lic
 legal.legal.title: "Legal texts"
 
 legal.privacy.title: "Privacy policy"
+legal.privacy.optout.title: "Opt out"
+legal.privacy.optOut.text: "You may choose to prevent this website from aggregating and analyzing the actions you take here. Doing so will protect your privacy, but will also prevent the owner from leaming from your actions and creating a better experience for you and other users."
+legal.privacy.optOut.label.optedOut: "You are currently opted out. Click here to opt in."
+legal.privacy.optOut.label.optedIn: "You are currently opted in. Click here to opt out."
 legal.privacy.text: |
     <p>For the sake of our users, we are committed to respecting the privacy and confidentiality of everyone.</p>
 
