@@ -70,7 +70,10 @@
 		{{ encore_entry_script_tags("component_vue") }}
 		{{ encore_entry_script_tags("file_global") }}
 
+		{% include "analytics/analytics.html.twig" %}
+
 		{% block javascripts %}{% endblock javascripts %}
+
 	</head>
 	<body>
 

@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
     database:
+        command: --max-allowed-packet=64MB
         container_name: needlify-database
         image: mariadb
         restart: always
@@ -46,9 +47,28 @@ services:
             - dev
         depends_on:
             - database
+    
+    matomo:
+        networks:
+            - dev
+        image: matomo
+        depends_on:
+            - database
+        ports:
+            - 8083:80
+        environment:
+            MATOMO_DATABASE_HOST: database
+            MATOMO_DATABASE_ADAPTER: mysql
+            MATOMO_DATABASE_TABLES_PREFIX: matomo_
+            MATOMO_DATABASE_USERNAME: root
+            MATOMO_DATABASE_PASSWORD: password
+            MATOMO_DATABASE_DBNAME: matomo
+        volumes:
+            - matomo:/var/www/html
 
 volumes:
     data:
+    matomo:
 
 networks:
     dev:
