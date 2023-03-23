@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
     Moodline::class => Moodline::class,
-    Article::class => Article::class,
+    Document::class => Document::class,
 ])]
 #[ORM\HasLifecycleCallbacks]
 abstract class Publication extends Thread

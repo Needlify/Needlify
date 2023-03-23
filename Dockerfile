@@ -16,7 +16,7 @@ RUN sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b  /usr/lo
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 RUN chmod +x /usr/local/bin/install-php-extensions
-RUN install-php-extensions pdo_mysql intl gd opcache zip dom pcov
+RUN install-php-extensions pdo_mysql intl gd opcache zip dom pcov exif
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
