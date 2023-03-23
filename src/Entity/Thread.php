@@ -23,6 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
     Publication::class => Publication::class,
+    Document::class => Document::class,
     Article::class => Article::class,
     Moodline::class => Moodline::class,
     Event::class => Event::class,
