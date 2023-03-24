@@ -15,13 +15,26 @@ export const ThreadIcon = {
         color: "#979dac",
         // color: "#7d8597",
     },
+    course: {
+        icon: "award",
+        color: "#9c65c5",
+    },
 } as ThreadIconAssociationType;
 
 export const ThreadTypeVariationEnum = {
     ARTICLE: "article",
     MOODLINE: "moodline",
     EVENT: "event",
-    PUBLICATION: ["article", "moodline"],
+    COURSE: "course",
+    PUBLICATION: ["article", "moodline", "course"],
+    DOCUMENT: ["article", "course"],
+};
+
+export const CourseDifficultyEnum = {
+    EASY: "easy",
+    MEDIUM: "medium",
+    HARD: "hard",
+    EXPERT: "expert",
 };
 
 export const ClassifierTypeVariationEnum = {

@@ -21,7 +21,7 @@ class BannerFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         Factory::delayFlush(function () {
-            BannerFactory::createMany(20);
+            BannerFactory::createMany(2);
         });
     }
 }

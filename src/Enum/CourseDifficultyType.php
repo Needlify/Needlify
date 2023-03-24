@@ -13,12 +13,12 @@ namespace App\Enum;
 
 use App\Trait\EnumUtilityTrait;
 
-enum ThreadType: string
+enum CourseDifficultyType: string
 {
     use EnumUtilityTrait;
 
-    case ARTICLE = 'article';
-    case MOODLINE = 'moodline';
-    case EVENT = 'event';
-    case COURSE = 'course';
+    case EASY = 'easy';
+    case MEDIUM = 'medium';
+    case HARD = 'hard';
+    case EXPERT = 'expert';
 }

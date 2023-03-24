@@ -21,7 +21,7 @@ class NewsletterAccountFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         Factory::delayFlush(function () {
-            NewsletterAccountFactory::createMany(20);
+            NewsletterAccountFactory::createMany(2);
         });
     }
 }

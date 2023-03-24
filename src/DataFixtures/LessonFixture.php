@@ -11,17 +11,17 @@
 
 namespace App\DataFixtures;
 
-use App\Factory\TagFactory;
+use App\Factory\LessonFactory;
 use Zenstruck\Foundry\Factory;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class TagFixture extends Fixture
+class LessonFixture extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
         Factory::delayFlush(function () {
-            TagFactory::createMany(2);
+            LessonFactory::createMany(6);
         });
     }
 }

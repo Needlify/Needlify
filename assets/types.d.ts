@@ -1,4 +1,4 @@
-export type ThreadTypeVariation = "article" | "moodline" | "event";
+export type ThreadTypeVariation = "article" | "moodline" | "event" | "course";
 export type ClassifierTypeVariation = "topic" | "tag";
 export type ThreadIconAssociationType = Record<ThreadTypeVariation, { icon: string; color: string }>;
 export type ClassifierTypeVariationType = Record<string, ClassifierTypeVariation>;

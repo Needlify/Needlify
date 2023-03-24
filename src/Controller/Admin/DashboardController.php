@@ -16,6 +16,8 @@ use App\Entity\User;
 use App\Entity\Event;
 use App\Entity\Topic;
 use App\Entity\Banner;
+use App\Entity\Course;
+use App\Entity\Lesson;
 use App\Entity\Article;
 use App\Entity\Moodline;
 use App\Entity\NewsletterAccount;
@@ -63,6 +65,10 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('admin.sidebar.overview', 'fas fa-chart-pie');
         yield MenuItem::linkToUrl('admin.sidebar.home', 'fas fa-house', $this->generateUrl('app_home'));
+
+        yield MenuItem::section('admin.sidebar.section.course');
+        yield MenuItem::linkToCrud('admin.sidebar.section.course.courses', 'fa fa-graduation-cap', Course::class);
+        yield MenuItem::linkToCrud('admin.sidebar.section.course.lessons', 'fas fa-tasks', Lesson::class);
 
         yield MenuItem::section('admin.sidebar.section.publication');
         yield MenuItem::linkToCrud('admin.sidebar.section.publication.articles', 'fas fa-book', Article::class);

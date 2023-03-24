@@ -15,6 +15,8 @@ use App\Entity\Tag;
 use App\Entity\Event;
 use App\Entity\Topic;
 use App\Entity\Banner;
+use App\Entity\Course;
+use App\Entity\Lesson;
 use App\Entity\Article;
 use App\Entity\Moodline;
 use App\Entity\NewsletterAccount;
@@ -64,6 +66,16 @@ class OverviewService
                 'icon' => 'fa fa-bullhorn',
                 'value' => $this->em->getRepository(Banner::class)->countAll(),
                 'translation' => 'admin.dashboard.cards.banners',
+            ],
+            'course' => [
+                'icon' => 'fa fa-graduation-cap',
+                'value' => $this->em->getRepository(Course::class)->countAll(),
+                'translation' => 'admin.dashboard.cards.courses',
+            ],
+            'lesson' => [
+                'icon' => 'fas fa-tasks',
+                'value' => $this->em->getRepository(Lesson::class)->countAll(),
+                'translation' => 'admin.dashboard.cards.lessons',
             ],
         ];
     }

@@ -2,16 +2,19 @@
     <thread :icon="ThreadIcon[type].icon" :icon-color="ThreadIcon[type].color" :display-line="displayLine">
         <div class="event-content in-publication">
             <span>
-                New publication in the topic
+                New
+                <span v-if="type === ThreadTypeVariationEnum.COURSE">course</span>
+                <span v-else>publication</span>
+                in the topic
                 <strong>
                     <a :href="generateTopicUrl(topic.slug)">{{ topic.name }}</a>
                 </strong>
             </span>
         </div>
 
-        <div class="publication-content">
-            <h3 v-if="type === ThreadTypeVariationEnum.ARTICLE && slug">
-                <a :href="generateArticleUrl(slug)">{{ title }}</a>
+        <div class="publication-content" :class="{ course: type === ThreadTypeVariationEnum.COURSE }">
+            <h3 v-if="slug">
+                <a :href="generateUrl(type, slug)">{{ title }}</a>
             </h3>
 
             <time-elapsed class="date" :date="publishedAt"></time-elapsed>
@@ -20,7 +23,7 @@
                 <x-tag :name="tag.name" :slug="tag.slug" v-for="(tag, indexTag) in tags" :key="indexTag" />
             </div>
 
-            <p v-if="type === ThreadTypeVariationEnum.ARTICLE" class="preview with-max-line">{{ preview }}</p>
+            <p v-if="ThreadTypeVariationEnum.DOCUMENT.includes(type)" class="preview with-max-line">{{ preview }}</p>
             <span v-else class="preview" v-html="preview"></span>
         </div>
     </thread>
@@ -46,7 +49,17 @@ defineProps<{
 }>();
 
 const generateTopicUrl = (slug: string) => Routing.generate("app_topic", { slug });
-const generateArticleUrl = (slug: string) => Routing.generate("app_article", { slug });
+
+const generateUrl = (type: string, slug: string) => {
+    switch (type) {
+        case ThreadTypeVariationEnum.COURSE:
+            return Routing.generate("app_course", { slug });
+        case ThreadTypeVariationEnum.ARTICLE:
+            return Routing.generate("app_article", { slug });
+        default:
+            throw Error("Unknown thread type");
+    }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -63,7 +76,7 @@ const generateArticleUrl = (slug: string) => Routing.generate("app_article", { s
         line-height: 20px;
         padding-top: 2px;
 
-        & span:nth-child(1) {
+        & > span:nth-child(1) {
             display: block;
         }
     }
@@ -102,11 +115,49 @@ const generateArticleUrl = (slug: string) => Routing.generate("app_article", { s
     display: flex;
     flex-direction: column;
     row-gap: 16px;
+    position: relative;
 
     @include maxWidth(600px) {
         padding: 16px;
         border-radius: 6px;
         row-gap: 10px;
+    }
+
+    &.course::before {
+        content: "";
+        position: absolute;
+        background-color: var(--light-very-soft);
+        border: 2px solid var(--light-light);
+        border-radius: 16px;
+        width: calc(100% - 2 * 20px);
+        height: 20%;
+        bottom: -8px;
+        left: 20px;
+        z-index: -1;
+        @include maxWidth(600px) {
+            border-radius: 6px;
+            width: calc(100% - 2 * 10px);
+            bottom: -6px;
+            left: 10px;
+        }
+    }
+    &.course::after {
+        content: "";
+        position: absolute;
+        background-color: var(--light-soft);
+        border: 2px solid var(--light-light);
+        border-radius: 16px;
+        width: calc(100% - 2 * 40px);
+        height: 20%;
+        bottom: -14px;
+        left: 40px;
+        z-index: -2;
+        @include maxWidth(600px) {
+            border-radius: 6px;
+            width: calc(100% - 2 * 20px);
+            bottom: -10px;
+            left: 20px;
+        }
     }
 
     h3 {
