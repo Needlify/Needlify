@@ -65,6 +65,14 @@ class Lesson
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private ?bool $private = false;
 
+    #[ORM\OneToOne(inversedBy: 'previous', targetEntity: self::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?self $next = null;
+
+    #[ORM\OneToOne(mappedBy: 'next', targetEntity: self::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?self $previous = null;
+
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -96,7 +104,7 @@ class Lesson
 
     public function getDescription(): ?string
     {
-        return $this->title;
+        return $this->description;
     }
 
     public function setDescription(string $description): self
@@ -199,5 +207,29 @@ class Lesson
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    public function getNext(): ?self
+    {
+        return $this->next;
+    }
+
+    public function setNext(?self $next): self
+    {
+        $this->next = $next;
+
+        return $this;
+    }
+
+    public function getPrevious(): ?self
+    {
+        return $this->previous;
+    }
+
+    public function setPrevious(?self $previous): self
+    {
+        $this->previous = $previous;
+
+        return $this;
     }
 }

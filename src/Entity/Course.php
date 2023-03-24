@@ -31,7 +31,7 @@ class Course extends Document implements ThreadInterface
     #[Assert\Type(CourseDifficultyType::class, message: 'course.difficulty.type')]
     private ?CourseDifficultyType $difficulty = null;
 
-    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Lesson::class, cascade: ['remove'])]
+    #[ORM\OneToMany(mappedBy: 'course', targetEntity: Lesson::class, cascade: ['persist', 'remove'])]
     private Collection $lessons;
 
     public function __construct()
@@ -82,6 +82,11 @@ class Course extends Document implements ThreadInterface
     public function addLesson(Lesson $lesson): self
     {
         if (!$this->lessons->contains($lesson)) {
+            if ($this->getLessons()->count() > 0) {
+                $lesson->setPrevious($this->getLastLesson());
+                $this->getLastLesson()->setNext($lesson);
+            }
+
             $this->lessons->add($lesson);
             $lesson->setCourse($this);
         }
@@ -92,6 +97,15 @@ class Course extends Document implements ThreadInterface
     public function removeLesson(Lesson $lesson): self
     {
         if ($this->lessons->removeElement($lesson)) {
+            $previous = $lesson->getPrevious();
+            $next = $lesson->getNext();
+
+            $lesson->setNext(null);
+            $lesson->setPrevious(null);
+
+            $next?->setPrevious($previous);
+            $previous?->setNext($next);
+
             // set the owning side to null (unless already changed)
             if ($lesson->getCourse() === $this) {
                 $lesson->setCourse(null);
@@ -101,13 +115,29 @@ class Course extends Document implements ThreadInterface
         return $this;
     }
 
-    // public function getFirstLesson()
-    // {
-    //     return $this->lessons->filter(fn (Lesson $lesson) => null === $lesson->getPrevious())[0];
-    // }
+    public function getOrderedLesson(): array
+    {
+        if ($this->lessons->isEmpty()) {
+            return [];
+        }
 
-    // public function getLastLesson()
-    // {
-    //     return $this->lessons->filter(fn (Lesson $lesson) => null === $lesson->getNext())[0];
-    // }
+        $lessonsAsArray = [];
+        $currentLesson = $this->getFirstLesson();
+
+        do {
+            $lessonsAsArray[] = $currentLesson;
+        } while (null !== ($currentLesson = $currentLesson->getNext()));
+
+        return $lessonsAsArray;
+    }
+
+    public function getFirstLesson(): ?Lesson
+    {
+        return $this->lessons->filter(fn (Lesson $lesson) => null === $lesson->getPrevious())->first();
+    }
+
+    public function getLastLesson(): ?Lesson
+    {
+        return $this->lessons->filter(fn (Lesson $lesson) => null === $lesson->getNext())->first();
+    }
 }

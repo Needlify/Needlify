@@ -15,7 +15,6 @@ use App\Entity\Course;
 use App\Entity\Lesson;
 use App\Exception\ExceptionCode;
 use App\Exception\ExceptionFactory;
-use App\Repository\LessonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,21 +30,16 @@ class CourseController extends AbstractController
     }
 
     #[Route('/course/{slug}', name: 'app_course', methods: ['GET'], options: ['expose' => true])]
-    public function article(Course $course, LessonRepository $lessonRepository): Response
+    public function article(Course $course): Response
     {
         if ($course->isPrivate()) {
             throw ExceptionFactory::throw(NotFoundHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'This ressource is not accessible');
         }
 
-        $lesson = $lessonRepository->findOneBy(['title' => 'Commodi dolor quia et incidunt vero quisquam. Debitis deleniti et maiores.']);
+        $course->incrementViews();
 
-        // $course->addLesson($lesson);
-        // $course->incrementViews();
-
-        // $this->em->persist($course);
-        // $this->em->flush();
-
-        dd($course, $lesson);
+        $this->em->persist($course);
+        $this->em->flush();
 
         return $this->render('pages/course/course.html.twig', [
             'course' => $course,

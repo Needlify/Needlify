@@ -108,8 +108,8 @@ class LessonCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $actions->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.lesson.actions.create'));
+        return $actions->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.lesson.actions.create'));
 
-        return $this->defaultContentActionConfiguration($actions, Lesson::class);
+        // return $this->defaultContentActionConfiguration($actions, Lesson::class);
     }
 }

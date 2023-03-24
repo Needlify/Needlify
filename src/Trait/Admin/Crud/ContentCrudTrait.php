@@ -36,6 +36,7 @@ trait ContentCrudTrait
     {
         $actionLabel = '';
         $actionRouteName = '';
+        $url = '';
 
         if (Tag::class === $classifierFqcn) {
             $actionLabel = 'admin.crud.action.view_tag';
@@ -53,13 +54,13 @@ trait ContentCrudTrait
             $actionLabel = 'admin.crud.action.view_course';
             $actionRouteName = 'app_course';
             $url = fn (Course $course) => $this->urlGenerator->generate($actionRouteName, ['slug' => $course->getSlug()]);
-        } elseif (Lesson::class === $classifierFqcn) {
-            $actionLabel = 'admin.crud.action.view_lesson';
-            $actionRouteName = 'app_lesson';
-            $url = fn (Lesson $lesson) => $this->urlGenerator->generate($actionRouteName, [
-                'course_slug' => $lesson->getCourse()->getSlug(),
-                'lesson_slug' => $lesson->getSlug(),
-            ]);
+            // } elseif (Lesson::class === $classifierFqcn) {
+        //     $actionLabel = 'admin.crud.action.view_lesson';
+        //     $actionRouteName = 'app_lesson';
+        //     $url = fn (Lesson $lesson) => $this->urlGenerator->generate($actionRouteName, [
+        //         'course_slug' => $lesson->getCourse()?->getSlug(),
+        //         'lesson_slug' => $lesson->getSlug(),
+        //     ]);
         }
 
         $goToActionIndex = Action::new('goTo', $actionLabel)->linkToUrl($url);

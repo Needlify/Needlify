@@ -1,0 +1,93 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	{{ course.title }}
+{% endblock title %}
+
+{% block stylesheets %}
+	{{ encore_entry_link_tags("page_article") }}
+	{{ encore_entry_link_tags("style_markdown") }}
+	{{ encore_entry_link_tags("style_component_spinner") }}
+	{{ encore_entry_link_tags("style_component_tag") }}
+{% endblock stylesheets %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags("page_article") }}
+	{{ encore_entry_script_tags("style_markdown") }}
+{% endblock javascripts %}
+
+{% block og_type %}
+	article
+{% endblock og_type %}
+
+{% block og_description %}
+	{{ course.description }}
+{% endblock og_description %}
+
+{% block og_keywords %}
+	{{ course.tags|join(", ") }}
+{% endblock og_keywords %}
+
+{% block body %}
+	<article id="article-container">
+		<div id="topic-container">
+			<a id="topic" href="{{ url("app_topic", { slug: course.topic.slug }) }}">
+				<i data-feather="tag" width="14px" height="14px" stroke-width="3px"></i>
+				<span>{{ course.topic.name }}</span>
+			</a>
+		</div>
+
+		<h1 id="article-title">
+			{{ course.title }}
+		</h1>
+
+		<div id="info">
+			<span id="date">{{ course.publishedAt|date("F j, Y") }}</span>
+			<span class="dot">•</span>
+			<span id="author">
+				<i data-feather="user" width="16px" height="16px" stroke-width="2px"></i>
+				{{ course.author.username }}
+			</span>
+			<span class="dot">•</span>
+			<span id="time-to-read">
+				{{ course.content|time_to_read }}
+				{{ "article.info.time_to_read"|trans }}
+			</span>
+		</div>
+
+		<section id="content-wrapper">
+			<nav id="toc-container">
+				<h3 id="toc-title">
+					{{ "article.content.table_of_content"|trans }}
+
+					<div id="spinner">
+						{{ component("spinner", { color: "#8a9399", borderWidth: "2px", size: "16px" }) }}
+					</div>
+				</h3>
+				<div id="toc"></div>
+			</nav>
+			<div id="content-container" class="markdown-style">
+				{{ course.content|markdown|raw }}
+			</div>
+
+			{% if (course.tags|length) > 0 %}
+				<div id="tags">
+					{% for tag in course.tags %}
+						{{ component("tag", { tag: tag }) }}
+					{% endfor %}
+				</div>
+			{% endif %}
+
+			{% if course.license %}
+				<hr class="tag-license-separator"/>
+
+				<div id="license">
+					{{ "article.content.license"|trans }}
+					<a target="_blank" rel="license" id="license-image-link" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+						<img alt="Licence Creative Commons" width="80" height="15" src="{{ asset("images/licence.png") }}"/>
+					</a>
+				</div>
+			{% endif %}
+		</section>
+	</article>
+{% endblock body %}
