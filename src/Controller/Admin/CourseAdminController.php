@@ -15,7 +15,6 @@ use App\Entity\Course;
 use Symfony\Component\Uid\Uuid;
 use App\Service\Admin\CourseLinker;
 use App\Repository\LessonRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,11 +28,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/admin')]
 class CourseAdminController extends AbstractController
 {
-    public function __construct(
-        private EntityManagerInterface $em
-    ) {
-    }
-
     #[Route('/course/{id}/sort', 'admin_course_sort', methods: ['GET', 'POST'])]
     public function sortLesson(
         Course $course,
@@ -42,10 +36,10 @@ class CourseAdminController extends AbstractController
         TranslatorInterface $trans,
         LessonRepository $lessonRepository,
         AdminUrlGenerator $adminUrlGenerator,
-        CourseLinker $courseLinker
+        CourseLinker $courseLinker,
     ) {
         if ('GET' === $request->getMethod()) {
-            return $this->render('admin/course/courseForm.html.twig', [
+            return $this->render('admin/course/course_sort_form.html.twig', [
                 'course' => $course,
             ]);
         } else {
@@ -53,23 +47,22 @@ class CourseAdminController extends AbstractController
             $sort = explode(',', $request->request->get('sort', ''));
             $button = $request->request->get('button-submit', '');
 
-            $hasError = false;
+            $errors = [];
 
             $token = new CsrfToken('admin_sort_lesson', $csrf);
             if (!$csrfTokenManager->isTokenValid($token)) {
-                $hasError = true;
-                $this->addFlash('sortError', $trans->trans('csrf', domain: 'admin'));
+                $errors[] = $trans->trans('csrf', domain: 'admin');
             }
 
             foreach ($sort as $id) {
                 if (!$lessonRepository->lessonExists(Uuid::fromRfc4122($id))) {
-                    $hasError = true;
-                    $this->addFlash('sortError', $trans->trans('id', domain: 'admin'));
+                    $errors[] = $trans->trans('csrf', domain: 'admin');
                 }
             }
 
-            if ($hasError) {
-                return $this->render('admin/course/courseForm.html.twig', [
+            if (count($errors) > 0) {
+                return $this->render('admin/course/course_sort_form.html.twig', [
+                    'errors' => $errors,
                     'course' => $course,
                 ]);
             }

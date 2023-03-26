@@ -46,13 +46,11 @@
 	<section id="sort-body" class="content-body">
 		<h2 class="subtitle">{{course.title}}</h2>
 
-		{% for index, flash_error in app.flashes('sortError') %}
-			{% if index == 0 %}
-				<div class="global-invalid-feedback invalid-feedback d-block mb-3">
-					Le contenu brut d'une bannière ne peut pas dépasser 1000 caractères
-				</div>
-			{% endif %}
-		{% endfor %}
+		{% if errors is defined and errors|length > 0 %}
+			<div class="global-invalid-feedback invalid-feedback d-block mb-3">
+				{{ errors[0] }}
+			</div>
+		{% endif %}
 
 		{% if course.lessons|length > 0 %}
 			<ul id="sort-lessons-ul">

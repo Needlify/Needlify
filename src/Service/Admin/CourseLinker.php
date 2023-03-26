@@ -30,11 +30,8 @@ class CourseLinker
          */
 
         // Reset les liens en BDD pour éviter les contraintes d'unicité
-        for ($i = 0; $i < count($orderedId) - 1; ++$i) {
+        for ($i = 0; $i < count($orderedId); ++$i) {
             $current = $this->lessonRepository->findOneBy(['id' => $orderedId[$i]]);
-            $next = $this->lessonRepository->findOneBy(['id' => $orderedId[$i + 1]]);
-
-            $next->resetLink();
             $current->resetLink();
         }
 
