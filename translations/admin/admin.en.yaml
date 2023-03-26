@@ -215,4 +215,6 @@ admin.crud.lesson.column.content: "Content"
 admin.crud.lesson.column.course: "Course"
 
 admin.custom.course_form.title: "Ordering the lessons"
+admin.custom.course_form.actions.save_and_continue: "Save and continue editing"
+admin.custom.course_form.actions.save_and_return: "Save changes"
 admin.custom.course_form.empty: "No lesson available"

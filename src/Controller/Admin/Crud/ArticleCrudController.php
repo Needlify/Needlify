@@ -63,7 +63,7 @@ class ArticleCrudController extends AbstractCrudController
                         newFormOptions: ['validation_groups' => ['Default', 'admin:form:new']],
                         editFormOptions: ['validation_groups' => ['Default', 'admin:form:edit']]
                     )
-                    ->setSearchFields(['title', 'description', 'topic.name', 'tags.name', 'content', 'author.username', 'author.email'])
+                    ->setSearchFields(['title', 'description', 'topic.name', 'tags.name', 'content', 'author.username'])
                     ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.article.index.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.article.new.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.article.edit.title', [], 'admin'))
@@ -115,10 +115,8 @@ class ArticleCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('publishedAt', 'admin.crud.article.column.published_at')
-            // ->setTimezone('UTC')
             ->hideOnForm();
         yield DateTimeField::new('updatedAt', 'admin.crud.article.column.updated_at')
-            // ->setTimezone('UTC')
             ->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations');
@@ -126,13 +124,11 @@ class ArticleCrudController extends AbstractCrudController
             ->setRequired(true)
             ->addWebpackEncoreEntries('admin_select_dropdown')
             ->setColumns('col-md-6')
-            // ->autocomplete() // Pour le moment, cette feature est buggy
         ;
         yield AssociationField::new('tags', 'admin.crud.article.column.tags')
             ->setTemplatePath('admin/components/tags.html.twig')
             ->addWebpackEncoreEntries('admin_select_dropdown')
             ->setColumns('col-md-6')
-            // ->autocomplete() // Pour le moment, cette feature est buggy
         ;
 
         yield FormField::addPanel('admin.crud.section.content');

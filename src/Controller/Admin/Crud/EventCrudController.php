@@ -77,10 +77,8 @@ class EventCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('publishedAt', 'admin.crud.event.column.published_at')
-            // ->setTimezone('UTC')
             ->hideOnForm();
         yield DateTimeField::new('updatedAt', 'admin.crud.event.column.updated_at')
-            // ->setTimezone('UTC')
             ->onlyOnDetail();
     }
 

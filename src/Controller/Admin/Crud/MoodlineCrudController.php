@@ -48,7 +48,7 @@ class MoodlineCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $this->defaultThreadCrudConfiguration($crud)
-            ->setSearchFields(['content', 'topic.name', 'tags.name', 'author.username', 'author.email'])
+            ->setSearchFields(['content', 'topic.name', 'tags.name', 'author.username'])
             ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.moodline.index.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.moodline.new.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.moodline.edit.title', [], 'admin'))
@@ -81,10 +81,8 @@ class MoodlineCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('publishedAt', 'admin.crud.moodline.column.published_at')
-            // ->setTimezone('UTC')
             ->hideOnForm();
         yield DateTimeField::new('updatedAt', 'admin.crud.moodline.column.updated_at')
-            // ->setTimezone('UTC')
             ->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations');

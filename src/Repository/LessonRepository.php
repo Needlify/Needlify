@@ -11,7 +11,6 @@
 
 namespace App\Repository;
 
-use App\Entity\Course;
 use App\Entity\Lesson;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\Persistence\ManagerRegistry;
@@ -55,8 +54,9 @@ class LessonRepository extends ServiceEntityRepository implements DashboardRepos
     {
         return $this->createQueryBuilder('l')
             ->select('count(l.id)')
+            ->join('l.course', 'c')
             ->where('l.private = 0')
-            // ->andWhere('l.course.private = 0')
+            ->andWhere('c.private = 0')
             ->getQuery()
             ->getSingleScalarResult();
     }

@@ -120,14 +120,12 @@ class BannerCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.dates');
         yield DateTimeField::new('startedAt', 'admin.crud.banner.column.started_at')
-            // ->setTimezone('UTC')
             ->setColumns('col-md-6')
             ->setFormTypeOptions([
                 'with_seconds' => false,
                 'attr.class' => 'w-100',
             ]);
         yield DateTimeField::new('endedAt', 'admin.crud.banner.column.ended_at')
-            // ->setTimezone('UTC')
             ->setColumns('col-md-6')
             ->setFormTypeOptions([
                 'with_seconds' => false,

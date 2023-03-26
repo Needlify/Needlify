@@ -20,25 +20,27 @@
 {% endblock %}
 
 
-{# The main page content block #}
 {% block main %}
 	<section class="content-header">
 		<div class="content-header-title">
 			<h1 class="title">{{"admin.custom.course_form.title" | trans}}</h1>
 		</div>
 		<div class="page-actions">
-			<button class="btn btn-secondary action-save" type="submit" name="button-submit" value="saveAndContinue" form="sort-form">
-				<span class="btn-label">
-					<i class="action-icon far fa-edit"></i>
-					<span class="action-label">Sauvegarder et continuer l'édition</span>
-				</span>
-			</button>
 
-			<button class="btn btn-primary action-save" type="submit" name="button-submit" value="saveAndReturn" form="sort-form">
-				<span class="btn-label">
-					<span class="action-label">Sauvegarder les modifications</span>
-				</span>
-			</button>
+			{% if course.lessons|length > 0 %}
+				<button class="btn btn-secondary action-save" type="submit" name="button-submit" value="saveAndContinue" form="sort-form">
+					<span class="btn-label">
+						<i class="action-icon far fa-edit"></i>
+						<span class="action-label">{{"admin.custom.course_form.actions.save_and_continue" | trans}}</span>
+					</span>
+				</button>
+
+				<button class="btn btn-primary action-save" type="submit" name="button-submit" value="saveAndReturn" form="sort-form">
+					<span class="btn-label">
+						<span class="action-label">{{"admin.custom.course_form.actions.save_and_return" | trans}}</span>
+					</span>
+				</button>
+			{% endif %}
 		</div>
 	</section>
 

@@ -125,8 +125,6 @@ class LessonCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, $goToAction)
             ->add(Crud::PAGE_DETAIL, $goToAction);
 
-        // ->reorder(Crud::PAGE_DETAIL, [Action::DELETE, 'goTo', Action::INDEX, Action::EDIT])
-
         return $actions;
     }
 }

@@ -61,7 +61,7 @@ class CourseCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $this->defaultThreadCrudConfiguration($crud)
-                    ->setSearchFields(['title', 'description', 'topic.name', 'tags.name', 'content', 'author.username', 'author.email'])
+                    ->setSearchFields(['title', 'description', 'topic.name', 'tags.name', 'content', 'author.username'])
                     ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.course.index.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.course.new.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.course.edit.title', [], 'admin'))
