@@ -34,9 +34,11 @@ trait ContentCrudTrait
 
     public function defaultContentActionConfiguration(Actions $actions, string $classifierFqcn): Actions
     {
-        $actionLabel = '';
-        $actionRouteName = '';
-        $url = '';
+        $actions->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'));
+
+        $actionLabel = null;
+        $actionRouteName = null;
+        $url = null;
 
         if (Tag::class === $classifierFqcn) {
             $actionLabel = 'admin.crud.action.view_tag';
@@ -54,34 +56,35 @@ trait ContentCrudTrait
             $actionLabel = 'admin.crud.action.view_course';
             $actionRouteName = 'app_course';
             $url = fn (Course $course) => $this->urlGenerator->generate($actionRouteName, ['slug' => $course->getSlug()]);
-            // } elseif (Lesson::class === $classifierFqcn) {
-        //     $actionLabel = 'admin.crud.action.view_lesson';
-        //     $actionRouteName = 'app_lesson';
-        //     $url = fn (Lesson $lesson) => $this->urlGenerator->generate($actionRouteName, [
-        //         'course_slug' => $lesson->getCourse()?->getSlug(),
-        //         'lesson_slug' => $lesson->getSlug(),
-        //     ]);
+        } elseif (Lesson::class === $classifierFqcn) {
+            $actionLabel = 'admin.crud.action.view_lesson';
+            $actionRouteName = 'app_lesson';
+            $url = fn (Lesson $lesson) => $lesson->getCourse() ? $this->urlGenerator->generate($actionRouteName, [
+                    'course_slug' => $lesson->getCourse()?->getSlug(),
+                    'lesson_slug' => $lesson->getSlug(),
+                ]) : '';
         }
 
-        $goToActionIndex = Action::new('goTo', $actionLabel)->linkToUrl($url);
+        if ($actionLabel && $actionRouteName && $url) {
+            $goToActionIndex = Action::new('goTo', $actionLabel)
+                ->linkToUrl($url)
+                ->displayIf(fn (Lesson $lesson) => null !== $lesson->getCourse());
+            $goToActionDetail = Action::new('goTo', $actionLabel)
+                ->linkToUrl($url)
+                ->displayIf(fn (Lesson $lesson) => null !== $lesson->getCourse())
+                ->addCssClass('btn btn-secondary');
 
-        $goToActionDetails = Action::new('goTo', $actionLabel)
-            ->linkToUrl($url)
-            ->addCssClass('btn btn-secondary');
+            $actions
+                ->add(Crud::PAGE_INDEX, $goToActionIndex)
+                ->add(Crud::PAGE_DETAIL, $goToActionDetail);
+        }
 
-        $actions
-            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
-            ->add(Crud::PAGE_INDEX, $goToActionIndex)
-            ->add(Crud::PAGE_DETAIL, $goToActionDetails)
+        // ->update(Crud::PAGE_DETAIL, Action::DELETE, fn (Action $action) => $action->setLabel(''))
+        // ->update(Crud::PAGE_DETAIL, Action::INDEX, fn (Action $action) => $action->setLabel('')->setIcon('fas fa-list'))
+        // ->update(Crud::PAGE_DETAIL, Action::EDIT, fn (Action $action) => $action->setLabel('')->setIcon('fas fa-edit'))
+        // ->update(Crud::PAGE_DETAIL, 'goTo', fn (Action $action) => $action->setLabel('')->setIcon('fas fa-eye'))
 
-            // ->update(Crud::PAGE_DETAIL, Action::DELETE, fn (Action $action) => $action->setLabel(''))
-            // ->update(Crud::PAGE_DETAIL, Action::INDEX, fn (Action $action) => $action->setLabel('')->setIcon('fas fa-list'))
-            // ->update(Crud::PAGE_DETAIL, Action::EDIT, fn (Action $action) => $action->setLabel('')->setIcon('fas fa-edit'))
-            // ->update(Crud::PAGE_DETAIL, 'goTo', fn (Action $action) => $action->setLabel('')->setIcon('fas fa-eye'))
-
-            // ->reorder(Crud::PAGE_DETAIL, [Action::DELETE, 'goTo', Action::INDEX, Action::EDIT])
-
-        ;
+        // ->reorder(Crud::PAGE_DETAIL, [Action::DELETE, 'goTo', Action::INDEX, Action::EDIT])
 
         return $actions;
     }

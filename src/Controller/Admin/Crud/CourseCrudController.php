@@ -16,7 +16,6 @@ use App\Enum\CourseDifficultyType;
 use App\Field\Admin\MarkdownField;
 use App\Service\ImageResizerService;
 use App\Trait\Admin\Crud\ThreadCrudTrait;
-use App\Trait\Admin\Crud\ContentCrudTrait;
 use App\Service\Parsedown\ParsedownFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -40,16 +39,17 @@ use EasyCorp\Bundle\EasyAdminBundle\Filter\NumericFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class CourseCrudController extends AbstractCrudController
 {
     use ThreadCrudTrait;
-    use ContentCrudTrait;
 
     public function __construct(
         private ImageResizerService $imageResizerService,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
+        private UrlGeneratorInterface $urlGenerator
     ) {
     }
 
@@ -158,8 +158,21 @@ class CourseCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $actions->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.course.actions.create'));
+        $sortLessons = Action::new('sortLessons', 'Sort lessons')
+            ->linkToRoute('admin_course_sort', fn (Course $course) => ['id' => $course->getId()->toRfc4122()]);
 
-        return $this->defaultContentActionConfiguration($actions, Course::class);
+        $goToAction = Action::new('goTo', 'admin.crud.action.view_course')
+            ->linkToUrl(fn (Course $course) => $this->urlGenerator->generate('app_course', ['slug' => $course->getSlug()]))
+            ->displayIf(fn (Course $course) => !$course->isPrivate());
+
+        $actions
+            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.course.actions.create'))
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
+            ->add(Crud::PAGE_INDEX, $sortLessons)
+            ->add(Crud::PAGE_DETAIL, $sortLessons)
+            ->add(Crud::PAGE_INDEX, $goToAction)
+            ->add(Crud::PAGE_DETAIL, $goToAction);
+
+        return $actions;
     }
 }

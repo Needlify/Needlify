@@ -212,3 +212,6 @@ admin.crud.lesson.column.published_at: "Date de publication"
 admin.crud.lesson.column.updated_at: "Dernière modification"
 admin.crud.lesson.column.content: "Contenu"
 admin.crud.lesson.column.course: "Cours"
+
+admin.custom.course_form.title: "Ordonner les leçons"
+admin.custom.course_form.empty: "Aucune leçon disponible"

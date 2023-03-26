@@ -13,7 +13,6 @@ namespace App\Controller\Admin\Crud;
 
 use App\Entity\Lesson;
 use App\Field\Admin\MarkdownField;
-use App\Trait\Admin\Crud\ContentCrudTrait;
 use App\Service\Parsedown\ParsedownFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -27,19 +26,20 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\BooleanFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\NumericFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class LessonCrudController extends AbstractCrudController
 {
-    use ContentCrudTrait;
-
     public function __construct(
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
+        private UrlGeneratorInterface $urlGenerator
     ) {
     }
 
@@ -82,6 +82,10 @@ class LessonCrudController extends AbstractCrudController
         yield TextField::new('slug', 'admin.crud.lesson.column.slug')->onlyOnDetail();
         yield BooleanField::new('private', 'admin.crud.lesson.column.private')->setHelp('admin.crud.lesson.column.private.help');
         yield IntegerField::new('views', 'admin.crud.lesson.column.views')->onlyOnDetail();
+        yield TextareaField::new('description', 'admin.crud.course.column.description')
+            ->setColumns(12)
+            ->setFormTypeOptions(['attr.maxLength' => 500])
+            ->hideOnIndex();
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('publishedAt', 'admin.crud.lesson.column.published_at')
@@ -91,9 +95,9 @@ class LessonCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('course', 'admin.crud.lesson.column.course')
-            ->setRequired(true)
+            ->setRequired(false)
             ->addWebpackEncoreEntries('admin_select_dropdown')
-            ->setColumns('col-md-6')
+            ->setColumns('col-12')
         ;
 
         yield FormField::addPanel('admin.crud.section.content');
@@ -108,8 +112,21 @@ class LessonCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        return $actions->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.lesson.actions.create'));
+        $goToAction = Action::new('goTo', 'admin.crud.action.view_lesson')
+            ->linkToUrl(fn (Lesson $lesson) => $lesson->getCourse() ? $this->urlGenerator->generate('app_lesson', [
+                    'course_slug' => $lesson->getCourse()?->getSlug(),
+                    'lesson_slug' => $lesson->getSlug(),
+                ]) : '')
+            ->displayIf(fn (Lesson $lesson) => null !== $lesson->getCourse() && !$lesson->getCourse()->isPrivate());
 
-        // return $this->defaultContentActionConfiguration($actions, Lesson::class);
+        $actions
+            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.lesson.actions.create'))
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
+            ->add(Crud::PAGE_INDEX, $goToAction)
+            ->add(Crud::PAGE_DETAIL, $goToAction);
+
+        // ->reorder(Crud::PAGE_DETAIL, [Action::DELETE, 'goTo', Action::INDEX, Action::EDIT])
+
+        return $actions;
     }
 }

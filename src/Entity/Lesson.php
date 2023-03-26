@@ -65,11 +65,11 @@ class Lesson
     #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
     private ?bool $private = false;
 
-    #[ORM\OneToOne(inversedBy: 'previous', targetEntity: self::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'previous', targetEntity: self::class, cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?self $next = null;
 
-    #[ORM\OneToOne(mappedBy: 'next', targetEntity: self::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'next', targetEntity: self::class, cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?self $previous = null;
 
@@ -229,6 +229,14 @@ class Lesson
     public function setPrevious(?self $previous): self
     {
         $this->previous = $previous;
+
+        return $this;
+    }
+
+    public function resetLink(): self
+    {
+        $this->previous = null;
+        $this->next = null;
 
         return $this;
     }

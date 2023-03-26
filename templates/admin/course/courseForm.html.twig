@@ -1,0 +1,83 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% trans_default_domain "admin" %}
+
+{# Let\'s remove/empty the header #}
+{% block content_header_wrapper %}{% endblock content_header_wrapper %}
+
+{% block page_title %}
+	{{"admin.custom.course_form.title" | trans}}
+{% endblock %}
+
+
+{% block configured_javascripts %}
+	{{parent()}}
+	{{ encore_entry_script_tags("admin_course_form") }}
+{% endblock %}
+{% block configured_stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags("admin_course_form") }}
+{% endblock %}
+
+
+{# The main page content block #}
+{% block main %}
+	<section class="content-header">
+		<div class="content-header-title">
+			<h1 class="title">{{"admin.custom.course_form.title" | trans}}</h1>
+		</div>
+		<div class="page-actions">
+			<button class="btn btn-secondary action-save" type="submit" name="button-submit" value="saveAndContinue" form="sort-form">
+				<span class="btn-label">
+					<i class="action-icon far fa-edit"></i>
+					<span class="action-label">Sauvegarder et continuer l'édition</span>
+				</span>
+			</button>
+
+			<button class="btn btn-primary action-save" type="submit" name="button-submit" value="saveAndReturn" form="sort-form">
+				<span class="btn-label">
+					<span class="action-label">Sauvegarder les modifications</span>
+				</span>
+			</button>
+		</div>
+	</section>
+
+
+	<section id="sort-body" class="content-body">
+		<h2 class="subtitle">{{course.title}}</h2>
+
+		{% for index, flash_error in app.flashes('sortError') %}
+			{% if index == 0 %}
+				<div class="global-invalid-feedback invalid-feedback d-block mb-3">
+					Le contenu brut d'une bannière ne peut pas dépasser 1000 caractères
+				</div>
+			{% endif %}
+		{% endfor %}
+
+		{% if course.lessons|length > 0 %}
+			<ul id="sort-lessons-ul">
+				{% for lesson in course.orderedLessons %}
+					<li data-id="{{lesson.id}}" class="draggable-item">
+						<i data-feather="more-vertical" class="handler"></i>
+						<div class="text">
+							<h6 class="lesson-title">{{lesson.title}}</h6>
+							<p class="lesson-description">{{lesson.description}}</p>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>{{"admin.custom.course_form.empty" | trans}}</p>
+		{% endif %}
+
+		<form
+			method="POST" id="sort-form">
+			<!-- Value is set in the sort.ts file -->
+			<input type="hidden" name="sort" value="">
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token("admin_sort_lesson") }}"/>
+		</form>
+
+	</section>
+{% endblock main %}
+
+{% block content_footer_wrapper %}{% endblock content_footer_wrapper %}

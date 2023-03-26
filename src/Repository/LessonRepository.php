@@ -11,7 +11,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Course;
 use App\Entity\Lesson;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\Interface\DashboardRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -57,5 +59,25 @@ class LessonRepository extends ServiceEntityRepository implements DashboardRepos
             // ->andWhere('l.course.private = 0')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function lessonExists(Uuid $id)
+    {
+        return null !== $this->createQueryBuilder('l')
+            ->where('l.id = :id')
+            ->setParameter('id', $id->toBinary())
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function getOriginalCourse(Lesson $lesson)
+    {
+        $result = $this
+            ->getEntityManager()
+            ->createQuery('SELECT c FROM App\Entity\Course c JOIN c.lessons l WHERE l.id = :id')
+            ->setParameter('id', $lesson->getId()->toBinary())
+            ->getOneOrNullResult();
+
+        return $result;
     }
 }

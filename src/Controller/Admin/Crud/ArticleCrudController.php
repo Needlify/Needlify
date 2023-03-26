@@ -15,7 +15,6 @@ use App\Entity\Article;
 use App\Field\Admin\MarkdownField;
 use App\Service\ImageResizerService;
 use App\Trait\Admin\Crud\ThreadCrudTrait;
-use App\Trait\Admin\Crud\ContentCrudTrait;
 use App\Service\Parsedown\ParsedownFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -38,16 +37,17 @@ use EasyCorp\Bundle\EasyAdminBundle\Filter\NumericFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ArticleCrudController extends AbstractCrudController
 {
     use ThreadCrudTrait;
-    use ContentCrudTrait;
 
     public function __construct(
         private ImageResizerService $imageResizerService,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
+        private UrlGeneratorInterface $urlGenerator
     ) {
     }
 
@@ -147,8 +147,16 @@ class ArticleCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $actions->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.article.actions.create'));
+        $goToAction = Action::new('goTo', 'admin.crud.action.view_article')
+            ->linkToUrl(fn (Article $article) => $this->urlGenerator->generate('app_article', ['slug' => $article->getSlug()]))
+            ->displayIf(fn (Article $article) => !$article->isPrivate());
 
-        return $this->defaultContentActionConfiguration($actions, Article::class);
+        $actions
+            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.article.actions.create'))
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
+            ->add(Crud::PAGE_INDEX, $goToAction)
+            ->add(Crud::PAGE_DETAIL, $goToAction);
+
+        return $actions;
     }
 }

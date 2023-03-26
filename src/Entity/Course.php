@@ -100,8 +100,7 @@ class Course extends Document implements ThreadInterface
             $previous = $lesson->getPrevious();
             $next = $lesson->getNext();
 
-            $lesson->setNext(null);
-            $lesson->setPrevious(null);
+            $lesson->resetLink();
 
             $next?->setPrevious($previous);
             $previous?->setNext($next);
@@ -115,7 +114,7 @@ class Course extends Document implements ThreadInterface
         return $this;
     }
 
-    public function getOrderedLesson(): array
+    public function getOrderedLessons(): array
     {
         if ($this->lessons->isEmpty()) {
             return [];
