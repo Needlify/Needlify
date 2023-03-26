@@ -56,7 +56,6 @@ Encore.setOutputPath("public/build/")
         /* Typescript files */
         "file_layout": "./assets/files/layout.ts",
         "file_global": "./assets/files/global.ts",
-        "file_swup": "./assets/files/swup.ts",
 
         /* EasyAdmin custom style */
         "admin_thumbnail": "./assets/admin/thumbnail.scss",

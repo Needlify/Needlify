@@ -70,14 +70,11 @@
         "webpack-notifier": "^1.15.0"
     },
     "dependencies": {
-        "@swup/head-plugin": "^1.2.1",
-        "@swup/progress-plugin": "^1.2.1",
         "easymde": "^2.18.0",
         "glightbox": "^3.2.0",
         "highlight.js": "^11.6.0",
         "powerglitch": "^2.2.0",
         "slugify": "^1.6.5",
-        "sortablejs": "^1.15.0",
-        "swup": "^2.0.19"
+        "sortablejs": "^1.15.0"
     }
 }
