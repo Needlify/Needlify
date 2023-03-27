@@ -11,6 +11,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Course;
 use App\Entity\Lesson;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\Persistence\ManagerRegistry;
@@ -70,7 +71,7 @@ class LessonRepository extends ServiceEntityRepository implements DashboardRepos
             ->getOneOrNullResult();
     }
 
-    public function getOriginalCourse(Lesson $lesson)
+    public function getOriginalCourse(Lesson $lesson): ?Course
     {
         $result = $this
             ->getEntityManager()

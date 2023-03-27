@@ -37,8 +37,8 @@ class CourseEventSubscriber implements EventSubscriberInterface
 
     private function removeFromCourse(Lesson $lesson)
     {
-        $lesson->getNext()?->setPrevious($lesson->getPrevious());
         $lesson->getPrevious()?->setNext($lesson->getNext());
+        $lesson->getNext()?->setPrevious($lesson->getPrevious());
         $lesson->resetLink();
     }
 
