@@ -1,4 +1,4 @@
 import { registerVueControllerComponents } from "@symfony/ux-vue";
 import "./stimulus";
 
-registerVueControllerComponents(require.context("../vue", true, /\.vue$/));
+registerVueControllerComponents(require.context("../components/vue", true, /\.vue$/));

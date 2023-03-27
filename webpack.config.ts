@@ -22,28 +22,28 @@ Encore.setOutputPath("public/build/")
 
     .addEntries({
         /* Styles */
-        "style_global": "./assets/styles/global.scss",
+        "style_global": "./assets/styles/layout/global.scss",
         "style_fonts": "./assets/styles/fonts.scss",
         "style_variables": "./assets/styles/variables.scss",
         "style_layout": "./assets/styles/layout/layout.scss",
         "style_layout-auth": "./assets/styles/layout/layout-auth.scss",
+        "style_error": "./assets/styles/layout/layout-error.scss",
         "style_header": "./assets/styles/layout/header.scss",
         "style_footer": "./assets/styles/layout/footer.scss",
-        "style_reset": "./assets/styles/reset.ts",
-        "style_markdown": "./assets/styles/markdown.ts",
-        "style_error": "./assets/styles/error.scss",
+        "style_reset": "./assets/modules/libs/reset.ts",
+        "style_markdown": "./assets/modules/libs/markdown.ts",
 
         /* Twig Component Style */
-        "style_component_banner": "./assets/styles/components/twig/banner.scss",
-        "style_component_breadcrumb": "./assets/styles/components/twig/breadcrumb.scss",
-        "style_component_spinner": "./assets/styles/components/twig/spinner.scss",
-        "style_component_tag": "./assets/styles/components/twig/tag.scss",
-        "style_component_callout": "./assets/styles/components/callout.scss",
+        "style_component_banner": "./assets/components/twig/banner.scss",
+        "style_component_breadcrumb": "./assets/components/twig/breadcrumb.scss",
+        "style_component_spinner": "./assets/components/twig/spinner.scss",
+        "style_component_tag": "./assets/components/twig/tag.scss",
+        "style_component_callout": "./assets/components/markdown/callout.scss",
 
         /* Page Style */
         "page_feed": "./assets/styles/pages/feed.scss",
         "page_classifier": "./assets/styles/pages/classifier.scss",
-        "page_article": "./assets/pages/article.ts",
+        "page_article": "./assets/modules/pages/article.ts",
         "page_login": "./assets/styles/pages/login.scss",
         "page_dashboard": "./assets/styles/pages/admin/dashboard.scss",
         "page_newsletter_register": "./assets/styles/pages/newsletter/register.scss",
@@ -51,11 +51,11 @@ Encore.setOutputPath("public/build/")
         "page_newsletter_completed": "./assets/styles/pages/newsletter/completed.scss",
         "page_newsletter_unsubscribed": "./assets/styles/pages/newsletter/unsubscribed.scss",
         "page_legal": "./assets/styles/pages/legal.scss",
-        "page_privacy": "./assets/pages/privacy.js",
+        "page_privacy": "./assets/modules/pages/privacy.js",
 
         /* Typescript files */
-        "file_layout": "./assets/files/layout.ts",
-        "file_global": "./assets/files/global.ts",
+        "plugin_power_glitch": "./assets/plugins/powerGlitch.ts",
+        "plugin_feather": "./assets/plugins/feather.ts",
 
         /* EasyAdmin custom style */
         "admin_thumbnail": "./assets/admin/thumbnail.scss",

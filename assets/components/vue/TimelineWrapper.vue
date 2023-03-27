@@ -39,7 +39,7 @@ import Spinner from "./Spinner.vue";
 import ThreadEvent from "./ThreadEvent.vue";
 import ThreadPublication from "./ThreadPublication.vue";
 
-import type { Paginate, Thread } from "../types";
+import type { Paginate, Thread } from "../../types/types";
 
 let cancelToken: CancelTokenSource = axios.CancelToken.source();
 const firstQuery = ref(true);
@@ -105,8 +105,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/mixins";
-
+@import "../../styles/mixins.scss";
 #timeline {
     width: 100%;
     padding-left: 50px;

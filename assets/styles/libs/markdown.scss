@@ -1,5 +1,5 @@
-@import "mixins";
-@import "./components/callout.scss";
+@import "../mixins.scss";
+@import "../../components/markdown/callout.scss";
 
 .markdown-style {
     h1,

@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import slugify from "slugify";
 
-import "../styles/pages/article.scss";
+import "../../styles/pages/article.scss";
 
 /* Wrap images into an anchor tag */
 

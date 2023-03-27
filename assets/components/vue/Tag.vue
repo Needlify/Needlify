@@ -24,8 +24,7 @@ const generateTagUrl = (slug: string) => Routing.generate("app_tag", { slug });
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/mixins";
-
+@import "../../styles/mixins.scss";
 a {
     font-family: Supreme;
     display: inline-flex;

@@ -7,16 +7,14 @@ import GLightbox from "glightbox";
 import "glightbox/dist/css/glightbox.min.css";
 import * as feather from "feather-icons";
 
-import "./markdown.scss";
+import "../../styles/libs/markdown.scss";
 
 /* Code highlighting */
 
-// hljs.highlightAll();
 hljs.configure({ languages: [] }); // To disable auto-detection
 hljs.highlightAll();
 
 /* Wrap images into an anchor tag */
-
 function wrap(el, wrapper) {
     el.parentNode.insertBefore(wrapper, el);
     wrapper.appendChild(el);

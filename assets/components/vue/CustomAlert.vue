@@ -20,7 +20,7 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import FeatherIcon from "./FeatherIcon.vue";
-import type { AlertType } from "../types.d";
+import type { AlertType } from "../../types/types";
 
 const show = ref(true);
 
@@ -65,7 +65,7 @@ const iconComposition = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/mixins";
+@import "../../styles/mixins.scss";
 
 .v-enter-active,
 .v-leave-active {

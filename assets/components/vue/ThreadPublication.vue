@@ -32,8 +32,8 @@
 <script setup lang="ts">
 import Routing from "fos-router";
 import TimeElapsed from "./TimeElapsed.vue";
-import { ThreadIcon, ThreadTypeVariationEnum } from "../enum";
-import { Tag, ThreadTypeVariation, Topic } from "../types";
+import { ThreadIcon, ThreadTypeVariationEnum } from "../../types/enum";
+import { Tag, ThreadTypeVariation, Topic } from "../../types/types";
 import XTag from "./Tag.vue";
 import Thread from "./Thread.vue";
 
@@ -63,8 +63,7 @@ const generateUrl = (type: string, slug: string) => {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/mixins";
-
+@import "../../styles/mixins.scss";
 .event-content {
     line-height: 26px;
     color: var(--dark-soft);

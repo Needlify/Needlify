@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ThreadIcon } from "../enum";
-import { ThreadTypeVariation } from "../types";
+import { ThreadIcon } from "../../types/enum";
+import { ThreadTypeVariation } from "../../types/types";
 import TimeElapsed from "./TimeElapsed.vue";
 import Thread from "./Thread.vue";
 
@@ -23,7 +23,7 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/mixins";
+@import "../../styles/mixins.scss";
 .event-content {
     line-height: 26px;
     color: var(--dark-soft);

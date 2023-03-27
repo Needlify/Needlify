@@ -27,8 +27,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/mixins";
-
+@import "../../styles/mixins.scss";
 .timeline-thread {
     position: relative;
 

@@ -1,4 +1,4 @@
-@import "../mixins";
+@import "../mixins.scss";
 
 :target {
     scroll-margin-top: calc(var(--header-height) + 20px);
