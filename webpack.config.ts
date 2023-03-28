@@ -22,53 +22,57 @@ Encore.setOutputPath("public/build/")
 
     .addEntries({
         /* Styles */
-        "style_global": "./assets/styles/layout/global.scss",
-        "style_fonts": "./assets/styles/fonts.scss",
-        "style_variables": "./assets/styles/variables.scss",
-        "style_layout": "./assets/styles/layout/layout.scss",
-        "style_layout-auth": "./assets/styles/layout/layout-auth.scss",
-        "style_error": "./assets/styles/layout/layout-error.scss",
-        "style_header": "./assets/styles/layout/header.scss",
-        "style_footer": "./assets/styles/layout/footer.scss",
-        "style_reset": "./assets/modules/libs/reset.ts",
-        "style_markdown": "./assets/modules/libs/markdown.ts",
+        style_global: "./assets/styles/layout/global.scss",
+        style_fonts: "./assets/styles/fonts.scss",
+        style_variables: "./assets/styles/variables.scss",
+        style_header: "./assets/styles/layout/header.scss",
+        style_footer: "./assets/styles/layout/footer.scss",
+        style_reset: "./assets/modules/libs/reset.ts",
 
-        /* Twig Component Style */
-        "style_component_banner": "./assets/components/twig/banner.scss",
-        "style_component_breadcrumb": "./assets/components/twig/breadcrumb.scss",
-        "style_component_spinner": "./assets/components/twig/spinner.scss",
-        "style_component_tag": "./assets/components/twig/tag.scss",
-        "style_component_callout": "./assets/components/markdown/callout.scss",
+        /* Layout */
+        layout_base: "./assets/styles/layout/layout.scss",
+        layout_auth: "./assets/styles/layout/layout-auth.scss",
+        layout_error: "./assets/styles/layout/layout-error.scss",
+
+        /* Modules */
+        module_markdown: "./assets/modules/libs/markdown.ts",
+
+        /* Twig Components */
+        component_twig_banner: "./assets/components/twig/banner.scss",
+        component_twig_breadcrumb: "./assets/components/twig/breadcrumb.scss",
+        component_twig_spinner: "./assets/components/twig/spinner.scss",
+        component_twig_tag: "./assets/components/twig/tag.scss",
+        component_twig_callout: "./assets/components/markdown/callout.scss",
 
         /* Page Style */
-        "page_feed": "./assets/styles/pages/feed.scss",
-        "page_classifier": "./assets/styles/pages/classifier.scss",
-        "page_article": "./assets/modules/pages/article.ts",
-        "page_login": "./assets/styles/pages/login.scss",
-        "page_dashboard": "./assets/styles/pages/admin/dashboard.scss",
-        "page_newsletter_register": "./assets/styles/pages/newsletter/register.scss",
-        "page_newsletter_pending": "./assets/styles/pages/newsletter/pending.scss",
-        "page_newsletter_completed": "./assets/styles/pages/newsletter/completed.scss",
-        "page_newsletter_unsubscribed": "./assets/styles/pages/newsletter/unsubscribed.scss",
-        "page_legal": "./assets/styles/pages/legal.scss",
-        "page_privacy": "./assets/modules/pages/privacy.js",
+        page_feed: "./assets/styles/pages/feed.scss",
+        page_classifier: "./assets/styles/pages/classifier.scss",
+        page_login: "./assets/styles/pages/login.scss",
+        page_newsletter_register: "./assets/styles/pages/newsletter/register.scss",
+        page_newsletter_pending: "./assets/styles/pages/newsletter/pending.scss",
+        page_newsletter_completed: "./assets/styles/pages/newsletter/completed.scss",
+        page_newsletter_unsubscribed: "./assets/styles/pages/newsletter/unsubscribed.scss",
+        page_legal: "./assets/styles/pages/legal.scss",
 
-        /* Typescript files */
-        "plugin_power_glitch": "./assets/plugins/powerGlitch.ts",
-        "plugin_feather": "./assets/plugins/feather.ts",
+        /* Page Modules */
+        module_page_article: "./assets/modules/pages/article.ts",
+        module_page_privacy: "./assets/modules/pages/privacy.js",
+
+        /* Plugins */
+        plugin_power_glitch: "./assets/plugins/powerGlitch.ts",
+        plugin_feather: "./assets/plugins/feather.ts",
+        plugin_vue: "./assets/plugins/vue.ts",
 
         /* EasyAdmin custom style */
-        "admin_thumbnail": "./assets/admin/thumbnail.scss",
-        "admin_markdown_default": "./assets/admin/editor/markdown/markdown.ts",
-        "admin_markdown_onlyText": "./assets/admin/editor/markdown/onlyText.scss",
-        "admin_select_dropdown": "./assets/admin/selectDropdown.scss",
-        "admin_trix_default": "./assets/admin/editor/trix/default.scss",
-        "admin_trix_onlyText": "./assets/admin/editor/trix/onlyText.scss",
-        "admin_component_tags": "./assets/admin/component/tags.scss",
-        "admin_course_form": "./assets/admin/course/courseForm.ts",
-
-        /* Custom Elements */
-        "component_vue": "./assets/plugins/vue.ts",
+        admin_page_dashboard: "./assets/styles/pages/admin/dashboard.scss",
+        admin_page_course_form: "./assets/admin/course/courseForm.ts",
+        admin_form_override_thumbnail: "./assets/admin/thumbnail.scss",
+        admin_form_override_select: "./assets/admin/selectDropdown.scss",
+        admin_editor_markdown_default: "./assets/admin/editor/markdown/markdown.ts",
+        admin_editor_markdown_onlyText: "./assets/admin/editor/markdown/onlyText.scss",
+        admin_editor_trix_default: "./assets/admin/editor/trix/default.scss",
+        admin_editor_trix_onlyText: "./assets/admin/editor/trix/onlyText.scss",
+        admin_component_tags: "./assets/admin/component/tags.scss",
     })
 
     .splitEntryChunks()

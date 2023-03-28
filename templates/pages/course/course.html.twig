@@ -5,15 +5,15 @@
 {% endblock title %}
 
 {% block stylesheets %}
-	{{ encore_entry_link_tags("page_article") }}
-	{{ encore_entry_link_tags("style_markdown") }}
-	{{ encore_entry_link_tags("style_component_spinner") }}
-	{{ encore_entry_link_tags("style_component_tag") }}
+	{{ encore_entry_link_tags("module_page_article") }}
+	{{ encore_entry_link_tags("module_markdown") }}
+	{{ encore_entry_link_tags("component_twig_spinner") }}
+	{{ encore_entry_link_tags("component_twig_tag") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
-	{{ encore_entry_script_tags("page_article") }}
-	{{ encore_entry_script_tags("style_markdown") }}
+	{{ encore_entry_script_tags("module_page_article") }}
+	{{ encore_entry_script_tags("module_markdown") }}
 {% endblock javascripts %}
 
 {% block og_type %}

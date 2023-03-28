@@ -76,7 +76,7 @@ class MoodlineCrudController extends AbstractCrudController
         yield TextEditorField::new('content', 'admin.crud.moodline.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setColumns(12)
-            ->addWebpackEncoreEntries('admin_trix_default', 'admin_trix_onlyText')
+            ->addWebpackEncoreEntries('admin_editor_trix_default', 'admin_editor_trix_onlyText')
             ->formatValue(fn (string $value) => $value);
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
@@ -88,11 +88,11 @@ class MoodlineCrudController extends AbstractCrudController
         yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('topic', 'admin.crud.moodline.column.topic')
             ->setRequired(true)
-            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->addWebpackEncoreEntries('admin_form_override_select')
             ->setColumns('col-md-6');
         yield AssociationField::new('tags', 'admin.crud.moodline.column.tags')
             ->setTemplatePath('admin/components/tags.html.twig')
-            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->addWebpackEncoreEntries('admin_form_override_select')
             ->setColumns('col-md-6');
     }
 

@@ -101,7 +101,7 @@ class ArticleCrudController extends AbstractCrudController
         yield IntegerField::new('popularity', 'admin.crud.article.column.popularity')->hideOnForm();
         yield TextField::new('thumbnailFile', 'admin.crud.article.column.thumbnail')
             ->setFormType(VichImageType::class)
-            ->addWebpackEncoreEntries('admin_thumbnail')
+            ->addWebpackEncoreEntries('admin_form_override_thumbnail')
             ->onlyOnForms();
         yield ImageField::new('thumbnail', 'admin.crud.article.column.thumbnail')
             ->formatValue(fn (string $value) => $this->imageResizerService->resize($value, 500, 200))
@@ -122,19 +122,19 @@ class ArticleCrudController extends AbstractCrudController
         yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('topic', 'admin.crud.article.column.topic')
             ->setRequired(true)
-            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->addWebpackEncoreEntries('admin_form_override_select')
             ->setColumns('col-md-6')
         ;
         yield AssociationField::new('tags', 'admin.crud.article.column.tags')
             ->setTemplatePath('admin/components/tags.html.twig')
-            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->addWebpackEncoreEntries('admin_form_override_select')
             ->setColumns('col-md-6')
         ;
 
         yield FormField::addPanel('admin.crud.section.content');
         yield CodeEditorField::new('content', 'admin.crud.article.column.content')
             ->setTemplatePath('admin/components/markdown.html.twig')
-            ->addWebpackEncoreEntries('style_markdown', 'style_fonts', 'style_variables')
+            ->addWebpackEncoreEntries('module_markdown', 'style_fonts', 'style_variables')
             ->addCssClass('markdown-style')
             ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
             ->onlyOnDetail();

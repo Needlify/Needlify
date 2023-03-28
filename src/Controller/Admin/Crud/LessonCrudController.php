@@ -96,14 +96,14 @@ class LessonCrudController extends AbstractCrudController
         yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('course', 'admin.crud.lesson.column.course')
             ->setRequired(false)
-            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->addWebpackEncoreEntries('admin_form_override_select')
             ->setColumns('col-12')
         ;
 
         yield FormField::addPanel('admin.crud.section.content');
         yield CodeEditorField::new('content', 'admin.crud.lesson.column.content')
             ->setTemplatePath('admin/components/markdown.html.twig')
-            ->addWebpackEncoreEntries('style_markdown', 'style_fonts', 'style_variables')
+            ->addWebpackEncoreEntries('module_markdown', 'style_fonts', 'style_variables')
             ->addCssClass('markdown-style')
             ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
             ->onlyOnDetail();
