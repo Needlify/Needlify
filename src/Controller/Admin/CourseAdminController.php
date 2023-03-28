@@ -12,17 +12,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Course;
-use Symfony\Component\Uid\Uuid;
-use App\Service\Admin\CourseLinker;
-use App\Repository\LessonRepository;
+use App\Service\Course\CourseLinker;
+use App\Service\Course\CourseFormHandler;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use App\Controller\Admin\Crud\CourseCrudController;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin')]
@@ -32,33 +29,16 @@ class CourseAdminController extends AbstractController
     public function sortLesson(
         Course $course,
         Request $request,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        TranslatorInterface $trans,
-        LessonRepository $lessonRepository,
         AdminUrlGenerator $adminUrlGenerator,
         CourseLinker $courseLinker,
+        CourseFormHandler $courseFormHandler
     ) {
         if ('GET' === $request->getMethod()) {
             return $this->render('admin/course/course_sort_form.html.twig', [
                 'course' => $course,
             ]);
         } else {
-            $csrf = $request->request->get('_csrf_token', '');
-            $sort = explode(',', $request->request->get('sort', ''));
-            $button = $request->request->get('button-submit', '');
-
-            $errors = [];
-
-            $token = new CsrfToken('admin_sort_lesson', $csrf);
-            if (!$csrfTokenManager->isTokenValid($token)) {
-                $errors[] = $trans->trans('csrf', domain: 'admin');
-            }
-
-            foreach ($sort as $id) {
-                if (!$lessonRepository->lessonExists(Uuid::fromRfc4122($id))) {
-                    $errors[] = $trans->trans('csrf', domain: 'admin');
-                }
-            }
+            $errors = $courseFormHandler->validateFormRequest($request);
 
             if (count($errors) > 0) {
                 return $this->render('admin/course/course_sort_form.html.twig', [
@@ -67,9 +47,11 @@ class CourseAdminController extends AbstractController
                 ]);
             }
 
-            $courseLinker->link($sort);
+            $order = explode(',', $request->request->get('sort'));
+            $courseLinker->link($order);
 
-            if ('saveAndContinue' === $button) {
+            $button = $request->request->get('button-submit');
+            if (Action::SAVE_AND_CONTINUE === $button) {
                 $targetUrl = $adminUrlGenerator
                     ->setRoute('admin_course_sort', ['id' => $course->getId()->toRfc4122()])
                     ->generateUrl();

@@ -28,14 +28,14 @@
 		<div class="page-actions">
 
 			{% if course.lessons|length > 0 %}
-				<button class="btn btn-secondary action-save" type="submit" name="button-submit" value="saveAndContinue" form="sort-form">
+				<button class="btn btn-secondary action-save" type="submit" name="button-submit" value="{{constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::SAVE_AND_CONTINUE')}}" form="sort-form">
 					<span class="btn-label">
 						<i class="action-icon far fa-edit"></i>
 						<span class="action-label">{{"admin.custom.course_form.actions.save_and_continue" | trans}}</span>
 					</span>
 				</button>
 
-				<button class="btn btn-primary action-save" type="submit" name="button-submit" value="saveAndReturn" form="sort-form">
+				<button class="btn btn-primary action-save" type="submit" name="button-submit" value="{{constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::SAVE_AND_RETURN')}}" form="sort-form">
 					<span class="btn-label">
 						<span class="action-label">{{"admin.custom.course_form.actions.save_and_return" | trans}}</span>
 					</span>

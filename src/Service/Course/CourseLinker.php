@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace App\Service\Admin;
+namespace App\Service\Course;
 
 use App\Repository\LessonRepository;
 use Doctrine\ORM\EntityManagerInterface;
