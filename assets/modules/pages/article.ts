@@ -2,18 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import slugify from "slugify";
+import { wrap } from "../../functions/dom";
 
 import "../../styles/pages/article.scss";
 
-/* Wrap images into an anchor tag */
-
-function wrap(el, wrapper) {
-    el.parentNode.insertBefore(wrapper, el);
-    wrapper.appendChild(el);
-}
-
 /* Table of content */
-
 const headings = document.querySelectorAll<HTMLHeadingElement>("#content-container :is(h1, h2, h3, h4, h5, h6)");
 
 if (headings.length > 0) {
