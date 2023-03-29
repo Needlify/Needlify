@@ -4,7 +4,7 @@
 import slugify from "slugify";
 import { wrap } from "../../functions/dom";
 
-import "../../styles/pages/article.scss";
+import "../../styles/pages/document.scss";
 
 /* Table of content */
 const headings = document.querySelectorAll<HTMLHeadingElement>("#content-container :is(h1, h2, h3, h4, h5, h6)");

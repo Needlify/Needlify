@@ -93,6 +93,7 @@
         overflow: hidden;
         line-height: 28px;
         position: relative;
+        margin: 1em 0;
 
         @include maxWidth(600px) {
             line-height: 24px;

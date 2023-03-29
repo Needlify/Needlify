@@ -132,11 +132,11 @@ class Course extends Document implements ThreadInterface
 
     public function getFirstLesson(): ?Lesson
     {
-        return $this->lessons->filter(fn (Lesson $lesson) => null === $lesson->getPrevious())->first();
+        return $this->lessons->filter(fn (Lesson $lesson) => null === $lesson->getPrevious())->first() ?: null;
     }
 
     public function getLastLesson(): ?Lesson
     {
-        return $this->lessons->filter(fn (Lesson $lesson) => null === $lesson->getNext())->first();
+        return $this->lessons->filter(fn (Lesson $lesson) => null === $lesson->getNext())->first() ?: null;
     }
 }

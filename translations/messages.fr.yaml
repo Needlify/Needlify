@@ -14,9 +14,9 @@ layout.footer.rights: "Tous droits réservé"
 
 feed.title: "Fil d'actualités"
 
-article.info.time_to_read: "min de lecture"
-article.content.table_of_content: "Table des matières"
-article.content.license: "Cette œuvre est mise à disposition selon les termes de la licence"
+document.info.time_to_read: "min de lecture"
+document.content.table_of_content: "Table des matières"
+document.content.license: "Cette œuvre est mise à disposition selon les termes de la licence"
 
 legal.legal.title: "Textes légaux"
 

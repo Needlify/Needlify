@@ -14,9 +14,9 @@ layout.footer.rights: "All rights reserved"
 
 feed.title: "Timeline"
 
-article.info.time_to_read: "min to read"
-article.content.table_of_content: "Table of content"
-article.content.license: "This work is made available under the terms of the license"
+document.info.time_to_read: "min to read"
+document.content.table_of_content: "Table of content"
+document.content.license: "This work is made available under the terms of the license"
 
 legal.legal.title: "Legal texts"
 

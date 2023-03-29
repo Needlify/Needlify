@@ -1,0 +1,9 @@
+@import "../mixins.scss";
+
+#document-container {
+    #course-title {
+        margin-top: 20px;
+        color: var(--text);
+        font-family: Jakarta;
+    }
+}

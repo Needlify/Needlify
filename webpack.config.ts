@@ -47,6 +47,8 @@ Encore.setOutputPath("public/build/")
         /* Page Style */
         page_feed: "./assets/styles/pages/feed.scss",
         page_classifier: "./assets/styles/pages/classifier.scss",
+        page_article: "./assets/styles/pages/article.scss",
+        page_course: "./assets/styles/pages/course.scss",
         page_login: "./assets/styles/pages/login.scss",
         page_newsletter_register: "./assets/styles/pages/newsletter/register.scss",
         page_newsletter_pending: "./assets/styles/pages/newsletter/pending.scss",
@@ -54,8 +56,11 @@ Encore.setOutputPath("public/build/")
         page_newsletter_unsubscribed: "./assets/styles/pages/newsletter/unsubscribed.scss",
         page_legal: "./assets/styles/pages/legal.scss",
 
+        /* Partials Styles */
+        partial_course_navigation: "./assets/styles/partials/_course_navigation.scss",
+
         /* Page Modules */
-        module_page_article: "./assets/modules/pages/article.ts",
+        module_page_document: "./assets/modules/pages/document.ts",
         module_page_privacy: "./assets/modules/pages/privacy.js",
 
         /* Plugins */

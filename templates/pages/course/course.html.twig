@@ -1,18 +1,28 @@
 {% extends "layout.html.twig" %}
 
+{% set course = learningElement is instance_of('App\\Entity\\Course') ? learningElement : learningElement.course %}
+
 {% block title %}
-	{{ course.title }}
+	{% if learningElement is instance_of('App\\Entity\\Course') %}
+		{{ course.title }}
+	{% else %}
+		{{learningElement.title}}
+		-
+		{{course.title}}
+	{% endif %}
 {% endblock title %}
 
 {% block stylesheets %}
-	{{ encore_entry_link_tags("module_page_article") }}
+	{{ encore_entry_link_tags("module_page_document") }}
 	{{ encore_entry_link_tags("module_markdown") }}
 	{{ encore_entry_link_tags("component_twig_spinner") }}
 	{{ encore_entry_link_tags("component_twig_tag") }}
+	{{ encore_entry_link_tags("partial_course_navigation") }}
+	{{ encore_entry_link_tags("page_course") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
-	{{ encore_entry_script_tags("module_page_article") }}
+	{{ encore_entry_script_tags("module_page_document") }}
 	{{ encore_entry_script_tags("module_markdown") }}
 {% endblock javascripts %}
 
@@ -21,7 +31,7 @@
 {% endblock og_type %}
 
 {% block og_description %}
-	{{ course.description }}
+	{{ learningElement.description }}
 {% endblock og_description %}
 
 {% block og_keywords %}
@@ -29,7 +39,7 @@
 {% endblock og_keywords %}
 
 {% block body %}
-	<article id="article-container">
+	<article id="document-container">
 		<div id="topic-container">
 			<a id="topic" href="{{ url("app_topic", { slug: course.topic.slug }) }}">
 				<i data-feather="tag" width="14px" height="14px" stroke-width="3px"></i>
@@ -37,12 +47,12 @@
 			</a>
 		</div>
 
-		<h1 id="article-title">
-			{{ course.title }}
+		<h1 id="document-title">
+			{{ learningElement.title }}
 		</h1>
 
 		<div id="info">
-			<span id="date">{{ course.publishedAt|date("F j, Y") }}</span>
+			<span id="date">{{ learningElement.publishedAt|date("F j, Y") }}</span>
 			<span class="dot">•</span>
 			<span id="author">
 				<i data-feather="user" width="16px" height="16px" stroke-width="2px"></i>
@@ -50,15 +60,15 @@
 			</span>
 			<span class="dot">•</span>
 			<span id="time-to-read">
-				{{ course.content|time_to_read }}
-				{{ "article.info.time_to_read"|trans }}
+				{{ learningElement.content|time_to_read }}
+				{{ "document.info.time_to_read"|trans }}
 			</span>
 		</div>
 
 		<section id="content-wrapper">
 			<nav id="toc-container">
 				<h3 id="toc-title">
-					{{ "article.content.table_of_content"|trans }}
+					{{ "document.content.table_of_content"|trans }}
 
 					<div id="spinner">
 						{{ component("spinner", { color: "#8a9399", borderWidth: "2px", size: "16px" }) }}
@@ -67,7 +77,7 @@
 				<div id="toc"></div>
 			</nav>
 			<div id="content-container" class="markdown-style">
-				{{ course.content|markdown|raw }}
+				{{ learningElement.content|markdown|raw }}
 			</div>
 
 			{% if (course.tags|length) > 0 %}
@@ -79,15 +89,21 @@
 			{% endif %}
 
 			{% if course.license %}
-				<hr class="tag-license-separator"/>
-
 				<div id="license">
-					{{ "article.content.license"|trans }}
+					{{ "document.content.license"|trans }}
 					<a target="_blank" rel="license" id="license-image-link" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
 						<img alt="Licence Creative Commons" width="80" height="15" src="{{ asset("images/licence.png") }}"/>
 					</a>
 				</div>
 			{% endif %}
 		</section>
+
+		<hr class="tag-license-separator"/>
+
+		{% include 'partials/_course_navigation.html.twig' with {
+            'learningElement': learningElement
+        } %}
+
 	</article>
+
 {% endblock body %}
