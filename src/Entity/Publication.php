@@ -19,12 +19,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
-#[ORM\InheritanceType('JOINED')]
-#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
-#[ORM\DiscriminatorMap([
-    Moodline::class => Moodline::class,
-    Document::class => Document::class,
-])]
 #[ORM\HasLifecycleCallbacks]
 abstract class Publication extends Thread
 {

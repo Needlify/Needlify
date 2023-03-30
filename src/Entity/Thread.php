@@ -27,6 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     Article::class => Article::class,
     Moodline::class => Moodline::class,
     Event::class => Event::class,
+    Course::class => Course::class,
 ])]
 abstract class Thread
 {
@@ -54,11 +55,6 @@ abstract class Thread
     public function getPublishedAt(): ?\DateTimeImmutable
     {
         return $this->publishedAt;
-    }
-
-    public function getPublishedAtToISO8601(): string
-    {
-        return $this->publishedAt->format(\DateTimeImmutable::ATOM);
     }
 
     #[ORM\PrePersist]

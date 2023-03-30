@@ -22,11 +22,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use function Symfony\Component\String\u;
 
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
-#[ORM\InheritanceType('JOINED')]
-#[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
-#[ORM\DiscriminatorMap([
-    Article::class => Article::class,
-])]
 #[ORM\HasLifecycleCallbacks]
 abstract class Document extends Publication
 {

@@ -48,7 +48,7 @@ class MoodlineCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $this->defaultThreadCrudConfiguration($crud)
-            ->setSearchFields(['content', 'topic.name', 'tags.name', 'author.username', 'author.email'])
+            ->setSearchFields(['content', 'topic.name', 'tags.name', 'author.username'])
             ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.moodline.index.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.moodline.new.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.moodline.edit.title', [], 'admin'))
@@ -76,25 +76,23 @@ class MoodlineCrudController extends AbstractCrudController
         yield TextEditorField::new('content', 'admin.crud.moodline.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setColumns(12)
-            ->addWebpackEncoreEntries('admin_trix_default', 'admin_trix_onlyText')
+            ->addWebpackEncoreEntries('admin_editor_trix_default', 'admin_editor_trix_onlyText')
             ->formatValue(fn (string $value) => $value);
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('publishedAt', 'admin.crud.moodline.column.published_at')
-            // ->setTimezone('UTC')
             ->hideOnForm();
         yield DateTimeField::new('updatedAt', 'admin.crud.moodline.column.updated_at')
-            // ->setTimezone('UTC')
             ->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('topic', 'admin.crud.moodline.column.topic')
             ->setRequired(true)
-            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->addWebpackEncoreEntries('admin_form_override_select')
             ->setColumns('col-md-6');
         yield AssociationField::new('tags', 'admin.crud.moodline.column.tags')
             ->setTemplatePath('admin/components/tags.html.twig')
-            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->addWebpackEncoreEntries('admin_form_override_select')
             ->setColumns('col-md-6');
     }
 

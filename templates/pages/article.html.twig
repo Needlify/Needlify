@@ -5,15 +5,16 @@
 {% endblock title %}
 
 {% block stylesheets %}
+	{{ encore_entry_link_tags("module_page_document") }}
+	{{ encore_entry_link_tags("module_markdown") }}
 	{{ encore_entry_link_tags("page_article") }}
-	{{ encore_entry_link_tags("style_markdown") }}
-	{{ encore_entry_link_tags("style_component_spinner") }}
-	{{ encore_entry_link_tags("style_component_tag") }}
+	{{ encore_entry_link_tags("component_twig_spinner") }}
+	{{ encore_entry_link_tags("component_twig_tag") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
-	{{ encore_entry_script_tags("page_article") }}
-	{{ encore_entry_script_tags("style_markdown") }}
+	{{ encore_entry_script_tags("module_page_document") }}
+	{{ encore_entry_script_tags("module_markdown") }}
 {% endblock javascripts %}
 
 {% block og_type %}
@@ -33,15 +34,15 @@
 {% endblock og_keywords %}
 
 {% block body %}
-	<article id="article-container">
+	<article id="document-container">
 		<div id="topic-container">
 			<a id="topic" href="{{ url("app_topic", { slug: article.topic.slug }) }}">
-				<i data-feather="tag" width="14px" height="14px" stroke-width="3px"></i>
+				<i data-feather="tag" class="icon"></i>
 				<span>{{ article.topic.name }}</span>
 			</a>
 		</div>
 
-		<h1 id="article-title">
+		<h1 id="document-title">
 			{{ article.title }}
 		</h1>
 
@@ -55,7 +56,7 @@
 			<span class="dot">•</span>
 			<span id="time-to-read">
 				{{ article.content|time_to_read }}
-				{{ "article.info.time_to_read"|trans }}
+				{{ "document.info.time_to_read"|trans }}
 			</span>
 		</div>
 
@@ -67,7 +68,7 @@
 		<section id="content-wrapper">
 			<nav id="toc-container">
 				<h3 id="toc-title">
-					{{ "article.content.table_of_content"|trans }}
+					{{ "document.content.table_of_content"|trans }}
 
 					<div id="spinner">
 						{{ component("spinner", { color: "#8a9399", borderWidth: "2px", size: "16px" }) }}
@@ -91,7 +92,7 @@
 				<hr class="tag-license-separator"/>
 
 				<div id="license">
-					{{ "article.content.license"|trans }}
+					{{ "document.content.license"|trans }}
 					<a target="_blank" rel="license" id="license-image-link" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
 						<img alt="Licence Creative Commons" width="80" height="15" src="{{ asset("images/licence.png") }}"/>
 					</a>

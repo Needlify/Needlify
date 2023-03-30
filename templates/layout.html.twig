@@ -58,17 +58,15 @@
 
 		{{ encore_entry_link_tags("style_reset") }}
 		{{ encore_entry_link_tags("style_global") }}
-		{{ encore_entry_link_tags("style_layout") }}
+		{{ encore_entry_link_tags("layout_base") }}
 		{{ encore_entry_link_tags("style_header") }}
 		{{ encore_entry_link_tags("style_footer") }}
-		{{ encore_entry_link_tags("file_swup") }}
-		{{ encore_entry_link_tags("style_component_banner") }}
+		{{ encore_entry_link_tags("component_twig_banner") }}
 
 		{% block stylesheets %}{% endblock stylesheets %}
 
-		{{ encore_entry_script_tags("file_layout") }}
-		{{ encore_entry_script_tags("file_swup") }}
-		{{ encore_entry_script_tags("file_global") }}
+		{{ encore_entry_script_tags("plugin_power_glitch") }}
+		{{ encore_entry_script_tags("plugin_feather") }}
 
 		{% include "analytics/analytics.html.twig" %}
 

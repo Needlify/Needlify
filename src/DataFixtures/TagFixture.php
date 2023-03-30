@@ -21,7 +21,7 @@ class TagFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         Factory::delayFlush(function () {
-            TagFactory::createMany(10);
+            TagFactory::createMany(2);
         });
     }
 }

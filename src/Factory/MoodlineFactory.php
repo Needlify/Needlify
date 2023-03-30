@@ -48,7 +48,7 @@ final class MoodlineFactory extends ModelFactory
         return [
             'content' => self::faker()->text(500),
             'topic' => TopicFactory::random(),
-            'tags' => TagFactory::randomSet(5),
+            'tags' => TagFactory::randomSet(2),
             'author' => UserFactory::random(),
             'private' => false,
         ];

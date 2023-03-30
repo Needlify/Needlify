@@ -52,7 +52,7 @@ final class ArticleFactory extends ModelFactory
             'thumbnail' => 'image.jpg',
             'license' => self::faker()->boolean(),
             'topic' => TopicFactory::random(),
-            'tags' => TagFactory::randomSet(5),
+            'tags' => TagFactory::randomSet(2),
             'author' => UserFactory::random(),
             'private' => false,
         ];

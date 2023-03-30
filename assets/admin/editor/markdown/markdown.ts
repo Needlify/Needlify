@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 import EasyMDE from "easymde";
 import "easymde/dist/easymde.min.css";
-import { ToolbarButton } from "../../../types";
+import { ToolbarButton } from "../../../types/types";
 import "./default.scss";
 
 // Because the EasyMDE did a partial release so the 'upload-image' key doesn't exist on the ToolbarButton type

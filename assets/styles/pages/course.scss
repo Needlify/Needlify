@@ -1,0 +1,44 @@
+@import "../mixins.scss";
+
+#difficulty-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    align-items: center;
+
+    #difficulty {
+        border-width: 1px;
+        border-style: solid;
+        border-radius: 50px;
+        padding: 1px 10px;
+        font-weight: 700;
+        font-size: 14px;
+
+        @include maxWidth(600px) {
+            padding: 1px 8px;
+            font-size: 12px;
+        }
+
+        // Classes must match the value on the enum CourseDifficultyType
+        &.easy {
+            border-color: var(--success);
+            color: var(--text-success);
+            background-color: var(--success-transparent);
+        }
+        &.medium {
+            border-color: var(--primary);
+            color: var(--text-primary);
+            background-color: var(--primary-transparent);
+        }
+        &.hard {
+            border-color: var(--warning);
+            color: var(--text-warning);
+            background-color: var(--warning-transparent);
+        }
+        &.expert {
+            border-color: var(--danger);
+            color: var(--text-danger);
+            background-color: var(--danger-transparent);
+        }
+    }
+}

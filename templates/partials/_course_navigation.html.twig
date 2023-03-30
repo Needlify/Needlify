@@ -1,0 +1,72 @@
+{% set previous = learningElement is instance_of('App\\Entity\\Course') ? null : learningElement.previous %}
+{% set next = learningElement is instance_of('App\\Entity\\Course') ? learningElement.firstLesson : learningElement.next %}
+
+{# Si on est sur la page du cours #}
+{% if learningElement is instance_of('App\\Entity\\Course') %}
+	{% set previousUrl = null %}
+	{% set previousTitle = null %}
+
+	{# Si aucune leçon n'a été publiée #}
+	{% if next != null %}
+		{% set nextUrl = url('app_lesson', {'course_slug': learningElement.slug, 'lesson_slug': next.slug}) %}
+		{% set nextTitle = next.title %}
+	{% else %}
+		{% set nextUrl = null %}
+		{% set nextTitle = null %}
+	{% endif %}
+
+{% else %}
+
+	{# Si on est sur la première leçon d'un cours #}
+	{% if previous == null %}
+		{% set previousUrl = url('app_course', {'slug': learningElement.course.slug}) %}
+		{% set previousTitle = "course.navigation.back_to_course" | trans %}
+	{% elseif previous  != null %}
+		{% set previousUrl = url('app_lesson', {'course_slug': learningElement.course.slug, 'lesson_slug': previous.slug}) %}
+		{% set previousTitle = previous.title %}
+	{% endif %}
+
+	{# Si on est sur la dernière leçon d'un cours #}
+	{% if next == null %}
+		{% set nextUrl = null %}
+		{% set nextTitle = null %}
+	{% elseif next  != null %}
+		{% set nextUrl = url('app_lesson', {'course_slug': learningElement.course.slug, 'lesson_slug': next.slug}) %}
+		{% set nextTitle = next.title %}
+	{% endif %}
+
+{% endif %}
+
+
+{% if previousUrl != null and nextUrl != null %}
+	{% set containerClass = "both" %}
+{% elseif previousUrl != null and nextUrl == null %}
+	{% set containerClass = "left" %}
+{% elseif previousUrl == null and nextUrl != null %}
+	{% set containerClass = "right" %}
+{% else %}
+	{% set containerClass = "" %}
+{% endif %}
+
+
+<nav id="lesson-links" class="{{containerClass}}">
+	{% if previousUrl != null %}
+		<a href="{{previousUrl}}" id="previous" class="navigation-link">
+			<span class="navigation-indicator">
+				<i data-feather="chevron-left" class="icon"></i>
+				{{"course.navigation.previous" | trans}}
+			</span>
+			<span class="title">{{ previousTitle }}</span>
+		</a>
+	{% endif %}
+
+	{% if nextUrl != null %}
+		<a href="{{nextUrl}}" id="next" class="navigation-link">
+			<span class="navigation-indicator">
+				{{"course.navigation.next" | trans}}
+				<i data-feather="chevron-right" class="icon"></i>
+			</span>
+			<span class="title">{{nextTitle}}</span>
+		</a>
+	{% endif %}
+</nav>

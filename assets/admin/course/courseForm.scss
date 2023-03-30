@@ -1,0 +1,48 @@
+#sort-body {
+    h2.subtitle {
+        margin: 16px 0 25px 0;
+        font-size: 20px;
+    }
+
+    #sort-lessons-ul {
+        user-select: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: flex;
+            align-items: center;
+            background-color: var(--sidebar-bg);
+            border: 2px solid var(--sidebar-border-color);
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            column-gap: 10px;
+
+            .handler {
+                flex-grow: 0;
+                flex-shrink: 0;
+            }
+
+            .text {
+                min-width: 0;
+
+                h6.lesson-title {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                p.lesson-description {
+                    margin: 0;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    display: -webkit-box !important;
+                    -webkit-box-orient: vertical;
+                    white-space: normal;
+                    -webkit-line-clamp: 4;
+                }
+            }
+        }
+    }
+}

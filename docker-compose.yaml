@@ -47,8 +47,9 @@ services:
             - dev
         depends_on:
             - database
-    
+
     matomo:
+        restart: always
         networks:
             - dev
         image: matomo
