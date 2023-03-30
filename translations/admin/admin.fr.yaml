@@ -16,7 +16,7 @@ admin.dashboard.cards.lessons: "{0,1}Leçon|]1,Inf]Leçons"
 
 admin.sidebar.overview: "Vue d'ensemble"
 admin.sidebar.home: "Fil d'actualité"
-admin.sidebar.section.course: "Cours"
+admin.sidebar.section.course: "Formations"
 admin.sidebar.section.course.courses: "Cours"
 admin.sidebar.section.course.lessons: "Leçons"
 admin.sidebar.section.publication: "Publications"
