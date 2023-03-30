@@ -53,7 +53,7 @@ class LessonCrudController extends AbstractCrudController
         return $crud
             ->setDateTimeFormat('d LLL yyyy HH:mm:ss ZZZZ')
             ->setDefaultSort(['publishedAt' => 'DESC'])
-            ->setSearchFields(['title', 'content'])
+            ->setSearchFields(['title', 'content', 'description', 'course.title'])
             ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.lesson.index.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.lesson.new.title', [], 'admin'))
             ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.lesson.edit.title', [], 'admin'))
