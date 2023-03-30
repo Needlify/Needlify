@@ -185,3 +185,7 @@ legal.terms.text: |
     <h2>Limitation of liability</h2>
     <p>This platform will not be held responsible for any damage caused by misuse of this platform.</p>
     <p>This platform reserves the right to modify this text at any time. You will be informed at the appropriate time</p>
+
+course.navigation.next: "Next"
+course.navigation.previous: "Previous"
+course.navigation.back_to_course: "Back to course"

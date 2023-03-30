@@ -20,7 +20,7 @@
 	{# Si on est sur la première leçon d'un cours #}
 	{% if previous == null %}
 		{% set previousUrl = url('app_course', {'slug': learningElement.course.slug}) %}
-		{% set previousTitle = "Back to course" %}
+		{% set previousTitle = "course.navigation.back_to_course" | trans %}
 	{% elseif previous  != null %}
 		{% set previousUrl = url('app_lesson', {'course_slug': learningElement.course.slug, 'lesson_slug': previous.slug}) %}
 		{% set previousTitle = previous.title %}
@@ -54,7 +54,7 @@
 		<a href="{{previousUrl}}" id="previous" class="navigation-link">
 			<span class="navigation-indicator">
 				<i data-feather="chevron-left" class="icon"></i>
-				Previous
+				{{"course.navigation.previous" | trans}}
 			</span>
 			<span class="title">{{ previousTitle }}</span>
 		</a>
@@ -63,7 +63,7 @@
 	{% if nextUrl != null %}
 		<a href="{{nextUrl}}" id="next" class="navigation-link">
 			<span class="navigation-indicator">
-				Next
+				{{"course.navigation.next" | trans}}
 				<i data-feather="chevron-right" class="icon"></i>
 			</span>
 			<span class="title">{{nextTitle}}</span>
