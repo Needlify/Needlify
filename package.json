@@ -11,9 +11,6 @@
         "test:watch": "vitest",
         "test:ui": "vitest --ui",
         "watch": "encore dev --watch",
-        "story:dev": "histoire dev",
-        "story:build": "histoire build",
-        "story:preview": "histoire preview",
         "prepare": "husky install"
     },
     "devDependencies": {
