@@ -105,7 +105,6 @@ class CourseCrudController extends AbstractCrudController
             ->setFormType(EnumType::class)
             ->setFormTypeOptions([
                 'class' => CourseDifficultyType::class,
-                'data' => CourseDifficultyType::EASY,
             ])
             ->setColumns('col-md-12')
             ->onlyOnForms()
@@ -158,7 +157,7 @@ class CourseCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $sortLessons = Action::new('sortLessons', 'Sort lessons')
+        $sortLessons = Action::new('sortLessons', 'admin.crud.action.sort_lessons')
             ->linkToRoute('admin_course_sort', fn (Course $course) => ['id' => $course->getId()->toRfc4122()]);
 
         $goToAction = Action::new('goTo', 'admin.crud.action.view_course')

@@ -41,7 +41,7 @@ class CourseController extends AbstractController
         $this->em->persist($course);
         $this->em->flush();
 
-        return $this->render('pages/course/course.html.twig', [
+        return $this->render('pages/course.html.twig', [
             'learningElement' => $course,
         ]);
     }
@@ -62,7 +62,7 @@ class CourseController extends AbstractController
         $this->em->persist($lesson);
         $this->em->flush();
 
-        return $this->render('pages/course/course.html.twig', [
+        return $this->render('pages/course.html.twig', [
             'learningElement' => $lesson,
         ]);
     }

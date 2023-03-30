@@ -189,3 +189,10 @@ legal.terms.text: |
 course.navigation.next: "Suivant"
 course.navigation.previous: "Précédent"
 course.navigation.back_to_course: "Retourner au cours"
+
+course.difficulty.title: "Niveau de difficulté"
+# la clé de la difficulté soit correspondre à l'enum CourseDifficultyType
+course.difficulty.easy: "Facile"
+course.difficulty.medium: "Intermédiaire"
+course.difficulty.hard: "Difficile"
+course.difficulty.expert: "Expert"

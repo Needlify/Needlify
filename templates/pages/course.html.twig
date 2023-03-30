@@ -18,6 +18,7 @@
 	{{ encore_entry_link_tags("component_twig_spinner") }}
 	{{ encore_entry_link_tags("component_twig_tag") }}
 	{{ encore_entry_link_tags("partial_course_navigation") }}
+	{{ encore_entry_link_tags("page_course") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
@@ -41,7 +42,7 @@
 	<article id="document-container">
 		<div id="topic-container">
 			<a id="topic" href="{{ url("app_topic", { slug: course.topic.slug }) }}">
-				<i data-feather="tag" width="14px" height="14px" stroke-width="3px"></i>
+				<i data-feather="tag" class="icon"></i>
 				<span>{{ course.topic.name }}</span>
 			</a>
 		</div>
@@ -64,6 +65,10 @@
 			</span>
 		</div>
 
+		<div id="difficulty-container">
+			<span id="difficulty" class="{{course.difficulty.value}}">{{("course.difficulty." ~ course.difficulty.value) | trans}}</span>
+		</div>
+
 		<section id="content-wrapper">
 			<nav id="toc-container">
 				<h3 id="toc-title">
@@ -75,6 +80,8 @@
 				</h3>
 				<div id="toc"></div>
 			</nav>
+
+
 			<div id="content-container" class="markdown-style">
 				{{ learningElement.content|markdown|raw }}
 			</div>

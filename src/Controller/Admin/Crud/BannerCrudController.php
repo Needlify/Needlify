@@ -85,7 +85,6 @@ class BannerCrudController extends AbstractCrudController
             ->setFormType(EnumType::class)
             ->setFormTypeOptions([
                 'class' => BannerType::class,
-                'data' => BannerType::INFO,
             ])
             ->setColumns('col-md-6')
             ->onlyOnForms()

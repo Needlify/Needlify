@@ -38,6 +38,7 @@ admin.crud.action.view_article: "Voir la page de l'article"
 admin.crud.action.details: "Détails"
 admin.crud.action.view_course: "Voir la page du cours"
 admin.crud.action.view_lesson: "Voir la page de la leçon"
+admin.crud.action.sort_lessons: "Ordonner les leçons"
 
 admin.crud.section.essential: "Informations essentielles"
 admin.crud.section.dates: "Détails des dates"
