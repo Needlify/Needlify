@@ -51,7 +51,7 @@ class CourseController extends AbstractController
     #[ParamConverter('lesson', options: ['mapping' => ['lesson_slug' => 'slug']])]
     public function lesson(Course $course, Lesson $lesson): Response
     {
-        if ($course->isPrivate() || $lesson->isPrivate()) {
+        if ($course->isPrivate() || $lesson->isPrivate() || $lesson->getCourse() !== $course) {
             throw ExceptionFactory::throw(NotFoundHttpException::class, ExceptionCode::RESSOURCE_NOT_FOUND, 'This ressource is not accessible');
         }
 
