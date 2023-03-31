@@ -51,6 +51,16 @@ class LessonRepository extends ServiceEntityRepository implements DashboardRepos
         }
     }
 
+    public function findAvailableLessons()
+    {
+        return $this->createQueryBuilder('l')
+            ->join('l.course', 'c')
+            ->where('l.private = 0')
+            ->andWhere('c.private = 0')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function countAll(): int
     {
         return $this->createQueryBuilder('l')

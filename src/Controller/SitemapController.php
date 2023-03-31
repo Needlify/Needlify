@@ -13,6 +13,8 @@ namespace App\Controller;
 
 use App\Repository\TagRepository;
 use App\Repository\TopicRepository;
+use App\Repository\CourseRepository;
+use App\Repository\LessonRepository;
 use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +28,8 @@ class SitemapController extends AbstractController
         ArticleRepository $articleRepository,
         TopicRepository $topicRepository,
         TagRepository $tagRepository,
+        CourseRepository $courseRepository,
+        LessonRepository $lessonRepository
     ): Response {
         $urls = [];
 
@@ -77,6 +81,37 @@ class SitemapController extends AbstractController
                     UrlGeneratorInterface::ABSOLUTE_URL
                 ),
                 'lastmod' => $article->getUpdatedAt()->format('Y-m-d'),
+                'changefreq' => 'monthly',
+                'priority' => '1.0',
+            ];
+        }
+
+        // Course
+        foreach ($courseRepository->findBy(['private' => false]) as $course) {
+            $urls[] = [
+                'loc' => $this->generateUrl(
+                    'app_course',
+                    ['slug' => $course->getSlug()],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                ),
+                'lastmod' => $course->getUpdatedAt()->format('Y-m-d'),
+                'changefreq' => 'monthly',
+                'priority' => '1.0',
+            ];
+        }
+
+        // Lesson
+        foreach ($lessonRepository->findAvailableLessons() as $lesson) {
+            $urls[] = [
+                'loc' => $this->generateUrl(
+                    'app_lesson',
+                    [
+                        'course_slug' => $lesson->getCourse()->getSlug(),
+                        'lesson_slug' => $lesson->getSlug(),
+                    ],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                ),
+                'lastmod' => $lesson->getUpdatedAt()->format('Y-m-d'),
                 'changefreq' => 'monthly',
                 'priority' => '1.0',
             ];
