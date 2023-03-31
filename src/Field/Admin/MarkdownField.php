@@ -27,7 +27,7 @@ final class MarkdownField implements FieldInterface
             ->setFormType(TextareaType::class)
             ->setFormTypeOption('attr.class', 'field-markdown-editor-textarea')
             ->addCssClass('field-markdown-editor')
-            ->addWebpackEncoreEntries('admin_markdown_default')
+            ->addWebpackEncoreEntries('admin_editor_markdown_default')
         ;
     }
 }

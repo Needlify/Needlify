@@ -1,0 +1,83 @@
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% trans_default_domain "admin" %}
+
+{# Let\'s remove/empty the header #}
+{% block content_header_wrapper %}{% endblock content_header_wrapper %}
+
+{% block page_title %}
+	{{"admin.custom.course_form.title" | trans}}
+{% endblock %}
+
+
+{% block configured_javascripts %}
+	{{parent()}}
+	{{ encore_entry_script_tags("admin_page_course_form") }}
+{% endblock %}
+{% block configured_stylesheets %}
+	{{parent()}}
+	{{ encore_entry_link_tags("admin_page_course_form") }}
+{% endblock %}
+
+
+{% block main %}
+	<section class="content-header">
+		<div class="content-header-title">
+			<h1 class="title">{{"admin.custom.course_form.title" | trans}}</h1>
+		</div>
+		<div class="page-actions">
+
+			{% if course.lessons|length > 0 %}
+				<button class="btn btn-secondary action-save" type="submit" name="button-submit" value="{{constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::SAVE_AND_CONTINUE')}}" form="sort-form">
+					<span class="btn-label">
+						<i class="action-icon far fa-edit"></i>
+						<span class="action-label">{{"admin.custom.course_form.actions.save_and_continue" | trans}}</span>
+					</span>
+				</button>
+
+				<button class="btn btn-primary action-save" type="submit" name="button-submit" value="{{constant('EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::SAVE_AND_RETURN')}}" form="sort-form">
+					<span class="btn-label">
+						<span class="action-label">{{"admin.custom.course_form.actions.save_and_return" | trans}}</span>
+					</span>
+				</button>
+			{% endif %}
+		</div>
+	</section>
+
+
+	<section id="sort-body" class="content-body">
+		<h2 class="subtitle">{{course.title}}</h2>
+
+		{% if errors is defined and errors|length > 0 %}
+			<div class="global-invalid-feedback invalid-feedback d-block mb-3">
+				{{ errors[0] }}
+			</div>
+		{% endif %}
+
+		{% if course.lessons|length > 0 %}
+			<ul id="sort-lessons-ul">
+				{% for lesson in course.orderedLessons %}
+					<li data-id="{{lesson.id}}" class="draggable-item">
+						<i data-feather="more-vertical" class="handler"></i>
+						<div class="text">
+							<h6 class="lesson-title">{{lesson.title}}</h6>
+							<p class="lesson-description">{{lesson.description}}</p>
+						</div>
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p>{{"admin.custom.course_form.empty" | trans}}</p>
+		{% endif %}
+
+		<form
+			method="POST" id="sort-form">
+			<!-- Value is set in the sort.ts file -->
+			<input type="hidden" name="sort" value="">
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token("admin_sort_lesson") }}"/>
+		</form>
+
+	</section>
+{% endblock main %}
+
+{% block content_footer_wrapper %}{% endblock content_footer_wrapper %}

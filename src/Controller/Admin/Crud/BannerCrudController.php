@@ -85,7 +85,6 @@ class BannerCrudController extends AbstractCrudController
             ->setFormType(EnumType::class)
             ->setFormTypeOptions([
                 'class' => BannerType::class,
-                'data' => BannerType::INFO,
             ])
             ->setColumns('col-md-6')
             ->onlyOnForms()
@@ -110,7 +109,7 @@ class BannerCrudController extends AbstractCrudController
         yield TextEditorField::new('content', 'admin.crud.banner.column.content')
             ->setTrixEditorConfig(TrixEditorConfiguratorService::DEFAULT_TRIX_CONFIGURATION)
             ->setColumns(12)
-            ->addWebpackEncoreEntries('admin_trix_default', 'admin_trix_onlyText')
+            ->addWebpackEncoreEntries('admin_editor_trix_default', 'admin_editor_trix_onlyText')
             ->formatValue(fn (string $value) => $value) // To render content as html rather than just text
         ;
         yield UrlField::new('link', 'admin.crud.banner.column.link')
@@ -120,14 +119,12 @@ class BannerCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.dates');
         yield DateTimeField::new('startedAt', 'admin.crud.banner.column.started_at')
-            // ->setTimezone('UTC')
             ->setColumns('col-md-6')
             ->setFormTypeOptions([
                 'with_seconds' => false,
                 'attr.class' => 'w-100',
             ]);
         yield DateTimeField::new('endedAt', 'admin.crud.banner.column.ended_at')
-            // ->setTimezone('UTC')
             ->setColumns('col-md-6')
             ->setFormTypeOptions([
                 'with_seconds' => false,

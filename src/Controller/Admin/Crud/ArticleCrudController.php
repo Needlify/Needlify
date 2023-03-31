@@ -15,7 +15,6 @@ use App\Entity\Article;
 use App\Field\Admin\MarkdownField;
 use App\Service\ImageResizerService;
 use App\Trait\Admin\Crud\ThreadCrudTrait;
-use App\Trait\Admin\Crud\ContentCrudTrait;
 use App\Service\Parsedown\ParsedownFactory;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -38,16 +37,17 @@ use EasyCorp\Bundle\EasyAdminBundle\Filter\NumericFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CodeEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class ArticleCrudController extends AbstractCrudController
 {
     use ThreadCrudTrait;
-    use ContentCrudTrait;
 
     public function __construct(
         private ImageResizerService $imageResizerService,
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
+        private UrlGeneratorInterface $urlGenerator
     ) {
     }
 
@@ -63,7 +63,7 @@ class ArticleCrudController extends AbstractCrudController
                         newFormOptions: ['validation_groups' => ['Default', 'admin:form:new']],
                         editFormOptions: ['validation_groups' => ['Default', 'admin:form:edit']]
                     )
-                    ->setSearchFields(['title', 'description', 'topic.name', 'tags.name', 'content', 'author.username', 'author.email'])
+                    ->setSearchFields(['title', 'description', 'topic.name', 'tags.name', 'content', 'author.username'])
                     ->setPageTitle(Crud::PAGE_INDEX, $this->translator->trans('admin.crud.article.index.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_NEW, $this->translator->trans('admin.crud.article.new.title', [], 'admin'))
                     ->setPageTitle(Crud::PAGE_EDIT, $this->translator->trans('admin.crud.article.edit.title', [], 'admin'))
@@ -101,7 +101,7 @@ class ArticleCrudController extends AbstractCrudController
         yield IntegerField::new('popularity', 'admin.crud.article.column.popularity')->hideOnForm();
         yield TextField::new('thumbnailFile', 'admin.crud.article.column.thumbnail')
             ->setFormType(VichImageType::class)
-            ->addWebpackEncoreEntries('admin_thumbnail')
+            ->addWebpackEncoreEntries('admin_form_override_thumbnail')
             ->onlyOnForms();
         yield ImageField::new('thumbnail', 'admin.crud.article.column.thumbnail')
             ->formatValue(fn (string $value) => $this->imageResizerService->resize($value, 500, 200))
@@ -115,30 +115,26 @@ class ArticleCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('publishedAt', 'admin.crud.article.column.published_at')
-            // ->setTimezone('UTC')
             ->hideOnForm();
         yield DateTimeField::new('updatedAt', 'admin.crud.article.column.updated_at')
-            // ->setTimezone('UTC')
             ->onlyOnDetail();
 
         yield FormField::addPanel('admin.crud.section.associations');
         yield AssociationField::new('topic', 'admin.crud.article.column.topic')
             ->setRequired(true)
-            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->addWebpackEncoreEntries('admin_form_override_select')
             ->setColumns('col-md-6')
-            // ->autocomplete() // Pour le moment, cette feature est buggy
         ;
         yield AssociationField::new('tags', 'admin.crud.article.column.tags')
             ->setTemplatePath('admin/components/tags.html.twig')
-            ->addWebpackEncoreEntries('admin_select_dropdown')
+            ->addWebpackEncoreEntries('admin_form_override_select')
             ->setColumns('col-md-6')
-            // ->autocomplete() // Pour le moment, cette feature est buggy
         ;
 
         yield FormField::addPanel('admin.crud.section.content');
         yield CodeEditorField::new('content', 'admin.crud.article.column.content')
             ->setTemplatePath('admin/components/markdown.html.twig')
-            ->addWebpackEncoreEntries('style_markdown', 'style_fonts', 'style_variables')
+            ->addWebpackEncoreEntries('module_markdown', 'style_fonts', 'style_variables')
             ->addCssClass('markdown-style')
             ->formatValue(fn (string $value) => ParsedownFactory::create()->text($value))
             ->onlyOnDetail();
@@ -147,8 +143,16 @@ class ArticleCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $actions->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.article.actions.create'));
+        $goToAction = Action::new('goTo', 'admin.crud.action.view_article')
+            ->linkToUrl(fn (Article $article) => $this->urlGenerator->generate('app_article', ['slug' => $article->getSlug()]))
+            ->displayIf(fn (Article $article) => !$article->isPrivate());
 
-        return $this->defaultContentActionConfiguration($actions, Article::class);
+        $actions
+            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.article.actions.create'))
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
+            ->add(Crud::PAGE_INDEX, $goToAction)
+            ->add(Crud::PAGE_DETAIL, $goToAction);
+
+        return $actions;
     }
 }

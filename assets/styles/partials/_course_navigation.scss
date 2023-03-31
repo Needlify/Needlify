@@ -1,0 +1,73 @@
+@import "../mixins.scss";
+
+#lesson-links {
+    margin-top: 50px;
+    display: flex;
+    flex: 1;
+
+    &.left {
+        justify-content: start;
+    }
+
+    &.right {
+        justify-content: end;
+    }
+
+    &.both {
+        column-gap: 50px;
+        justify-content: space-between;
+
+        @include maxWidth(600px) {
+            column-gap: 30px;
+        }
+    }
+
+    .navigation-link {
+        display: flex;
+        row-gap: 8px;
+        flex-direction: column;
+
+        .navigation-indicator {
+            color: var(--dark-very-soft);
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            column-gap: 6px;
+
+            @include maxWidth(600px) {
+                font-size: 14px;
+            }
+
+            .icon {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        &#next {
+            text-align: end;
+
+            .navigation-indicator {
+                justify-content: end;
+            }
+        }
+
+        &#previous {
+            text-align: start;
+
+            .navigation-indicator {
+                justify-content: start;
+            }
+        }
+
+        .title {
+            line-height: 22px;
+            font-weight: 600;
+
+            @include maxWidth(600px) {
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+    }
+}

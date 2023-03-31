@@ -2,50 +2,38 @@
 {% trans_default_domain "admin" %}
 
 {% block content_title %}
-    {{ "admin.dashboard.title"|trans }}
+	{{ "admin.dashboard.title"|trans }}
 {% endblock content_title %}
 
 {% block page_title %}
-    {{ "admin.dashboard.page_title"|trans }}
+	{{ "admin.dashboard.page_title"|trans }}
 {% endblock page_title %}
 
 {% block page_actions %}
-    <a class="btn btn-secondary"
-        href="{{
-        ea_url().setController("App\\Controller\\Admin\\Crud\\MoodlineCrudController").setAction(constant("EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::NEW")).set(
-            "menuIndex",
-            4
-        )
-        }}">
-        {{ "admin.dashboard.actions.moodline"|trans }}
-    </a>
-    <a class="btn btn-primary"
-        href="{{
-        ea_url().setController("App\\Controller\\Admin\\Crud\\ArticleCrudController").setAction(constant("EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::NEW")).set(
-            "menuIndex",
-            3
-        )
-        }}">
-        {{ "admin.dashboard.actions.article"|trans }}
-    </a>
+	<a class="btn btn-secondary" href="{{ ea_url().setController("App\\Controller\\Admin\\Crud\\MoodlineCrudController").setAction(constant("EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::NEW")).set( "menuIndex", 4 ) }}">
+		{{ "admin.dashboard.actions.moodline"|trans }}
+	</a>
+	<a class="btn btn-primary" href="{{ ea_url().setController("App\\Controller\\Admin\\Crud\\ArticleCrudController").setAction(constant("EasyCorp\\Bundle\\EasyAdminBundle\\Config\\Action::NEW")).set( "menuIndex", 3 ) }}">
+		{{ "admin.dashboard.actions.article"|trans }}
+	</a>
 {% endblock page_actions %}
 
 {% block main %}
-    {{ encore_entry_link_tags("page_dashboard") }}
+	{{ encore_entry_link_tags("admin_page_dashboard") }}
 
-    <div id="custom-dashboard-wrapper">
-        {% for key, stats in data %}
-            <div class="card-stats">
-                <div class="icon">
-                    <i class="{{ stats.icon }}"></i>
-                </div>
-                <div class="data">
-                    <h3 class="value" title="{{ stats.value|number_format(0, ".", " ") }}">
-                        {{ stats.value|format_number }}
-                    </h3>
-                    <span class="subject">{{ stats.translation|trans({ "%count%": stats.value }, "admin") }}</span>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+	<div id="custom-dashboard-wrapper">
+		{% for key, stats in data %}
+			<div class="card-stats">
+				<div class="icon">
+					<i class="{{ stats.icon }}"></i>
+				</div>
+				<div class="data">
+					<h3 class="value" title="{{ stats.value|number_format(0, ".", " ") }}">
+						{{ stats.value|format_number }}
+					</h3>
+					<span class="subject">{{ stats.translation|trans({ "%count%": stats.value }, "admin") }}</span>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 {% endblock main %}

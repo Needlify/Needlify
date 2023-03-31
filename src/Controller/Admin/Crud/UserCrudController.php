@@ -145,10 +145,8 @@ class UserCrudController extends AbstractCrudController
 
         yield FormField::addPanel('admin.crud.section.dates')->hideOnForm();
         yield DateTimeField::new('createdAt', 'admin.crud.user.column.created_at')
-            // ->setTimezone('UTC')
             ->hideOnForm();
         yield DateTimeField::new('updatedAt', 'admin.crud.user.column.updated_at')
-            // ->setTimezone('UTC')
             ->onlyOnDetail();
     }
 
@@ -157,12 +155,8 @@ class UserCrudController extends AbstractCrudController
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
             ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.user.actions.create'))
-            ->update(Crud::PAGE_INDEX, Action::DELETE, fn (Action $action) => $action->displayIf(
-                fn (User $user) => $user !== $this->getUser()
-            ))
-            ->update(Crud::PAGE_DETAIL, Action::DELETE, fn (Action $action) => $action->displayIf(
-                fn (User $user) => $user !== $this->getUser()
-            ))
+            ->update(Crud::PAGE_INDEX, Action::DELETE, fn (Action $action) => $action->displayIf(fn (User $user) => $user !== $this->getUser()))
+            ->update(Crud::PAGE_DETAIL, Action::DELETE, fn (Action $action) => $action->displayIf(fn (User $user) => $user !== $this->getUser()))
             ->remove(Crud::PAGE_INDEX, Action::BATCH_DELETE)
             ->remove(Crud::PAGE_INDEX, Action::NEW)
         ;

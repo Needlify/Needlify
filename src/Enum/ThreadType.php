@@ -20,4 +20,5 @@ enum ThreadType: string
     case ARTICLE = 'article';
     case MOODLINE = 'moodline';
     case EVENT = 'event';
+    case COURSE = 'course';
 }

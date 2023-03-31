@@ -14,9 +14,9 @@ layout.footer.rights: "Tous droits réservé"
 
 feed.title: "Fil d'actualités"
 
-article.info.time_to_read: "min de lecture"
-article.content.table_of_content: "Table des matières"
-article.content.license: "Cette œuvre est mise à disposition selon les termes de la licence"
+document.info.time_to_read: "min de lecture"
+document.content.table_of_content: "Table des matières"
+document.content.license: "Cette œuvre est mise à disposition selon les termes de la licence"
 
 legal.legal.title: "Textes légaux"
 
@@ -185,3 +185,14 @@ legal.terms.text: |
     <h2>Limitation de la responsabilité</h2>
     <p>Cette plateforme ne sera pas tenue responsable de tout dommage causé par une mauvaise utilisation de cette plateforme.</p>
     <p>Cette plateforme se réserve le droit de modifier ce texte à tout moment. Vous en serez informé au moment opportun.</p>
+
+course.navigation.next: "Suivant"
+course.navigation.previous: "Précédent"
+course.navigation.back_to_course: "Retourner au cours"
+
+course.difficulty.title: "Niveau de difficulté"
+# la clé de la difficulté soit correspondre à l'enum CourseDifficultyType
+course.difficulty.easy: "Facile"
+course.difficulty.medium: "Intermédiaire"
+course.difficulty.hard: "Difficile"
+course.difficulty.expert: "Expert"

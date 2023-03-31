@@ -1,0 +1,54 @@
+{% set lang = app.request.locale|split("_")[0] %}
+
+{% trans_default_domain "error" %}
+
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="author" content="MrAnyx"/>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link type="text/plain" rel="author" href="{{ asset("humans.txt") }}"/>
+		<meta name="language" content="{{ lang }}"/>
+		<meta http-equiv="content-language" content="{{ lang }}"/>
+		<meta name="copyright" content="https://needlify.com"/>
+		<link href="https://needlify.com" rel="home"/>
+		<meta name="theme-color" content="#ff6e03" media="(prefers-color-scheme: light)"/>
+		<meta name="theme-color" content="#ff6e03" media="(prefers-color-scheme: dark)"/>
+		<meta name="application-name" content="Needlify"/>
+		<link rel="canonical" href="{{ absolute_url(app.request.pathInfo) }}"/>
+
+		<link rel="shortcut icon" href="{{ absolute_url(asset("/images/logo/favicon.ico")) }}" type="image/x-icon"/>
+
+		<title>
+			{{ status_text }}
+			-
+			{{ status_code }}
+			- Needlify
+		</title>
+
+		{{ encore_entry_link_tags("style_reset") }}
+		{{ encore_entry_link_tags("style_global") }}
+		{{ encore_entry_link_tags("layout_error") }}
+	</head>
+	<body>
+		<div id="parent">
+			<div id="image-div"> {% block image %}{% endblock image %}
+				</div>
+				<div id="content">
+					<h1 id="title"> {% block title %}{% endblock title %}
+						</h1>
+						<span id="description"> {% block description %}{% endblock description %}
+							</span>
+							<div id="links">
+								<span id="links-text">{{ "links.title"|trans }}</span>
+								<div id="links-items">
+									<a href="{{ url("app_home") }}">{{ "links.home"|trans }}</a>
+									<a href="{{ url("app_contact") }}">{{ "links.contact"|trans }}</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</body>
+			</html>

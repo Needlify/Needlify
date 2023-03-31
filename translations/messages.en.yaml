@@ -14,9 +14,9 @@ layout.footer.rights: "All rights reserved"
 
 feed.title: "Timeline"
 
-article.info.time_to_read: "min to read"
-article.content.table_of_content: "Table of content"
-article.content.license: "This work is made available under the terms of the license"
+document.info.time_to_read: "min to read"
+document.content.table_of_content: "Table of content"
+document.content.license: "This work is made available under the terms of the license"
 
 legal.legal.title: "Legal texts"
 
@@ -185,3 +185,14 @@ legal.terms.text: |
     <h2>Limitation of liability</h2>
     <p>This platform will not be held responsible for any damage caused by misuse of this platform.</p>
     <p>This platform reserves the right to modify this text at any time. You will be informed at the appropriate time</p>
+
+course.navigation.next: "Next"
+course.navigation.previous: "Previous"
+course.navigation.back_to_course: "Back to course"
+
+course.difficulty.title: "Level of difficulty"
+# la clé de la difficulté soit correspondre à l'enum CourseDifficultyType
+course.difficulty.easy: "Easy"
+course.difficulty.medium: "Medium"
+course.difficulty.hard: "Hard"
+course.difficulty.expert: "Expert"

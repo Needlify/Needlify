@@ -23,9 +23,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\DiscriminatorColumn(name: 'type', type: 'string')]
 #[ORM\DiscriminatorMap([
     Publication::class => Publication::class,
+    Document::class => Document::class,
     Article::class => Article::class,
     Moodline::class => Moodline::class,
     Event::class => Event::class,
+    Course::class => Course::class,
 ])]
 abstract class Thread
 {
@@ -53,11 +55,6 @@ abstract class Thread
     public function getPublishedAt(): ?\DateTimeImmutable
     {
         return $this->publishedAt;
-    }
-
-    public function getPublishedAtToISO8601(): string
-    {
-        return $this->publishedAt->format(\DateTimeImmutable::ATOM);
     }
 
     #[ORM\PrePersist]

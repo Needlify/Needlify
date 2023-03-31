@@ -16,12 +16,15 @@ use App\Entity\User;
 use App\Entity\Event;
 use App\Entity\Topic;
 use App\Entity\Banner;
+use App\Entity\Course;
+use App\Entity\Lesson;
 use App\Entity\Article;
 use App\Entity\Moodline;
 use App\Entity\NewsletterAccount;
 use App\Service\Admin\OverviewService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -41,6 +44,12 @@ class DashboardController extends AbstractDashboardController
         return $this->render('admin/dashboard.html.twig', [
             'data' => $this->overviewService->getStats(),
         ]);
+    }
+
+    public function configureAssets(): Assets
+    {
+        return Assets::new()
+            ->addWebpackEncoreEntry('style_reset');
     }
 
     public function configureDashboard(): Dashboard
@@ -63,6 +72,10 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('admin.sidebar.overview', 'fas fa-chart-pie');
         yield MenuItem::linkToUrl('admin.sidebar.home', 'fas fa-house', $this->generateUrl('app_home'));
+
+        yield MenuItem::section('admin.sidebar.section.course');
+        yield MenuItem::linkToCrud('admin.sidebar.section.course.courses', 'fa fa-graduation-cap', Course::class);
+        yield MenuItem::linkToCrud('admin.sidebar.section.course.lessons', 'fas fa-tasks', Lesson::class);
 
         yield MenuItem::section('admin.sidebar.section.publication');
         yield MenuItem::linkToCrud('admin.sidebar.section.publication.articles', 'fas fa-book', Article::class);

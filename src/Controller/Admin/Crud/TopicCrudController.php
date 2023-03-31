@@ -12,22 +12,22 @@
 namespace App\Controller\Admin\Crud;
 
 use App\Entity\Topic;
-use App\Trait\Admin\Crud\ContentCrudTrait;
 use App\Trait\Admin\Crud\ClassifierCrudTrait;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class TopicCrudController extends AbstractCrudController
 {
     use ClassifierCrudTrait;
-    use ContentCrudTrait;
 
     public function __construct(
-        private TranslatorInterface $translator
+        private TranslatorInterface $translator,
+        private UrlGeneratorInterface $urlGenerator
     ) {
     }
 
@@ -57,8 +57,15 @@ class TopicCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
-        $actions->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.topic.actions.create'));
+        $goToAction = Action::new('goTo', 'admin.crud.action.view_topic')
+            ->linkToUrl(fn (Topic $topic) => $this->urlGenerator->generate('app_topic', ['slug' => $topic->getSlug()]));
 
-        return $this->defaultContentActionConfiguration($actions, Topic::class);
+        $actions
+            ->update(Crud::PAGE_INDEX, Action::NEW, fn (Action $action) => $action->setLabel('admin.crud.topic.actions.create'))
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)->update(Crud::PAGE_INDEX, Action::DETAIL, fn (Action $action) => $action->setLabel('admin.crud.action.details'))
+            ->add(Crud::PAGE_INDEX, $goToAction)
+            ->add(Crud::PAGE_DETAIL, $goToAction);
+
+        return $actions;
     }
 }
