@@ -13,6 +13,8 @@ layout.footer.newsletter: "Newsletter"
 layout.footer.rights: "All rights reserved"
 
 feed.title: "Timeline"
+search.title: "Search"
+search.input: "Search"
 
 document.info.time_to_read: "min to read"
 document.content.table_of_content: "Table of content"

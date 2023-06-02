@@ -1,8 +1,5 @@
 @import "../mixins.scss";
 
-#breadcrumb-container {
-    margin: 22px 0 26px 0;
-}
 
 .classifier-description {
     font-size: 16px;
@@ -17,4 +14,27 @@
 
 #timeline-container {
     margin-top: 46px;
+}
+
+#classifier-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 22px 0 40px 0;
+    @include maxWidth(600px) {
+        flex-direction: column;
+        row-gap: 24px;
+        align-items: flex-start;
+        margin-bottom: 30px;
+    }
+
+    #search-form, #search-input-container {
+        width: 300px;
+        @include maxWidth(800px) {
+            width: 220px;
+        }
+        @include maxWidth(600px) {
+            width: 100%;
+        }
+    }
 }

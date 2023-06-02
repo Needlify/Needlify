@@ -1,0 +1,46 @@
+@import "../../styles/mixins";
+
+.custom-input-container {
+    .custom-input {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+
+        .input-icon {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 22px;
+        }
+
+
+        input {
+            padding: 12px 10px 10px 42px;
+            width: 100%;
+            border: 2px solid var(--light-medium);
+            border-radius: 8px;
+            color: var(--dark-light);
+            transition: border 0.2s ease-in-out;
+            font-size: 14px;
+            @include maxWidth(600px) {
+                font-size: 12px;
+                padding: 10px 10px 9px 42px;
+            }
+
+            &::placeholder {
+                color: var(--light-dark);
+                user-select: none;
+            }
+
+            &:focus {
+                border: 2px solid var(--primary);
+            }
+        }
+    }
+
+    .input-help-message {
+        color: var(--light-dark);
+        font-size: 12px;
+        margin-top: 4px;
+    }
+}
