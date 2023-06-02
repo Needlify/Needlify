@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 
 {% block title %}
-	{{ "feed.title"|trans }}
+	{{ mode == constant("App\\Enum\\FeedType::FEED") ? "feed.title"|trans : "search.title"|trans }}
 	-
 	{{ parent() }}
 {% endblock title %}
@@ -9,16 +9,23 @@
 {% block stylesheets %}
 	{{ encore_entry_link_tags("page_feed") }}
 	{{ encore_entry_link_tags("plugin_vue") }}
+	{{ encore_entry_link_tags("module_search_input") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
 	{{ encore_entry_script_tags("plugin_vue") }}
+	{{ encore_entry_script_tags("module_search_input") }}
 {% endblock javascripts %}
 
 {% block body %}
-	<h1 id="title">
-		{{ "feed.title"|trans }}
-	</h1>
+	<div id="feed-header">
+		<h1 id="title">
+			{{ mode == constant("App\\Enum\\FeedType::FEED") ? "feed.title"|trans : "search.title"|trans }}
+		</h1>
 
-	<div {{ vue_component("TimelineWrapper") }}></div>
+		{% include 'partials/_search_field.html.twig' %}
+	</div>
+
+	<div {{ vue_component("TimelineWrapper", { search: mode == constant("App\\Enum\\FeedType::SEARCH") ? app.request.query.get("q") : null} ) }}></div>
+
 {% endblock body %}

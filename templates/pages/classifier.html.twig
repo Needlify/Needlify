@@ -10,11 +10,14 @@
 	{{ encore_entry_link_tags("page_classifier") }}
 	{{ encore_entry_link_tags("plugin_vue") }}
 	{{ encore_entry_link_tags("component_twig_breadcrumb") }}
-	{{ encore_entry_link_tags("component_twig_callout") }}
+	{{ encore_entry_link_tags("component_html_callout") }}
+	{{ encore_entry_link_tags("module_search_input") }}
 {% endblock stylesheets %}
 
 {% block javascripts %}
 	{{ encore_entry_script_tags("plugin_vue") }}
+	{{ encore_entry_script_tags("module_search_input") }}
+
 {% endblock javascripts %}
 
 {% block og_description %}
@@ -22,7 +25,12 @@
 {% endblock og_description %}
 
 {% block body %}
-	{{ component("breadcrumb", { name: classifier.name, type: classifier.type }) }}
+
+	<div id="classifier-header">
+		{{ component("breadcrumb", { name: classifier.name, type: classifier.type }) }}
+
+		{% include 'partials/_search_field.html.twig' %}
+	</div>
 
 	{% if classifier.description %}
 		{{ component("callout", { content: classifier.description, type: constant("App\\Enum\\CalloutType::INFO") }) }}

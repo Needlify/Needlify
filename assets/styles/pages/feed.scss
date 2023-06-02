@@ -1,29 +1,51 @@
 @import "../mixins.scss";
 
-h1#title {
-    font-weight: 600;
-    font-size: 30px;
+#feed-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 22px 0 40px 0;
-    position: relative;
-    font-family: Jakarta;
-    color: var(--text);
-
-    &::before {
-        content: "";
-        position: absolute;
-        width: 100px;
-        height: 2px;
-        background-color: var(--light-light);
-        bottom: -6px;
-        left: 0;
+    @include maxWidth(600px) {
+        flex-direction: column;
+        row-gap: 24px;
+        align-items: flex-start;
+        margin-bottom: 30px;
     }
 
-    @include maxWidth(600px) {
-        font-size: 24px;
-        margin-bottom: 30px;
-
-        &::before {
-            width: 65px;
+    #search-form, #search-input-container {
+        width: 300px;
+        @include maxWidth(800px) {
+            width: 220px;
+        }
+        @include maxWidth(600px) {
+            width: 100%;
         }
     }
+
+    h1#title {
+        font-weight: 600;
+        font-size: 30px;
+        position: relative;
+        font-family: Jakarta;
+        color: var(--text);
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 2px;
+            background-color: var(--light-light);
+            bottom: -6px;
+            left: 0;
+        }
+
+        @include maxWidth(600px) {
+            font-size: 24px;
+
+            &::before {
+                width: 65px;
+            }
+        }
+    }
+
 }

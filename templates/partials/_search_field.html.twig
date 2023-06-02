@@ -1,0 +1,9 @@
+<form action="{{ url('app_search') }}" method="GET" id="search-form">
+	<div class="custom-input-container" id="search-input-container">
+		<div class="custom-input">
+			<i data-feather="search" class="input-icon" width="16px" height="16px" color="#52616b"></i>
+			<input id="search-input" type="text" name="q" placeholder="{{ "search.input"|trans }}" value="{{ app.request.query.get("q") | default("") }}"/>
+			<span id="shortcut">/</span>
+		</div>
+	</div>
+</form>
