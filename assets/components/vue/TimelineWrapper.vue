@@ -51,6 +51,7 @@ const threads = ref<Array<Thread>>([]);
 
 const props = defineProps<{
     id?: string;
+    search?: string;
 }>();
 
 const updateFeed = () => {
@@ -67,6 +68,9 @@ const updateFeed = () => {
     if (props.id) {
         params.append("id", props.id);
         apiRoute = "api_get_publications";
+    } else if (props.search) {
+        params.append("search", props.search);
+        apiRoute = "api_get_documents";
     } else {
         apiRoute = "api_get_threads";
     }

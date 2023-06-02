@@ -1,0 +1,27 @@
+@import "./input";
+
+#search-input-container {
+    input:not(:focus){
+        padding-right: 40px;
+    }
+
+    input:focus ~ #shortcut {
+        display: none;
+    }
+
+    #shortcut {
+        position: absolute;
+        border: 1px solid var(--light-medium);
+        border-radius: 4px;
+        width: 22px;
+        height: 22px;
+        display: grid;
+        color: var(--light-dark);
+        place-items: center;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        right: 0px;
+        font-weight: 800;
+        font-family: Supreme;
+    }
+}

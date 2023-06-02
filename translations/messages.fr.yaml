@@ -13,6 +13,8 @@ layout.footer.newsletter: "Newsletter"
 layout.footer.rights: "Tous droits réservé"
 
 feed.title: "Fil d'actualités"
+search.title: "Recherche"
+search.input: "Rechercher"
 
 document.info.time_to_read: "min de lecture"
 document.content.table_of_content: "Table des matières"

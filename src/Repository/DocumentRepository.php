@@ -12,6 +12,7 @@
 namespace App\Repository;
 
 use App\Entity\Document;
+use App\Model\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -46,6 +47,30 @@ class DocumentRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllWithPagination(int $page, ?string $search)
+    {
+        $query = $this->createQueryBuilder('d');
+
+        if (null !== $search) {
+            $query
+                ->where('d.title LIKE :search OR d.content LIKE :search OR d.description LIKE :search')
+                ->join('d.tags', 'ta')
+                ->orWhere('ta.name LIKE :search')
+                ->join('d.topic', 'to')
+                ->orWhere('to.name LIKE :search')
+                ->setParameter('search', "%$search%")
+            ;
+        }
+
+        $query
+            ->andWhere('d.private = 0')
+            ->orderBy('d.publishedAt', 'DESC');
+
+        $paginator = new Paginator($query->getQuery(), $page);
+
+        return $paginator;
     }
 
 //    /**

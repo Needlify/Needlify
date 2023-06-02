@@ -36,13 +36,15 @@ Encore.setOutputPath("public/build/")
 
         /* Modules */
         module_markdown: "./assets/modules/libs/markdown.ts",
+        module_search_input: "./assets/modules/libs/searchInput.ts",
 
         /* Twig Components */
         component_twig_banner: "./assets/components/twig/banner.scss",
         component_twig_breadcrumb: "./assets/components/twig/breadcrumb.scss",
         component_twig_spinner: "./assets/components/twig/spinner.scss",
         component_twig_tag: "./assets/components/twig/tag.scss",
-        component_twig_callout: "./assets/components/markdown/callout.scss",
+        component_html_callout: "./assets/components/html/callout.scss",
+        component_html_input: "./assets/components/html/input.scss",
 
         /* Page Style */
         page_feed: "./assets/styles/pages/feed.scss",
