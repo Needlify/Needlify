@@ -7,9 +7,9 @@ document.addEventListener("keydown", (e: KeyboardEvent) => {
         if (searchInput) {
             if (searchInput !== document.activeElement) {
                 e.preventDefault();
+                searchInput.focus();
+                searchInput.select();
             }
-            searchInput.focus();
-            searchInput.select();
         }
     } else if (e.key === "Escape") {
         const searchInput = document.querySelector<HTMLInputElement>("#search-input");
